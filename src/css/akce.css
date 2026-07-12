@@ -1,0 +1,81 @@
+/* ============================================================
+   OPTIK DVOŘÁK — STRÁNKA AKCÍ
+   Import pořadí: tokens → base → tato sekce
+   ============================================================ */
+
+body { background: radial-gradient(120% 120% at 50% 0%, var(--paper), var(--cream) 60%); background-attachment: fixed; }
+
+/* ---------- Hero ---------- */
+.akce-hero {
+  padding-top: calc(var(--header-h) + clamp(3rem, 8vw, 6rem));
+  padding-bottom: clamp(2.5rem, 6vw, 4rem);
+  border-bottom: 1px solid var(--line);
+}
+.akce-hero__eyebrow { font-size: var(--fs-eyebrow); font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; color: var(--t-dark); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.7rem; }
+.akce-hero__eyebrow::before { content: ""; width: 36px; height: 1px; background: var(--yellow-deep); }
+.akce-hero h1 { font-size: var(--fs-display-1); text-transform: uppercase; margin-bottom: 1.4rem; letter-spacing: -0.015em; }
+.akce-hero h1 .t2 { color: var(--t-light); }
+.akce-hero__intro { color: var(--ink-soft); max-width: 60ch; font-size: var(--fs-lead); }
+
+/* ---------- Grid akcí ---------- */
+.akce-body { padding-block: clamp(2.8rem, 6vw, 4.5rem); }
+.akce-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
+.akce-card {
+  position: relative;
+  display: flex; flex-direction: column;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  padding: clamp(1.6rem, 3vw, 2.2rem);
+  overflow: hidden;
+  transition: transform 0.4s var(--eo), box-shadow 0.4s var(--eo);
+}
+.akce-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.akce-card--wide { grid-column: span 2; }
+.akce-card--dark { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+.akce-card--yellow { background: linear-gradient(180deg, var(--yellow), var(--yellow-deep)); border-color: var(--ink); }
+.akce-card__tag {
+  align-self: flex-start;
+  font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.35rem 0.7rem; border: 1px solid currentColor; margin-bottom: 1.4rem; opacity: 0.85;
+}
+.akce-card--yellow .akce-card__tag { color: var(--amber-ink); border-color: var(--amber-ink); }
+.akce-card h2 { font-size: clamp(1.4rem, 2.4vw, 2rem); text-transform: uppercase; margin-bottom: 0.8rem; letter-spacing: -0.01em; }
+.akce-card--yellow h2 { color: var(--ink); }
+.akce-card p { color: var(--ink-soft); font-size: 0.98rem; }
+.akce-card--dark p { color: rgba(244, 241, 234, 0.75); }
+.akce-card--yellow p { color: var(--amber-ink); font-weight: 500; }
+.akce-card__big { font-family: var(--font-display); font-size: clamp(2.6rem, 6vw, 4.4rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 0.6rem; }
+.akce-card--yellow .akce-card__big { color: var(--ink); }
+.akce-card__foot { margin-top: auto; padding-top: 1.6rem; }
+.akce-card__foot a { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: var(--fs-caption); }
+.akce-card__foot a span { transition: transform 0.3s var(--eo); }
+.akce-card__foot a:hover span { transform: translateX(4px); }
+
+/* ---------- Závěrečné CTA ---------- */
+.akce-cta {
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+  border: 1px solid var(--ink); background: var(--cream-200);
+  padding: clamp(2rem, 5vw, 3.4rem);
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+}
+.akce-cta h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); text-transform: uppercase; }
+.akce-cta p { color: var(--ink-soft); margin-top: 0.5rem; }
+.akce-note { margin-top: 2.2rem; padding: 1.2rem 1.4rem; background: var(--cream-200); border-left: 4px solid var(--yellow-deep); font-size: 0.9rem; color: var(--ink-soft); max-width: 70ch; }
+.akce-back { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 2.5rem; font-weight: 600; font-size: var(--fs-caption); text-transform: uppercase; letter-spacing: 0.1em; }
+.akce-back:hover { color: var(--amber-ink); }
+
+/* ---------- Reveal ---------- */
+.js [data-reveal] { opacity: 0; transform: translateY(30px); }
+.js [data-reveal].is-in { opacity: 1; transform: none; transition: opacity 0.8s var(--eo), transform 0.8s var(--eo); }
+
+@media (max-width: 900px) {
+  .akce-grid { grid-template-columns: 1fr 1fr; }
+  .akce-card--wide { grid-column: span 2; }
+}
+@media (max-width: 600px) {
+  .akce-grid { grid-template-columns: 1fr; }
+  .akce-card--wide { grid-column: span 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { opacity: 1; transform: none; }
+}

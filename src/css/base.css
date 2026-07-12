@@ -237,6 +237,9 @@ p { text-wrap: pretty; }
 }
 .header__nav a:hover { opacity: 1; }
 .header__nav a:hover::after { transform: scaleX(1); }
+.header__nav a.is-current { opacity: 1; }
+.header__nav a.is-current::after { transform: scaleX(1); background: var(--yellow-deep); height: 2px; }
+.header--on-dark .header__nav a.is-current::after { background: var(--yellow); }
 .header__right { display: flex; align-items: center; gap: 1.3rem; }
 .header__status {
   font-size: var(--fs-eyebrow);

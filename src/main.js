@@ -62,20 +62,30 @@ if (!prefersReduced) {
 }
 
 function boot() {
+  initMobileMenu();
   initAnchors();
   initHeader();
+  initScrollProgress();
   initHeroVideo();
+  initHeroPointer();
   initPreloader();
+  initSplitHeadings();
   initReveals();
+  initCurtains();
   initParallax();
   initGiantDrift();
   initRules();
+  initProcessPin();
   initCounters();
   initMarquee();
+  initCarousels();
+  initGalleryLightbox();
   initAccordion();
   initHours();
   initStickyCta();
   initReachGlow();
+  initFooterScrub();
+  initScrollSpy();
   initForms();
   initHoverMotion();
   initYear();
@@ -130,6 +140,73 @@ function initHeader() {
       end: 'bottom 58px',
       onToggle: (self) => header.classList.toggle('header--on-dark', self.isActive),
     });
+  });
+}
+
+/* ---------- Mobilní fullscreen menu ---------- */
+function initMobileMenu() {
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  if (!toggle || !menu) return;
+
+  let open = false;
+  const focusable = () => menu.querySelectorAll('a[href], button:not([disabled])');
+
+  const setOpen = (state) => {
+    open = state;
+    document.body.classList.toggle('menu-open', state);
+    toggle.setAttribute('aria-expanded', String(state));
+    toggle.setAttribute('aria-label', state ? 'Zavřít menu' : 'Otevřít menu');
+    menu.setAttribute('aria-hidden', String(!state));
+    if (state) {
+      if (lenis) lenis.stop(); else document.documentElement.style.overflow = 'hidden';
+      focusable()[0]?.focus?.();
+    } else {
+      if (lenis) lenis.start(); else document.documentElement.style.overflow = '';
+    }
+  };
+
+  toggle.addEventListener('click', () => setOpen(!open));
+
+  // Zavřít po kliknutí na odkaz (necháme proběhnout kotvu/přechod)
+  menu.querySelectorAll('[data-menu-link]').forEach((a) => {
+    a.addEventListener('click', () => { if (open) setOpen(false); });
+  });
+
+  // Escape + focus trap
+  document.addEventListener('keydown', (e) => {
+    if (!open) return;
+    if (e.key === 'Escape') { setOpen(false); toggle.focus(); return; }
+    if (e.key === 'Tab') {
+      const f = focusable();
+      if (!f.length) return;
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+
+  // Zavřít při přechodu na desktop
+  window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => { if (e.matches && open) setOpen(false); });
+}
+
+/* ---------- Scroll progress (horní ukazatel) ---------- */
+function initScrollProgress() {
+  const bar = document.querySelector('.scroll-progress__bar');
+  if (!bar) return;
+  if (prefersReduced) {
+    const onScroll = () => {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      bar.style.transform = `scaleX(${max > 0 ? h.scrollTop / max : 0})`;
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return;
+  }
+  gsap.to(bar, {
+    scaleX: 1, ease: 'none',
+    scrollTrigger: { start: 'top top', end: 'max', scrub: 0.3 },
   });
 }
 
@@ -233,24 +310,57 @@ function initRules() {
   });
 }
 
-/* ---------- Počítadla ---------- */
+/* ---------- Počítadla — odometer (rolující číslice) ---------- */
 function initCounters() {
   const yearsEl = document.querySelector('[data-years]');
   if (yearsEl) yearsEl.dataset.count = String(new Date().getFullYear() - 1991);
 
   gsap.utils.toArray('[data-count]').forEach((el) => {
-    const end = parseFloat(el.dataset.count);
-    const dec = el.dataset.dec ? 1 : 0;
-    const suffix = el.dataset.suffix || '';
-    const fmt = (v) => new Intl.NumberFormat('cs-CZ', { minimumFractionDigits: dec, maximumFractionDigits: dec }).format(v) + suffix;
-    if (prefersReduced) { el.textContent = fmt(end); return; }
-    const o = { v: 0 };
-    el.textContent = fmt(0);
+    const end = Math.round(parseFloat(el.dataset.count) || 0);
+    const digits = String(end).split('');
+
+    if (prefersReduced) { el.textContent = String(end); return; }
+
+    // Přístupnost: reálné číslo pro čtečky, vizuální reels skryté před AT
+    const sr = document.createElement('span');
+    sr.className = 'visually-hidden';
+    sr.textContent = String(end);
+    el.parentNode.insertBefore(sr, el);
+
+    // Postav odometer: pro každou číslici reel 0–9
+    el.classList.add('odometer');
+    el.setAttribute('aria-hidden', 'true');
+    el.textContent = '';
+    const reels = [];
+    digits.forEach((ch) => {
+      const digit = document.createElement('span');
+      digit.className = 'odometer__digit';
+      const reel = document.createElement('span');
+      reel.className = 'odometer__reel';
+      for (let i = 0; i <= 9; i++) {
+        const n = document.createElement('span');
+        n.textContent = String(i);
+        reel.appendChild(n);
+      }
+      digit.appendChild(reel);
+      el.appendChild(digit);
+      reels.push({ reel, target: Number(ch) });
+    });
+
+    gsap.set(reels.map((r) => r.reel), { yPercent: 0 });
     ScrollTrigger.create({
       trigger: el,
       start: 'top 90%',
       once: true,
-      onEnter: () => gsap.to(o, { v: end, duration: 1.6, ease: 'power2.out', snap: dec ? { v: 0.1 } : { v: 1 }, onUpdate: () => { el.textContent = fmt(o.v); } }),
+      onEnter: () => {
+        reels.forEach((r, idx) => {
+          gsap.to(r.reel, {
+            yPercent: -(r.target * 10),
+            duration: 1.1 + idx * 0.35,
+            ease: 'power4.out',
+          });
+        });
+      },
     });
   });
 }
@@ -344,6 +454,8 @@ function initHours() {
     if (badge) { badge.textContent = text; badge.classList.toggle('is-open', openNow); }
     const status = document.getElementById('header-status');
     if (status) status.textContent = `// ${shortText}`;
+    const menuStatus = document.getElementById('menu-status');
+    if (menuStatus) menuStatus.textContent = `// ${shortText}`;
   };
 
   update();
@@ -515,6 +627,278 @@ function initHeroVideo() {
     if (document.hidden) v.pause();
     else if (v.style.display !== 'none') play();
   });
+}
+
+/* ---------- Split nadpisy (masková reveal po slovech) ---------- */
+function splitWords(el) {
+  const wrap = (node) => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const parts = node.textContent.split(/(\s+)/);
+      const frag = document.createDocumentFragment();
+      parts.forEach((part) => {
+        if (part === '') return;
+        if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+        const outer = document.createElement('span');
+        outer.className = 'split-word';
+        const inner = document.createElement('span');
+        inner.textContent = part;
+        outer.appendChild(inner);
+        frag.appendChild(outer);
+      });
+      node.replaceWith(frag);
+    } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName !== 'BR') {
+      Array.from(node.childNodes).forEach(wrap);
+    }
+  };
+  Array.from(el.childNodes).forEach(wrap);
+  return el.querySelectorAll('.split-word > span');
+}
+
+function initSplitHeadings() {
+  if (prefersReduced) return;
+  gsap.utils.toArray('.section-head .giant, .about__copy h2, .reach__copy h2, .brands__head h2').forEach((h) => {
+    const inners = splitWords(h);
+    if (!inners.length) return;
+    gsap.set(inners, { yPercent: 115 });
+    ScrollTrigger.create({
+      trigger: h,
+      start: 'top 88%',
+      once: true,
+      onEnter: () => gsap.to(inners, { yPercent: 0, duration: 0.9, ease: 'eo', stagger: 0.05 }),
+    });
+  });
+}
+
+/* ---------- Curtain reveal (clip-path) ---------- */
+function initCurtains() {
+  const items = gsap.utils.toArray('[data-curtain]');
+  if (!items.length) return;
+  if (prefersReduced) { items.forEach((el) => el.classList.add('is-revealed')); return; }
+  items.forEach((el) => {
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 85%',
+      once: true,
+      onEnter: () => el.classList.add('is-revealed'),
+    });
+  });
+}
+
+/* ---------- Hero mouse-parallax ---------- */
+function initHeroPointer() {
+  if (prefersReduced) return;
+  const hero = document.querySelector('.hero');
+  const media = document.querySelector('.hero__media');
+  const glow = document.querySelector('.hero__glow');
+  if (!hero || !media) return;
+
+  gsap.matchMedia().add('(hover: hover) and (pointer: fine) and (min-width: 768px)', () => {
+    const mx = gsap.quickTo(media, 'x', { duration: 0.9, ease: 'power3' });
+    const my = gsap.quickTo(media, 'y', { duration: 0.9, ease: 'power3' });
+    const gx = glow ? gsap.quickTo(glow, 'x', { duration: 1.2, ease: 'power3' }) : null;
+    const gy = glow ? gsap.quickTo(glow, 'y', { duration: 1.2, ease: 'power3' }) : null;
+    const onMove = (e) => {
+      const r = hero.getBoundingClientRect();
+      const nx = (e.clientX - r.left) / r.width - 0.5;
+      const ny = (e.clientY - r.top) / r.height - 0.5;
+      mx(nx * -30); my(ny * -22);
+      if (gx) { gx(nx * 40); gy(ny * 30); }
+    };
+    hero.addEventListener('pointermove', onMove);
+    return () => hero.removeEventListener('pointermove', onMove);
+  });
+}
+
+/* ---------- Proces: pin + postupná aktivace kroků ---------- */
+function initProcessPin() {
+  if (prefersReduced) return;
+  const section = document.querySelector('.process');
+  const steps = gsap.utils.toArray('.process .step');
+  const bar = document.querySelector('.process__progress span');
+  if (!section || steps.length < 2) return;
+
+  gsap.matchMedia().add('(min-width: 1024px)', () => {
+    section.classList.add('is-pinning');
+    const setActive = (p) => {
+      if (bar) gsap.set(bar, { scaleX: gsap.utils.clamp(0, 1, p) });
+      const active = Math.min(steps.length - 1, Math.floor(p * steps.length + 0.0001));
+      steps.forEach((s, i) => {
+        const on = i <= active && p > 0;
+        s.classList.toggle('is-active', on);
+        gsap.set(s, { opacity: on ? 1 : 0.32 });
+      });
+    };
+    const st = ScrollTrigger.create({
+      trigger: section,
+      start: 'top top',
+      end: '+=' + steps.length * 200,
+      pin: true,
+      scrub: true,
+      onUpdate: (self) => setActive(self.progress),
+      onLeaveBack: () => setActive(0),
+    });
+    setActive(0);
+    return () => {
+      st.kill();
+      section.classList.remove('is-pinning');
+      steps.forEach((s) => { s.classList.remove('is-active'); gsap.set(s, { opacity: 1 }); });
+    };
+  });
+}
+
+/* ---------- Footer wordmark scrub ---------- */
+function initFooterScrub() {
+  if (prefersReduced) return;
+  const mark = document.querySelector('.footer__wordmark');
+  if (!mark) return;
+  gsap.fromTo(
+    mark,
+    { yPercent: 40, opacity: 0.25 },
+    { yPercent: 0, opacity: 1, ease: 'none', scrollTrigger: { trigger: '.footer', start: 'top bottom', end: 'top 55%', scrub: true } }
+  );
+}
+
+/* ---------- Scrollspy: aktivní odkaz v navigaci ---------- */
+function initScrollSpy() {
+  const links = gsap.utils.toArray('.header__nav a[data-nav]');
+  if (!links.length) return;
+  const map = new Map();
+  links.forEach((a) => {
+    const id = a.getAttribute('href');
+    if (id && id.startsWith('#') && id.length > 1) {
+      const sec = document.querySelector(id);
+      if (sec) map.set(sec, a);
+    }
+  });
+  if (!map.size) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        links.forEach((l) => l.classList.remove('is-current'));
+        map.get(e.target)?.classList.add('is-current');
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+  map.forEach((_a, sec) => io.observe(sec));
+}
+
+/* ---------- Carousely (lookbook + recenze): drag, šipky, autoplay, progress ---------- */
+function initCarousels() {
+  gsap.utils.toArray('[data-carousel]').forEach((rail) => {
+    const section = rail.closest('section') || document;
+    const prev = section.querySelector('[data-carousel-prev]');
+    const next = section.querySelector('[data-carousel-next]');
+    const progress = section.querySelector('[data-carousel-progress] span');
+    const slides = Array.from(rail.children);
+    if (!slides.length) return;
+
+    const step = () => {
+      const a = slides[0].getBoundingClientRect();
+      const b = slides[1] ? slides[1].getBoundingClientRect() : a;
+      return (slides[1] ? b.left - a.left : a.width) || a.width;
+    };
+    const maxScroll = () => rail.scrollWidth - rail.clientWidth;
+
+    const update = () => {
+      const max = maxScroll();
+      const p = max > 0 ? rail.scrollLeft / max : 0;
+      if (progress) progress.style.transform = `scaleX(${gsap.utils.clamp(0.06, 1, p || 0.06)})`;
+      if (prev) prev.disabled = rail.scrollLeft <= 4;
+      if (next) next.disabled = rail.scrollLeft >= max - 4;
+    };
+    rail.addEventListener('scroll', () => { window.requestAnimationFrame(update); }, { passive: true });
+
+    const go = (dir) => {
+      const max = maxScroll();
+      let target = rail.scrollLeft + dir * step();
+      if (dir > 0 && rail.scrollLeft >= max - 4) target = 0; // smyčka na začátek
+      rail.scrollTo({ left: gsap.utils.clamp(0, max, target), behavior: prefersReduced ? 'auto' : 'smooth' });
+    };
+    prev && prev.addEventListener('click', () => go(-1));
+    next && next.addEventListener('click', () => go(1));
+
+    // Drag-to-scroll (pointer)
+    let down = false, startX = 0, startLeft = 0, moved = false;
+    rail.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      down = true; moved = false;
+      startX = e.clientX; startLeft = rail.scrollLeft;
+      rail.classList.add('is-dragging');
+    });
+    rail.addEventListener('pointermove', (e) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 4) moved = true;
+      rail.scrollLeft = startLeft - dx;
+    });
+    const release = () => { if (!down) return; down = false; rail.classList.remove('is-dragging'); };
+    rail.addEventListener('pointerup', release);
+    rail.addEventListener('pointercancel', release);
+    rail.addEventListener('pointerleave', release);
+    // Zabraň kliknutí po dragu
+    rail.addEventListener('click', (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+
+    // Autoplay
+    const delay = parseInt(rail.dataset.autoplay || '0', 10);
+    if (delay > 0 && !prefersReduced) {
+      let timer = null;
+      const start = () => { if (!timer) timer = window.setInterval(() => go(1), delay); };
+      const stop = () => { if (timer) { window.clearInterval(timer); timer = null; } };
+      rail.addEventListener('pointerenter', stop);
+      rail.addEventListener('pointerdown', stop);
+      rail.addEventListener('pointerleave', start);
+      rail.addEventListener('focusin', stop);
+      rail.addEventListener('focusout', start);
+      document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else start(); });
+      // Spusť až bude sekce ve viewportu
+      ScrollTrigger.create({ trigger: rail, start: 'top 90%', end: 'bottom 10%', onToggle: (self) => (self.isActive ? start() : stop()) });
+    }
+
+    update();
+    window.addEventListener('resize', update);
+  });
+}
+
+/* ---------- Galerie lightbox ---------- */
+function initGalleryLightbox() {
+  const triggers = gsap.utils.toArray('[data-lightbox]');
+  if (!triggers.length) return;
+
+  const box = document.createElement('div');
+  box.className = 'lightbox';
+  box.setAttribute('role', 'dialog');
+  box.setAttribute('aria-modal', 'true');
+  box.setAttribute('aria-label', 'Náhled fotografie');
+  box.innerHTML = '<button type="button" class="lightbox__close" aria-label="Zavřít náhled">✕</button><img alt="" />';
+  document.body.appendChild(box);
+  const img = box.querySelector('img');
+  const closeBtn = box.querySelector('.lightbox__close');
+  let lastFocused = null;
+
+  const open = (src, alt) => {
+    img.src = src; img.alt = alt || '';
+    lastFocused = document.activeElement;
+    box.classList.add('is-open');
+    if (lenis) lenis.stop();
+    closeBtn.focus();
+  };
+  const close = () => {
+    box.classList.remove('is-open');
+    img.src = '';
+    if (lenis) lenis.start();
+    if (lastFocused && lastFocused.focus) lastFocused.focus();
+  };
+
+  triggers.forEach((t) => {
+    t.addEventListener('click', () => {
+      const full = t.dataset.full || t.querySelector('img')?.src;
+      const alt = t.querySelector('img')?.alt;
+      if (full) open(full, alt);
+    });
+  });
+  closeBtn.addEventListener('click', close);
+  box.addEventListener('click', (e) => { if (e.target === box) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && box.classList.contains('is-open')) close(); });
 }
 
 /* ---------- Rok v patičce ---------- */

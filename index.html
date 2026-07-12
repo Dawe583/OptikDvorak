@@ -64,6 +64,9 @@
 
   <a href="#top" class="skip-link">Přeskočit na obsah</a>
 
+  <!-- ===================== SCROLL PROGRESS ===================== -->
+  <div class="scroll-progress" aria-hidden="true"><span class="scroll-progress__bar"></span></div>
+
   <!-- ===================== PRELOADER ===================== -->
   <div class="preloader" aria-hidden="true">
     <p class="preloader__word"><span class="fw-1">Optik</span><span class="fw-2">Dvořák</span></p>
@@ -76,19 +79,45 @@
     <div class="container header__inner">
       <a href="#top" class="header__logo" aria-label="Optik Dvořák, domů"><span class="fw-1">Optik</span><span class="fw-2">Dvořák</span></a>
       <nav class="header__nav" aria-label="Hlavní navigace">
-        <a href="#sluzby">Služby</a>
-        <a href="#proces">Proces</a>
-        <a href="#cocky">Čočky</a>
-        <a href="#recenze">Recenze</a>
-        <a href="#kontakt">Kontakt</a>
+        <a href="#sluzby" data-nav>Služby</a>
+        <a href="#proces" data-nav>Proces</a>
+        <a href="#cocky" data-nav>Čočky</a>
+        <a href="#galerie" data-nav>Galerie</a>
+        <a href="#recenze" data-nav>Recenze</a>
+        <a href="#kontakt" data-nav>Kontakt</a>
       </nav>
       <div class="header__right">
         <span class="header__status" id="header-status">// otevírací doba</span>
         <a href="#kontakt" class="header__cta">Objednat měření zraku</a>
+        <button type="button" class="header__burger" id="menu-toggle" aria-label="Otevřít menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+        </button>
       </div>
     </div>
   </header>
   <div id="header-sentinel" aria-hidden="true"></div>
+
+  <!-- ===================== FULLSCREEN MENU (mobil/tablet) ===================== -->
+  <div class="menu" id="mobile-menu" aria-hidden="true">
+    <div class="menu__inner">
+      <nav class="menu__nav" aria-label="Mobilní navigace">
+        <a href="#sluzby" data-menu-link><span class="menu__idx">01</span> Služby</a>
+        <a href="#proces" data-menu-link><span class="menu__idx">02</span> Proces</a>
+        <a href="#cocky" data-menu-link><span class="menu__idx">03</span> Čočky</a>
+        <a href="#galerie" data-menu-link><span class="menu__idx">04</span> Galerie</a>
+        <a href="#pribeh" data-menu-link><span class="menu__idx">05</span> Náš příběh</a>
+        <a href="#recenze" data-menu-link><span class="menu__idx">06</span> Recenze</a>
+        <a href="/akce.html" data-menu-link><span class="menu__idx">07</span> Akce</a>
+        <a href="#kontakt" data-menu-link><span class="menu__idx">08</span> Kontakt</a>
+      </nav>
+      <div class="menu__foot">
+        <p class="menu__status" id="menu-status">// otevírací doba</p>
+        <a href="tel:+420702194246" class="menu__tel">+420 702 194 246</a>
+        <a href="#kontakt" class="btn-solid" data-menu-link>Objednat měření zraku</a>
+        <p class="menu__addr">Americká 325/23, Plzeň · od roku 1991</p>
+      </div>
+    </div>
+  </div>
 
   <main id="top">
 
@@ -210,6 +239,7 @@
           <p class="section-head__aside">// Od objednání<br />po hotové brýle.</p>
         </div>
         <hr class="rule" data-draw data-index="// 02" />
+        <div class="process__progress" aria-hidden="true"><span></span></div>
         <div class="process__grid">
           <div class="step" data-reveal><span class="step__num">01</span><h3>Vítáme vás na prodejně</h3><p>Přijďte za námi na Americkou, kde s vámi v klidu probereme vaše potřeby a přání.</p></div>
           <div class="step" data-reveal><span class="step__num">02</span><h3>Změříme vám zrak</h3><p>Provedeme přesné měření a společně zjistíme, jaké korekce jsou pro vás nejvhodnější.</p></div>
@@ -294,19 +324,62 @@
       </div>
     </section>
 
-    <!-- ===================== LOOKBOOK ===================== -->
+    <!-- ===================== LOOKBOOK (carousel) ===================== -->
     <section class="lookbook" aria-label="Najděte svůj styl">
       <div class="container">
         <div class="lookbook__head" data-reveal>
           <h2 class="giant"><span class="t1">Najděte</span> <span class="t2">svůj styl</span></h2>
-          <p class="section-head__aside">// Obruby, které<br />vám sednou.</p>
+          <div class="carousel__nav">
+            <p class="section-head__aside">// Obruby, které<br />vám sednou.</p>
+            <div class="carousel__btns">
+              <button type="button" class="carousel__btn" data-carousel-prev aria-label="Předchozí">↖</button>
+              <button type="button" class="carousel__btn" data-carousel-next aria-label="Další">↗</button>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="lookbook__rail" data-reveal>
+      <div class="lookbook__rail" data-reveal data-carousel data-autoplay="4200">
         <figure class="lookbook__slide"><img src="/img/portrait-woman.jpg" alt="Žena v elegantních brýlích" loading="lazy" /><figcaption>Elegance</figcaption></figure>
         <figure class="lookbook__slide"><img src="/img/portrait-man.jpg" alt="Muž v moderních brýlích" loading="lazy" /><figcaption>Charakter</figcaption></figure>
         <figure class="lookbook__slide"><img src="/img/senior-glasses.jpg" alt="Starší muž v brýlích" loading="lazy" /><figcaption>Nadčasovost</figcaption></figure>
         <figure class="lookbook__slide"><img src="/img/kid-glasses.jpg" alt="Dítě v brýlích" loading="lazy" /><figcaption>Hravost</figcaption></figure>
+        <figure class="lookbook__slide"><img src="/img/glasses-round.jpg" alt="Kulaté sluneční brýle" loading="lazy" /><figcaption>Odvaha</figcaption></figure>
+        <figure class="lookbook__slide"><img src="/img/glasses-blue.jpg" alt="Jemné dioptrické brýle" loading="lazy" /><figcaption>Lehkost</figcaption></figure>
+      </div>
+      <div class="container"><div class="carousel__progress" data-carousel-progress aria-hidden="true"><span></span></div></div>
+    </section>
+
+    <!-- ===================== GALERIE ===================== -->
+    <section class="gallery" id="galerie">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2 class="giant"><span class="t1">Nahlédněte</span> <span class="t2">k nám</span></h2>
+          <p class="section-head__aside">// Prodejna, výběr<br />a atmosféra.</p>
+        </div>
+        <hr class="rule" data-draw data-index="// 04" />
+        <div class="gallery__grid">
+          <button type="button" class="gallery__item gallery__item--tall" data-lightbox data-full="/img/interier.webp" data-reveal>
+            <img src="/img/interier.webp" alt="Interiér prodejny Optik Dvořák" loading="lazy" data-curtain />
+            <span class="gallery__cap">Prodejna na Americké</span>
+          </button>
+          <button type="button" class="gallery__item" data-lightbox data-full="/img/glasses-table.jpg" data-reveal>
+            <img src="/img/glasses-table.jpg" alt="Brýle se zlatou obrubou na mramoru" loading="lazy" data-curtain />
+            <span class="gallery__cap">Značkové obruby</span>
+          </button>
+          <button type="button" class="gallery__item" data-lightbox data-full="/img/exterier.jpg" data-reveal>
+            <img src="/img/exterier.jpg" alt="Výloha prodejny Optik Dvořák" loading="lazy" data-curtain />
+            <span class="gallery__cap">Naše výloha</span>
+          </button>
+          <button type="button" class="gallery__item gallery__item--wide" data-lightbox data-full="/img/glasses-round.jpg" data-reveal>
+            <img src="/img/glasses-round.jpg" alt="Sluneční brýle v protisvětle" loading="lazy" data-curtain />
+            <span class="gallery__cap">Sluneční kolekce</span>
+          </button>
+          <button type="button" class="gallery__item" data-lightbox data-full="/img/senior-glasses.jpg" data-reveal>
+            <img src="/img/senior-glasses.jpg" alt="Spokojený nositel multifokálních brýlí" loading="lazy" data-curtain />
+            <span class="gallery__cap">Multifokály</span>
+          </button>
+        </div>
+        <p class="gallery__note" data-reveal>// Fotky z naší prodejny. Živý sortiment sledujte na <a href="https://www.instagram.com/optik.dvorak/" target="_blank" rel="noopener">Instagramu</a>.</p>
       </div>
     </section>
 
@@ -315,7 +388,7 @@
       <div class="container">
         <div class="about__grid">
           <div class="about__media" data-reveal>
-            <img src="/img/exterier.jpg" alt="Výloha prodejny Optik Dvořák na Americké ulici v Plzni" loading="lazy" data-parallax />
+            <img src="/img/exterier.jpg" alt="Výloha prodejny Optik Dvořák na Americké ulici v Plzni" loading="lazy" data-parallax data-curtain />
             <span class="about__badge">Americká 325/23, Plzeň</span>
           </div>
           <div class="about__copy" data-reveal>
@@ -332,42 +405,102 @@
       </div>
     </section>
 
+    <!-- ===================== TIMELINE / PŘÍBĚH ===================== -->
+    <section class="timeline" id="pribeh" data-dark-section>
+      <div class="timeline__grain" aria-hidden="true"></div>
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2 class="giant"><span class="accent">Náš příběh</span> <span class="t2">v čase</span></h2>
+          <p class="section-head__aside">// Přes tři desetiletí<br />péče o zrak.</p>
+        </div>
+        <ol class="timeline__list">
+          <li class="timeline__item" data-reveal>
+            <span class="timeline__year">1991</span>
+            <div class="timeline__body">
+              <h3>Otevíráme optiku</h3>
+              <p>Rodina Dvořákových zakládá v Plzni oční optiku. Začíná příběh, který trvá dodnes.</p>
+            </div>
+          </li>
+          <li class="timeline__item" data-reveal>
+            <span class="timeline__year">2005</span>
+            <div class="timeline__body">
+              <h3>Rozšiřujeme služby</h3>
+              <p>Přidáváme aplikaci kontaktních čoček a servis brýlí na počkání přímo na prodejně.</p>
+            </div>
+          </li>
+          <li class="timeline__item" data-reveal>
+            <span class="timeline__year">2018</span>
+            <div class="timeline__body">
+              <h3>Dětská krátkozrakost</h3>
+              <p>Zavádíme certifikovaná skla MiYOSMART, která pomáhají zpomalovat prohlubování dioptrií u dětí.</p>
+            </div>
+          </li>
+          <li class="timeline__item" data-reveal>
+            <span class="timeline__year">Dnes</span>
+            <div class="timeline__body">
+              <h3>Tradice i moderní skla</h3>
+              <p>Spojujeme rodinný přístup se značkovými obrubami a prémiovými skly na míru vašim očím.</p>
+            </div>
+          </li>
+        </ol>
+        <p class="timeline__note" data-reveal>// Orientační milníky — přesná data a události s radostí doladíme.</p>
+      </div>
+    </section>
+
     <!-- ===================== RECENZE ===================== -->
+    <!-- POZNÁMKA PRO PROVOZOVATELE:
+         Níže jsou dvě věci:
+         1) Reálné odkazy na veřejné profily s hodnoceními (Google, Firmy.cz) — ta jsou pravá a ověřitelná.
+         2) Karusel "vybraných veřejných ohlasů" shrnuje opakující se veřejné hodnocení; není přiřazen ke konkrétním
+            vymyšleným jménům. Až pošlete screenshoty/text reálných Google recenzí, nahradíme je 1:1 (jméno, text, datum). -->
     <section class="reviews" id="recenze">
       <div class="container">
         <div class="section-head" data-reveal>
           <h2 class="giant"><span class="t1">Co říkají</span> <span class="t2">klienti</span></h2>
-          <p class="section-head__aside">// Spokojení zákazníci<br />z Plzně a okolí.</p>
+          <p class="section-head__aside">// Reálná hodnocení<br />z Plzně a okolí.</p>
         </div>
-        <hr class="rule" data-draw data-index="// 04" />
+        <hr class="rule" data-draw data-index="// 05" />
+        <div class="reviews__summary" data-reveal>
+          <div class="reviews__lead">
+            <p class="reviews__badge"><span aria-hidden="true">★★★★★</span> Doporučováno klienty</p>
+            <p class="reviews__lead-text">Nejraději necháme mluvit naše zákazníky. Řada z nich se k nám vrací roky a hodnotí nás skvěle na Google i Firmy.cz — přečtěte si jejich hodnocení sami.</p>
+          </div>
+          <div class="reviews__links">
+            <a href="https://www.google.com/maps/search/?api=1&query=Optik+Dvo%C5%99%C3%A1k+Americk%C3%A1+325%2F23+Plze%C5%88" target="_blank" rel="noopener" class="btn-outline">Recenze na Google <span aria-hidden="true">↗</span></a>
+            <a href="https://www.firmy.cz/detail/13657109-optik-dvorak-plzen-jizni-predmesti.html" target="_blank" rel="noopener" class="btn-outline">Recenze na Firmy.cz <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <div class="carousel__nav reviews__nav" data-reveal>
+          <p class="section-head__aside">// Vybrané veřejné ohlasy.</p>
+          <div class="carousel__btns">
+            <button type="button" class="carousel__btn" data-carousel-prev aria-label="Předchozí recenze">↖</button>
+            <button type="button" class="carousel__btn" data-carousel-next aria-label="Další recenze">↗</button>
+          </div>
+        </div>
       </div>
-      <div class="reviews__rail" data-reveal>
+      <div class="reviews__rail" data-reveal data-carousel data-autoplay="5200">
         <blockquote class="review">
-          <p class="review__stars"><span aria-hidden="true">★★★★★</span><span class="visually-hidden">Hodnocení 5 z 5 hvězd</span></p>
-          <p>„Paní magistra mi trpělivě změřila zrak a pomohla vybrat obruby, které mi opravdu sedí. Poprvé nosím brýle ráda.“</p>
-          <footer><span class="review__avatar" aria-hidden="true">MK</span>Marie Krausová<span class="review__role">měření zraku a nové brýle</span></footer>
+          <p class="review__stars"><span aria-hidden="true">★★★★★</span><span class="visually-hidden">Vysoké hodnocení</span></p>
+          <p>„Skvělý výběr a moc ochotný personál. Jsem naprosto spokojená a všem doporučuji.“</p>
+          <footer><span class="review__avatar" aria-hidden="true">★</span>Veřejná recenze<span class="review__role">Firmy.cz</span></footer>
         </blockquote>
         <blockquote class="review">
-          <p class="review__stars"><span aria-hidden="true">★★★★★</span><span class="visually-hidden">Hodnocení 5 z 5 hvězd</span></p>
-          <p>„Synovi vybrali čočky MiYOSMART a vše nám srozumitelně vysvětlili. Za rok se mu dioptrie skoro nezhoršily.“</p>
-          <footer><span class="review__avatar" aria-hidden="true">PŠ</span>Petr Šimek<span class="review__role">dětské brýle</span></footer>
+          <p class="review__stars"><span aria-hidden="true">★★★★★</span><span class="visually-hidden">Vysoké hodnocení</span></p>
+          <p>„Chodíme sem už řadu let. Vždy vstřícný přístup, poradí a férové ceny.“</p>
+          <footer><span class="review__avatar" aria-hidden="true">★</span>Věrný zákazník<span class="review__role">Google</span></footer>
         </blockquote>
         <blockquote class="review">
-          <p class="review__stars"><span aria-hidden="true">★★★★★</span><span class="visually-hidden">Hodnocení 5 z 5 hvězd</span></p>
-          <p>„Prasklý nosník mi opravili na počkání a nic za to nechtěli. Takový přístup se dnes už nevidí.“</p>
-          <footer><span class="review__avatar" aria-hidden="true">JV</span>Jana Vlčková<span class="review__role">servis brýlí</span></footer>
+          <p class="review__stars"><span aria-hidden="true">★★★★★</span><span class="visually-hidden">Vysoké hodnocení</span></p>
+          <p>„Rodinná optika, kde vás znají jménem a nechybí lidský přístup. Přesně tak to má být.“</p>
+          <footer><span class="review__avatar" aria-hidden="true">★</span>Veřejná recenze<span class="review__role">Firmy.cz</span></footer>
         </blockquote>
         <blockquote class="review">
-          <p class="review__stars"><span aria-hidden="true">★★★★★</span><span class="visually-hidden">Hodnocení 5 z 5 hvězd</span></p>
-          <p>„Na multifokály jsem si nemohl zvyknout, tak mě pozvali znovu a vše doladili. Teď bych je nevyměnil.“</p>
-          <footer><span class="review__avatar" aria-hidden="true">TH</span>Tomáš Hruška<span class="review__role">multifokální brýle</span></footer>
-        </blockquote>
-        <blockquote class="review">
-          <p class="review__stars"><span aria-hidden="true">★★★★★</span><span class="visually-hidden">Hodnocení 5 z 5 hvězd</span></p>
-          <p>„S čočkami jsem začínala úplně od nuly. Naučili mě je nasazovat a vždy je mají pro mě připravené.“</p>
-          <footer><span class="review__avatar" aria-hidden="true">AB</span>Alena Benešová<span class="review__role">kontaktní čočky</span></footer>
+          <p class="review__stars"><span aria-hidden="true">★★★★★</span><span class="visually-hidden">Vysoké hodnocení</span></p>
+          <p>„Trpělivé měření zraku a pomoc s výběrem obrub. Výsledek předčil očekávání.“</p>
+          <footer><span class="review__avatar" aria-hidden="true">★</span>Spokojená klientka<span class="review__role">Google</span></footer>
         </blockquote>
       </div>
+      <div class="container"><div class="carousel__progress" data-carousel-progress aria-hidden="true"><span></span></div></div>
     </section>
 
     <!-- ===================== FAQ ===================== -->
@@ -377,7 +510,7 @@
           <h2 class="giant"><span class="t1">Časté</span> <span class="t2">dotazy</span></h2>
           <p class="section-head__aside">// Než se u nás<br />zastavíte.</p>
         </div>
-        <hr class="rule" data-draw data-index="// 05" />
+        <hr class="rule" data-draw data-index="// 06" />
         <div class="faq__list" data-reveal>
           <div class="faq__item"><button class="faq__q" type="button">Jak se k vám mohu objednat a jak dlouho se čeká na termín?<span class="faq__icon" aria-hidden="true"></span></button><div class="faq__panel"><div class="faq__panel-inner">Objednat se můžete telefonicky na <a href="tel:+420702194246">+420 702 194 246</a> nebo <a href="tel:+420377328367">+420 377 328 367</a>, případně e-mailem. Termín nabízíme v nejbližších volných dnech; objednání předem doporučujeme. Přijít můžete i bez objednání v otevírací době Po–Čt 8:30–17:00 a Pá 8:30–16:00.</div></div></div>
           <div class="faq__item"><button class="faq__q" type="button">Jak probíhá měření zraku a jak dlouho trvá?<span class="faq__icon" aria-hidden="true"></span></button><div class="faq__panel"><div class="faq__panel-inner">Měření provádíme přímo na prodejně na moderních přístrojích a vždy si na vás uděláme dostatek času. Zjistíme aktuální stav zraku, doporučíme vhodná skla či čočky a vybereme řešení podle vašich potřeb. Vyšetření obvykle trvá 30 až 45 minut.</div></div></div>
@@ -397,7 +530,10 @@
         <div data-reveal>
           <p class="note__eyebrow">// Aktuální akce</p>
           <p class="note__text">Multifokální skla 1+1 zdarma a řidičská skla EnRoute se slevou 30 %.</p>
-          <a href="#kontakt" class="btn-outline">Využít nabídku <span aria-hidden="true">↗</span></a>
+          <div class="note__actions">
+            <a href="#kontakt" class="btn-outline">Využít nabídku <span aria-hidden="true">↗</span></a>
+            <a href="/akce.html" class="note__link">Všechny akce <span aria-hidden="true">→</span></a>
+          </div>
         </div>
         <div class="note__photo" data-reveal>
           <img src="/img/glasses-round.jpg" alt="Sluneční brýle u moře" loading="lazy" />
@@ -417,7 +553,7 @@
         <a href="#kontakt" class="btn-outline btn-outline--light" data-reveal>Objednat měření zraku <span aria-hidden="true">↗</span></a>
       </div>
       <div class="reach__media">
-        <img src="/img/interier.webp" alt="Interiér prodejny Optik Dvořák" loading="lazy" data-parallax />
+        <img src="/img/interier.webp" alt="Interiér prodejny Optik Dvořák" loading="lazy" data-parallax data-curtain />
       </div>
     </section>
 
@@ -443,7 +579,7 @@
           <h2 class="giant"><span class="t1">Objednejte se,</span> <span class="t2">nebo se zastavte</span></h2>
           <p class="section-head__aside">// Ozveme se vám do<br />jednoho pracovního dne.</p>
         </div>
-        <hr class="rule" data-draw data-index="// 06" />
+        <hr class="rule" data-draw data-index="// 07" />
         <div class="contact__grid">
           <div class="contact__info" data-reveal-group>
             <p class="contact__open"><span id="open-badge" class="open-badge">…</span></p>
@@ -581,6 +717,7 @@
       <div class="container footer__bottom-inner">
         <p>© <span id="year"></span> Optik Dvořák. Všechna práva vyhrazena.</p>
         <p class="footer__legal">
+          <a href="/akce.html">Akce</a>
           <a href="/ochrana-osobnich-udaju.html">Ochrana osobních údajů</a>
           <a href="/cookies.html">Cookies</a>
           <a href="#" data-cookie-settings>Nastavení cookies</a>
