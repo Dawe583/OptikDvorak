@@ -64,6 +64,7 @@ if (!prefersReduced) {
 function boot() {
   initAnchors();
   initHeader();
+  initHeroVideo();
   initPreloader();
   initReveals();
   initParallax();
@@ -492,6 +493,27 @@ function initHoverMotion() {
       document.body.style.cursor = '';
       magnets.forEach(([btn, onMove, onLeave]) => { btn.removeEventListener('mousemove', onMove); btn.removeEventListener('mouseleave', onLeave); });
     };
+  });
+}
+
+/* ---------- Hero video (self-hosted webm z fotek) ---------- */
+function initHeroVideo() {
+  const v = document.querySelector('.hero__video');
+  if (!v) return;
+  if (prefersReduced) {
+    // Bez pohybu: video schovat, ukázat fotku pod ním
+    v.pause();
+    v.removeAttribute('autoplay');
+    v.style.display = 'none';
+    return;
+  }
+  const play = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+  if (v.readyState >= 2) play();
+  else v.addEventListener('canplay', play, { once: true });
+  // Šetři baterii/data, když je karta skrytá
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) v.pause();
+    else if (v.style.display !== 'none') play();
   });
 }
 

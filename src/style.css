@@ -67,13 +67,13 @@ section { position: relative; }
   overflow: hidden;
   z-index: 1;
 }
-.hero__media::after { content: ""; position: absolute; inset: 0; background: var(--scrim-ink); opacity: 0.35; }
+.hero__media::after { content: ""; position: absolute; inset: 0; z-index: 2; background: var(--scrim-ink); opacity: 0.35; }
 .hero__media img, .hero__media video {
   width: 100%; height: 100%; object-fit: cover;
   transform: scale(1.12);
   will-change: transform;
 }
-.hero__media video { position: absolute; inset: 0; }
+.hero__media video { position: absolute; inset: 0; z-index: 1; }
 .hero__glow {
   position: absolute; right: 8%; top: 30%;
   width: 40vw; height: 40vw; max-width: 520px; max-height: 520px;

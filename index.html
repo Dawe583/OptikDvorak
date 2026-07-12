@@ -108,8 +108,12 @@
           </div>
         </div>
         <div class="hero__media" data-intro-media data-cursor="view">
-          <!-- Až doplníte reálné video do public/video/, přidejte na .hero atribut a element <video>. Zatím cinematická fotka. -->
-          <img src="/img/hero-portrait.jpg" alt="Elegantní brýle se zlatými obrubami" data-parallax data-speed="1" fetchpriority="high" width="560" height="434" />
+          <!-- Self-hosted cinematické video vygenerované z fotek prodejny (public/video/hero.webm).
+               Poster a <img> slouží jako fallback pro prohlížeče bez podpory WebM (např. starší Safari). -->
+          <video class="hero__video" autoplay muted loop playsinline preload="metadata" poster="/img/hero-portrait.jpg" aria-hidden="true">
+            <source src="/video/hero.webm" type="video/webm" />
+          </video>
+          <img src="/img/hero-portrait.jpg" alt="Brýle se zlatými obrubami a interiér prodejny Optik Dvořák" data-parallax data-speed="1" fetchpriority="high" width="560" height="434" />
         </div>
         <aside class="hero__chip" data-intro>
           <img src="/img/interier.webp" alt="Interiér prodejny Optik Dvořák" loading="lazy" width="118" height="88" />
