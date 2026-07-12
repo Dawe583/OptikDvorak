@@ -31,7 +31,9 @@ gsap.registerPlugin(ScrollTrigger);
     mod.CustomEase.create('eo', '0.16,1,0.3,1');
     gsap.defaults({ ease: 'eo' });
   } catch {
-    gsap.defaults({ ease: 'power3.out' });
+    // Fallback: zaregistruj 'eo' jako alias, ať explicitní ease:'eo' napříč kódem funguje
+    try { gsap.registerEase('eo', gsap.parseEase('power3.out')); } catch { /* noop */ }
+    gsap.defaults({ ease: 'eo' });
   }
   boot();
 })();
@@ -200,7 +202,7 @@ function initParallax() {
 
 /* ---------- Obří nadpisy: drift + skew podle rychlosti ---------- */
 function initGiantDrift() {
-  if (prefersReduced) return;
+  if (prefersReduced || window.innerWidth < 768) return; // na úzkých displejích drift vypnout
   gsap.utils.toArray('.giant').forEach((el) => {
     const skewTo = gsap.quickTo(el, 'skewY', { duration: 0.5, ease: 'power3' });
     gsap.fromTo(
@@ -264,36 +266,47 @@ function initMarquee() {
   });
   if (prefersReduced || !tweens.length) return;
 
+  let hoverTS = null;
   gsap.ticker.add(() => {
     velTS += (1 - velTS) * 0.04; // plynulý návrat na baseline
-    const ts = velTS === 0 ? 0.001 : velTS;
+    const base = velTS === 0 ? 0.001 : velTS;
+    const ts = hoverTS != null ? hoverTS : base;
     tweens.forEach((t) => t.timeScale(ts));
   });
 
   document.querySelectorAll('.marquee').forEach((m) => {
-    m.addEventListener('mouseenter', () => tweens.forEach((t) => t.timeScale(0.15)));
-    m.addEventListener('mouseleave', () => { velTS = 1; });
+    m.addEventListener('mouseenter', () => { hoverTS = 0.15; });
+    m.addEventListener('mouseleave', () => { hoverTS = null; velTS = 1; });
   });
 }
 
 /* ---------- FAQ accordion ---------- */
 function initAccordion() {
   const items = gsap.utils.toArray('.faq__item');
-  items.forEach((item) => {
+  items.forEach((item, i) => {
     const btn = item.querySelector('.faq__q');
     const panel = item.querySelector('.faq__panel');
     if (!btn || !panel) return;
+    const pid = `faq-panel-${i}`;
+    panel.id = pid;
+    btn.setAttribute('aria-controls', pid);
     btn.setAttribute('aria-expanded', 'false');
+    panel.setAttribute('inert', ''); // sbalený panel mimo tab-order a čtečku
     btn.addEventListener('click', () => {
       const isOpen = item.classList.contains('is-open');
       items.forEach((other) => {
         if (other === item) return;
         other.classList.remove('is-open');
-        other.querySelector('.faq__q')?.setAttribute('aria-expanded', 'false');
-        gsap.to(other.querySelector('.faq__panel'), { height: 0, duration: prefersReduced ? 0 : D.ui, ease: 'eo' });
+        const ob = other.querySelector('.faq__q');
+        const op = other.querySelector('.faq__panel');
+        ob?.setAttribute('aria-expanded', 'false');
+        op?.setAttribute('inert', '');
+        gsap.to(op, { height: 0, duration: prefersReduced ? 0 : D.ui, ease: 'eo' });
       });
       item.classList.toggle('is-open', !isOpen);
       btn.setAttribute('aria-expanded', String(!isOpen));
+      if (isOpen) panel.setAttribute('inert', '');
+      else panel.removeAttribute('inert');
       gsap.to(panel, { height: isOpen ? 0 : 'auto', duration: prefersReduced ? 0 : D.ui, ease: 'eo' });
     });
   });
@@ -302,33 +315,39 @@ function initAccordion() {
 /* ---------- Živá otevírací doba ---------- */
 function initHours() {
   const days = ['v neděli', 'v pondělí', 'v úterý', 've středu', 've čtvrtek', 'v pátek', 'v sobotu'];
-  const now = new Date();
-  const day = now.getDay(); // 0 Ne … 6 So
-  const mins = now.getHours() * 60 + now.getMinutes();
   const OPEN = 8 * 60 + 30;
   const closeFor = (d) => (d === 5 ? 16 * 60 : 17 * 60);
   const isWeekday = (d) => d >= 1 && d <= 5;
   const fmt = (m) => `${Math.floor(m / 60)}:${String(m % 60).padStart(2, '0')}`;
 
-  const openNow = isWeekday(day) && mins >= OPEN && mins < closeFor(day);
-  let text, shortText;
+  const update = () => {
+    const now = new Date();
+    const day = now.getDay(); // 0 Ne … 6 So
+    const mins = now.getHours() * 60 + now.getMinutes();
+    const openNow = isWeekday(day) && mins >= OPEN && mins < closeFor(day);
+    let text, shortText;
 
-  if (openNow) {
-    text = `Otevřeno · zavírá v ${fmt(closeFor(day))}`;
-    shortText = `Otevřeno · do ${fmt(closeFor(day))}`;
-  } else {
-    let d = day;
-    let sameDay = isWeekday(day) && mins < OPEN;
-    if (!sameDay) { for (let i = 1; i <= 7; i++) { const nd = (day + i) % 7; if (isWeekday(nd)) { d = nd; break; } } }
-    const when = sameDay ? 'dnes' : (d === (day + 1) % 7 ? 'zítra' : days[d]);
-    text = `Zavřeno · otevíráme ${when} v ${fmt(OPEN)}`;
-    shortText = `Zavřeno · ${when} v ${fmt(OPEN)}`;
-  }
+    if (openNow) {
+      text = `Otevřeno · zavírá v ${fmt(closeFor(day))}`;
+      shortText = `Otevřeno · do ${fmt(closeFor(day))}`;
+    } else {
+      let d = day;
+      const sameDay = isWeekday(day) && mins < OPEN;
+      if (!sameDay) { for (let i = 1; i <= 7; i++) { const nd = (day + i) % 7; if (isWeekday(nd)) { d = nd; break; } } }
+      const when = sameDay ? 'dnes' : (d === (day + 1) % 7 ? 'zítra' : days[d]);
+      text = `Zavřeno · otevíráme ${when} v ${fmt(OPEN)}`;
+      shortText = `Zavřeno · ${when} v ${fmt(OPEN)}`;
+    }
 
-  const badge = document.getElementById('open-badge');
-  if (badge) { badge.textContent = text; badge.classList.toggle('is-open', openNow); }
-  const status = document.getElementById('header-status');
-  if (status) status.textContent = `// ${shortText}`;
+    const badge = document.getElementById('open-badge');
+    if (badge) { badge.textContent = text; badge.classList.toggle('is-open', openNow); }
+    const status = document.getElementById('header-status');
+    if (status) status.textContent = `// ${shortText}`;
+  };
+
+  update();
+  setInterval(update, 60000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) update(); });
 }
 
 /* ---------- Sticky CTA pill ---------- */
@@ -337,7 +356,7 @@ function initStickyCta() {
   const hero = document.querySelector('.hero');
   const contact = document.getElementById('kontakt');
   if (!pill || !hero) return;
-  if (prefersReduced) { gsap.set(pill, { opacity: 1, y: 0, scale: 1 }); }
+  if (prefersReduced) { gsap.set(pill, { opacity: 1, y: 0, scale: 1 }); return; }
 
   const show = () => gsap.to(pill, { opacity: 1, y: 0, scale: 1, duration: D.ui, ease: 'eo' });
   const hide = () => gsap.to(pill, { opacity: 0, y: 24, scale: 0.9, duration: 0.4, ease: 'eo' });
@@ -365,18 +384,22 @@ function initForms() {
       e.preventDefault();
       if (form.company && form.company.value) return; // honeypot
       let valid = true;
+      let firstInvalid = null;
       ['f-name', 'f-phone', 'f-service'].forEach((id) => {
         const input = document.getElementById(id);
         if (!input) return;
         const field = input.closest('.form__field');
+        if (!field) return;
         const bad = !input.value.trim();
         field.classList.toggle('is-invalid', bad);
-        if (bad) valid = false;
+        input.setAttribute('aria-invalid', bad ? 'true' : 'false');
+        if (bad) { valid = false; if (!firstInvalid) firstInvalid = input; }
       });
       if (!valid) {
         form.classList.remove('is-shaking');
         void form.offsetWidth;
         form.classList.add('is-shaking');
+        firstInvalid?.focus();
         return;
       }
       const ok = document.getElementById('form-success');
@@ -420,12 +443,14 @@ function initHoverMotion() {
     const rx = gsap.quickTo(ring, 'x', { duration: 0.5, ease: 'power3' });
     const ry = gsap.quickTo(ring, 'y', { duration: 0.5, ease: 'power3' });
 
+    let shown = false;
     const move = (e) => {
       dx(e.clientX); dy(e.clientY); rx(e.clientX); ry(e.clientY);
-      gsap.to([dot, ring], { opacity: 1, duration: 0.3 });
+      if (!shown) { shown = true; gsap.to([dot, ring], { opacity: 1, duration: 0.3 }); }
     };
+    const onWinLeave = () => { shown = false; gsap.to([dot, ring], { opacity: 0, duration: 0.3 }); };
     window.addEventListener('mousemove', move);
-    window.addEventListener('mouseleave', () => gsap.to([dot, ring], { opacity: 0, duration: 0.3 }));
+    window.addEventListener('mouseleave', onWinLeave);
 
     const hoverTargets = 'a, button, .pcard, input, select, textarea, [data-cursor]';
     const onOver = (e) => {
@@ -460,6 +485,7 @@ function initHoverMotion() {
 
     return () => {
       window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseleave', onWinLeave);
       document.removeEventListener('mouseover', onOver);
       document.removeEventListener('mouseout', onOut);
       dot.remove(); ring.remove();

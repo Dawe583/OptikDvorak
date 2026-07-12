@@ -63,7 +63,7 @@ function loadMap(mount) {
 function buildBanner() {
   const el = document.createElement('div');
   el.className = 'cookie';
-  el.setAttribute('role', 'dialog');
+  el.setAttribute('role', 'region'); // trvalá nemodální lišta
   el.setAttribute('aria-label', T.bannerTitle);
   el.innerHTML = `
     <p class="cookie__title">${T.bannerTitle}</p>
@@ -118,11 +118,21 @@ export function initCookies() {
   if (existing) applyMaps(existing);
   else setTimeout(() => banner.classList.add('is-visible'), 900);
 
+  let lastFocused = null;
+  const focusablesIn = (el) => el.querySelectorAll('button, [href], input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])');
+
+  function closeModal() {
+    if (!modal.classList.contains('is-open')) return;
+    modal.classList.remove('is-open');
+    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    lastFocused = null;
+  }
+
   function persist(consent) {
     consent.ts = 'set';
     write(consent);
     banner.classList.remove('is-visible');
-    modal.classList.remove('is-open');
+    closeModal();
     applyMaps(consent);
   }
   function openModal() {
@@ -131,7 +141,9 @@ export function initCookies() {
       if (input.dataset.cat === 'necessary') return;
       input.checked = !!c[input.dataset.cat];
     });
+    lastFocused = document.activeElement;
     modal.classList.add('is-open');
+    focusablesIn(modal)[0]?.focus?.();
   }
 
   document.addEventListener('click', (e) => {
@@ -151,13 +163,22 @@ export function initCookies() {
     // Odkaz „Nastavení cookies" v patičce
     if (e.target.closest('[data-cookie-settings]')) { e.preventDefault(); openModal(); return; }
     // Klik do ztmavení modalu = zavřít
-    if (e.target === modal) modal.classList.remove('is-open');
+    if (e.target === modal) closeModal();
     // Jednorázové načtení mapy z placeholderu (implicitní souhlas jen pro mapu)
     const mapBtn = e.target.closest('[data-map-load]');
     if (mapBtn) { const mount = mapBtn.closest('[data-map]'); if (mount) loadMap(mount); }
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') modal.classList.remove('is-open');
+    if (!modal.classList.contains('is-open')) return;
+    if (e.key === 'Escape') { closeModal(); return; }
+    if (e.key === 'Tab') {
+      const f = focusablesIn(modal);
+      if (!f.length) return;
+      const first = f[0];
+      const last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
   });
 }

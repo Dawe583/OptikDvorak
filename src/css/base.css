@@ -316,7 +316,7 @@ p { text-wrap: pretty; }
 /* ---------- Custom kurzor (desktop) ---------- */
 .cursor-dot, .cursor-ring {
   position: fixed; top: 0; left: 0;
-  z-index: 350; pointer-events: none;
+  z-index: 460; pointer-events: none;
   border-radius: 50%;
   translate: -50% -50%;
   opacity: 0;
@@ -411,7 +411,7 @@ p { text-wrap: pretty; }
 .footer__form .btn-square { background: rgba(244, 241, 234, 0.14); border-color: transparent; color: var(--cream); }
 .footer__form .btn-square:hover { background: var(--yellow); color: var(--ink); }
 .footer__cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
-.footer__cols h4 {
+.footer__cols h4, .footer__cols h3 {
   font-size: var(--fs-eyebrow); text-transform: uppercase;
   letter-spacing: 0.14em; color: var(--yellow); margin-bottom: 0.8rem;
 }
@@ -502,5 +502,24 @@ p { text-wrap: pretty; }
 .cookie-modal__actions { display: flex; gap: 0.7rem; margin-top: 1.6rem; }
 .cookie-modal__actions button { flex: 1; }
 
+/* ---------- Skip link ---------- */
+.skip-link {
+  position: fixed; top: 0; left: 0; z-index: 480;
+  transform: translateY(-120%);
+  background: var(--ink); color: var(--cream);
+  padding: 0.8rem 1.2rem; font-weight: 600; font-size: var(--fs-caption);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  transition: transform 0.2s var(--eo);
+}
+.skip-link:focus-visible { transform: translateY(0); outline-offset: -3px; }
+
 /* ---------- Utilita: skryté před revealem ---------- */
 .js [data-reveal], .js [data-reveal-group] > * { will-change: transform, opacity; }
+
+/* ---------- Mobil: cookie lišta nad mobilní lištou ---------- */
+@media (max-width: 767px) {
+  .cookie {
+    left: 1rem; right: 1rem; width: auto;
+    bottom: calc(72px + env(safe-area-inset-bottom));
+  }
+}

@@ -15,7 +15,7 @@
   --yellow: #FFE45C;
   --yellow-deep: #F5C518;
   --yellow-glow: rgba(255, 228, 92, 0.35);
-  --amber-ink: #8A6A00;      /* čitelný text NA žluté (AA) */
+  --amber-ink: #6E5200;      /* čitelný text NA žluté i na krému, kontrast ≥4.5:1 (AA) */
 
   /* --- Černá / tmavé plochy --- */
   --ink: #141414;
@@ -24,10 +24,10 @@
   --ink-700: #2C2A27;
   --ink-soft: #55534E;
 
-  /* --- Tóny obřích nadpisů (třítónová gradace) --- */
+  /* --- Tóny obřích nadpisů (třítónová gradace, vše ≥3:1 pro velký text na krému) --- */
   --t-dark: #6B6B66;
-  --t-mid: #9A988F;
-  --t-light: #BDBBB2;
+  --t-mid: #7C7A71;
+  --t-light: #8C8A80;
 
   /* --- Akcent --- */
   --accent-cobalt: #3A5A7A;  /* jen mikrodávky */
