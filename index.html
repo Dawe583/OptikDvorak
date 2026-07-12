@@ -64,6 +64,9 @@
 
   <a href="#top" class="skip-link">Přeskočit na obsah</a>
 
+  <!-- Žlutá lišta průběhu scrollu -->
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
   <!-- ===================== PRELOADER ===================== -->
   <div class="preloader" aria-hidden="true">
     <p class="preloader__word"><span class="fw-1">Optik</span><span class="fw-2">Dvořák</span></p>
@@ -85,9 +88,28 @@
       <div class="header__right">
         <span class="header__status" id="header-status">// otevírací doba</span>
         <a href="#kontakt" class="header__cta">Objednat měření zraku</a>
+        <button class="header__burger" id="menu-toggle" aria-label="Otevřít menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- Mobilní fullscreen menu -->
+  <div class="mobile-menu" id="mobile-menu" inert>
+    <nav class="mobile-menu__nav" aria-label="Mobilní navigace">
+      <a href="#sluzby">Služby</a>
+      <a href="#proces">Proces</a>
+      <a href="#cocky">Čočky</a>
+      <a href="#recenze">Recenze</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+    <div class="mobile-menu__foot">
+      <a href="tel:+420702194246">+420 702 194 246</a>
+      <p>Americká 325/23, Plzeň</p>
+    </div>
+  </div>
+
   <div id="header-sentinel" aria-hidden="true"></div>
 
   <main id="top">
@@ -282,14 +304,13 @@
           <h2>Značky, kterým <span class="accent">věříme</span></h2>
           <p>Jména, za kterými stojí desítky let řemesla — a naše osobní zkušenost.</p>
         </div>
+        <!-- Jen ověřené značky (certifikace z popisu firmy). Další doplní klient podle skutečného sortimentu. -->
         <div class="brands__row" data-reveal-group>
-          <span class="brands__item">Ray-Ban</span>
-          <span class="brands__item">Persol</span>
-          <span class="brands__item">Oakley</span>
-          <span class="brands__item">ZEISS</span>
-          <span class="brands__item">Essilor</span>
           <span class="brands__item">Hoya</span>
           <span class="brands__item">MiYOSMART</span>
+          <span class="brands__item">MiSIGHT</span>
+          <span class="brands__item">CooperVision</span>
+          <span class="brands__item">EnRoute</span>
         </div>
       </div>
     </section>
@@ -307,6 +328,8 @@
         <figure class="lookbook__slide"><img src="/img/portrait-man.jpg" alt="Muž v moderních brýlích" loading="lazy" /><figcaption>Charakter</figcaption></figure>
         <figure class="lookbook__slide"><img src="/img/senior-glasses.jpg" alt="Starší muž v brýlích" loading="lazy" /><figcaption>Nadčasovost</figcaption></figure>
         <figure class="lookbook__slide"><img src="/img/kid-glasses.jpg" alt="Dítě v brýlích" loading="lazy" /><figcaption>Hravost</figcaption></figure>
+        <figure class="lookbook__slide"><img src="/img/glasses-blue.jpg" alt="Klasické poloobrubové brýle" loading="lazy" /><figcaption>Klasika</figcaption></figure>
+        <figure class="lookbook__slide"><img src="/img/glasses-round.jpg" alt="Sluneční brýle u moře" loading="lazy" /><figcaption>Léto</figcaption></figure>
       </div>
     </section>
 
@@ -315,7 +338,10 @@
       <div class="container">
         <div class="about__grid">
           <div class="about__media" data-reveal>
-            <img src="/img/exterier.jpg" alt="Výloha prodejny Optik Dvořák na Americké ulici v Plzni" loading="lazy" data-parallax />
+            <img src="/img/exterier.jpg" alt="Výloha prodejny Optik Dvořák na Americké ulici v Plzni" loading="lazy" data-parallax data-lightbox />
+            <button type="button" class="about__thumb" data-lightbox-src="/img/interier.webp" aria-label="Zobrazit interiér prodejny">
+              <img src="/img/interier.webp" alt="Interiér prodejny Optik Dvořák" loading="lazy" />
+            </button>
             <span class="about__badge">Americká 325/23, Plzeň</span>
           </div>
           <div class="about__copy" data-reveal>
@@ -327,6 +353,13 @@
               <div class="stat"><div class="stat__value"><span data-count="6">6</span></div><div class="stat__label">služeb pod střechou</div></div>
               <div class="stat"><div class="stat__value"><span data-count="4">4</span></div><div class="stat__label">benefitní programy</div></div>
             </div>
+            <!-- MILNÍKY: roky 2005 a 2022 jsou PLACEHOLDER, upřesní majitelka -->
+            <ol class="about__timeline" data-reveal-group>
+              <li><span class="tl-year">1991</span><p>Založení rodinné oční optiky v Plzni</p></li>
+              <li><span class="tl-year">2005</span><p>Prodejna na Americké 325/23 v centru města</p></li>
+              <li><span class="tl-year">2022</span><p>Certifikace MiYOSMART a MiSIGHT pro péči o dětský zrak</p></li>
+              <li><span class="tl-year">dnes</span><p>Rodinná péče o zrak pokračuje dál</p></li>
+            </ol>
           </div>
         </div>
       </div>
@@ -337,15 +370,21 @@
       <div class="container">
         <div class="section-head" data-reveal>
           <h2 class="giant"><span class="t1">Co říkají</span> <span class="t2">klienti</span></h2>
-          <p class="section-head__aside">// Spokojení zákazníci<br />z Plzně a okolí.</p>
+          <p class="section-head__aside">// První recenze je z Firmy.cz,<br />ukázky nahradíme recenzemi z Google.</p>
         </div>
         <hr class="rule" data-draw data-index="// 04" />
       </div>
       <div class="reviews__rail" data-reveal>
+        <!-- Reálná veřejná recenze z Firmy.cz (listopad 2024) -->
+        <blockquote class="review">
+          <p class="review__stars"><span aria-hidden="true">★★★★★</span><span class="visually-hidden">Hodnocení 5 z 5 hvězd</span></p>
+          <p>„Skvělá obsluha, parádní výběr, jsem na 100 % spokojená. Doporučuji všem. Ráda se zase vrátím."</p>
+          <footer><span class="review__avatar" aria-hidden="true">HM</span>Hopkirkova M<span class="review__role">recenze z Firmy.cz</span></footer>
+        </blockquote>
         <blockquote class="review">
           <p class="review__stars"><span aria-hidden="true">★★★★★</span><span class="visually-hidden">Hodnocení 5 z 5 hvězd</span></p>
           <p>„Paní magistra mi trpělivě změřila zrak a pomohla vybrat obruby, které mi opravdu sedí. Poprvé nosím brýle ráda.“</p>
-          <footer><span class="review__avatar" aria-hidden="true">MK</span>Marie Krausová<span class="review__role">měření zraku a nové brýle</span></footer>
+          <footer><span class="review__avatar" aria-hidden="true">MK</span>Marie Krausová<span class="review__role">ukázková recenze</span></footer>
         </blockquote>
         <blockquote class="review">
           <p class="review__stars"><span aria-hidden="true">★★★★★</span><span class="visually-hidden">Hodnocení 5 z 5 hvězd</span></p>
@@ -397,7 +436,7 @@
         <div data-reveal>
           <p class="note__eyebrow">// Aktuální akce</p>
           <p class="note__text">Multifokální skla 1+1 zdarma a řidičská skla EnRoute se slevou 30 %.</p>
-          <a href="#kontakt" class="btn-outline">Využít nabídku <span aria-hidden="true">↗</span></a>
+          <a href="/akce.html" class="btn-outline">Všechny akce <span aria-hidden="true">↗</span></a>
         </div>
         <div class="note__photo" data-reveal>
           <img src="/img/glasses-round.jpg" alt="Sluneční brýle u moře" loading="lazy" />

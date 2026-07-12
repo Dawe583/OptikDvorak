@@ -1,6 +1,6 @@
 /* ============================================================
    OPTIK DVOŘÁK — HOMEPAGE JS
-   GSAP + Lenis motion systém, plně přístupný (prefers-reduced-motion),
+   GSAP + Lenis motion systém běžící na všech zařízeních,
    custom kurzor, marquee reagující na scroll, živá otevírací doba,
    cookie consent. Podpisová křivka „eo" sladěná s CSS.
    ============================================================ */
@@ -14,14 +14,17 @@ import '@fontsource-variable/inter-tight';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Observer } from 'gsap/Observer';
 import { initCookies } from './js/cookies.js';
 
 const root = document.documentElement;
 root.classList.add('js');
 
-const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* Motion běží všude bez výjimky (výslovné rozhodnutí klienta 2026-07-12).
+   OS nastavení reduced-motion vědomě ignorujeme; konstanta drží mrtvé větve neaktivní. */
+const prefersReduced = false;
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, Observer);
 
 /* Podpisová křivka — shodná s CSS var(--eo). CustomEase je součástí gsap balíčku. */
 (async () => {
@@ -45,7 +48,7 @@ let lenis = null;
 let velTS = 1; // cíl timeScale marquee podle rychlosti scrollu
 
 if (!prefersReduced) {
-  lenis = new Lenis({ duration: 1.15, smoothWheel: true, syncTouch: false });
+  lenis = new Lenis({ duration: 1.15, smoothWheel: true, syncTouch: true });
   lenis.on('scroll', ({ velocity }) => {
     velTS = gsap.utils.clamp(-4, 4, 1 + (velocity || 0) * 0.05);
     ScrollTrigger.update();
@@ -64,19 +67,27 @@ if (!prefersReduced) {
 function boot() {
   initAnchors();
   initHeader();
+  initMobileMenu();
   initHeroVideo();
   initPreloader();
   initReveals();
   initParallax();
   initGiantDrift();
+  initScrollProgress();
+  initProcessPin();
+  initCurtains();
+  initHeroTilt();
+  initFooterScrub();
   initRules();
   initCounters();
   initMarquee();
+  initDragCarousels();
   initAccordion();
   initHours();
   initStickyCta();
   initReachGlow();
   initForms();
+  initLightbox();
   initHoverMotion();
   initYear();
 
@@ -131,6 +142,41 @@ function initHeader() {
       onToggle: (self) => header.classList.toggle('header--on-dark', self.isActive),
     });
   });
+}
+
+/* ---------- Mobilní fullscreen menu ---------- */
+function initMobileMenu() {
+  const btn = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  if (!btn || !menu) return;
+  const links = menu.querySelectorAll('a');
+  let open = false;
+
+  const set = (v) => {
+    if (v === open) return;
+    open = v;
+    btn.setAttribute('aria-expanded', String(v));
+    btn.setAttribute('aria-label', v ? 'Zavřít menu' : 'Otevřít menu');
+    btn.classList.toggle('is-open', v);
+    document.documentElement.classList.toggle('menu-open', v);
+    if (v) {
+      menu.removeAttribute('inert');
+      lenis?.stop();
+      gsap.fromTo(menu, { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: D.curtain, ease: 'eo' });
+      gsap.fromTo(menu.querySelectorAll('.mobile-menu__nav a, .mobile-menu__foot > *'),
+        { y: 36, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, stagger: 0.06, delay: 0.15, ease: 'eo' });
+    } else {
+      menu.setAttribute('inert', '');
+      lenis?.start();
+      gsap.to(menu, { clipPath: 'inset(0 0 100% 0)', duration: 0.5, ease: 'eo' });
+    }
+  };
+
+  btn.addEventListener('click', () => set(!open));
+  // capture: zavřít dřív, než anchor handler spustí lenis.scrollTo (lenis musí běžet)
+  links.forEach((a) => a.addEventListener('click', () => set(false), { capture: true }));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
 }
 
 /* ---------- Preloader ---------- */
@@ -203,7 +249,7 @@ function initParallax() {
 
 /* ---------- Obří nadpisy: drift + skew podle rychlosti ---------- */
 function initGiantDrift() {
-  if (prefersReduced || window.innerWidth < 768) return; // na úzkých displejích drift vypnout
+  if (prefersReduced) return;
   gsap.utils.toArray('.giant').forEach((el) => {
     const skewTo = gsap.quickTo(el, 'skewY', { duration: 0.5, ease: 'power3' });
     gsap.fromTo(
@@ -221,6 +267,85 @@ function initGiantDrift() {
         },
       }
     );
+  });
+}
+
+/* ---------- Žlutá lišta průběhu scrollu ---------- */
+function initScrollProgress() {
+  const bar = document.querySelector('.scroll-progress span');
+  if (!bar) return;
+  gsap.fromTo(bar, { scaleX: 0 }, {
+    scaleX: 1,
+    ease: 'none',
+    scrollTrigger: { start: 0, end: 'max', scrub: 0.3, invalidateOnRefresh: true },
+  });
+}
+
+/* ---------- Pinned horizontální proces (scroll-hijack) ---------- */
+function initProcessPin() {
+  const sec = document.querySelector('.process');
+  const track = sec?.querySelector('.process__grid');
+  if (!sec || !track) return;
+  const getDist = () => track.scrollWidth - document.documentElement.clientWidth;
+  if (getDist() < 80) return; // track se vejde, není co posouvat
+
+  gsap.to(track, {
+    x: () => -(getDist() + 60),
+    ease: 'none',
+    scrollTrigger: {
+      trigger: sec,
+      start: 'top top',
+      end: () => `+=${getDist()}`,
+      pin: true,
+      scrub: 1,
+      invalidateOnRefresh: true,
+    },
+  });
+}
+
+/* ---------- Curtain reveal médií (clip-path zleva) ---------- */
+function initCurtains() {
+  const targets = gsap.utils.toArray('.pcard__media, .lenses__small img, .lenses__big, .note__photo img, .collage__strip img');
+  targets.forEach((el) => {
+    gsap.fromTo(el, { clipPath: 'inset(0 100% 0 0)' }, {
+      clipPath: 'inset(0 0% 0 0)',
+      duration: 1.1,
+      ease: 'eo',
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+    });
+  });
+}
+
+/* ---------- Hero mouse-parallax (media + glow sledují kurzor) ---------- */
+function initHeroTilt() {
+  const hero = document.querySelector('.hero');
+  const media = document.querySelector('.hero__media');
+  if (!hero || !media) return;
+  const glow = document.querySelector('.hero__glow');
+  const mx = gsap.quickTo(media, 'x', { duration: 0.8, ease: 'power3' });
+  const my = gsap.quickTo(media, 'y', { duration: 0.8, ease: 'power3' });
+  const gx = glow ? gsap.quickTo(glow, 'x', { duration: 1.2, ease: 'power3' }) : null;
+  const gy = glow ? gsap.quickTo(glow, 'y', { duration: 1.2, ease: 'power3' }) : null;
+  hero.addEventListener('pointermove', (e) => {
+    const nx = e.clientX / window.innerWidth - 0.5;
+    const ny = e.clientY / window.innerHeight - 0.5;
+    mx(nx * -18);
+    my(ny * -12);
+    gx?.(nx * 44);
+    gy?.(ny * 32);
+  });
+}
+
+/* ---------- Footer wordmark: scale-scrub při doscrollování ---------- */
+function initFooterScrub() {
+  const wm = document.querySelector('.footer__wordmark');
+  if (!wm) return;
+  wm.style.transformOrigin = '50% 100%';
+  gsap.fromTo(wm, { scale: 0.82, yPercent: 16 }, {
+    scale: 1,
+    yPercent: 0,
+    ease: 'none',
+    scrollTrigger: { trigger: '.footer', start: 'top bottom', end: 'bottom bottom', scrub: 0.5 },
   });
 }
 
@@ -278,6 +403,36 @@ function initMarquee() {
   document.querySelectorAll('.marquee').forEach((m) => {
     m.addEventListener('mouseenter', () => { hoverTS = 0.15; });
     m.addEventListener('mouseleave', () => { hoverTS = null; velTS = 1; });
+  });
+}
+
+/* ---------- Drag carousely (lookbook + recenze): autoplay smyčka,
+   tažením prstem/myší strip roztočíte, inercie ho vrátí na baseline ---------- */
+function initDragCarousels() {
+  [
+    { sel: '.lookbook__rail', dur: 42 },
+    { sel: '.reviews__rail', dur: 58 },
+  ].forEach(({ sel, dur }) => {
+    const rail = document.querySelector(sel);
+    if (!rail) return;
+
+    const originals = rail.children.length;
+    rail.innerHTML += rail.innerHTML; // bezešvá smyčka
+    // duplikáty schovat před čtečkami
+    Array.from(rail.children).slice(originals).forEach((el) => el.setAttribute('aria-hidden', 'true'));
+
+    const tween = gsap.to(rail, { xPercent: -50, duration: dur, ease: 'none', repeat: -1 });
+
+    Observer.create({
+      target: rail,
+      type: 'pointer,touch',
+      dragMinimum: 5,
+      onDrag: (self) => tween.timeScale(gsap.utils.clamp(-9, 9, -self.deltaX * 0.4)),
+      onDragEnd: () => gsap.to(tween, { timeScale: 1, duration: 1.4, ease: 'power3.out' }),
+    });
+
+    rail.addEventListener('mouseenter', () => { if (Math.abs(tween.timeScale()) <= 1.01) tween.timeScale(0.18); });
+    rail.addEventListener('mouseleave', () => gsap.to(tween, { timeScale: 1, duration: 0.6, ease: 'power2.out' }));
   });
 }
 
@@ -422,6 +577,43 @@ function initForms() {
       document.getElementById('f-name')?.focus({ preventScroll: true });
     });
   }
+}
+
+/* ---------- Lightbox pro fotky prodejny ---------- */
+function initLightbox() {
+  const triggers = document.querySelectorAll('[data-lightbox], [data-lightbox-src]');
+  if (!triggers.length) return;
+
+  const open = (src, alt) => {
+    const box = document.createElement('div');
+    box.className = 'lightbox';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-label', 'Náhled fotografie');
+    box.innerHTML = `<img src="${src}" alt="${alt || ''}" /><button class="lightbox__close" aria-label="Zavřít náhled">×</button>`;
+    document.body.appendChild(box);
+    lenis?.stop();
+    gsap.fromTo(box, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: 'eo' });
+    gsap.fromTo(box.querySelector('img'), { scale: 0.92 }, { scale: 1, duration: 0.5, ease: 'eo' });
+
+    const close = () => {
+      lenis?.start();
+      gsap.to(box, { opacity: 0, duration: 0.25, ease: 'eo', onComplete: () => box.remove() });
+      document.removeEventListener('keydown', onKey);
+    };
+    const onKey = (e) => { if (e.key === 'Escape') close(); };
+    box.addEventListener('click', close);
+    document.addEventListener('keydown', onKey);
+    box.querySelector('.lightbox__close').focus();
+  };
+
+  triggers.forEach((el) => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      const src = el.dataset.lightboxSrc || el.currentSrc || el.src;
+      const alt = el.dataset.lightboxSrc ? el.querySelector('img')?.alt : el.alt;
+      if (src) open(src, alt);
+    });
+  });
 }
 
 /* ---------- Custom kurzor + magnetická tlačítka (jen desktop) ---------- */

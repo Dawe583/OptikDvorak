@@ -136,8 +136,10 @@ section { position: relative; }
 /* ============================================================
    PROCES (stepper)
    ============================================================ */
-.process { padding-block: var(--pad); }
-.process__grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; margin-top: 1rem; }
+.process { padding-block: var(--pad); overflow: hidden; }
+/* Horizontální track: sekce se pinne a kroky jedou do strany (scroll-hijack) */
+.process__grid { display: flex; gap: clamp(1.5rem, 3vw, 2.5rem); margin-top: 1rem; width: max-content; will-change: transform; }
+.process__grid .step { flex: 0 0 min(400px, 76vw); }
 .step { position: relative; padding-top: 2.4rem; border-top: 1px solid var(--line); }
 .step__num {
   position: absolute; top: -0.2rem; left: 0;
@@ -190,10 +192,10 @@ section { position: relative; }
    ============================================================ */
 .lookbook { padding-block: var(--pad); overflow: hidden; }
 .lookbook__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; margin-bottom: 2.2rem; }
+.lookbook { overflow: hidden; }
 .lookbook__rail {
   display: flex; gap: clamp(1rem, 2vw, 1.6rem);
-  overflow-x: auto; scroll-snap-type: x mandatory;
-  padding-inline: max(calc((100vw - var(--container)) / 2), 4vw);
+  width: max-content; cursor: grab; will-change: transform;
   padding-bottom: 1rem; scrollbar-width: none;
 }
 .lookbook__rail::-webkit-scrollbar { display: none; }
@@ -232,10 +234,11 @@ section { position: relative; }
    RECENZE
    ============================================================ */
 .reviews { padding-block: var(--pad); }
+.reviews { overflow: hidden; }
 .reviews__rail {
-  display: flex; gap: 1.6rem; overflow-x: auto; scroll-snap-type: x mandatory;
-  padding-inline: max(calc((100vw - var(--container)) / 2), 4vw);
-  padding-bottom: 1rem; scrollbar-width: none;
+  display: flex; gap: 1.6rem;
+  width: max-content; cursor: grab; will-change: transform;
+  padding-bottom: 1rem;
 }
 .reviews__rail::-webkit-scrollbar { display: none; }
 .review { flex: 0 0 min(400px, 82vw); scroll-snap-align: start; border: 1px solid var(--line); padding: 2rem; display: flex; flex-direction: column; gap: 1rem; background: var(--paper); }
@@ -360,7 +363,6 @@ section { position: relative; }
   .header__nav, .header__status { display: none; }
   .cards3 { grid-template-columns: 1fr 1fr; }
   .hero__media { width: 52vw; top: 46%; }
-  .process__grid { grid-template-columns: 1fr 1fr; gap: 2rem 1.5rem; }
   .lenses__head { grid-template-columns: 1fr; }
   .lenses .giant--right { text-align: left; }
   .about__grid { grid-template-columns: 1fr; }
@@ -388,7 +390,6 @@ section { position: relative; }
   .values__sep { display: none; }
 
   .cards3 { grid-template-columns: 1fr; }
-  .process__grid { grid-template-columns: 1fr; }
 
   .section-head { flex-direction: column; align-items: flex-start; }
   .section-head__aside { white-space: normal; }
@@ -406,10 +407,169 @@ section { position: relative; }
   .contact__details { grid-template-columns: 1fr; }
 }
 
+/* Reduced-motion backstop odstraněn: animace běží na všech zařízeních
+   bez výjimky (rozhodnutí klienta 2026-07-12). */
+
 /* ============================================================
-   REDUCED MOTION (CSS backstop)
+   NOVÉ EFEKTY (fáze 2)
    ============================================================ */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
-  .hero__scroll span { animation: none; }
+
+/* Žlutá lišta průběhu scrollu */
+.scroll-progress { position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 90; pointer-events: none; }
+.scroll-progress span { display: block; height: 100%; background: var(--yellow); transform-origin: 0 50%; transform: scaleX(0); }
+
+/* Globální jemný filmový grain */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Jednotný color-grade karet: duotone → plná barva na hover */
+.pcard__media img {
+  filter: saturate(0.6) contrast(1.03) sepia(0.06);
+  transition: transform 0.7s var(--eo), filter 0.7s var(--eo);
+}
+.pcard:hover .pcard__media img { filter: none; }
+
+/* Drag carousely: aktivní úchop */
+.lookbook__rail:active, .reviews__rail:active { cursor: grabbing; }
+
+/* ---------- O nás: timeline (milníky) ---------- */
+.about__timeline { list-style: none; margin-top: 2.4rem; padding: 0; }
+.about__timeline li {
+  position: relative;
+  display: flex;
+  gap: 1.4rem;
+  align-items: baseline;
+  padding: 0.9rem 0 0.9rem 1.4rem;
+  border-left: 1px solid var(--line-strong);
+}
+.about__timeline li::before {
+  content: "";
+  position: absolute;
+  left: -4.5px;
+  top: 1.35rem;
+  width: 8px;
+  height: 8px;
+  background: var(--yellow);
+  border: 1px solid var(--ink);
+}
+.tl-year {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  min-width: 3.6em;
+  color: var(--amber-ink);
+}
+.about__timeline p { color: var(--ink-soft); font-size: 0.97rem; }
+
+/* ---------- Galerie: thumb + lightbox ---------- */
+[data-lightbox] { cursor: zoom-in; }
+.about__thumb {
+  position: absolute;
+  right: -1rem;
+  bottom: 3.6rem;
+  width: min(180px, 34%);
+  border: 4px solid var(--cream);
+  background: none;
+  padding: 0;
+  cursor: zoom-in;
+  box-shadow: var(--shadow-md);
+}
+.about__thumb img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: rgba(15, 15, 12, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4vmin;
+  cursor: zoom-out;
+}
+.lightbox img { max-width: 94vw; max-height: 90vh; object-fit: contain; }
+.lightbox__close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  background: var(--yellow);
+  color: var(--ink);
+  border: 0;
+  width: 44px;
+  height: 44px;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+/* ============================================================
+   MOBILNÍ FULLSCREEN MENU
+   ============================================================ */
+.header__burger {
+  display: none;
+  position: relative;
+  z-index: 80;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 1px solid currentColor;
+  cursor: pointer;
+  color: inherit;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+.header__burger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: currentColor;
+  transition: transform 0.35s var(--eo), translate 0.35s var(--eo);
+}
+.header__burger.is-open span:first-child { translate: 0 4.5px; transform: rotate(45deg); }
+.header__burger.is-open span:last-child { translate: 0 -4.5px; transform: rotate(-45deg); }
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: var(--ink-900, var(--ink));
+  color: var(--cream);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3rem;
+  padding: calc(var(--header-h, 76px) + 1rem) 7vw 3rem;
+  clip-path: inset(0 0 100% 0);
+}
+.mobile-menu__nav { display: flex; flex-direction: column; gap: 0.4rem; }
+.mobile-menu__nav a {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 10vw, 4rem);
+  font-weight: 640;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  text-decoration: none;
+  color: rgba(244, 241, 234, 0.55);
+  transition: color 0.3s var(--eo), translate 0.3s var(--eo);
+}
+.mobile-menu__nav a:hover, .mobile-menu__nav a:active { color: var(--yellow); translate: 8px 0; }
+.mobile-menu__foot { display: flex; flex-direction: column; gap: 0.3rem; }
+.mobile-menu__foot a { color: var(--yellow); font-weight: 600; font-size: 1.15rem; text-decoration: none; }
+.mobile-menu__foot p { color: rgba(244, 241, 234, 0.6); font-size: 0.95rem; }
+
+html.menu-open .header { background: transparent; box-shadow: none; backdrop-filter: none; }
+html.menu-open .header__burger, html.menu-open .header__logo { color: var(--cream); }
+
+@media (max-width: 1023px) {
+  .header__burger { display: flex; }
 }

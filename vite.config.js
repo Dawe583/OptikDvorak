@@ -10,6 +10,7 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         privacy: resolve(__dirname, 'ochrana-osobnich-udaju.html'),
         cookies: resolve(__dirname, 'cookies.html'),
+        deals: resolve(__dirname, 'akce.html'),
       },
     },
   },
