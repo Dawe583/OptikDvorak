@@ -1,0 +1,100 @@
+/* ============================================================
+   OPTIK DVOŘÁK — DESIGN TOKENY
+   Finalizováno art directorem flotily. Paleta krémová / žlutá /
+   černá s hloubkovými odstíny, ostré hrany (radius 0), film grain.
+   ============================================================ */
+
+:root {
+  /* --- Krémové plochy --- */
+  --paper: #F7F5EF;
+  --cream: #F4F1EA;
+  --cream-200: #EEEAE0;
+  --cream-300: #E4DFD2;
+
+  /* --- Žlutá (signature) --- */
+  --yellow: #FFE45C;
+  --yellow-deep: #F5C518;
+  --yellow-glow: rgba(255, 228, 92, 0.35);
+  --amber-ink: #8A6A00;      /* čitelný text NA žluté (AA) */
+
+  /* --- Černá / tmavé plochy --- */
+  --ink: #141414;
+  --ink-900: #0C0C0C;
+  --ink-800: #1F1E1C;
+  --ink-700: #2C2A27;
+  --ink-soft: #55534E;
+
+  /* --- Tóny obřích nadpisů (třítónová gradace) --- */
+  --t-dark: #6B6B66;
+  --t-mid: #9A988F;
+  --t-light: #BDBBB2;
+
+  /* --- Akcent --- */
+  --accent-cobalt: #3A5A7A;  /* jen mikrodávky */
+
+  /* --- Linky / oddělovače --- */
+  --line: rgba(20, 20, 20, 0.16);
+  --line-strong: rgba(20, 20, 20, 0.34);
+  --line-faint: rgba(20, 20, 20, 0.08);
+  --line-light: rgba(244, 241, 234, 0.16);
+
+  /* --- Scrimy přes fotky --- */
+  --scrim-ink: linear-gradient(180deg, rgba(12,12,12,0) 40%, rgba(12,12,12,0.55) 100%);
+  --scrim-cream: linear-gradient(0deg, rgba(244,241,234,0.9), rgba(244,241,234,0) 55%);
+
+  /* --- Stavy --- */
+  --state-success: #3C7A4E;
+  --state-error: #A6301F;
+  --error: #A6301F;          /* alias pro zpětnou kompatibilitu */
+  --state-error-bg: rgba(166, 48, 31, 0.08);
+  --focus-ring: rgba(255, 228, 92, 0.9);
+
+  /* --- Stíny (i s radius 0 dávají hloubku „vyříznutého papíru") --- */
+  --shadow-sm: 0 2px 10px rgba(20, 20, 20, 0.06);
+  --shadow-md: 0 12px 40px rgba(20, 20, 20, 0.10);
+  --shadow-lg: 0 28px 70px rgba(20, 20, 20, 0.16);
+
+  /* --- Tvar --- */
+  --radius: 0;
+
+  /* --- Grain --- */
+  --grain-strength: 0.055;
+
+  /* --- Rozměry / rytmus --- */
+  --header-h: 76px;
+  --header-h-scrolled: 60px;
+  --pad: clamp(5rem, 10vw, 8.5rem);
+  --pad-tight: clamp(3rem, 6vw, 5rem);
+  --gutter: clamp(1.4rem, 3vw, 2.5rem);
+  --container: min(1320px, 92vw);
+  --container-narrow: min(920px, 90vw);
+
+  /* --- Mezery --- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* --- Typografie --- */
+  --font-display: "Inter Tight Variable", "Inter Tight", sans-serif;
+  --font-body: "Inter Variable", "Inter", sans-serif;
+
+  --fs-hero: clamp(3.4rem, 9.2vw, 9rem);
+  --fs-display-1: clamp(2.8rem, 7.8vw, 6.8rem);
+  --fs-display-2: clamp(2.2rem, 5.2vw, 4.6rem);
+  --fs-display-3: clamp(1.8rem, 3.6vw, 3rem);
+  --fs-h3: clamp(1.15rem, 1.8vw, 1.5rem);
+  --fs-lead: clamp(1.12rem, 1.5vw, 1.35rem);
+  --fs-body: 1.0625rem;
+  --fs-body-sm: 0.95rem;
+  --fs-caption: 0.85rem;
+  --fs-eyebrow: 0.78rem;
+  --fs-wordmark: clamp(2.6rem, 7vw, 5.5rem);
+
+  /* --- Podpisová křivka (shodná s GSAP 'eo') --- */
+  --eo: cubic-bezier(0.16, 1, 0.3, 1);
+}
