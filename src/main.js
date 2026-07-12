@@ -14,6 +14,7 @@ import '@fontsource-variable/inter-tight';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Observer } from 'gsap/Observer';
 import { initCookies } from './js/cookies.js';
 
 const root = document.documentElement;
@@ -23,7 +24,7 @@ root.classList.add('js');
    Konstanta false drží gaty mrtvé; NIKDY nevracet matchMedia. */
 const prefersReduced = false;
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, Observer);
 
 /* Podpisová křivka — shodná s CSS var(--eo). CustomEase je součástí gsap balíčku. */
 (async () => {
@@ -82,6 +83,7 @@ function boot() {
   initCounters();
   initMarquee();
   initCarousels();
+  initRing();
   initGalleryLightbox();
   initAccordion();
   initHours();
@@ -236,8 +238,16 @@ function initPreloader() {
     return;
   }
   sessionStorage.setItem('od-seen', '1');
+  const num = pre.querySelector('.preloader__num');
+  const counter = { v: 0 };
   const tl = gsap.timeline();
   tl.to('.preloader__bar span', { scaleX: 1, duration: D.hero, ease: 'power2.inOut' })
+    .to(counter, {
+      v: 100,
+      duration: D.hero,
+      ease: 'power2.inOut',
+      onUpdate: () => { if (num) num.textContent = `${Math.round(counter.v)} %`; },
+    }, 0)
     .to(pre, { yPercent: -100, duration: D.curtain, ease: 'power4.inOut' }, '+=0.1')
     .add(() => pre.remove())
     .add(startHero, '-=0.35');
@@ -328,6 +338,71 @@ function initRules() {
   rules.forEach((r) => {
     gsap.to(r, { scaleX: 1, duration: 0.9, ease: 'eo', scrollTrigger: { trigger: r, start: 'top 92%', once: true } });
   });
+}
+
+/* ---------- 3D ring carousel (lookbook): autoplay rotace, drag
+   se setrvačností, šipky otáčí o krok, hloubkové stínování ---------- */
+function initRing() {
+  const ring = document.querySelector('.ring');
+  const stage = ring?.querySelector('.ring__stage');
+  if (!ring || !stage) return;
+  const items = gsap.utils.toArray(stage.children);
+  const n = items.length;
+  if (n < 3) return;
+  const stepDeg = 360 / n;
+
+  let radius = 0;
+  const layout = () => {
+    const w = items[0].offsetWidth || 280;
+    radius = Math.round(w / 2 / Math.tan(Math.PI / n)) + 46;
+    items.forEach((el, i) => {
+      el.style.transform = `translate(-50%, -50%) rotateY(${i * stepDeg}deg) translateZ(${radius}px)`;
+    });
+  };
+
+  const state = { rot: 0 };
+  const apply = () => {
+    stage.style.transform = `translateZ(${-radius}px) rotateY(${state.rot}deg)`;
+    items.forEach((el, i) => {
+      const a = (((i * stepDeg + state.rot) % 360) + 360) % 360;
+      const f = (Math.cos((a * Math.PI) / 180) + 1) / 2; // 1 = vpředu, 0 = vzadu
+      el.style.opacity = String(0.22 + f * 0.78);
+      el.style.filter = `brightness(${0.55 + f * 0.45}) saturate(${0.6 + f * 0.4})`;
+      el.style.zIndex = String(Math.round(f * 100));
+    });
+  };
+
+  layout();
+  apply();
+
+  const spin = gsap.to(state, { rot: '-=360', duration: 46, ease: 'none', repeat: -1, onUpdate: apply });
+
+  Observer.create({
+    target: ring,
+    type: 'pointer,touch',
+    dragMinimum: 4,
+    onPress: () => spin.pause(),
+    onDrag: (self) => { state.rot += self.deltaX * 0.26; apply(); },
+    onRelease: (self) => {
+      gsap.to(state, {
+        rot: state.rot + self.velocityX * 0.055,
+        duration: 1.1,
+        ease: 'power3.out',
+        onUpdate: apply,
+        onComplete: () => spin.play(),
+      });
+    },
+  });
+
+  const sec = ring.closest('section');
+  const nudge = (dir) => {
+    spin.pause();
+    gsap.to(state, { rot: `+=${dir * stepDeg}`, duration: 0.7, ease: 'eo', onUpdate: apply, onComplete: () => spin.play() });
+  };
+  sec?.querySelector('[data-carousel-prev]')?.addEventListener('click', () => nudge(1));
+  sec?.querySelector('[data-carousel-next]')?.addEventListener('click', () => nudge(-1));
+
+  window.addEventListener('resize', () => { layout(); apply(); });
 }
 
 /* ---------- Video mask: pinned sekce, scroll řídí currentTime videa,

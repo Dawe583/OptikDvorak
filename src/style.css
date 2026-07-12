@@ -639,3 +639,48 @@ body.menu-open .menu__nav a:nth-child(8) { transition-delay: 0.47s; }
 
 /* Filmový grade hero videa (jednotný teplý tón) */
 .hero__video { filter: saturate(1.06) sepia(0.06) contrast(1.03); }
+
+/* ============================================================
+   3D RING CAROUSEL (lookbook) — tažením se točí, autoplay
+   ============================================================ */
+.ring {
+  position: relative;
+  height: clamp(420px, 64vh, 580px);
+  perspective: 1500px;
+  overflow: hidden;
+  cursor: grab;
+  touch-action: pan-y;
+}
+.ring:active { cursor: grabbing; }
+.ring__stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.ring__item {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: min(280px, 58vw);
+  margin: 0;
+  will-change: transform, opacity, filter;
+}
+.ring__item img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+}
+
+/* Preloader: procenta */
+.preloader__num {
+  font-family: var(--font-display);
+  font-weight: 750;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  color: var(--yellow);
+  line-height: 1;
+  margin-bottom: 0.6rem;
+  font-variant-numeric: tabular-nums;
+}
