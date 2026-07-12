@@ -68,6 +68,11 @@ body { background: radial-gradient(120% 120% at 50% 0%, var(--paper), var(--crea
 .js [data-reveal] { opacity: 0; transform: translateY(30px); }
 .js [data-reveal].is-in { opacity: 1; transform: none; transition: opacity 0.8s var(--eo), transform 0.8s var(--eo); }
 
+/* Podstránky nemají burger → na mobilu ponech kompaktní CTA dostupné */
+@media (max-width: 1023px) {
+  .header__cta { display: inline-flex; font-size: 0.68rem; padding: 0.5rem 0.85rem; letter-spacing: 0.06em; }
+}
+
 @media (max-width: 900px) {
   .akce-grid { grid-template-columns: 1fr 1fr; }
   .akce-card--wide { grid-column: span 2; }

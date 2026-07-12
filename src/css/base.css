@@ -31,7 +31,11 @@ ul { list-style: none; }
 :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 .on-dark :focus-visible,
 .footer :focus-visible,
-.reach :focus-visible { outline-color: var(--focus-ring); }
+.reach :focus-visible,
+.menu :focus-visible,
+.lightbox :focus-visible,
+.timeline :focus-visible,
+.brands :focus-visible { outline-color: var(--focus-ring); }
 
 .container { width: var(--container); margin-inline: auto; }
 .container-narrow { width: var(--container-narrow); margin-inline: auto; }
@@ -310,7 +314,6 @@ p { text-wrap: pretty; }
   pointer-events: none;
   opacity: var(--grain-strength);
   mix-blend-mode: overlay;
-  will-change: transform;
   transform: translateZ(0);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 160px 160px;
@@ -516,8 +519,7 @@ p { text-wrap: pretty; }
 }
 .skip-link:focus-visible { transform: translateY(0); outline-offset: -3px; }
 
-/* ---------- Utilita: skryté před revealem ---------- */
-.js [data-reveal], .js [data-reveal-group] > * { will-change: transform, opacity; }
+/* ---------- Utilita: will-change řídí GSAP jen po dobu animace ---------- */
 
 /* ---------- Mobil: cookie lišta nad mobilní lištou ---------- */
 @media (max-width: 767px) {

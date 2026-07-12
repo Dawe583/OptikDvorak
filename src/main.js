@@ -104,8 +104,13 @@ function initAnchors() {
       const target = document.querySelector(id);
       if (!target) return;
       e.preventDefault();
-      if (lenis) lenis.scrollTo(target, { offset: -68, duration: 1.1 });
-      else target.scrollIntoView();
+      // Po doscrollování přesuň fokus na cílovou sekci (WCAG 2.4.3)
+      const focusTarget = () => {
+        if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+        target.focus({ preventScroll: true });
+      };
+      if (lenis) lenis.scrollTo(target, { offset: -68, duration: 1.1, onComplete: focusTarget });
+      else { target.scrollIntoView(); focusTarget(); }
     });
   });
 }
@@ -151,6 +156,13 @@ function initMobileMenu() {
 
   let open = false;
   const focusable = () => menu.querySelectorAll('a[href], button:not([disabled])');
+  // Izolace pozadí pro asistivní technologie (mimo burger, který zavírá)
+  menu.setAttribute('role', 'dialog');
+  menu.setAttribute('aria-modal', 'true');
+  menu.setAttribute('aria-label', 'Navigace');
+  const bg = ['#top', '.footer', '.header__logo', '.mobile-bar']
+    .map((s) => document.querySelector(s))
+    .filter(Boolean);
 
   const setOpen = (state) => {
     open = state;
@@ -158,6 +170,7 @@ function initMobileMenu() {
     toggle.setAttribute('aria-expanded', String(state));
     toggle.setAttribute('aria-label', state ? 'Zavřít menu' : 'Otevřít menu');
     menu.setAttribute('aria-hidden', String(!state));
+    bg.forEach((el) => { if (state) el.setAttribute('inert', ''); else el.removeAttribute('inert'); });
     if (state) {
       if (lenis) lenis.stop(); else document.documentElement.style.overflow = 'hidden';
       focusable()[0]?.focus?.();
@@ -278,23 +291,27 @@ function initParallax() {
   });
 }
 
-/* ---------- Obří nadpisy: drift + skew podle rychlosti ---------- */
+/* ---------- Obří nadpisy: drift + skew podle rychlosti (všechna zařízení) ---------- */
 function initGiantDrift() {
-  if (prefersReduced || window.innerWidth < 768) return; // na úzkých displejích drift vypnout
+  if (prefersReduced) return;
+  // Menší amplituda na úzkých displejích, ať nevzniká horizontální přetečení
+  const amp = () => (window.innerWidth < 768 ? 12 : 26);
+  const skewMax = () => (window.innerWidth < 768 ? 3 : 6);
   gsap.utils.toArray('.giant').forEach((el) => {
     const skewTo = gsap.quickTo(el, 'skewY', { duration: 0.5, ease: 'power3' });
     gsap.fromTo(
       el,
-      { x: 26 },
+      { x: () => amp() },
       {
-        x: -26,
+        x: () => -amp(),
         ease: 'none',
         scrollTrigger: {
           trigger: el,
           start: 'top bottom',
           end: 'bottom top',
           scrub: 1,
-          onUpdate: (self) => skewTo(gsap.utils.clamp(-6, 6, self.getVelocity() / -340)),
+          invalidateOnRefresh: true,
+          onUpdate: (self) => skewTo(gsap.utils.clamp(-skewMax(), skewMax(), self.getVelocity() / -340)),
         },
       }
     );
@@ -377,8 +394,25 @@ function initMarquee() {
   });
   if (prefersReduced || !tweens.length) return;
 
+  // Pauza běhu mimo viewport (šetří výkon)
+  let activeCount = 0;
+  gsap.utils.toArray('.marquee').forEach((m) => {
+    const track = m.querySelector('.marquee__track');
+    const tween = tweens.find((t) => t.targets()[0] === track);
+    if (!tween) return;
+    tween.pause();
+    ScrollTrigger.create({
+      trigger: m, start: 'top bottom', end: 'bottom top',
+      onToggle: (self) => {
+        if (self.isActive) { tween.play(); activeCount++; }
+        else { tween.pause(); activeCount = Math.max(0, activeCount - 1); }
+      },
+    });
+  });
+
   let hoverTS = null;
   gsap.ticker.add(() => {
+    if (activeCount === 0) return; // nic viditelného → žádná práce
     velTS += (1 - velTS) * 0.04; // plynulý návrat na baseline
     const base = velTS === 0 ? 0.001 : velTS;
     const ts = hoverTS != null ? hoverTS : base;
@@ -515,9 +549,13 @@ function initForms() {
         firstInvalid?.focus();
         return;
       }
-      const ok = document.getElementById('form-success');
-      if (ok) ok.classList.add('is-visible');
       form.querySelector('button[type="submit"]').disabled = true;
+      const ok = document.getElementById('form-success');
+      if (ok) {
+        ok.classList.add('is-visible');
+        ok.setAttribute('tabindex', '-1');
+        ok.focus({ preventScroll: true });
+      }
     });
   }
 
@@ -582,7 +620,7 @@ function initHoverMotion() {
 
     // Magnetická tlačítka
     const magnets = [];
-    document.querySelectorAll('.btn-outline, .header__cta, .btn-solid, .sticky-cta').forEach((btn) => {
+    document.querySelectorAll('.btn-outline, .header__cta, .btn-solid').forEach((btn) => {
       const xTo = gsap.quickTo(btn, 'x', { duration: 0.5, ease: 'eo' });
       const yTo = gsap.quickTo(btn, 'y', { duration: 0.5, ease: 'eo' });
       const onMove = (e) => {
@@ -684,7 +722,7 @@ function initCurtains() {
   });
 }
 
-/* ---------- Hero mouse-parallax ---------- */
+/* ---------- Hero motion: mouse-parallax (myš) + ambient float (touch) ---------- */
 function initHeroPointer() {
   if (prefersReduced) return;
   const hero = document.querySelector('.hero');
@@ -692,7 +730,10 @@ function initHeroPointer() {
   const glow = document.querySelector('.hero__glow');
   if (!hero || !media) return;
 
-  gsap.matchMedia().add('(hover: hover) and (pointer: fine) and (min-width: 768px)', () => {
+  const mm = gsap.matchMedia();
+
+  // Zařízení s myší: parallax reagující na kurzor
+  mm.add('(hover: hover) and (pointer: fine) and (min-width: 768px)', () => {
     const mx = gsap.quickTo(media, 'x', { duration: 0.9, ease: 'power3' });
     const my = gsap.quickTo(media, 'y', { duration: 0.9, ease: 'power3' });
     const gx = glow ? gsap.quickTo(glow, 'x', { duration: 1.2, ease: 'power3' }) : null;
@@ -707,9 +748,16 @@ function initHeroPointer() {
     hero.addEventListener('pointermove', onMove);
     return () => hero.removeEventListener('pointermove', onMove);
   });
+
+  // Dotyková zařízení / bez myši: jemný „ambient float", ať hero žije i bez kurzoru
+  mm.add('(hover: none), (pointer: coarse)', () => {
+    const t1 = gsap.to(media, { y: '+=10', duration: 3.6, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+    const t2 = glow ? gsap.to(glow, { x: '+=14', y: '+=10', duration: 5, ease: 'sine.inOut', yoyo: true, repeat: -1 }) : null;
+    return () => { t1.kill(); t2 && t2.kill(); gsap.set(media, { y: 0 }); glow && gsap.set(glow, { x: 0, y: 0 }); };
+  });
 }
 
-/* ---------- Proces: pin + postupná aktivace kroků ---------- */
+/* ---------- Proces: pin (desktop) + postupná aktivace (mobil) ---------- */
 function initProcessPin() {
   if (prefersReduced) return;
   const section = document.querySelector('.process');
@@ -717,7 +765,10 @@ function initProcessPin() {
   const bar = document.querySelector('.process__progress span');
   if (!section || steps.length < 2) return;
 
-  gsap.matchMedia().add('(min-width: 1024px)', () => {
+  const mm = gsap.matchMedia();
+
+  // Desktop: připnutá sekce + scrub aktivace s tlumením neaktivních
+  mm.add('(min-width: 1024px)', () => {
     section.classList.add('is-pinning');
     const setActive = (p) => {
       if (bar) gsap.set(bar, { scaleX: gsap.utils.clamp(0, 1, p) });
@@ -742,6 +793,29 @@ function initProcessPin() {
       st.kill();
       section.classList.remove('is-pinning');
       steps.forEach((s) => { s.classList.remove('is-active'); gsap.set(s, { opacity: 1 }); });
+    };
+  });
+
+  // Mobil/tablet: bez pinu — progress bar + rozsvěcení čísel kroků (žádné tlumení, ať nekoliduje s reveal)
+  mm.add('(max-width: 1023px)', () => {
+    section.classList.add('is-activating');
+    const barTween = bar
+      ? gsap.fromTo(bar, { scaleX: 0 }, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: section, start: 'top 70%', end: 'bottom 55%', scrub: true } })
+      : null;
+    const triggers = steps.map((s) =>
+      ScrollTrigger.create({
+        trigger: s,
+        start: 'top 80%',
+        end: 'bottom 45%',
+        onToggle: (self) => s.classList.toggle('is-active', self.isActive),
+      })
+    );
+    return () => {
+      section.classList.remove('is-activating');
+      steps.forEach((s) => s.classList.remove('is-active'));
+      barTween && barTween.scrollTrigger && barTween.scrollTrigger.kill();
+      barTween && barTween.kill();
+      triggers.forEach((t) => t.kill());
     };
   });
 }
@@ -838,20 +912,40 @@ function initCarousels() {
     // Zabraň kliknutí po dragu
     rail.addEventListener('click', (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
 
-    // Autoplay
+    // Autoplay + přístupné tlačítko pauza/přehrát (WCAG 2.2.2)
     const delay = parseInt(rail.dataset.autoplay || '0', 10);
     if (delay > 0 && !prefersReduced) {
-      let timer = null;
-      const start = () => { if (!timer) timer = window.setInterval(() => go(1), delay); };
-      const stop = () => { if (timer) { window.clearInterval(timer); timer = null; } };
-      rail.addEventListener('pointerenter', stop);
-      rail.addEventListener('pointerdown', stop);
-      rail.addEventListener('pointerleave', start);
-      rail.addEventListener('focusin', stop);
-      rail.addEventListener('focusout', start);
-      document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else start(); });
-      // Spusť až bude sekce ve viewportu
-      ScrollTrigger.create({ trigger: rail, start: 'top 90%', end: 'bottom 10%', onToggle: (self) => (self.isActive ? start() : stop()) });
+      let timer = null, userPaused = false, inView = false, hovered = false;
+      const sync = () => {
+        const run = inView && !userPaused && !hovered && !document.hidden;
+        if (run && !timer) timer = window.setInterval(() => go(1), delay);
+        else if (!run && timer) { window.clearInterval(timer); timer = null; }
+      };
+      rail.addEventListener('pointerenter', () => { hovered = true; sync(); });
+      rail.addEventListener('pointerleave', () => { hovered = false; sync(); });
+      rail.addEventListener('pointerdown', () => { hovered = true; sync(); });
+      rail.addEventListener('focusin', () => { hovered = true; sync(); });
+      rail.addEventListener('focusout', () => { hovered = false; sync(); });
+      document.addEventListener('visibilitychange', sync);
+      ScrollTrigger.create({ trigger: rail, start: 'top 90%', end: 'bottom 10%', onToggle: (self) => { inView = self.isActive; sync(); } });
+
+      const btns = section.querySelector('.carousel__btns');
+      if (btns) {
+        const pp = document.createElement('button');
+        pp.type = 'button';
+        pp.className = 'carousel__btn carousel__toggle';
+        pp.setAttribute('aria-pressed', 'false');
+        pp.setAttribute('aria-label', 'Pozastavit automatické posouvání');
+        pp.innerHTML = '<span aria-hidden="true">❚❚</span>';
+        pp.addEventListener('click', () => {
+          userPaused = !userPaused;
+          pp.setAttribute('aria-pressed', String(userPaused));
+          pp.setAttribute('aria-label', userPaused ? 'Spustit automatické posouvání' : 'Pozastavit automatické posouvání');
+          pp.firstChild.textContent = userPaused ? '►' : '❚❚';
+          sync();
+        });
+        btns.insertBefore(pp, btns.firstChild);
+      }
     }
 
     update();
@@ -874,17 +968,20 @@ function initGalleryLightbox() {
   const img = box.querySelector('img');
   const closeBtn = box.querySelector('.lightbox__close');
   let lastFocused = null;
+  const bg = ['#top', '.footer', '.header'].map((s) => document.querySelector(s)).filter(Boolean);
 
   const open = (src, alt) => {
     img.src = src; img.alt = alt || '';
     lastFocused = document.activeElement;
     box.classList.add('is-open');
+    bg.forEach((el) => el.setAttribute('inert', ''));
     if (lenis) lenis.stop();
     closeBtn.focus();
   };
   const close = () => {
     box.classList.remove('is-open');
     img.src = '';
+    bg.forEach((el) => el.removeAttribute('inert'));
     if (lenis) lenis.start();
     if (lastFocused && lastFocused.focus) lastFocused.focus();
   };
@@ -898,7 +995,12 @@ function initGalleryLightbox() {
   });
   closeBtn.addEventListener('click', close);
   box.addEventListener('click', (e) => { if (e.target === box) close(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && box.classList.contains('is-open')) close(); });
+  document.addEventListener('keydown', (e) => {
+    if (!box.classList.contains('is-open')) return;
+    if (e.key === 'Escape') { close(); return; }
+    // Jediný fokusovatelný prvek = zavírací tlačítko → drž fokus uvnitř
+    if (e.key === 'Tab') { e.preventDefault(); closeBtn.focus(); }
+  });
 }
 
 /* ---------- Rok v patičce ---------- */
