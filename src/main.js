@@ -1,6 +1,6 @@
 /* ============================================================
    OPTIK DVOŘÁK — HOMEPAGE JS
-   GSAP + Lenis motion systém, plně přístupný (prefers-reduced-motion),
+   GSAP + Lenis motion systém běžící na všech zařízeních bez výjimky,
    custom kurzor, marquee reagující na scroll, živá otevírací doba,
    cookie consent. Podpisová křivka „eo" sladěná s CSS.
    ============================================================ */
@@ -19,7 +19,9 @@ import { initCookies } from './js/cookies.js';
 const root = document.documentElement;
 root.classList.add('js');
 
-const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* Motion běží všude bez výjimky (trvalé rozhodnutí klienta, viz CLAUDE.md).
+   Konstanta false drží gaty mrtvé; NIKDY nevracet matchMedia. */
+const prefersReduced = false;
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -45,7 +47,7 @@ let lenis = null;
 let velTS = 1; // cíl timeScale marquee podle rychlosti scrollu
 
 if (!prefersReduced) {
-  lenis = new Lenis({ duration: 1.15, smoothWheel: true, syncTouch: false });
+  lenis = new Lenis({ duration: 1.15, smoothWheel: true, syncTouch: true });
   lenis.on('scroll', ({ velocity }) => {
     velTS = gsap.utils.clamp(-4, 4, 1 + (velocity || 0) * 0.05);
     ScrollTrigger.update();
@@ -295,8 +297,8 @@ function initParallax() {
 function initGiantDrift() {
   if (prefersReduced) return;
   // Menší amplituda na úzkých displejích, ať nevzniká horizontální přetečení
-  const amp = () => (window.innerWidth < 768 ? 12 : 26);
-  const skewMax = () => (window.innerWidth < 768 ? 3 : 6);
+  const amp = () => 26;
+  const skewMax = () => 6;
   gsap.utils.toArray('.giant').forEach((el) => {
     const skewTo = gsap.quickTo(el, 'skewY', { duration: 0.5, ease: 'power3' });
     gsap.fromTo(

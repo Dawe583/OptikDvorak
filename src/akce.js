@@ -13,7 +13,8 @@ import { initCookies } from './js/cookies.js';
 
 document.documentElement.classList.add('js');
 
-const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* Motion všude bez výjimky (viz CLAUDE.md) — nikdy nevracet matchMedia. */
+const prefersReduced = false;
 
 /* Header pozadí po odscrollování */
 const header = document.getElementById('header');
