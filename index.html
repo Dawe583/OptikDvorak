@@ -384,6 +384,24 @@
       </div>
     </section>
 
+    <!-- ===================== VIDEO MASK (pinned, scroll řídí přehrávání) ===================== -->
+    <section class="videomask" aria-label="Video z prodejny">
+      <div class="videomask__stage">
+        <video class="videomask__video" muted playsinline preload="auto" poster="/img/hero-portrait.jpg" aria-hidden="true">
+          <source src="/video/hero.webm" type="video/webm" />
+        </video>
+        <svg class="videomask__overlay" width="100%" height="100%" aria-hidden="true">
+          <defs>
+            <mask id="vm-text">
+              <rect width="100%" height="100%" fill="#fff" />
+              <text class="videomask__word" x="50%" y="53%" text-anchor="middle" dominant-baseline="middle" fill="#000">OSTŘE</text>
+            </mask>
+          </defs>
+          <rect width="100%" height="100%" fill="#F4F1EA" mask="url(#vm-text)" />
+        </svg>
+      </div>
+    </section>
+
     <!-- ===================== O NÁS ===================== -->
     <section class="about bg-cream-200" id="o-nas">
       <div class="container">

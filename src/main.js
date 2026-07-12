@@ -78,6 +78,7 @@ function boot() {
   initGiantDrift();
   initRules();
   initProcessPin();
+  initVideoMask();
   initCounters();
   initMarquee();
   initCarousels();
@@ -327,6 +328,42 @@ function initRules() {
   rules.forEach((r) => {
     gsap.to(r, { scaleX: 1, duration: 0.9, ease: 'eo', scrollTrigger: { trigger: r, start: 'top 92%', once: true } });
   });
+}
+
+/* ---------- Video mask: pinned sekce, scroll řídí currentTime videa,
+   nápis roste; video prosvítá skrz písmena SVG masky ---------- */
+function initVideoMask() {
+  const sec = document.querySelector('.videomask');
+  const video = sec?.querySelector('.videomask__video');
+  if (!sec || !video) return;
+  const word = sec.querySelector('.videomask__word');
+  video.load(); // druhý <video> se stejným zdrojem prohlížeč sám nenačte
+
+  let progress = 0;
+  ScrollTrigger.create({
+    trigger: sec,
+    start: 'top top',
+    end: '+=160%',
+    pin: true,
+    scrub: true,
+    onUpdate: (self) => { progress = self.progress; },
+  });
+
+  /* Plynulý dojezd času videa (přímé skoky currentTime drhnou) */
+  gsap.ticker.add(() => {
+    if (!video.duration) return;
+    const t = progress * Math.max(0, video.duration - 0.05);
+    const diff = t - video.currentTime;
+    if (Math.abs(diff) > 0.02) video.currentTime += diff * 0.18;
+  });
+
+  if (word) {
+    gsap.fromTo(word, { scale: 0.82 }, {
+      scale: 1.28,
+      ease: 'none',
+      scrollTrigger: { trigger: sec, start: 'top top', end: '+=160%', scrub: true },
+    });
+  }
 }
 
 /* ---------- Počítadla — odometer (rolující číslice) ---------- */

@@ -614,3 +614,28 @@ body.menu-open .menu__nav a:nth-child(8) { transition-delay: 0.47s; }
 
 /* Reduced-motion backstop trvale odstraněn: animace běží na všech
    zařízeních bez výjimky (rozhodnutí klienta, viz CLAUDE.md). */
+
+/* ============================================================
+   VIDEO MASK — pinned sekce, video prosvítá skrz obří nápis,
+   přehrávání řídí scroll (initVideoMask)
+   ============================================================ */
+.videomask { position: relative; }
+.videomask__stage { position: relative; height: 100vh; height: 100dvh; overflow: hidden; }
+.videomask__video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: saturate(1.06) sepia(0.06) contrast(1.03);
+}
+.videomask__overlay { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.videomask__word {
+  font-family: var(--font-display);
+  font-weight: 750;
+  font-size: clamp(6rem, 22vw, 22rem);
+  letter-spacing: -0.02em;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* Filmový grade hero videa (jednotný teplý tón) */
+.hero__video { filter: saturate(1.06) sepia(0.06) contrast(1.03); }
