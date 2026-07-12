@@ -499,6 +499,8 @@ body.menu-open .menu__nav a:nth-child(8) { transition-delay: 0.47s; }
 .reviews__links .btn-outline { justify-content: space-between; }
 .reviews__nav { margin-bottom: 1.4rem; }
 .review__avatar { font-size: 1.1rem; }
+.review--real { border-color: var(--ink); border-left: 3px solid var(--yellow-deep); }
+.review--real .review__avatar { background: var(--ink); color: var(--yellow); font-size: 0.85rem; }
 
 /* ============================================================
    AKCE — actions
