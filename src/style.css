@@ -651,6 +651,21 @@ body.menu-open .menu__nav a:nth-child(8) { transition-delay: 0.47s; }
   transform-box: fill-box;
   transform-origin: center;
 }
+/* Značka (eyebrow + logo s brýlemi) přes krémovou masku */
+.videomask__mark {
+  position: absolute; z-index: 3;
+  left: 0; right: 0; bottom: clamp(2rem, 7vh, 5.5rem);
+  display: flex; flex-direction: column; align-items: center; gap: 0.9rem;
+  pointer-events: none; text-align: center;
+}
+.videomask__eyebrow {
+  font-size: var(--fs-eyebrow); font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.18em; color: var(--ink-soft);
+  display: inline-flex; align-items: center; gap: 0.7rem;
+}
+.videomask__eyebrow::before,
+.videomask__eyebrow::after { content: ""; width: 26px; height: 1px; background: var(--yellow-deep); }
+.videomask__logo { width: clamp(200px, 34vw, 372px); height: auto; }
 
 /* Filmový grade hero videa (jednotný teplý tón, sdílí token s fotkami) */
 .hero__video { filter: var(--photo-filter); }

@@ -533,21 +533,42 @@ function initVideoMask() {
   const sec = document.querySelector('.videomask');
   const video = sec?.querySelector('.videomask__video');
   if (!sec || !video) return;
-  const word = sec.querySelector('.videomask__word');
+  const words = gsap.utils.toArray('.videomask__word', sec);
+  const N = words.length || 1;
 
   /* Druhé stažení videa až když se sekce blíží (nesoupeří s LCP) */
   new IntersectionObserver((entries, io) => {
     if (entries[0].isIntersecting) { video.load(); io.disconnect(); }
   }, { rootMargin: '100% 0px' }).observe(sec);
 
+  gsap.set(words, { transformOrigin: 'center' });
+
+  /* Slova se přes scroll prolínají (OSTŘE → VIDĚT → STYL) a rostou.
+     Vždy je aspoň jedno slovo vidět, ať krémová maska neprobleskne. */
+  const seg = 1 / N;
+  const setWords = (p) => {
+    words.forEach((w, i) => {
+      const lp = (p - i * seg) / seg;             // 0..1 v aktivním okně slova
+      const riseIn = i > 0, fallOut = i < N - 1;
+      let op = 0;
+      if (lp >= (riseIn ? -0.06 : -1) && lp <= (fallOut ? 1.06 : 2)) {
+        if (riseIn && lp < 0.16) op = (lp + 0.06) / 0.22;
+        else if (fallOut && lp > 0.84) op = (1.06 - lp) / 0.22;
+        else op = 1;
+      }
+      gsap.set(w, { opacity: gsap.utils.clamp(0, 1, op), scale: 0.9 + gsap.utils.clamp(0, 1, lp) * 0.36 });
+    });
+  };
+  setWords(0);
+
   let progress = 0;
   const st = ScrollTrigger.create({
     trigger: sec,
     start: 'top top',
-    end: '+=160%',
+    end: '+=' + Math.max(160, N * 90) + '%',
     pin: true,
     scrub: true,
-    onUpdate: (self) => { progress = self.progress; },
+    onUpdate: (self) => { progress = self.progress; setWords(self.progress); },
   });
 
   /* Plynulý dojezd času videa; běží jen dokud je sekce pinnutá */
@@ -557,14 +578,6 @@ function initVideoMask() {
     const diff = t - video.currentTime;
     if (Math.abs(diff) > 0.02) video.currentTime += diff * 0.18;
   });
-
-  if (word) {
-    gsap.fromTo(word, { scale: 0.82 }, {
-      scale: 1.28,
-      ease: 'none',
-      scrollTrigger: { trigger: sec, start: 'top top', end: '+=160%', scrub: true },
-    });
-  }
 }
 
 /* ---------- Počítadla — odometer (rolující číslice) ---------- */
