@@ -347,7 +347,7 @@
         </div>
       </div>
       <!-- 3D kolotoč: tažením roztočíte, šipky otáčí o jeden kus -->
-      <div class="ring" data-reveal data-cursor="view">
+      <div class="ring" data-reveal data-cursor="view" data-lenis-prevent>
         <div class="ring__stage">
           <figure class="lookbook__slide ring__item"><img src="/img/hero-portrait.jpg" alt="Elegantní sluneční brýle se zlatou obrubou" loading="lazy" /><figcaption>Elegance</figcaption></figure>
           <figure class="lookbook__slide ring__item"><img src="/img/glasses-table.jpg" alt="Charakterní obruby na mramoru" loading="lazy" /><figcaption>Charakter</figcaption></figure>
@@ -396,9 +396,9 @@
     </section>
 
     <!-- ===================== VIDEO MASK (pinned, scroll řídí přehrávání) ===================== -->
-    <section class="videomask" aria-label="Video z prodejny">
+    <div class="videomask" aria-hidden="true">
       <div class="videomask__stage">
-        <video class="videomask__video" muted playsinline preload="auto" poster="/img/hero-portrait.jpg" aria-hidden="true">
+        <video class="videomask__video" muted playsinline preload="none" poster="/img/hero-portrait.jpg" aria-hidden="true">
           <source src="/video/hero.webm" type="video/webm" />
         </video>
         <svg class="videomask__overlay" width="100%" height="100%" aria-hidden="true">
@@ -411,7 +411,7 @@
           <rect width="100%" height="100%" fill="#F4F1EA" mask="url(#vm-text)" />
         </svg>
       </div>
-    </section>
+    </div>
 
     <!-- ===================== O NÁS ===================== -->
     <section class="about bg-cream-200" id="o-nas">
@@ -693,6 +693,7 @@
               <p class="form__consent">Odesláním souhlasíte se zpracováním údajů pro vyřízení vašeho dotazu. Více v <a href="/ochrana-osobnich-udaju.html">Zásadách ochrany osobních údajů</a>.</p>
 
               <button type="submit" class="btn-square">Odeslat poptávku</button>
+              <p class="form__error" id="form-net-error" role="alert" hidden>Odeslání se nepodařilo. Zavolejte nám prosím na <a href="tel:+420702194246">+420 702 194 246</a>.</p>
               <p class="form__success" id="form-success" role="status"><span aria-hidden="true">✓</span> Děkujeme! Vaše poptávka je na cestě, ozveme se vám co nejdříve.</p>
             </form>
           </div>

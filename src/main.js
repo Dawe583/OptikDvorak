@@ -365,29 +365,35 @@ function initImageTrail() {
   let lastX = 0;
   let lastY = 0;
   let acc = 0;
+  let alive = 0;
+  let rect = null;
+  const refreshRect = () => { rect = hero.getBoundingClientRect(); };
+  window.addEventListener('resize', refreshRect);
 
   hero.addEventListener('pointermove', (e) => {
+    if (e.pointerType !== 'mouse') return; // na dotyku by spawnoval při scrollu
     acc += Math.hypot(e.clientX - lastX, e.clientY - lastY);
     lastX = e.clientX;
     lastY = e.clientY;
-    if (acc < 150) return;
+    if (acc < 150 || alive >= 6) return;
     acc = 0;
+    if (!rect) refreshRect();
 
     const img = document.createElement('img');
     img.className = 'trail-img';
     img.src = srcs[i++ % srcs.length];
     img.alt = '';
-    const r = hero.getBoundingClientRect();
-    img.style.left = `${e.clientX - r.left}px`;
-    img.style.top = `${e.clientY - r.top}px`;
+    img.style.left = `${e.clientX - rect.left}px`;
+    img.style.top = `${e.clientY - rect.top}px`;
     hero.appendChild(img);
+    alive++;
 
     gsap.fromTo(img,
       { scale: 0.4, opacity: 0, rotate: gsap.utils.random(-14, 14) },
       { scale: 1, opacity: 1, duration: 0.3, ease: 'power2.out' });
     gsap.to(img, {
       opacity: 0, scale: 0.9, y: 44, duration: 0.55, delay: 0.35,
-      ease: 'power2.in', onComplete: () => img.remove(),
+      ease: 'power2.in', onComplete: () => { img.remove(); alive--; },
     });
   });
 }
@@ -425,27 +431,50 @@ function initRing() {
     });
   };
 
+  items.forEach((el) => {
+    el.setAttribute('role', 'group');
+    el.setAttribute('aria-roledescription', 'slide');
+  });
+
   const state = { rot: 0 };
+  const lastF = new Array(n).fill(-1);
   const apply = () => {
     stage.style.transform = `translateZ(${-radius}px) rotateY(${state.rot}deg)`;
     items.forEach((el, i) => {
       const a = (((i * stepDeg + state.rot) % 360) + 360) % 360;
-      const f = (Math.cos((a * Math.PI) / 180) + 1) / 2; // 1 = vpředu, 0 = vzadu
+      const f = Math.round(((Math.cos((a * Math.PI) / 180) + 1) / 2) * 100) / 100; // 1 = vpředu
+      if (f === lastF[i]) return; // beze změny nepřepisovat styly (filter je drahý)
+      lastF[i] = f;
       el.style.opacity = String(0.22 + f * 0.78);
       el.style.filter = `brightness(${0.55 + f * 0.45}) saturate(${0.6 + f * 0.4})`;
       el.style.zIndex = String(Math.round(f * 100));
+      el.setAttribute('aria-hidden', f < 0.5 ? 'true' : 'false');
     });
   };
 
   layout();
   apply();
 
-  const spin = gsap.to(state, { rot: '-=360', duration: 46, ease: 'none', repeat: -1, onUpdate: apply });
+  const spin = gsap.to(state, { rot: '-=360', duration: 46, ease: 'none', repeat: -1, onUpdate: apply, paused: true });
+  let userPaused = false;
+
+  /* Točí se jen ve viewportu; mimo něj se šetří GPU vrstvy */
+  ScrollTrigger.create({
+    trigger: ring,
+    start: 'top bottom',
+    end: 'bottom top',
+    onToggle: (self) => {
+      ring.classList.toggle('is-live', self.isActive);
+      if (self.isActive && !userPaused) spin.play();
+      else spin.pause();
+    },
+  });
 
   Observer.create({
     target: ring,
     type: 'pointer,touch',
     dragMinimum: 4,
+    preventDefault: true,
     onPress: () => spin.pause(),
     onDrag: (self) => { state.rot += self.deltaX * 0.26; apply(); },
     onRelease: (self) => {
@@ -454,7 +483,7 @@ function initRing() {
         duration: 1.1,
         ease: 'power3.out',
         onUpdate: apply,
-        onComplete: () => spin.play(),
+        onComplete: () => { if (!userPaused) spin.play(); },
       });
     },
   });
@@ -462,12 +491,36 @@ function initRing() {
   const sec = ring.closest('section');
   const nudge = (dir) => {
     spin.pause();
-    gsap.to(state, { rot: `+=${dir * stepDeg}`, duration: 0.7, ease: 'eo', onUpdate: apply, onComplete: () => spin.play() });
+    gsap.to(state, { rot: `+=${dir * stepDeg}`, duration: 0.7, ease: 'eo', onUpdate: apply, onComplete: () => { if (!userPaused) spin.play(); } });
   };
   sec?.querySelector('[data-carousel-prev]')?.addEventListener('click', () => nudge(1));
   sec?.querySelector('[data-carousel-next]')?.addEventListener('click', () => nudge(-1));
 
-  window.addEventListener('resize', () => { layout(); apply(); });
+  /* WCAG 2.2.2: tlačítko pro zastavení automatické rotace */
+  const btns = sec?.querySelector('.carousel__btns');
+  if (btns) {
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'carousel__btn';
+    toggle.setAttribute('aria-pressed', 'false');
+    toggle.setAttribute('aria-label', 'Pozastavit automatické otáčení');
+    toggle.textContent = '⏸';
+    toggle.addEventListener('click', () => {
+      userPaused = !userPaused;
+      toggle.setAttribute('aria-pressed', String(userPaused));
+      toggle.setAttribute('aria-label', userPaused ? 'Spustit automatické otáčení' : 'Pozastavit automatické otáčení');
+      toggle.textContent = userPaused ? '▶' : '⏸';
+      if (userPaused) spin.pause();
+      else spin.play();
+    });
+    btns.appendChild(toggle);
+  }
+
+  let resizeT;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(() => { lastF.fill(-1); layout(); apply(); }, 150);
+  });
 }
 
 /* ---------- Video mask: pinned sekce, scroll řídí currentTime videa,
@@ -477,10 +530,14 @@ function initVideoMask() {
   const video = sec?.querySelector('.videomask__video');
   if (!sec || !video) return;
   const word = sec.querySelector('.videomask__word');
-  video.load(); // druhý <video> se stejným zdrojem prohlížeč sám nenačte
+
+  /* Druhé stažení videa až když se sekce blíží (nesoupeří s LCP) */
+  new IntersectionObserver((entries, io) => {
+    if (entries[0].isIntersecting) { video.load(); io.disconnect(); }
+  }, { rootMargin: '100% 0px' }).observe(sec);
 
   let progress = 0;
-  ScrollTrigger.create({
+  const st = ScrollTrigger.create({
     trigger: sec,
     start: 'top top',
     end: '+=160%',
@@ -489,9 +546,9 @@ function initVideoMask() {
     onUpdate: (self) => { progress = self.progress; },
   });
 
-  /* Plynulý dojezd času videa (přímé skoky currentTime drhnou) */
+  /* Plynulý dojezd času videa; běží jen dokud je sekce pinnutá */
   gsap.ticker.add(() => {
-    if (!video.duration) return;
+    if (!st.isActive || !video.duration) return;
     const t = progress * Math.max(0, video.duration - 0.05);
     const diff = t - video.currentTime;
     if (Math.abs(diff) > 0.02) video.currentTime += diff * 0.18;
@@ -704,7 +761,9 @@ function initReachGlow() {
 
 /* ---------- Formuláře ---------- */
 /* Web3Forms endpoint: po vygenerování access key (web3forms.com, e-mail
-   optika.americka@seznam.cz) sem vložte klíč. Prázdný = jen lokální potvrzení. */
+   optika.americka@seznam.cz) sem vložte klíč. Prázdný = jen lokální potvrzení.
+   Klíč je veřejný záměrně — skutečná ochrana proti zneužití je v dashboardu
+   Web3Forms zapnout „Allowed Domains" jen pro optikdvorak.cz. */
 const WEB3FORMS_KEY = '';
 
 function initForms() {
@@ -735,16 +794,22 @@ function initForms() {
       const submitBtn = form.querySelector('button[type="submit"]');
       submitBtn.disabled = true;
 
+      const netError = document.getElementById('form-net-error');
+      if (netError) netError.hidden = true;
+
       if (WEB3FORMS_KEY) {
         try {
           const data = new FormData(form);
           data.append('access_key', WEB3FORMS_KEY);
           data.append('subject', 'Nová poptávka z webu Optik Dvořák');
-          const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
+          const ctrl = new AbortController();
+          const kill = setTimeout(() => ctrl.abort(), 10000);
+          const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data, signal: ctrl.signal });
+          clearTimeout(kill);
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
         } catch {
           submitBtn.disabled = false;
-          alert('Odeslání se nepodařilo. Zavolejte nám prosím na +420 702 194 246.');
+          if (netError) netError.hidden = false;
           return;
         }
       }

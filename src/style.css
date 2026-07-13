@@ -665,8 +665,12 @@ body.menu-open .menu__nav a:nth-child(8) { transition-delay: 0.47s; }
   top: 0;
   width: min(280px, 58vw);
   margin: 0;
-  will-change: transform, opacity, filter;
 }
+/* GPU vrstvy jen dokud je ring ve viewportu (třídu řídí ScrollTrigger) */
+.ring.is-live .ring__item { will-change: transform, opacity, filter; }
+
+/* Síťová chyba formuláře (inline role=alert) */
+#form-net-error:not([hidden]) { display: block; margin-top: 1rem; }
 .ring__item img {
   width: 100%;
   aspect-ratio: 3 / 4;

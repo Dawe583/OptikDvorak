@@ -41,7 +41,8 @@ body { background: var(--cream); }
 
 .legal-note { margin-top: 2rem; padding: 1.2rem 1.4rem; background: var(--cream-200); border-left: 4px solid var(--yellow-deep); font-size: 0.9rem; color: var(--ink-soft); }
 
-/* Podstránky nemají burger → na mobilu ponech kompaktní CTA dostupné */
+/* Podstránky nemají burger → na mobilu schovej nav (přetékal by) a ponech kompaktní CTA */
 @media (max-width: 1023px) {
+  .header__nav { display: none; }
   .header__cta { display: inline-flex; font-size: 0.68rem; padding: 0.5rem 0.85rem; letter-spacing: 0.06em; }
 }
