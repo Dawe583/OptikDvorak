@@ -10,6 +10,7 @@ import '@fontsource-variable/inter';
 import '@fontsource-variable/bricolage-grotesque';
 
 import { initCookies } from './js/cookies.js';
+import { initPageTransitions } from './js/page-transition.js';
 
 document.documentElement.classList.add('js');
 
@@ -26,3 +27,4 @@ const year = document.getElementById('year');
 if (year) year.textContent = String(new Date().getFullYear());
 
 initCookies();
+initPageTransitions();

@@ -14,6 +14,7 @@ import '@fontsource-variable/inter';
 import '@fontsource-variable/bricolage-grotesque';
 
 import { initCookies } from './js/cookies.js';
+import { initPageTransitions } from './js/page-transition.js';
 import * as M from './js/motion-core.js';
 
 document.documentElement.classList.add('js');
@@ -42,10 +43,14 @@ M.prepHero();
   M.initHoverMotion();
   M.initFooterScrub();
   M.initStickyCta();
+  M.initHeroVideo();
+  M.initReachVideo();
+  M.initForms();
   M.initHours();
   M.initYear();
 
   initCookies();
+  initPageTransitions();
 
   document.fonts && document.fonts.ready.then(() => M.ScrollTrigger.refresh());
   window.addEventListener('load', () => M.ScrollTrigger.refresh());

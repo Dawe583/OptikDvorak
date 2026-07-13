@@ -503,7 +503,7 @@ export function initFooterScrub() {
 export function initStickyCta() {
   const pill = document.querySelector('.sticky-cta');
   const hero = document.querySelector('.subhero, .hero');
-  const contact = document.getElementById('kontakt');
+  const contact = document.getElementById('objednat') || document.getElementById('kontakt');
   if (!pill || !hero) return;
 
   const show = () => gsap.to(pill, { opacity: 1, y: 0, scale: 1, duration: D.ui, ease: 'eo' });
@@ -551,6 +551,121 @@ export function initHours() {
   update();
   setInterval(update, 60000);
   document.addEventListener('visibilitychange', () => { if (!document.hidden) update(); });
+}
+
+/* ---------- Hero video (self-hosted webm) ---------- */
+export function initHeroVideo() {
+  gsap.utils.toArray('.subhero__video').forEach((v) => {
+    const play = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+    if (v.readyState >= 2) play();
+    else v.addEventListener('canplay', play, { once: true });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) v.pause(); else play(); });
+  });
+}
+
+/* ---------- Video pozadí na konverzní CTA (lazy-load ve viewportu) ---------- */
+export function initReachVideo() {
+  gsap.utils.toArray('.reach__video').forEach((video) => {
+    const src = video.querySelector('source[data-src]');
+    new IntersectionObserver((entries, io) => {
+      if (!entries[0].isIntersecting) return;
+      io.disconnect();
+      if (src && !src.src) src.src = src.dataset.src;
+      video.load();
+      const play = () => { const p = video.play(); if (p && p.catch) p.catch(() => {}); };
+      if (video.readyState >= 2) play();
+      else video.addEventListener('canplay', play, { once: true });
+      video.classList.add('is-on');
+    }, { rootMargin: '200px 0px' }).observe(video);
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) video.pause();
+      else if (video.classList.contains('is-on')) video.play().catch(() => {});
+    });
+  });
+}
+
+/* ---------- Formuláře (poptávka na podstránce) ----------
+   Web3Forms endpoint: po vygenerování access key sem vložte klíč
+   (shodný s main.js). Prázdný = jen lokální potvrzení. */
+const WEB3FORMS_KEY = '';
+
+export function initForms() {
+  const form = document.getElementById('booking-form');
+  if (!form) return;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (form.company && form.company.value) return; // honeypot
+    let valid = true;
+    let firstInvalid = null;
+    ['f-name', 'f-phone', 'f-service'].forEach((id) => {
+      const input = document.getElementById(id);
+      if (!input) return;
+      const field = input.closest('.form__field');
+      if (!field) return;
+      const bad = !input.value.trim();
+      field.classList.toggle('is-invalid', bad);
+      input.setAttribute('aria-invalid', bad ? 'true' : 'false');
+      if (bad) { valid = false; if (!firstInvalid) firstInvalid = input; }
+    });
+    if (!valid) {
+      form.classList.remove('is-shaking');
+      void form.offsetWidth;
+      form.classList.add('is-shaking');
+      firstInvalid?.focus();
+      return;
+    }
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.classList.add('is-loading');
+
+    const netError = document.getElementById('form-net-error');
+    if (netError) netError.hidden = true;
+
+    if (WEB3FORMS_KEY) {
+      try {
+        const data = new FormData(form);
+        data.append('access_key', WEB3FORMS_KEY);
+        data.append('subject', 'Nová poptávka z webu Optik Dvořák');
+        const ctrl = new AbortController();
+        const kill = setTimeout(() => ctrl.abort(), 10000);
+        const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data, signal: ctrl.signal });
+        clearTimeout(kill);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      } catch {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('is-loading');
+        if (netError) netError.hidden = false;
+        return;
+      }
+    }
+
+    submitBtn.classList.remove('is-loading');
+    const ok = document.getElementById('form-success');
+    if (ok) {
+      ok.classList.add('is-visible');
+      ok.setAttribute('tabindex', '-1');
+      ok.focus({ preventScroll: true });
+    }
+  });
+
+  /* Inline validace při opuštění pole (jemný micro-detail) */
+  form.querySelectorAll('input[required], select[required]').forEach((input) => {
+    input.addEventListener('blur', () => {
+      const field = input.closest('.form__field');
+      if (!field) return;
+      const bad = !input.value.trim();
+      field.classList.toggle('is-invalid', bad);
+      input.setAttribute('aria-invalid', bad ? 'true' : 'false');
+    });
+    input.addEventListener('input', () => {
+      const field = input.closest('.form__field');
+      if (field && field.classList.contains('is-invalid') && input.value.trim()) {
+        field.classList.remove('is-invalid');
+        input.setAttribute('aria-invalid', 'false');
+      }
+    });
+  });
 }
 
 /* ---------- Rok v patičce ---------- */

@@ -16,6 +16,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Observer } from 'gsap/Observer';
 import { initCookies } from './js/cookies.js';
+import { initPageTransitions } from './js/page-transition.js';
 
 const root = document.documentElement;
 root.classList.add('js');
@@ -102,6 +103,7 @@ function boot() {
   document.fonts && document.fonts.ready.then(() => ScrollTrigger.refresh());
   window.addEventListener('load', () => ScrollTrigger.refresh());
   initCookies();
+  initPageTransitions();
 }
 
 /* ---------- Kotvy ---------- */

@@ -102,12 +102,26 @@ body { background: radial-gradient(120% 120% at 50% 0%, var(--paper), var(--crea
   width: 100%; height: 100%; object-fit: cover;
   transform: scale(1.08); will-change: transform;
 }
+.subhero__video {
+  position: absolute; inset: 0; z-index: 1;
+  width: 100%; height: 100%; object-fit: cover;
+}
 .subhero__badge {
   position: absolute; left: 1.1rem; bottom: 1.1rem; z-index: 3;
   background: var(--yellow); color: var(--ink); padding: 0.6rem 1rem;
   font-family: var(--font-display); font-weight: 700; text-transform: uppercase;
   letter-spacing: 0.04em; font-size: 0.9rem; box-shadow: var(--shadow-md);
 }
+
+/* Trust badge (recenze) v subheru — konverzní signál */
+.subhero__trust {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  margin-top: 1.6rem; padding: 0.5rem 0.9rem;
+  border: 1px solid var(--line-strong);
+  font-size: 0.9rem; font-weight: 600; color: var(--ink);
+}
+.subhero__trust .stars { color: var(--yellow-deep); letter-spacing: 0.12em; }
+.subhero__trust .muted { color: var(--ink-soft); font-weight: 500; }
 
 /* ============================================================
    SUBPAGE OBECNÉ SEKCE
@@ -223,6 +237,56 @@ body { background: radial-gradient(120% 120% at 50% 0%, var(--paper), var(--crea
 .sub-back:hover span { transform: translateX(-4px); }
 
 /* ============================================================
+   INLINE BOOKING / KONTAKT (konverze přímo na podstránce)
+   ============================================================ */
+.sub-booking { position: relative; }
+.sub-booking__grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem); align-items: start;
+}
+.sub-booking__info { display: flex; flex-direction: column; gap: 1.6rem; }
+.sub-booking__phone {
+  display: inline-flex; align-items: baseline; gap: 0.6rem;
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(1.8rem, 4vw, 2.8rem); letter-spacing: -0.02em;
+  color: var(--ink); line-height: 1;
+}
+.sub-booking__phone:hover { color: var(--amber-ink); }
+.sub-booking__phone small { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--t-dark); }
+.sub-booking__lines { display: grid; gap: 1.1rem; }
+.sub-booking__lines dt { font-size: var(--fs-eyebrow); font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--t-dark); margin-bottom: 0.25rem; }
+.sub-booking__lines dd { font-variant-numeric: tabular-nums; }
+.sub-booking__lines a { text-underline-offset: 4px; }
+.sub-booking__lines a:hover { text-decoration: underline; }
+.sub-booking__benefits { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+.sub-booking__benefits img { width: auto; height: 26px; }
+.sub-booking__benefits p { flex-basis: 100%; font-size: var(--fs-eyebrow); font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--t-dark); }
+
+/* Loading stav odesílacího tlačítka (micro-detail) */
+.btn-square.is-loading { color: transparent; pointer-events: none; position: relative; }
+.btn-square.is-loading::after {
+  content: ""; position: absolute; top: 50%; left: 50%;
+  width: 18px; height: 18px; margin: -9px 0 0 -9px;
+  border: 2px solid rgba(244, 241, 234, 0.4); border-top-color: var(--cream);
+  border-radius: 50%; animation: btn-spin 0.7s linear infinite;
+}
+@keyframes btn-spin { to { transform: rotate(360deg); } }
+
+/* ============================================================
+   FÁZE D — PROSTOROVÉ VRSTVENÍ
+   Sekce se překrývají (negativní přesah), editoriální asymetrie.
+   ============================================================ */
+.sub-overlap { margin-top: clamp(-4rem, -7vw, -2rem); position: relative; z-index: 3; }
+.reach.sub-overlap { z-index: 3; }
+/* Tmavé CTA přesahuje předchozí světlou sekci „vyříznutým" horním okrajem */
+.reach--notch { clip-path: polygon(0 clamp(1.5rem, 4vw, 3.5rem), 100% 0, 100% 100%, 0 100%); }
+
+@media (max-width: 767px) {
+  .reach--notch { clip-path: none; }
+  .sub-overlap { margin-top: 0; }
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 1023px) {
@@ -233,6 +297,7 @@ body { background: radial-gradient(120% 120% at 50% 0%, var(--paper), var(--crea
   .deal-grid { grid-template-columns: 1fr 1fr; }
   .sub-feature { grid-template-columns: 1fr; }
   .sub-feature--rev .sub-feature__media { order: 0; }
+  .sub-booking__grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
   .subhero__top { flex-direction: column; gap: 0.8rem; }
