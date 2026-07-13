@@ -456,7 +456,9 @@ export function initHoverMotion() {
     const onOver = (e) => {
       const t = e.target.closest(hoverTargets);
       if (!t) return;
-      if (t.matches('[data-cursor="view"], .pcard')) ring.classList.add('is-view');
+      // „view" (žlutý OBJEDNAT) kurzor jen na explicitně označených prvcích,
+      // NE na kartách (.pcard) — tam ať kurzor zůstane jen jemný kroužek.
+      if (t.matches('[data-cursor="view"]')) ring.classList.add('is-view');
       else ring.classList.add('is-hover');
     };
     const onOut = (e) => {
