@@ -671,6 +671,88 @@ body.menu-open .menu__nav a:nth-child(8) { transition-delay: 0.47s; }
 
 /* Síťová chyba formuláře (inline role=alert) */
 #form-net-error:not([hidden]) { display: block; margin-top: 1rem; }
+
+/* ---------- Recenze: skóre 4,6 z 26 ---------- */
+.reviews__score { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.2rem 0.8rem; }
+.reviews__score-num { font-family: var(--font-display); font-size: clamp(2.6rem, 5vw, 3.8rem); font-weight: 750; line-height: 1; }
+.reviews__score-stars { color: var(--yellow-deep); letter-spacing: 0.14em; font-size: 1.15rem; }
+.reviews__score-count { width: 100%; color: var(--ink-soft); font-size: 0.92rem; font-weight: 600; }
+
+/* ============================================================
+   INSTAGRAM sekce — propojení s profilem
+   ============================================================ */
+.insta { padding-block: var(--pad); }
+.insta .section-head { align-items: center; }
+.insta__handle {
+  font-family: var(--font-display);
+  font-weight: 640;
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.25s var(--eo);
+}
+.insta__handle:hover { color: var(--amber-ink); }
+.insta__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: clamp(0.5rem, 1.2vw, 1rem);
+}
+.insta__tile {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  display: block;
+}
+.insta__tile img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  transition: transform 0.7s var(--eo), filter 0.5s var(--eo);
+  filter: saturate(0.92);
+}
+.insta__tile:hover img { transform: scale(1.12); filter: saturate(1.1); }
+.insta__icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: var(--cream);
+  background: var(--scrim-ink);
+  opacity: 0;
+  transition: opacity 0.4s var(--eo);
+}
+.insta__tile:hover .insta__icon { opacity: 1; }
+.insta__tile--cta {
+  background: var(--ink-900, var(--ink));
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+}
+.insta__cta-inner {
+  font-family: var(--font-display);
+  font-weight: 640;
+  font-size: clamp(0.95rem, 1.4vw, 1.2rem);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.insta__glyph { font-size: 1.8rem; color: var(--yellow); }
+.insta__tile--cta:hover { background: var(--yellow); color: var(--ink); }
+.insta__tile--cta:hover .insta__glyph { color: var(--ink); }
+
+@media (max-width: 767px) {
+  .insta__grid { grid-template-columns: repeat(2, 1fr); }
+  .insta .section-head { flex-direction: row; flex-wrap: wrap; align-items: baseline; }
+}
 .ring__item img {
   width: 100%;
   aspect-ratio: 3 / 4;

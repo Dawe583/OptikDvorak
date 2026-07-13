@@ -310,24 +310,22 @@ function initParallax() {
 /* ---------- Obří nadpisy: drift + skew podle rychlosti (všechna zařízení) ---------- */
 function initGiantDrift() {
   if (prefersReduced) return;
-  // Menší amplituda na úzkých displejích, ať nevzniká horizontální přetečení
-  const amp = () => 26;
-  const skewMax = () => 6;
+  // Žádné naklánění (skew) ani boční posun — jen jemný svislý parallax
+  // a měkký reveal při vstupu do viewportu. Běží na všech zařízeních.
   gsap.utils.toArray('.giant').forEach((el) => {
-    const skewTo = gsap.quickTo(el, 'skewY', { duration: 0.5, ease: 'power3' });
     gsap.fromTo(
       el,
-      { x: () => amp() },
+      { yPercent: 14, opacity: 0.35 },
       {
-        x: () => -amp(),
+        yPercent: -8,
+        opacity: 1,
         ease: 'none',
         scrollTrigger: {
           trigger: el,
           start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1,
+          end: 'top 38%',
+          scrub: 0.6,
           invalidateOnRefresh: true,
-          onUpdate: (self) => skewTo(gsap.utils.clamp(-skewMax(), skewMax(), self.getVelocity() / -340)),
         },
       }
     );
