@@ -92,6 +92,9 @@ function boot() {
   initFooterScrub();
   initScrollSpy();
   initForms();
+  initLiquidButtons();
+  initImageTrail();
+  initSectionWipes();
   initHoverMotion();
   initYear();
 
@@ -337,6 +340,68 @@ function initRules() {
   if (prefersReduced) { gsap.set(rules, { scaleX: 1 }); return; }
   rules.forEach((r) => {
     gsap.to(r, { scaleX: 1, duration: 0.9, ease: 'eo', scrollTrigger: { trigger: r, start: 'top 92%', once: true } });
+  });
+}
+
+/* ---------- Liquid buttony: kruhová výplň od místa vstupu kurzoru ---------- */
+function initLiquidButtons() {
+  document.querySelectorAll('.btn-outline').forEach((btn) => {
+    const set = (e) => {
+      const r = btn.getBoundingClientRect();
+      btn.style.setProperty('--lx', `${((e.clientX - r.left) / r.width) * 100}%`);
+      btn.style.setProperty('--ly', `${((e.clientY - r.top) / r.height) * 100}%`);
+    };
+    btn.addEventListener('mouseenter', set);
+    btn.addEventListener('mouseleave', set);
+  });
+}
+
+/* ---------- Image trail v hero: fotky obrub za kurzorem ---------- */
+function initImageTrail() {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+  const srcs = ['/img/glasses-table.jpg', '/img/glasses-round.jpg', '/img/glasses-blue.jpg', '/img/hero-portrait.jpg'];
+  let i = 0;
+  let lastX = 0;
+  let lastY = 0;
+  let acc = 0;
+
+  hero.addEventListener('pointermove', (e) => {
+    acc += Math.hypot(e.clientX - lastX, e.clientY - lastY);
+    lastX = e.clientX;
+    lastY = e.clientY;
+    if (acc < 150) return;
+    acc = 0;
+
+    const img = document.createElement('img');
+    img.className = 'trail-img';
+    img.src = srcs[i++ % srcs.length];
+    img.alt = '';
+    const r = hero.getBoundingClientRect();
+    img.style.left = `${e.clientX - r.left}px`;
+    img.style.top = `${e.clientY - r.top}px`;
+    hero.appendChild(img);
+
+    gsap.fromTo(img,
+      { scale: 0.4, opacity: 0, rotate: gsap.utils.random(-14, 14) },
+      { scale: 1, opacity: 1, duration: 0.3, ease: 'power2.out' });
+    gsap.to(img, {
+      opacity: 0, scale: 0.9, y: 44, duration: 0.55, delay: 0.35,
+      ease: 'power2.in', onComplete: () => img.remove(),
+    });
+  });
+}
+
+/* ---------- Section wipes: tmavé sekce se „rozevřou" při příjezdu ---------- */
+function initSectionWipes() {
+  gsap.utils.toArray('[data-dark-section]').forEach((sec) => {
+    gsap.fromTo(sec,
+      { clipPath: 'inset(6% 4% 6% 4% round 26px)' },
+      {
+        clipPath: 'inset(0% 0% 0% 0% round 0px)',
+        ease: 'none',
+        scrollTrigger: { trigger: sec, start: 'top 88%', end: 'top 32%', scrub: true },
+      });
   });
 }
 
@@ -638,10 +703,14 @@ function initReachGlow() {
 }
 
 /* ---------- Formuláře ---------- */
+/* Web3Forms endpoint: po vygenerování access key (web3forms.com, e-mail
+   optika.americka@seznam.cz) sem vložte klíč. Prázdný = jen lokální potvrzení. */
+const WEB3FORMS_KEY = '';
+
 function initForms() {
   const form = document.getElementById('booking-form');
   if (form) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       if (form.company && form.company.value) return; // honeypot
       let valid = true;
@@ -663,7 +732,23 @@ function initForms() {
         firstInvalid?.focus();
         return;
       }
-      form.querySelector('button[type="submit"]').disabled = true;
+      const submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+
+      if (WEB3FORMS_KEY) {
+        try {
+          const data = new FormData(form);
+          data.append('access_key', WEB3FORMS_KEY);
+          data.append('subject', 'Nová poptávka z webu Optik Dvořák');
+          const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        } catch {
+          submitBtn.disabled = false;
+          alert('Odeslání se nepodařilo. Zavolejte nám prosím na +420 702 194 246.');
+          return;
+        }
+      }
+
       const ok = document.getElementById('form-success');
       if (ok) {
         ok.classList.add('is-visible');

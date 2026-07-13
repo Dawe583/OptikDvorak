@@ -674,6 +674,47 @@ body.menu-open .menu__nav a:nth-child(8) { transition-delay: 0.47s; }
   display: block;
 }
 
+/* ============================================================
+   LIQUID BUTTON FILL — výplň vjíždí ze strany, odkud přišel kurzor
+   ============================================================ */
+.btn-outline {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-outline::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: var(--lx, 50%);
+  top: var(--ly, 50%);
+  width: max(230%, 220px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--ink);
+  translate: -50% -50%;
+  scale: 0;
+  transition: scale 0.55s var(--eo);
+}
+.btn-outline:hover { background: transparent; }
+.btn-outline:hover::after { scale: 1; }
+.btn-outline--light::after { background: var(--cream); }
+.btn-outline--light:hover { background: transparent; }
+
+/* ============================================================
+   IMAGE TRAIL v hero — fotky mizející za kurzorem
+   ============================================================ */
+.trail-img {
+  position: absolute;
+  width: clamp(80px, 9vw, 120px);
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  pointer-events: none;
+  z-index: 1;
+  translate: -50% -50%;
+  will-change: transform, opacity;
+}
+
 /* Preloader: procenta */
 .preloader__num {
   font-family: var(--font-display);
