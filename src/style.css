@@ -187,6 +187,9 @@ section { position: relative; }
 .brands__head h2 { font-size: var(--fs-display-3); text-transform: uppercase; color: var(--cream); }
 .brands__head h2 .accent { color: var(--yellow); }
 .brands__head p { color: rgba(244, 241, 234, 0.6); font-weight: 600; max-width: 30ch; }
+.brands__group { position: relative; }
+.brands__group + .brands__group { margin-top: 2.4rem; padding-top: 2rem; border-top: 1px solid rgba(244, 241, 234, 0.14); }
+.brands__label { font-family: var(--font-mono, monospace); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--yellow); margin-bottom: 1.1rem; }
 .brands__row { position: relative; display: flex; flex-wrap: wrap; gap: clamp(1.5rem, 5vw, 3.5rem) clamp(2rem, 6vw, 4.5rem); align-items: center; }
 .brands__item {
   font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2.4rem);
