@@ -642,6 +642,11 @@
         <a href="#kontakt" class="btn-outline btn-outline--light" data-reveal>Objednat měření zraku <span aria-hidden="true">↗</span></a>
       </div>
       <div class="reach__media">
+        <!-- Video pozadí: lazy-load přes IntersectionObserver (initReachVideo).
+             Chcete-li vlastní klip, nahraďte /video/hero.webm nebo doplňte <source> s vaším souborem. -->
+        <video class="reach__video" muted loop playsinline preload="none" poster="/img/interier.webp" aria-hidden="true">
+          <source data-src="/video/hero.webm" type="video/webm" />
+        </video>
         <img src="/img/interier.webp" alt="Interiér prodejny Optik Dvořák" loading="lazy" data-parallax data-curtain />
       </div>
     </section>

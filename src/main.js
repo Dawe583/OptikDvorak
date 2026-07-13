@@ -89,6 +89,7 @@ function boot() {
   initHours();
   initStickyCta();
   initReachGlow();
+  initReachVideo();
   initFooterScrub();
   initScrollSpy();
   initForms();
@@ -744,6 +745,28 @@ function initStickyCta() {
 
   ScrollTrigger.create({ trigger: hero, start: 'bottom top', onEnter: show, onLeaveBack: hide });
   if (contact) ScrollTrigger.create({ trigger: contact, start: 'top 80%', onEnter: hide, onLeaveBack: show });
+}
+
+/* ---------- Video pozadí na konverzní CTA (lazy-load ve viewportu) ---------- */
+function initReachVideo() {
+  const video = document.querySelector('.reach__video');
+  if (!video) return;
+  const src = video.querySelector('source[data-src]');
+  new IntersectionObserver((entries, io) => {
+    if (!entries[0].isIntersecting) return;
+    io.disconnect();
+    if (src && !src.src) src.src = src.dataset.src;
+    video.load();
+    const play = () => { const p = video.play(); if (p && p.catch) p.catch(() => {}); };
+    if (video.readyState >= 2) play();
+    else video.addEventListener('canplay', play, { once: true });
+    video.classList.add('is-on');
+  }, { rootMargin: '200px 0px' }).observe(video);
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) video.pause();
+    else if (video.classList.contains('is-on')) video.play().catch(() => {});
+  });
 }
 
 /* ---------- Světlo za kurzorem na černé CTA ---------- */
