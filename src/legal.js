@@ -11,8 +11,13 @@ import '@fontsource-variable/bricolage-grotesque';
 
 import { initCookies } from './js/cookies.js';
 import { initPageTransitions } from './js/page-transition.js';
+import { initBrandMark } from './js/brand.js';
+import { initAnalytics } from './js/analytics.js';
 
 document.documentElement.classList.add('js');
+
+initBrandMark();
+initAnalytics();
 
 /* Header pozadí po odscrollování */
 const header = document.getElementById('header');

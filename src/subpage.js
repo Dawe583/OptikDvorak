@@ -15,6 +15,8 @@ import '@fontsource-variable/bricolage-grotesque';
 
 import { initCookies } from './js/cookies.js';
 import { initPageTransitions } from './js/page-transition.js';
+import { initBrandMark } from './js/brand.js';
+import { initAnalytics } from './js/analytics.js';
 import * as M from './js/motion-core.js';
 
 document.documentElement.classList.add('js');
@@ -26,6 +28,7 @@ M.prepHero();
   await M.registerEase();
   M.initSmoothScroll();
 
+  initBrandMark();
   M.initAnchors();
   M.initMobileMenu();
   M.initHeader();
@@ -51,6 +54,7 @@ M.prepHero();
 
   initCookies();
   initPageTransitions();
+  initAnalytics();
 
   document.fonts && document.fonts.ready.then(() => M.ScrollTrigger.refresh());
   window.addEventListener('load', () => M.ScrollTrigger.refresh());

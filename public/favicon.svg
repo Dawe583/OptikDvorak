@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Optik Dvořák">
+  <rect width="64" height="64" rx="14" fill="#F5C518"/>
+  <g fill="none" stroke="#141414" stroke-width="3.4" stroke-linecap="round">
+    <circle cx="23" cy="35" r="10"/>
+    <circle cx="45" cy="35" r="10"/>
+    <path d="M33.5 32c2.2-2.6 4.8-2.6 7 0"/>
+    <path d="M13 31 7 28"/>
+    <path d="M55 31 61 28"/>
+  </g>
+</svg>

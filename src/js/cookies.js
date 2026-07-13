@@ -114,8 +114,12 @@ export function initCookies() {
   document.body.appendChild(banner);
   document.body.appendChild(modal);
 
+  const emitConsent = (consent) => {
+    try { window.dispatchEvent(new CustomEvent('od-consent', { detail: consent })); } catch { /* noop */ }
+  };
+
   const existing = read();
-  if (existing) applyMaps(existing);
+  if (existing) { applyMaps(existing); emitConsent(existing); }
   else setTimeout(() => banner.classList.add('is-visible'), 900);
 
   let lastFocused = null;
@@ -134,6 +138,7 @@ export function initCookies() {
     banner.classList.remove('is-visible');
     closeModal();
     applyMaps(consent);
+    emitConsent(consent);
   }
   function openModal() {
     const c = read() || { necessary: true, analytics: false, marketing: false };

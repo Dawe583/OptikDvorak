@@ -17,6 +17,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Observer } from 'gsap/Observer';
 import { initCookies } from './js/cookies.js';
 import { initPageTransitions } from './js/page-transition.js';
+import { initBrandMark } from './js/brand.js';
+import { initAnalytics } from './js/analytics.js';
 
 const root = document.documentElement;
 root.classList.add('js');
@@ -66,6 +68,7 @@ if (!prefersReduced) {
 }
 
 function boot() {
+  initBrandMark();
   initMobileMenu();
   initAnchors();
   initHeader();
@@ -104,6 +107,7 @@ function boot() {
   window.addEventListener('load', () => ScrollTrigger.refresh());
   initCookies();
   initPageTransitions();
+  initAnalytics();
 }
 
 /* ---------- Kotvy ---------- */
@@ -859,6 +863,7 @@ function initForms() {
         ok.setAttribute('tabindex', '-1');
         ok.focus({ preventScroll: true });
       }
+      try { window.dispatchEvent(new CustomEvent('od-lead')); } catch { /* noop */ }
     });
   }
 

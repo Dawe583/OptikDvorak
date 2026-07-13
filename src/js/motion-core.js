@@ -655,6 +655,7 @@ export function initForms() {
       ok.setAttribute('tabindex', '-1');
       ok.focus({ preventScroll: true });
     }
+    try { window.dispatchEvent(new CustomEvent('od-lead')); } catch { /* noop */ }
   });
 
   /* Inline validace při opuštění pole (jemný micro-detail) */

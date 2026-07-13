@@ -369,7 +369,15 @@ section { position: relative; }
 .form__consent { font-size: 0.82rem; color: var(--ink-soft); margin-top: -0.4rem; margin-bottom: 1.2rem; }
 .form__consent a { text-decoration: underline; text-underline-offset: 3px; }
 .form__success { margin-top: 1.2rem; display: none; align-items: center; gap: 0.7rem; background: var(--yellow); color: var(--ink); font-weight: 600; padding: 0.9rem 1.2rem; border-left: 4px solid var(--state-success); }
-.form__success.is-visible { display: flex; }
+.form__success.is-visible { display: flex; animation: success-in 0.5s var(--eo); }
+@keyframes success-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.form__success span[aria-hidden] {
+  display: inline-grid; place-items: center; flex-shrink: 0;
+  width: 1.55rem; height: 1.55rem; border-radius: 50%;
+  background: var(--state-success); color: var(--cream); font-size: 0.9rem;
+}
+.form__success.is-visible span[aria-hidden] { animation: success-pop 0.55s var(--eo) 0.12s both; }
+@keyframes success-pop { 0% { transform: scale(0) rotate(-25deg); } 60% { transform: scale(1.25) rotate(0); } 100% { transform: scale(1); } }
 @keyframes shake { 10%,90% { transform: translateX(-1px); } 20%,80% { transform: translateX(2px); } 30%,50%,70% { transform: translateX(-4px); } 40%,60% { transform: translateX(4px); } }
 .form.is-shaking { animation: shake 0.5s var(--eo); }
 
