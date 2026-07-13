@@ -198,7 +198,10 @@ export function initPreloader() {
 
 export function startHero() {
   const tl = gsap.timeline({ defaults: { ease: 'eo' } });
-  tl.to('.line__inner', { yPercent: 0, duration: 1.1, stagger: 0.12 }, 0.1)
+  tl.to('.line__inner', {
+      yPercent: 0, duration: 1.1, stagger: 0.12,
+      onComplete: () => document.querySelectorAll('.hero__title, .subhero__title').forEach((el) => el.classList.add('is-intro-done')),
+    }, 0.1)
     .to('[data-intro]', { y: 0, opacity: 1, duration: 0.9, stagger: 0.1 }, 0.5)
     .to('[data-intro-media]', { opacity: 1, scale: 1, duration: 1.2, ease: 'power3.out' }, 0.35);
 
@@ -314,7 +317,10 @@ export function initSplitHeadings() {
       trigger: h,
       start: 'top 88%',
       once: true,
-      onEnter: () => gsap.to(inners, { yPercent: 0, duration: 0.9, ease: 'eo', stagger: 0.05 }),
+      onEnter: () => gsap.to(inners, {
+        yPercent: 0, duration: 0.9, ease: 'eo', stagger: 0.05,
+        onComplete: () => h.classList.add('is-split-done'),
+      }),
     });
   });
 }
@@ -553,9 +559,9 @@ export function initHours() {
   document.addEventListener('visibilitychange', () => { if (!document.hidden) update(); });
 }
 
-/* ---------- Hero video (self-hosted webm) ---------- */
+/* ---------- Autoplay videa (self-hosted webm) na všech zařízeních ---------- */
 export function initHeroVideo() {
-  gsap.utils.toArray('.subhero__video').forEach((v) => {
+  gsap.utils.toArray('.subhero__video, .sub-videoband video').forEach((v) => {
     const play = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
     if (v.readyState >= 2) play();
     else v.addEventListener('canplay', play, { once: true });

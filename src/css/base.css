@@ -60,7 +60,7 @@ p { text-wrap: pretty; }
   font-family: var(--font-display);
   font-size: var(--fs-display-1);
   text-transform: uppercase;
-  line-height: 1.02;
+  line-height: 1.08;
   letter-spacing: -0.015em;
   font-weight: 600;
   text-wrap: balance;

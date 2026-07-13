@@ -262,7 +262,10 @@ function initPreloader() {
 function startHero() {
   if (prefersReduced) return; // hero je ve výchozím stavu viditelné
   const tl = gsap.timeline({ defaults: { ease: 'eo' } });
-  tl.to('.line__inner', { yPercent: 0, duration: 1.1, stagger: 0.12 }, 0.1)
+  tl.to('.line__inner', {
+      yPercent: 0, duration: 1.1, stagger: 0.12,
+      onComplete: () => document.querySelectorAll('.hero__title, .subhero__title').forEach((el) => el.classList.add('is-intro-done')),
+    }, 0.1)
     .to('[data-intro]', { y: 0, opacity: 1, duration: 0.9, stagger: 0.1 }, 0.5)
     .to('[data-intro-media]', { opacity: 1, scale: 1, duration: 1.2, ease: 'power3.out' }, 0.35);
 
@@ -989,7 +992,10 @@ function initSplitHeadings() {
       trigger: h,
       start: 'top 88%',
       once: true,
-      onEnter: () => gsap.to(inners, { yPercent: 0, duration: 0.9, ease: 'eo', stagger: 0.05 }),
+      onEnter: () => gsap.to(inners, {
+        yPercent: 0, duration: 0.9, ease: 'eo', stagger: 0.05,
+        onComplete: () => h.classList.add('is-split-done'),
+      }),
     });
   });
 }

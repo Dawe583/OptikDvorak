@@ -45,7 +45,7 @@ section { position: relative; }
   font-family: var(--font-display);
   font-size: var(--fs-hero);
   text-transform: uppercase;
-  line-height: 0.96;
+  line-height: 1.0;
   letter-spacing: -0.02em;
   font-weight: 640;
   position: relative;
@@ -54,7 +54,7 @@ section { position: relative; }
 }
 .hero__title .t1 { color: var(--ink); }
 .hero__title .t2 { color: var(--t-dark); }
-.line { display: block; overflow: hidden; padding-bottom: 0.09em; margin-bottom: -0.09em; }
+.line { display: block; overflow: hidden; padding: 0.14em 0 0.09em; margin: -0.14em 0 -0.09em; }
 .line__inner { display: block; }
 .hero__eyebrow {
   font-size: var(--fs-eyebrow); font-weight: 700; text-transform: uppercase;
@@ -547,8 +547,11 @@ body.menu-open .menu__nav a:nth-child(8) { transition-delay: 0.47s; }
 /* ============================================================
    SPLIT TEXT (nadpisy — masková reveal po slovech)
    ============================================================ */
-.split-word { display: inline-block; overflow: hidden; vertical-align: top; }
+.split-word { display: inline-block; overflow: hidden; vertical-align: top; padding-top: 0.12em; margin-top: -0.12em; }
 .split-word > span { display: inline-block; }
+/* Po dokončení reveal masku uvolni, ať se diakritika (háčky/čárky) neořezává */
+.is-split-done .split-word { overflow: visible; }
+.is-intro-done .line { overflow: visible; }
 
 /* ============================================================
    PROCES — pin/aktivace kroků

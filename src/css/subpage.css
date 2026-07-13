@@ -60,7 +60,7 @@ body { background: radial-gradient(120% 120% at 50% 0%, var(--paper), var(--crea
   font-family: var(--font-display);
   font-size: var(--fs-hero);
   text-transform: uppercase;
-  line-height: 0.94;
+  line-height: 1.0;
   letter-spacing: -0.025em;
   font-weight: 640;
   text-wrap: balance;
@@ -235,6 +235,57 @@ body { background: radial-gradient(120% 120% at 50% 0%, var(--paper), var(--crea
 }
 .sub-back span { transition: transform 0.3s var(--eo); }
 .sub-back:hover span { transform: translateX(-4px); }
+
+/* ============================================================
+   VIDEO BAND — celoplošné self-hostované video (viditelný pohyb)
+   ============================================================ */
+.sub-videoband {
+  position: relative;
+  height: clamp(58vh, 66vh, 760px);
+  overflow: hidden;
+  background: var(--ink-900);
+}
+.sub-videoband video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  filter: var(--photo-filter);
+}
+.sub-videoband__scrim {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(12,12,12,0.35) 0%, rgba(12,12,12,0.1) 40%, rgba(12,12,12,0.7) 100%);
+}
+.sub-videoband__grain {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  opacity: 0.1; mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+.sub-videoband__inner {
+  position: relative; z-index: 2;
+  height: 100%;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  gap: 1rem; padding-block: clamp(2.2rem, 5vw, 4rem);
+  color: var(--cream);
+}
+.sub-videoband__tag {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  align-self: flex-start;
+  font-size: var(--fs-eyebrow); font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--yellow);
+}
+.sub-videoband__tag::before {
+  content: ""; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--yellow); box-shadow: 0 0 0 0 var(--yellow-glow);
+  animation: vb-pulse 2s var(--eo) infinite;
+}
+@keyframes vb-pulse { 0% { box-shadow: 0 0 0 0 rgba(255,228,92,0.5); } 100% { box-shadow: 0 0 0 14px rgba(255,228,92,0); } }
+.sub-videoband h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-2);
+  text-transform: uppercase; line-height: 1.04;
+  max-width: 18ch; text-wrap: balance;
+}
+.sub-videoband h2 .muted { color: rgba(244,241,234,0.5); }
 
 /* ============================================================
    INLINE BOOKING / KONTAKT (konverze přímo na podstránce)
