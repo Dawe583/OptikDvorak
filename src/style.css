@@ -560,6 +560,7 @@ body.menu-open .menu__nav a:nth-child(8) { transition-delay: 0.47s; }
    ============================================================ */
 .split-word { display: inline-block; overflow: hidden; vertical-align: top; padding-top: 0.12em; margin-top: -0.12em; }
 .split-word > span { display: inline-block; }
+.split-char { display: inline-block; will-change: transform; }
 /* Po dokončení reveal masku uvolni, ať se diakritika (háčky/čárky) neořezává */
 .is-split-done .split-word { overflow: visible; }
 .is-intro-done .line { overflow: visible; }

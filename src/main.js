@@ -368,7 +368,7 @@ function initLiquidButtons() {
 function initImageTrail() {
   const hero = document.querySelector('.hero');
   if (!hero) return;
-  const srcs = ['/img/glasses-table.jpg', '/img/glasses-round.jpg', '/img/glasses-blue.jpg', '/img/hero-portrait.jpg'];
+  const srcs = ['/img/ai/look-aviator.jpg', '/img/ai/look-tortoise.jpg', '/img/ai/look-clear.jpg', '/img/ai/look-cateye.jpg'];
   let i = 0;
   let lastX = 0;
   let lastY = 0;
@@ -928,6 +928,21 @@ function initHoverMotion() {
     document.addEventListener('mouseover', onOver);
     document.addEventListener('mouseout', onOut);
 
+    // 3D tilt karet služeb — jemné naklopení podle pozice kurzoru
+    document.querySelectorAll('.pcard').forEach((card) => {
+      const media = card.querySelector('.pcard__media');
+      if (!media) return;
+      const rxTo = gsap.quickTo(media, 'rotationX', { duration: 0.5, ease: 'eo' });
+      const ryTo = gsap.quickTo(media, 'rotationY', { duration: 0.5, ease: 'eo' });
+      gsap.set(media, { transformPerspective: 700 });
+      card.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        ryTo(((e.clientX - r.left) / r.width - 0.5) * 7);
+        rxTo(((e.clientY - r.top) / r.height - 0.5) * -5);
+      });
+      card.addEventListener('mouseleave', () => { rxTo(0); ryTo(0); });
+    });
+
     // Magnetická tlačítka
     const magnets = [];
     document.querySelectorAll('.btn-outline, .header__cta, .btn-solid').forEach((btn) => {
@@ -977,8 +992,8 @@ function initHeroVideo() {
   });
 }
 
-/* ---------- Split nadpisy (masková reveal po slovech) ---------- */
-function splitWords(el) {
+/* ---------- Split nadpisy (masková reveal po slovech / znacích) ---------- */
+function splitWords(el, chars = false) {
   const wrap = (node) => {
     if (node.nodeType === Node.TEXT_NODE) {
       const parts = node.textContent.split(/(\s+)/);
@@ -988,9 +1003,19 @@ function splitWords(el) {
         if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
         const outer = document.createElement('span');
         outer.className = 'split-word';
-        const inner = document.createElement('span');
-        inner.textContent = part;
-        outer.appendChild(inner);
+        if (chars) {
+          // znak po znaku uvnitř slova — jemnější prémiový reveal
+          [...part].forEach((ch) => {
+            const c = document.createElement('span');
+            c.className = 'split-char';
+            c.textContent = ch;
+            outer.appendChild(c);
+          });
+        } else {
+          const inner = document.createElement('span');
+          inner.textContent = part;
+          outer.appendChild(inner);
+        }
         frag.appendChild(outer);
       });
       node.replaceWith(frag);
@@ -999,13 +1024,14 @@ function splitWords(el) {
     }
   };
   Array.from(el.childNodes).forEach(wrap);
-  return el.querySelectorAll('.split-word > span');
+  return el.querySelectorAll(chars ? '.split-char' : '.split-word > span');
 }
 
 function initSplitHeadings() {
   if (prefersReduced) return;
   gsap.utils.toArray('.section-head .giant, .about__copy h2, .reach__copy h2, .brands__head h2').forEach((h) => {
-    const inners = splitWords(h);
+    const charMode = h.classList.contains('giant');
+    const inners = splitWords(h, charMode);
     if (!inners.length) return;
     gsap.set(inners, { yPercent: 115 });
     ScrollTrigger.create({
@@ -1013,7 +1039,8 @@ function initSplitHeadings() {
       start: 'top 88%',
       once: true,
       onEnter: () => gsap.to(inners, {
-        yPercent: 0, duration: 0.9, ease: 'eo', stagger: 0.05,
+        yPercent: 0, duration: charMode ? 0.8 : 0.9, ease: 'eo',
+        stagger: charMode ? 0.02 : 0.05,
         onComplete: () => h.classList.add('is-split-done'),
       }),
     });
