@@ -11,11 +11,14 @@ section { position: relative; }
 /* Střídání ploch pro rytmus */
 .bg-cream-200 { background: var(--cream-200); }
 
-/* Prémiové sjednocení fotek — jemný editoriální grade napříč mixem fotografií */
+/* Prémiové sjednocení fotek — jednotný editoriální grade napříč celým foto
+   mixem (Fáze C). Jeden token --photo-filter drží konzistentní teplotu i
+   kontrast, aby fotky s různým světlem působily jako jedna kolekce. */
 .pcard__media img, .lookbook__slide img, .gallery__item img, .lenses__big img,
 .lenses__small img, .lenses__intro img, .about__media img, .collage__strip img,
-.reach__media img, .note__photo img, .hero__media img, .hero__chip img {
-  filter: saturate(1.06) contrast(1.03);
+.reach__media img, .note__photo img, .hero__media img, .hero__chip img,
+.ring__item img, .subhero__media img, .sub-feature__media img {
+  filter: var(--photo-filter);
 }
 
 /* ============================================================
@@ -305,7 +308,7 @@ section { position: relative; }
   object-fit: cover;
   opacity: 0;
   transition: opacity 0.9s var(--eo);
-  filter: saturate(1.06) sepia(0.06) contrast(1.03);
+  filter: var(--photo-filter);
 }
 .reach__video.is-on { opacity: 1; } /* video překryje fallback obrázek, jakmile hraje */
 
@@ -634,7 +637,7 @@ body.menu-open .menu__nav a:nth-child(8) { transition-delay: 0.47s; }
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
-  filter: saturate(1.06) sepia(0.06) contrast(1.03);
+  filter: var(--photo-filter);
 }
 .videomask__overlay { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .videomask__word {
@@ -646,8 +649,8 @@ body.menu-open .menu__nav a:nth-child(8) { transition-delay: 0.47s; }
   transform-origin: center;
 }
 
-/* Filmový grade hero videa (jednotný teplý tón) */
-.hero__video { filter: saturate(1.06) sepia(0.06) contrast(1.03); }
+/* Filmový grade hero videa (jednotný teplý tón, sdílí token s fotkami) */
+.hero__video { filter: var(--photo-filter); }
 
 /* ============================================================
    3D RING CAROUSEL (lookbook) — tažením se točí, autoplay

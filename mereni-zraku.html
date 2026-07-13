@@ -15,77 +15,241 @@
   <meta property="og:url" content="https://optikdvorak.cz/mereni-zraku.html" />
   <meta property="og:locale" content="cs_CZ" />
   <link rel="icon" type="image/webp" href="/img/favicon.webp" />
-  <script type="module" src="/src/legal.js"></script>
+  <script type="module" src="/src/subpage.js"></script>
 </head>
 <body>
   <a href="#obsah" class="skip-link">Přeskočit na obsah</a>
-  <header class="header scrolled" id="header">
+
+  <!-- ===================== SCROLL PROGRESS ===================== -->
+  <div class="scroll-progress" aria-hidden="true"><span class="scroll-progress__bar"></span></div>
+
+  <!-- ===================== PRELOADER ===================== -->
+  <div class="preloader" aria-hidden="true">
+    <p class="preloader__num">0 %</p>
+    <p class="preloader__word"><span class="fw-1">Optik</span><span class="fw-2">Dvořák</span></p>
+    <div class="preloader__bar"><span></span></div>
+    <p class="preloader__tag">// Měření zraku</p>
+  </div>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="header" id="header">
     <div class="container header__inner">
       <a href="/" class="header__logo" aria-label="Optik Dvořák, domů"><span class="fw-1">Optik</span><span class="fw-2">Dvořák</span></a>
       <nav class="header__nav" aria-label="Hlavní navigace">
         <a href="/#sluzby">Služby</a>
+        <a href="/mereni-zraku.html">Měření zraku</a>
         <a href="/#cocky">Čočky</a>
-        <a href="/#recenze">Recenze</a>
+        <a href="/o-nas.html">O nás</a>
         <a href="/akce.html">Akce</a>
         <a href="/#kontakt">Kontakt</a>
       </nav>
       <div class="header__right">
+        <span class="header__status" id="header-status">// otevírací doba</span>
         <a href="/#kontakt" class="header__cta">Objednat měření zraku</a>
+        <button type="button" class="header__burger" id="menu-toggle" aria-label="Otevřít menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+        </button>
       </div>
     </div>
   </header>
+  <div id="header-sentinel" aria-hidden="true"></div>
+
+  <!-- ===================== FULLSCREEN MENU (mobil/tablet) ===================== -->
+  <div class="menu" id="mobile-menu" aria-hidden="true">
+    <div class="menu__inner">
+      <nav class="menu__nav" aria-label="Mobilní navigace">
+        <a href="/#sluzby" data-menu-link><span class="menu__idx">01</span> Služby</a>
+        <a href="/mereni-zraku.html" data-menu-link><span class="menu__idx">02</span> Měření zraku</a>
+        <a href="/#cocky" data-menu-link><span class="menu__idx">03</span> Čočky</a>
+        <a href="/o-nas.html" data-menu-link><span class="menu__idx">04</span> O nás</a>
+        <a href="/akce.html" data-menu-link><span class="menu__idx">05</span> Akce</a>
+        <a href="/#recenze" data-menu-link><span class="menu__idx">06</span> Recenze</a>
+        <a href="/#kontakt" data-menu-link><span class="menu__idx">07</span> Kontakt</a>
+      </nav>
+      <div class="menu__foot">
+        <p class="menu__status" id="menu-status">// otevírací doba</p>
+        <a href="tel:+420702194246" class="menu__tel">+420 702 194 246</a>
+        <a href="/#kontakt" class="btn-solid" data-menu-link>Objednat měření zraku</a>
+        <p class="menu__addr">Americká 325/23, Plzeň · od roku 1991</p>
+      </div>
+    </div>
+  </div>
 
   <main id="obsah" tabindex="-1">
-    <section class="legal-hero">
-      <div class="container">
-        <p class="legal-hero__eyebrow">Optik Dvořák · Služby</p>
-        <h1>Měření zraku v Plzni</h1>
-        <div class="legal-hero__intro">
-          <p>Zrak vám změříme na moderních přístrojích přímo na prodejně na Americké, bez čekání u lékaře. Uděláme si na vás dostatek času, vyšetření obvykle trvá 30 až 45 minut.</p>
+
+    <!-- ===================== SUBHERO ===================== -->
+    <section class="subhero">
+      <div class="subhero__glow" aria-hidden="true"></div>
+      <div class="container subhero__inner">
+        <div class="subhero__top">
+          <p class="subhero__eyebrow" data-intro>Optik Dvořák · Služby</p>
+          <span class="subhero__index" data-intro>// Měření</span>
+        </div>
+        <h1 class="subhero__title">
+          <span class="line"><span class="line__inner"><span class="t1">Měření</span></span></span>
+          <span class="line"><span class="line__inner"><span class="t2">zraku</span></span></span>
+        </h1>
+        <div class="subhero__grid">
+          <div>
+            <p class="subhero__lead" data-intro>Zrak vám změříme na moderních přístrojích přímo na prodejně na Americké, bez čekání u lékaře. Uděláme si na vás dostatek času — vyšetření obvykle trvá 30 až 45 minut.</p>
+            <dl class="subhero__meta" data-intro>
+              <div><dt>Délka</dt><dd>30–45 min</dd></div>
+              <div><dt>Kde</dt><dd>na prodejně</dd></div>
+              <div><dt>Přístroje</dt><dd>moderní</dd></div>
+            </dl>
+          </div>
+          <div class="subhero__media graded" data-intro-media data-cursor="view">
+            <img src="/img/interier.webp" alt="Interiér prodejny Optik Dvořák, kde probíhá měření zraku" fetchpriority="high" width="560" height="616" />
+            <span class="subhero__badge">Bez čekání</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="legal-body">
+    <!-- ===================== MARQUEE ===================== -->
+    <div class="marquee" data-dark-section aria-hidden="true">
+      <div class="marquee__track" data-dur="34">
+        <span class="marquee__item">Moderní přístroje<span class="marquee__sep">//</span></span>
+        <span class="marquee__item">Dostatek času<span class="marquee__sep">//</span></span>
+        <span class="marquee__item">30 až 45 minut<span class="marquee__sep">//</span></span>
+        <span class="marquee__item">Osobní přístup<span class="marquee__sep">//</span></span>
+        <span class="marquee__item">Od roku 1991<span class="marquee__sep">//</span></span>
+      </div>
+    </div>
+
+    <!-- ===================== ÚVODNÍ FEATURE ===================== -->
+    <section class="sub-section">
       <div class="container">
-
-        <div class="legal-section">
-          <h2>Jak měření probíhá</h2>
-          <ul>
-            <li><strong>Rozhovor o vašich potřebách.</strong> Zajímá nás, na co brýle potřebujete: čtení, počítač, řízení, sport. Podle toho vyšetření vedeme.</li>
-            <li><strong>Přesné změření zraku.</strong> Na moderních přístrojích zjistíme aktuální stav vašeho vidění a společně ověříme, jaké korekce jsou pro vás nejpohodlnější.</li>
-            <li><strong>Doporučení řešení.</strong> Navrhneme vhodná brýlová skla či kontaktní čočky. Vysvětlíme rozdíly a nic vám nebudeme nutit.</li>
-            <li><strong>Výběr obruby.</strong> Pokud chcete, hned na místě pomůžeme vybrat obrubu, která vám sedne tvarem i stylem.</li>
-          </ul>
+        <div class="sub-feature">
+          <div class="sub-feature__media graded" data-reveal>
+            <img src="/img/portrait-glasses.jpg" alt="Spokojený klient po měření zraku v brýlích na míru" loading="lazy" data-parallax data-curtain />
+          </div>
+          <div class="sub-feature__copy" data-reveal>
+            <h3>Vidět ostře začíná přesným měřením</h3>
+            <p>Každý pár brýlí u nás stavíme na pečlivém vyšetření zraku. Nespěcháme, ptáme se na to, jak a kde budete brýle nosit, a společně ověříme, jaké korekce jsou pro vás nejpohodlnější.</p>
+            <p>Měření provádíme přímo na prodejně, takže na výběr obrub a skel navážeme hned na místě — bez pobíhání mezi ordinacemi.</p>
+          </div>
         </div>
-
-        <div class="legal-section">
-          <h2>Kolik měření stojí</h2>
-          <p>Cena se odvíjí od rozsahu vyšetření, rádi vám ji sdělíme telefonicky nebo na prodejně. Při objednání kompletních brýlí u nás je měření zpravidla zvýhodněné.</p>
-        </div>
-
-        <div class="legal-section">
-          <h2>Kdy se objednat</h2>
-          <p>Termíny nabízíme v nejbližších volných dnech. Objednání předem doporučujeme, přijít ale můžete i bez objednání v otevírací době: pondělí až čtvrtek 8:30 až 17:00, pátek 8:30 až 16:00.</p>
-          <p>
-            Telefon: <a href="tel:+420702194246">+420 702 194 246</a> nebo <a href="tel:+420377328367">+420 377 328 367</a><br />
-            E-mail: <a href="mailto:optika.americka@seznam.cz">optika.americka@seznam.cz</a>
-          </p>
-          <p><a class="deal__cta" href="/#kontakt">Objednat měření zraku ↗</a></p>
-        </div>
-
-        <div class="legal-note">Měření zraku v optice nenahrazuje lékařské vyšetření očí. Při podezření na oční onemocnění vás vždy odkážeme na očního lékaře.</div>
-
-        <a href="/" class="legal-back"><span aria-hidden="true">←</span> Zpět na hlavní stránku</a>
       </div>
     </section>
+
+    <!-- ===================== JAK MĚŘENÍ PROBÍHÁ ===================== -->
+    <section class="sub-section bg-cream-200">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2 class="giant"><span class="t1">Jak měření</span> <span class="t2">probíhá</span></h2>
+          <p class="section-head__aside">// Krok za krokem,<br />v klidu a s časem.</p>
+        </div>
+        <hr class="rule" data-draw data-index="// 01" />
+        <ol class="sub-list sub-list--counter" data-reveal-group>
+          <li><strong>Rozhovor o vašich potřebách</strong> Zajímá nás, na co brýle potřebujete: čtení, počítač, řízení, sport. Podle toho vyšetření vedeme.</li>
+          <li><strong>Přesné změření zraku</strong> Na moderních přístrojích zjistíme aktuální stav vašeho vidění a společně ověříme, jaké korekce jsou pro vás nejpohodlnější.</li>
+          <li><strong>Doporučení řešení</strong> Navrhneme vhodná brýlová skla či kontaktní čočky. Vysvětlíme rozdíly a nic vám nebudeme nutit.</li>
+          <li><strong>Výběr obruby</strong> Pokud chcete, hned na místě pomůžeme vybrat obrubu, která vám sedne tvarem i stylem.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== CENA A OBJEDNÁNÍ ===================== -->
+    <section class="sub-section">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2 class="giant"><span class="t1">Cena</span> <span class="t2">a termíny</span></h2>
+          <p class="section-head__aside">// Zavolejte nám,<br />rádi vše upřesníme.</p>
+        </div>
+        <hr class="rule" data-draw data-index="// 02" />
+        <div class="sub-split">
+          <div class="sub-split__aside" data-reveal>
+            <p class="sub-statement"><span class="muted">Kolik měření</span> stojí a kdy se objednat.</p>
+          </div>
+          <div class="sub-prose" data-reveal>
+            <p>Cena se odvíjí od rozsahu vyšetření, rádi vám ji sdělíme telefonicky nebo na prodejně. Při objednání kompletních brýlí u nás je měření zpravidla zvýhodněné.</p>
+            <p>Termíny nabízíme v nejbližších volných dnech. Objednání předem doporučujeme, přijít ale můžete i bez objednání v otevírací době: <strong>pondělí až čtvrtek 8:30 až 17:00</strong>, <strong>pátek 8:30 až 16:00</strong>.</p>
+            <p>
+              Telefon: <a href="tel:+420702194246">+420 702 194 246</a> nebo <a href="tel:+420377328367">+420 377 328 367</a><br />
+              E-mail: <a href="mailto:optika.americka@seznam.cz">optika.americka@seznam.cz</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ČERNÁ CTA ===================== -->
+    <section class="reach" data-dark-section>
+      <div class="reach__grain" aria-hidden="true"></div>
+      <div class="reach__copy">
+        <h2 data-reveal>
+          <span class="w">Objednejte</span><br />
+          <span class="y">se na</span><br />
+          <span class="g">měření.</span>
+        </h2>
+        <a href="/#kontakt" class="btn-outline btn-outline--light" data-reveal>Objednat měření zraku <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="reach__media graded">
+        <img src="/img/hero-portrait.jpg" alt="Brýle se zlatými obrubami připravené k předání" loading="lazy" data-parallax data-curtain />
+      </div>
+    </section>
+
+    <!-- ===================== POZNÁMKA + ZPĚT ===================== -->
+    <section class="sub-section sub-section--tight">
+      <div class="container">
+        <p class="sub-note" data-reveal>Měření zraku v optice nenahrazuje lékařské vyšetření očí. Při podezření na oční onemocnění vás vždy odkážeme na očního lékaře.</p>
+        <a href="/" class="sub-back"><span aria-hidden="true">←</span> Zpět na hlavní stránku</a>
+      </div>
+    </section>
+
   </main>
 
-  <footer class="legal-footer">
-    <div class="container legal-footer__inner">
-      <p>© <span id="year"></span> Optik Dvořák · JUDr. Markéta Saková · IČ 14000016</p>
-      <p><a href="/">Domů</a> · <a href="/akce.html">Akce</a> · <a href="/o-nas.html">O nás</a> · <a href="/ochrana-osobnich-udaju.html">Ochrana osobních údajů</a> · <a href="/cookies.html">Cookies</a></p>
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer" data-dark-section>
+    <div class="footer__grain" aria-hidden="true"></div>
+    <div class="container footer__top">
+      <p class="footer__wordmark"><span class="fw-1">Optik</span><span class="fw-2">Dvořák</span></p>
+      <div class="footer__cols">
+        <div>
+          <h4>Optik Dvořák</h4>
+          <p>JUDr. Markéta Saková<br />IČ: 14000016<br />DIČ: CZ7762122038</p>
+        </div>
+        <div>
+          <h4>Kde nás najdete</h4>
+          <p><a href="https://maps.app.goo.gl/E8g8bpQQBkrLtcRc7" target="_blank" rel="noopener">Americká 325/23, Plzeň</a><br />Po až Čt: 8:30 až 17:00<br />Pá: 8:30 až 16:00</p>
+        </div>
+        <div>
+          <h4>Spojte se s námi</h4>
+          <p>
+            <a href="tel:+420702194246">+420 702 194 246</a><br />
+            <a href="mailto:optika.americka@seznam.cz">optika.americka@seznam.cz</a><br />
+            <a href="https://www.facebook.com/OptikDvorak" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/optik.dvorak/" target="_blank" rel="noopener">Instagram</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <p>© <span id="year"></span> Optik Dvořák. Všechna práva vyhrazena.</p>
+        <p class="footer__legal">
+          <a href="/">Domů</a>
+          <a href="/akce.html">Akce</a>
+          <a href="/o-nas.html">O nás</a>
+          <a href="/ochrana-osobnich-udaju.html">Ochrana osobních údajů</a>
+          <a href="/cookies.html">Cookies</a>
+          <a href="#" data-cookie-settings>Nastavení cookies</a>
+        </p>
+      </div>
     </div>
   </footer>
+
+  <!-- ===================== STICKY CTA + MOBILNÍ LIŠTA ===================== -->
+  <a href="/#kontakt" class="sticky-cta">Objednat <span aria-hidden="true">↗</span></a>
+
+  <nav class="mobile-bar" aria-label="Rychlé akce">
+    <a href="tel:+420702194246">Zavolat</a>
+    <a href="/#kontakt" class="mobile-bar__primary">Objednat</a>
+    <a href="https://maps.app.goo.gl/E8g8bpQQBkrLtcRc7" target="_blank" rel="noopener">Mapa</a>
+  </nav>
+
+  <!-- ===================== GRAIN OVERLAY ===================== -->
+  <div class="grain" aria-hidden="true"></div>
+
 </body>
 </html>

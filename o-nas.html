@@ -15,77 +15,235 @@
   <meta property="og:url" content="https://optikdvorak.cz/o-nas.html" />
   <meta property="og:locale" content="cs_CZ" />
   <link rel="icon" type="image/webp" href="/img/favicon.webp" />
-  <script type="module" src="/src/legal.js"></script>
+  <script type="module" src="/src/subpage.js"></script>
 </head>
 <body>
   <a href="#obsah" class="skip-link">Přeskočit na obsah</a>
-  <header class="header scrolled" id="header">
+
+  <!-- ===================== SCROLL PROGRESS ===================== -->
+  <div class="scroll-progress" aria-hidden="true"><span class="scroll-progress__bar"></span></div>
+
+  <!-- ===================== PRELOADER ===================== -->
+  <div class="preloader" aria-hidden="true">
+    <p class="preloader__num">0 %</p>
+    <p class="preloader__word"><span class="fw-1">Optik</span><span class="fw-2">Dvořák</span></p>
+    <div class="preloader__bar"><span></span></div>
+    <p class="preloader__tag">// Náš příběh</p>
+  </div>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="header" id="header">
     <div class="container header__inner">
       <a href="/" class="header__logo" aria-label="Optik Dvořák, domů"><span class="fw-1">Optik</span><span class="fw-2">Dvořák</span></a>
       <nav class="header__nav" aria-label="Hlavní navigace">
         <a href="/#sluzby">Služby</a>
+        <a href="/mereni-zraku.html">Měření zraku</a>
         <a href="/#cocky">Čočky</a>
-        <a href="/#recenze">Recenze</a>
+        <a href="/o-nas.html">O nás</a>
         <a href="/akce.html">Akce</a>
         <a href="/#kontakt">Kontakt</a>
       </nav>
       <div class="header__right">
+        <span class="header__status" id="header-status">// otevírací doba</span>
         <a href="/#kontakt" class="header__cta">Objednat měření zraku</a>
+        <button type="button" class="header__burger" id="menu-toggle" aria-label="Otevřít menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+        </button>
       </div>
     </div>
   </header>
+  <div id="header-sentinel" aria-hidden="true"></div>
+
+  <!-- ===================== FULLSCREEN MENU (mobil/tablet) ===================== -->
+  <div class="menu" id="mobile-menu" aria-hidden="true">
+    <div class="menu__inner">
+      <nav class="menu__nav" aria-label="Mobilní navigace">
+        <a href="/#sluzby" data-menu-link><span class="menu__idx">01</span> Služby</a>
+        <a href="/mereni-zraku.html" data-menu-link><span class="menu__idx">02</span> Měření zraku</a>
+        <a href="/#cocky" data-menu-link><span class="menu__idx">03</span> Čočky</a>
+        <a href="/o-nas.html" data-menu-link><span class="menu__idx">04</span> O nás</a>
+        <a href="/akce.html" data-menu-link><span class="menu__idx">05</span> Akce</a>
+        <a href="/#recenze" data-menu-link><span class="menu__idx">06</span> Recenze</a>
+        <a href="/#kontakt" data-menu-link><span class="menu__idx">07</span> Kontakt</a>
+      </nav>
+      <div class="menu__foot">
+        <p class="menu__status" id="menu-status">// otevírací doba</p>
+        <a href="tel:+420702194246" class="menu__tel">+420 702 194 246</a>
+        <a href="/#kontakt" class="btn-solid" data-menu-link>Objednat měření zraku</a>
+        <p class="menu__addr">Americká 325/23, Plzeň · od roku 1991</p>
+      </div>
+    </div>
+  </div>
 
   <main id="obsah" tabindex="-1">
-    <section class="legal-hero">
-      <div class="container">
-        <p class="legal-hero__eyebrow">Optik Dvořák · Náš příběh</p>
-        <h1>Rodina za pultem od roku 1991</h1>
-        <div class="legal-hero__intro">
-          <p>Optik Dvořák je rodinná oční optika v samém centru Plzně. Přes tři desetiletí spojujeme optické řemeslo s osobním přístupem: znáte nás jménem a my známe vaše oči.</p>
+
+    <!-- ===================== SUBHERO ===================== -->
+    <section class="subhero">
+      <div class="subhero__glow" aria-hidden="true"></div>
+      <div class="container subhero__inner">
+        <div class="subhero__top">
+          <p class="subhero__eyebrow" data-intro>Optik Dvořák · Náš příběh</p>
+          <span class="subhero__index" data-intro>// O nás</span>
+        </div>
+        <h1 class="subhero__title">
+          <span class="line"><span class="line__inner"><span class="t1">Rodina</span></span></span>
+          <span class="line"><span class="line__inner"><span class="t2">za pultem</span></span></span>
+        </h1>
+        <div class="subhero__grid">
+          <div>
+            <p class="subhero__lead" data-intro>Optik Dvořák je rodinná oční optika v samém centru Plzně. Přes tři desetiletí spojujeme optické řemeslo s osobním přístupem: znáte nás jménem a my známe vaše oči.</p>
+            <dl class="subhero__meta" data-intro>
+              <div><dt>Od roku</dt><dd>1991</dd></div>
+              <div><dt>Adresa</dt><dd>Americká 23</dd></div>
+              <div><dt>Přístup</dt><dd>rodinný</dd></div>
+            </dl>
+          </div>
+          <div class="subhero__media graded" data-intro-media data-cursor="view">
+            <img src="/img/exterier.jpg" alt="Výloha prodejny Optik Dvořák na Americké ulici v Plzni" fetchpriority="high" width="560" height="616" />
+            <span class="subhero__badge">Plzeň, centrum</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="legal-body">
+    <!-- ===================== MARQUEE ===================== -->
+    <div class="marquee" data-dark-section aria-hidden="true">
+      <div class="marquee__track" data-dur="36">
+        <span class="marquee__item">Rodinná optika<span class="marquee__sep">//</span></span>
+        <span class="marquee__item">Od roku 1991<span class="marquee__sep">//</span></span>
+        <span class="marquee__item">Poctivé řemeslo<span class="marquee__sep">//</span></span>
+        <span class="marquee__item">Osobní přístup<span class="marquee__sep">//</span></span>
+        <span class="marquee__item">Americká 325/23<span class="marquee__sep">//</span></span>
+      </div>
+    </div>
+
+    <!-- ===================== JAK JSME ZAČÍNALI ===================== -->
+    <section class="sub-section">
       <div class="container">
-
-        <div class="legal-section">
-          <h2>Jak jsme začínali</h2>
-          <!-- PLACEHOLDER pasáž: přesné okolnosti založení a jména doplní majitelka -->
-          <p>Optiku jsme otevřeli v roce 1991, krátce po revoluci, kdy se v Plzni znovu rodilo soukromé řemeslo. Od začátku stavíme na jednoduché myšlence: brýle nejsou jen zdravotní pomůcka, ale věc, kterou nosíte každý den na očích, a tak musí sedět i slušet.</p>
+        <div class="sub-feature">
+          <div class="sub-feature__media graded" data-reveal>
+            <img src="/img/interier.webp" alt="Interiér prodejny Optik Dvořák se zlatým nápisem" loading="lazy" data-parallax data-curtain />
+          </div>
+          <div class="sub-feature__copy" data-reveal>
+            <h3>Jak jsme začínali</h3>
+            <!-- PLACEHOLDER pasáž: přesné okolnosti založení a jména doplní majitelka -->
+            <p>Optiku jsme otevřeli v roce 1991, krátce po revoluci, kdy se v Plzni znovu rodilo soukromé řemeslo. Od začátku stavíme na jednoduché myšlence: brýle nejsou jen zdravotní pomůcka, ale věc, kterou nosíte každý den na očích, a tak musí sedět i slušet.</p>
+            <p>Najdete nás na adrese Americká 325/23, pár kroků od centra. Za výlohou se zlatým nápisem na vás čeká prodejna s pečlivě vybraným sortimentem obrub, slunečních brýlí a kontaktních čoček.</p>
+          </div>
         </div>
-
-        <div class="legal-section">
-          <h2>Na Americké, v srdci Plzně</h2>
-          <p>Najdete nás na adrese Americká 325/23, pár kroků od centra. Za výlohou se zlatým nápisem na vás čeká prodejna s pečlivě vybraným sortimentem obrub, slunečních brýlí a kontaktních čoček, a hlavně lidé, kteří optice rozumí a mají ji rádi.</p>
-        </div>
-
-        <div class="legal-section">
-          <h2>Čemu věříme</h2>
-          <ul>
-            <li><strong>Čas na každého.</strong> Měření zraku ani výběr obrub u nás nikdy neodbýváme. Přijdete-li k nám, máme čas na vás.</li>
-            <li><strong>Poctivé řemeslo.</strong> Seřízení, drobné opravy či výměnu nosníků zvládneme obvykle na počkání.</li>
-            <li><strong>Moderní technologie.</strong> Jsme certifikovaný prodejce brýlových skel MiYOSMART a kontaktních čoček MiSIGHT pro zpomalení dětské krátkozrakosti, dodáváme i skla EnRoute pro řidiče.</li>
-            <li><strong>Férovost.</strong> Doporučíme jen to, co vašim očím skutečně pomůže. Nic víc, nic míň.</li>
-          </ul>
-        </div>
-
-        <div class="legal-section">
-          <h2>Přijďte se seznámit</h2>
-          <p>Nejlépe nás poznáte osobně. Zastavte se v otevírací době, nebo se objednejte na měření zraku: pondělí až čtvrtek 8:30 až 17:00, pátek 8:30 až 16:00.</p>
-          <p><a class="deal__cta" href="/#kontakt">Objednat měření zraku ↗</a></p>
-        </div>
-
-        <a href="/" class="legal-back"><span aria-hidden="true">←</span> Zpět na hlavní stránku</a>
       </div>
     </section>
+
+    <!-- ===================== ČÍSLA ===================== -->
+    <section class="sub-section sub-section--tight bg-cream-200">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2 class="giant"><span class="t1">Tři desetiletí</span> <span class="t2">péče o zrak</span></h2>
+          <p class="section-head__aside">// Krátce v číslech.</p>
+        </div>
+        <hr class="rule" data-draw data-index="// 01" />
+        <div class="about__stats" data-reveal>
+          <div class="stat"><div class="stat__value">1991</div><div class="stat__label">rok založení</div></div>
+          <div class="stat"><div class="stat__value"><span data-count="35" data-years>35</span><span class="unit">+</span></div><div class="stat__label">let péče o zrak</div></div>
+          <div class="stat"><div class="stat__value"><span data-count="6">6</span></div><div class="stat__label">služeb pod střechou</div></div>
+          <div class="stat"><div class="stat__value"><span data-count="4">4</span></div><div class="stat__label">benefitní programy</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ČEMU VĚŘÍME ===================== -->
+    <section class="sub-section">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2 class="giant"><span class="t1">Čemu</span> <span class="t2">věříme</span></h2>
+          <p class="section-head__aside">// Hodnoty, které<br />držíme dennodenně.</p>
+        </div>
+        <hr class="rule" data-draw data-index="// 02" />
+        <ol class="sub-list sub-list--counter" data-reveal-group>
+          <li><strong>Čas na každého</strong> Měření zraku ani výběr obrub u nás nikdy neodbýváme. Přijdete-li k nám, máme čas na vás.</li>
+          <li><strong>Poctivé řemeslo</strong> Seřízení, drobné opravy či výměnu nosníků zvládneme obvykle na počkání.</li>
+          <li><strong>Moderní technologie</strong> Jsme certifikovaný prodejce brýlových skel MiYOSMART a kontaktních čoček MiSIGHT pro zpomalení dětské krátkozrakosti, dodáváme i skla EnRoute pro řidiče.</li>
+          <li><strong>Férovost</strong> Doporučíme jen to, co vašim očím skutečně pomůže. Nic víc, nic míň.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== ČERNÁ CTA ===================== -->
+    <section class="reach" data-dark-section>
+      <div class="reach__grain" aria-hidden="true"></div>
+      <div class="reach__copy">
+        <h2 data-reveal>
+          <span class="w">Přijďte</span><br />
+          <span class="y">se</span><br />
+          <span class="g">seznámit.</span>
+        </h2>
+        <a href="/#kontakt" class="btn-outline btn-outline--light" data-reveal>Objednat měření zraku <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="reach__media graded">
+        <img src="/img/portrait-woman.jpg" alt="Spokojená klientka Optik Dvořák" loading="lazy" data-parallax data-curtain />
+      </div>
+    </section>
+
+    <!-- ===================== ZPĚT ===================== -->
+    <section class="sub-section sub-section--tight">
+      <div class="container">
+        <p class="sub-prose" data-reveal><em>Nejlépe nás poznáte osobně. Zastavte se v otevírací době, nebo se objednejte na měření zraku: pondělí až čtvrtek 8:30 až 17:00, pátek 8:30 až 16:00.</em></p>
+        <a href="/" class="sub-back"><span aria-hidden="true">←</span> Zpět na hlavní stránku</a>
+      </div>
+    </section>
+
   </main>
 
-  <footer class="legal-footer">
-    <div class="container legal-footer__inner">
-      <p>© <span id="year"></span> Optik Dvořák · JUDr. Markéta Saková · IČ 14000016</p>
-      <p><a href="/">Domů</a> · <a href="/akce.html">Akce</a> · <a href="/mereni-zraku.html">Měření zraku</a> · <a href="/ochrana-osobnich-udaju.html">Ochrana osobních údajů</a> · <a href="/cookies.html">Cookies</a></p>
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer" data-dark-section>
+    <div class="footer__grain" aria-hidden="true"></div>
+    <div class="container footer__top">
+      <p class="footer__wordmark"><span class="fw-1">Optik</span><span class="fw-2">Dvořák</span></p>
+      <div class="footer__cols">
+        <div>
+          <h4>Optik Dvořák</h4>
+          <p>JUDr. Markéta Saková<br />IČ: 14000016<br />DIČ: CZ7762122038</p>
+        </div>
+        <div>
+          <h4>Kde nás najdete</h4>
+          <p><a href="https://maps.app.goo.gl/E8g8bpQQBkrLtcRc7" target="_blank" rel="noopener">Americká 325/23, Plzeň</a><br />Po až Čt: 8:30 až 17:00<br />Pá: 8:30 až 16:00</p>
+        </div>
+        <div>
+          <h4>Spojte se s námi</h4>
+          <p>
+            <a href="tel:+420702194246">+420 702 194 246</a><br />
+            <a href="mailto:optika.americka@seznam.cz">optika.americka@seznam.cz</a><br />
+            <a href="https://www.facebook.com/OptikDvorak" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/optik.dvorak/" target="_blank" rel="noopener">Instagram</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <p>© <span id="year"></span> Optik Dvořák. Všechna práva vyhrazena.</p>
+        <p class="footer__legal">
+          <a href="/">Domů</a>
+          <a href="/akce.html">Akce</a>
+          <a href="/mereni-zraku.html">Měření zraku</a>
+          <a href="/ochrana-osobnich-udaju.html">Ochrana osobních údajů</a>
+          <a href="/cookies.html">Cookies</a>
+          <a href="#" data-cookie-settings>Nastavení cookies</a>
+        </p>
+      </div>
     </div>
   </footer>
+
+  <!-- ===================== STICKY CTA + MOBILNÍ LIŠTA ===================== -->
+  <a href="/#kontakt" class="sticky-cta">Objednat <span aria-hidden="true">↗</span></a>
+
+  <nav class="mobile-bar" aria-label="Rychlé akce">
+    <a href="tel:+420702194246">Zavolat</a>
+    <a href="/#kontakt" class="mobile-bar__primary">Objednat</a>
+    <a href="https://maps.app.goo.gl/E8g8bpQQBkrLtcRc7" target="_blank" rel="noopener">Mapa</a>
+  </nav>
+
+  <!-- ===================== GRAIN OVERLAY ===================== -->
+  <div class="grain" aria-hidden="true"></div>
+
 </body>
 </html>

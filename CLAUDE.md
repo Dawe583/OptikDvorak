@@ -9,7 +9,8 @@ Web rodinné oční optiky (Plzeň, Americká 325/23, od 1991). Vite MPA (vanill
    - `prefers-reduced-motion` gaty (JS `matchMedia` ani CSS `@media`),
    - odlehčené mobilní varianty efektů (width gaty, menší amplitudy),
    - podmíněné vypínání animací.
-   V `src/main.js` a `src/akce.js` je `const prefersReduced = false;` — nech ji tak.
+   V `src/main.js` a `src/js/motion-core.js` (sdílený engine podstránek) je
+   `const prefersReduced = false;` — nech ji tak.
    Lenis má `syncTouch: true`. Toto pravidlo klient zopakoval opakovaně poté,
    co mu je předchozí úpravy vracely zpět.
 

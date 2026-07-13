@@ -16,7 +16,7 @@
   <meta property="og:url" content="https://optikdvorak.cz/akce.html" />
   <meta property="og:locale" content="cs_CZ" />
   <link rel="icon" type="image/webp" href="/img/favicon.webp" />
-  <script type="module" src="/src/akce.js"></script>
+  <script type="module" src="/src/subpage.js"></script>
 </head>
 <body>
   <!-- Poznámka pro provozovatele: konkrétní slevy a jejich podmínky prosím před ostrým provozem potvrďte
@@ -24,97 +24,188 @@
        (1+1, sleva na EnRoute) jsou uvedeny shodně s homepage — doplňte platnost. -->
   <a href="#obsah" class="skip-link">Přeskočit na obsah</a>
 
-  <header class="header scrolled" id="header">
+  <!-- ===================== SCROLL PROGRESS ===================== -->
+  <div class="scroll-progress" aria-hidden="true"><span class="scroll-progress__bar"></span></div>
+
+  <!-- ===================== PRELOADER ===================== -->
+  <div class="preloader" aria-hidden="true">
+    <p class="preloader__num">0 %</p>
+    <p class="preloader__word"><span class="fw-1">Optik</span><span class="fw-2">Dvořák</span></p>
+    <div class="preloader__bar"><span></span></div>
+    <p class="preloader__tag">// Akce a výhody</p>
+  </div>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="header" id="header">
     <div class="container header__inner">
       <a href="/" class="header__logo" aria-label="Optik Dvořák, domů"><span class="fw-1">Optik</span><span class="fw-2">Dvořák</span></a>
       <nav class="header__nav" aria-label="Hlavní navigace">
         <a href="/#sluzby">Služby</a>
-        <a href="/#proces">Proces</a>
+        <a href="/mereni-zraku.html">Měření zraku</a>
         <a href="/#cocky">Čočky</a>
-        <a href="/#galerie">Galerie</a>
+        <a href="/o-nas.html">O nás</a>
         <a href="/#recenze">Recenze</a>
         <a href="/#kontakt">Kontakt</a>
       </nav>
       <div class="header__right">
+        <span class="header__status" id="header-status">// otevírací doba</span>
         <a href="/#kontakt" class="header__cta">Objednat měření zraku</a>
+        <button type="button" class="header__burger" id="menu-toggle" aria-label="Otevřít menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+        </button>
       </div>
     </div>
   </header>
+  <div id="header-sentinel" aria-hidden="true"></div>
+
+  <!-- ===================== FULLSCREEN MENU (mobil/tablet) ===================== -->
+  <div class="menu" id="mobile-menu" aria-hidden="true">
+    <div class="menu__inner">
+      <nav class="menu__nav" aria-label="Mobilní navigace">
+        <a href="/#sluzby" data-menu-link><span class="menu__idx">01</span> Služby</a>
+        <a href="/mereni-zraku.html" data-menu-link><span class="menu__idx">02</span> Měření zraku</a>
+        <a href="/#cocky" data-menu-link><span class="menu__idx">03</span> Čočky</a>
+        <a href="/o-nas.html" data-menu-link><span class="menu__idx">04</span> O nás</a>
+        <a href="/akce.html" data-menu-link><span class="menu__idx">05</span> Akce</a>
+        <a href="/#recenze" data-menu-link><span class="menu__idx">06</span> Recenze</a>
+        <a href="/#kontakt" data-menu-link><span class="menu__idx">07</span> Kontakt</a>
+      </nav>
+      <div class="menu__foot">
+        <p class="menu__status" id="menu-status">// otevírací doba</p>
+        <a href="tel:+420702194246" class="menu__tel">+420 702 194 246</a>
+        <a href="/#kontakt" class="btn-solid" data-menu-link>Objednat měření zraku</a>
+        <p class="menu__addr">Americká 325/23, Plzeň · od roku 1991</p>
+      </div>
+    </div>
+  </div>
 
   <main id="obsah" tabindex="-1">
-    <section class="akce-hero">
-      <div class="container">
-        <p class="akce-hero__eyebrow">Optik Dvořák · Plzeň</p>
-        <h1>Akce <span class="t2">a výhody</span></h1>
-        <p class="akce-hero__intro">Rádi vám pomůžeme vidět ostře i vyjít vstříc vašemu rozpočtu. Přinášíme přehled aktuálních akcí a stálých výhod — na vše se rádi domluvíme přímo na prodejně na Americké.</p>
-      </div>
-    </section>
 
-    <section class="akce-body">
-      <div class="container">
-        <div class="akce-grid">
-
-          <article class="akce-card akce-card--yellow akce-card--wide" data-reveal>
-            <span class="akce-card__tag">Sezónní akce</span>
-            <p class="akce-card__big">1 + 1</p>
-            <h2>Multifokální skla zdarma</h2>
-            <p>Při objednání multifokálních brýlí získáte druhá skla zdarma. Ideální, když chcete brýle na čtení i na dálku a k tomu náhradní pár.</p>
-            <div class="akce-card__foot"><a href="/#kontakt">Objednat se <span aria-hidden="true">→</span></a></div>
-          </article>
-
-          <article class="akce-card akce-card--dark" data-reveal>
-            <span class="akce-card__tag">Pro řidiče</span>
-            <p class="akce-card__big">−30 %</p>
-            <h2>Skla EnRoute</h2>
-            <p>Řidičská skla EnRoute pro klidnější noční jízdu a méně oslnění — nyní se zvýhodněním.</p>
-            <div class="akce-card__foot"><a href="/#kontakt">Mám zájem <span aria-hidden="true">→</span></a></div>
-          </article>
-
-          <article class="akce-card" data-reveal>
-            <span class="akce-card__tag">Benefity</span>
-            <h2>Edenred · Pluxee · Up · Benefit Plus</h2>
-            <p>Přijímáme benefitní poukázky. Uplatnit je můžete na brýle, skla i další sortiment podle podmínek daného programu.</p>
-            <div class="akce-card__foot"><a href="/#kontakt">Zjistit více <span aria-hidden="true">→</span></a></div>
-          </article>
-
-          <article class="akce-card" data-reveal>
-            <span class="akce-card__tag">Děti</span>
-            <h2>MiYOSMART poradenství</h2>
-            <p>Bezplatně poradíme, zda jsou skla MiYOSMART pro vaše dítě vhodná ke zpomalení postupu krátkozrakosti.</p>
-            <div class="akce-card__foot"><a href="/#kontakt">Objednat konzultaci <span aria-hidden="true">→</span></a></div>
-          </article>
-
-          <article class="akce-card" data-reveal>
-            <span class="akce-card__tag">Měření zraku</span>
-            <h2>Zvýhodněné měření</h2>
-            <p>Při objednání kompletních brýlí u nás je měření zraku zpravidla zvýhodněné. Uděláme si na vás dostatek času.</p>
-            <div class="akce-card__foot"><a href="/#kontakt">Objednat měření <span aria-hidden="true">→</span></a></div>
-          </article>
-
-          <article class="akce-card akce-card--wide" data-reveal>
-            <span class="akce-card__tag">Vždy u nás</span>
-            <h2>Servis brýlí na počkání</h2>
-            <p>Seřízení, výměna nosníků nebo dotažení obvykle zvládneme na počkání přímo na prodejně — často jako drobnou pozornost k vašim brýlím.</p>
-            <div class="akce-card__foot"><a href="/#kontakt">Zastavit se <span aria-hidden="true">→</span></a></div>
-          </article>
-
+    <!-- ===================== SUBHERO ===================== -->
+    <section class="subhero">
+      <div class="subhero__glow" aria-hidden="true"></div>
+      <div class="container subhero__inner">
+        <div class="subhero__top">
+          <p class="subhero__eyebrow" data-intro>Optik Dvořák · Plzeň</p>
+          <span class="subhero__index" data-intro>// Akce</span>
         </div>
-
-        <div class="akce-cta" data-reveal>
+        <h1 class="subhero__title">
+          <span class="line"><span class="line__inner"><span class="t1">Akce</span></span></span>
+          <span class="line"><span class="line__inner"><span class="t2">a výhody</span></span></span>
+        </h1>
+        <div class="subhero__grid">
           <div>
-            <h2>Nevíte si rady s výběrem?</h2>
-            <p>Přijďte na Americkou 325/23 nebo zavolejte — rádi vám poradíme.</p>
+            <p class="subhero__lead" data-intro>Rádi vám pomůžeme vidět ostře i vyjít vstříc vašemu rozpočtu. Přinášíme přehled aktuálních akcí a stálých výhod — na vše se rádi domluvíme přímo na prodejně na Americké.</p>
+            <dl class="subhero__meta" data-intro>
+              <div><dt>Benefity</dt><dd>4 programy</dd></div>
+              <div><dt>Servis brýlí</dt><dd>na počkání</dd></div>
+              <div><dt>Rodinná optika</dt><dd>od 1991</dd></div>
+            </dl>
           </div>
-          <a href="/#kontakt" class="btn-outline">Objednat měření zraku <span aria-hidden="true">↗</span></a>
+          <div class="subhero__media graded" data-intro-media data-cursor="view">
+            <img src="/img/glasses-table.jpg" alt="Značkové obruby a sluneční brýle na prodejně Optik Dvořák" fetchpriority="high" width="560" height="616" />
+            <span class="subhero__badge">Americká 325/23</span>
+          </div>
         </div>
-
-        <p class="akce-note">Uvedené akce jsou orientační a jejich platnost i podmínky vám rádi upřesníme na prodejně nebo telefonicky. Nabídky nelze zpravidla kombinovat a mohou se v čase měnit.</p>
-
-        <a href="/" class="akce-back"><span aria-hidden="true">←</span> Zpět na hlavní stránku</a>
       </div>
     </section>
+
+    <!-- ===================== MARQUEE ===================== -->
+    <div class="marquee marquee--yellow" aria-hidden="true">
+      <div class="marquee__track" data-dur="30">
+        <span class="marquee__item">Multifokální 1+1<span class="marquee__sep">//</span></span>
+        <span class="marquee__item">EnRoute −30 %<span class="marquee__sep">//</span></span>
+        <span class="marquee__item">Benefitní poukázky<span class="marquee__sep">//</span></span>
+        <span class="marquee__item">MiYOSMART poradenství<span class="marquee__sep">//</span></span>
+        <span class="marquee__item">Servis na počkání<span class="marquee__sep">//</span></span>
+      </div>
+    </div>
+
+    <!-- ===================== GRID AKCÍ ===================== -->
+    <section class="sub-section">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2 class="giant"><span class="t1">Co pro vás</span> <span class="t2">máme</span></h2>
+          <p class="section-head__aside">// Sezónní akce<br />i stálé výhody.</p>
+        </div>
+        <hr class="rule" data-draw data-index="// 01" />
+
+        <div class="deal-grid">
+          <article class="deal deal--yellow deal--wide" data-reveal>
+            <span class="deal__tag">Sezónní akce</span>
+            <p class="deal__big">1 + 1</p>
+            <h3>Multifokální skla zdarma</h3>
+            <p>Při objednání multifokálních brýlí získáte druhá skla zdarma. Ideální, když chcete brýle na čtení i na dálku a k tomu náhradní pár.</p>
+            <div class="deal__foot"><a href="/#kontakt">Objednat se <span aria-hidden="true">→</span></a></div>
+          </article>
+
+          <article class="deal deal--dark" data-reveal>
+            <span class="deal__tag">Pro řidiče</span>
+            <p class="deal__big">−30 %</p>
+            <h3>Skla EnRoute</h3>
+            <p>Řidičská skla EnRoute pro klidnější noční jízdu a méně oslnění — nyní se zvýhodněním.</p>
+            <div class="deal__foot"><a href="/#kontakt">Mám zájem <span aria-hidden="true">→</span></a></div>
+          </article>
+
+          <article class="deal" data-reveal>
+            <span class="deal__tag">Benefity</span>
+            <h3>Edenred · Pluxee · Up · Benefit Plus</h3>
+            <p>Přijímáme benefitní poukázky. Uplatnit je můžete na brýle, skla i další sortiment podle podmínek daného programu.</p>
+            <div class="deal__foot"><a href="/#kontakt">Zjistit více <span aria-hidden="true">→</span></a></div>
+          </article>
+
+          <article class="deal" data-reveal>
+            <span class="deal__tag">Děti</span>
+            <h3>MiYOSMART poradenství</h3>
+            <p>Bezplatně poradíme, zda jsou skla MiYOSMART pro vaše dítě vhodná ke zpomalení postupu krátkozrakosti.</p>
+            <div class="deal__foot"><a href="/#kontakt">Objednat konzultaci <span aria-hidden="true">→</span></a></div>
+          </article>
+
+          <article class="deal" data-reveal>
+            <span class="deal__tag">Měření zraku</span>
+            <h3>Zvýhodněné měření</h3>
+            <p>Při objednání kompletních brýlí u nás je měření zraku zpravidla zvýhodněné. Uděláme si na vás dostatek času.</p>
+            <div class="deal__foot"><a href="/mereni-zraku.html">Jak měření probíhá <span aria-hidden="true">→</span></a></div>
+          </article>
+
+          <article class="deal deal--wide" data-reveal>
+            <span class="deal__tag">Vždy u nás</span>
+            <h3>Servis brýlí na počkání</h3>
+            <p>Seřízení, výměna nosníků nebo dotažení obvykle zvládneme na počkání přímo na prodejně — často jako drobnou pozornost k vašim brýlím.</p>
+            <div class="deal__foot"><a href="/#kontakt">Zastavit se <span aria-hidden="true">→</span></a></div>
+          </article>
+        </div>
+
+        <p class="sub-note" data-reveal>Uvedené akce jsou orientační a jejich platnost i podmínky vám rádi upřesníme na prodejně nebo telefonicky. Nabídky nelze zpravidla kombinovat a mohou se v čase měnit.</p>
+      </div>
+    </section>
+
+    <!-- ===================== ČERNÁ CTA ===================== -->
+    <section class="reach" data-dark-section>
+      <div class="reach__grain" aria-hidden="true"></div>
+      <div class="reach__copy">
+        <h2 data-reveal>
+          <span class="w">Nevíte si</span><br />
+          <span class="y">rady s</span><br />
+          <span class="g">výběrem?</span>
+        </h2>
+        <a href="/#kontakt" class="btn-outline btn-outline--light" data-reveal>Objednat měření zraku <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="reach__media graded">
+        <img src="/img/interier.webp" alt="Interiér prodejny Optik Dvořák" loading="lazy" data-parallax data-curtain />
+      </div>
+    </section>
+
+    <!-- ===================== ZPĚT ===================== -->
+    <section class="sub-section sub-section--tight">
+      <div class="container">
+        <a href="/" class="sub-back"><span aria-hidden="true">←</span> Zpět na hlavní stránku</a>
+      </div>
+    </section>
+
   </main>
 
+  <!-- ===================== FOOTER ===================== -->
   <footer class="footer" data-dark-section>
     <div class="footer__grain" aria-hidden="true"></div>
     <div class="container footer__top">
@@ -143,6 +234,8 @@
         <p>© <span id="year"></span> Optik Dvořák. Všechna práva vyhrazena.</p>
         <p class="footer__legal">
           <a href="/">Domů</a>
+          <a href="/mereni-zraku.html">Měření zraku</a>
+          <a href="/o-nas.html">O nás</a>
           <a href="/ochrana-osobnich-udaju.html">Ochrana osobních údajů</a>
           <a href="/cookies.html">Cookies</a>
           <a href="#" data-cookie-settings>Nastavení cookies</a>
@@ -151,6 +244,17 @@
     </div>
   </footer>
 
+  <!-- ===================== STICKY CTA + MOBILNÍ LIŠTA ===================== -->
+  <a href="/#kontakt" class="sticky-cta">Objednat <span aria-hidden="true">↗</span></a>
+
+  <nav class="mobile-bar" aria-label="Rychlé akce">
+    <a href="tel:+420702194246">Zavolat</a>
+    <a href="/#kontakt" class="mobile-bar__primary">Objednat</a>
+    <a href="https://maps.app.goo.gl/E8g8bpQQBkrLtcRc7" target="_blank" rel="noopener">Mapa</a>
+  </nav>
+
+  <!-- ===================== GRAIN OVERLAY ===================== -->
   <div class="grain" aria-hidden="true"></div>
+
 </body>
 </html>

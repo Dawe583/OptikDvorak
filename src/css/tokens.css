@@ -60,6 +60,11 @@
   /* --- Grain --- */
   --grain-strength: 0.055;
 
+  /* --- Jednotný foto grade (Fáze C: LUT-like vrstva přes celý foto mix) ---
+     Teplý editoriální tón: mírné dosycení, kontrast a jemná warmth (sepia),
+     aby fotky s různou teplotou/světlem působily jako jedna kolekce. */
+  --photo-filter: saturate(1.08) contrast(1.04) brightness(1.015) sepia(0.07);
+
   /* --- Rozměry / rytmus --- */
   --header-h: 76px;
   --header-h-scrolled: 60px;
