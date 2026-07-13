@@ -84,8 +84,10 @@
   --space-12: 3rem;
   --space-16: 4rem;
 
-  /* --- Typografie --- */
-  --font-display: "Inter Tight Variable", "Inter Tight", sans-serif;
+  /* --- Typografie ---
+     Podpisový display font: Bricolage Grotesque (charakterní grotesk,
+     Fáze B). Tělo textu zůstává Inter. */
+  --font-display: "Bricolage Grotesque Variable", system-ui, sans-serif;
   --font-body: "Inter Variable", "Inter", sans-serif;
 
   --fs-hero: clamp(3.4rem, 9.2vw, 9rem);

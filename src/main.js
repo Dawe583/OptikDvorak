@@ -9,7 +9,7 @@ import './css/tokens.css';
 import './css/base.css';
 import './style.css';
 import '@fontsource-variable/inter';
-import '@fontsource-variable/inter-tight';
+import '@fontsource-variable/bricolage-grotesque';
 
 import Lenis from 'lenis';
 import { gsap } from 'gsap';

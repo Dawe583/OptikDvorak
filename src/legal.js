@@ -7,7 +7,7 @@ import './css/tokens.css';
 import './css/base.css';
 import './css/legal.css';
 import '@fontsource-variable/inter';
-import '@fontsource-variable/inter-tight';
+import '@fontsource-variable/bricolage-grotesque';
 
 import { initCookies } from './js/cookies.js';
 

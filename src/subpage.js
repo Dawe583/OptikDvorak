@@ -11,7 +11,7 @@ import './css/base.css';
 import './style.css';
 import './css/subpage.css';
 import '@fontsource-variable/inter';
-import '@fontsource-variable/inter-tight';
+import '@fontsource-variable/bricolage-grotesque';
 
 import { initCookies } from './js/cookies.js';
 import * as M from './js/motion-core.js';
