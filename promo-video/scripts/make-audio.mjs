@@ -7,7 +7,7 @@ import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 const SR = 44100;
-const DUR = 10;
+const DUR = Number(process.env.DUR ?? 10);
 const N = Math.round(SR * DUR);
 const L = new Float32Array(N);
 const R = new Float32Array(N);
@@ -22,7 +22,7 @@ const rnd = () => {
 
 /* Klíčové časy (musí sedět s src/Teaser.tsx) */
 const LOCK = 2.6; // logo zaklapne
-const CTA = 8.2; // nástup CTA
+const CTA = Number(process.env.CTA ?? 8.2); // nástup CTA
 
 /* ---------- Riser 0 → LOCK: stoupající šum + tón ---------- */
 let riserLp = 0;
@@ -111,7 +111,7 @@ for (let i = 0; i < N; i++) {
   bytes.setInt16(44 + i * 4, clamp(L[i]) * 32767, true);
   bytes.setInt16(46 + i * 4, clamp(R[i]) * 32767, true);
 }
-const out = join(dirname(fileURLToPath(import.meta.url)), '..', 'public', 'music.wav');
+const out = join(dirname(fileURLToPath(import.meta.url)), '..', 'public', process.env.OUT ?? 'music.wav');
 mkdirSync(dirname(out), {recursive: true});
 writeFileSync(out, Buffer.from(bytes.buffer));
 console.log('OK:', out, `${(bytes.byteLength / 1e6).toFixed(1)} MB`);

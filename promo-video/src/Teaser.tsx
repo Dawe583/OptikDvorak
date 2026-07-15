@@ -12,6 +12,7 @@ import {
 import {loadFont as loadBricolage} from '@remotion/google-fonts/BricolageGrotesque';
 import {loadFont as loadInter} from '@remotion/google-fonts/Inter';
 import {loadFont as loadMono} from '@remotion/google-fonts/JetBrainsMono';
+import {LogoMark} from './LogoMark';
 
 const {fontFamily: DISPLAY} = loadBricolage('normal', {weights: ['800'], subsets: ['latin', 'latin-ext']});
 const {fontFamily: BODY} = loadInter('normal', {weights: ['500', '600', '700'], subsets: ['latin', 'latin-ext']});
@@ -61,110 +62,6 @@ const Grain = () => {
         mixBlendMode: 'overlay',
       }}
     />
-  );
-};
-
-/* ---------- Logo brýlí: formace z uzlů → obrys → zaklapnutí ----------
-   Geometrie odpovídá /public/logo-mark.svg (viewBox 0 0 184 84). */
-const LENS_R = 26;
-const CIRC = 2 * Math.PI * LENS_R;
-const NODES = [
-  [56, 18], [56, 70], [30, 44], [82, 44], // levá čočka
-  [128, 18], [128, 70], [102, 44], [154, 44], // pravá čočka
-  [92, 35], // most
-  [12, 27], [172, 27], // konce straniček
-];
-
-const LogoMark: React.FC = () => {
-  const frame = useCurrentFrame();
-  const {fps} = useVideoConfig();
-  /* fáze formace */
-  const lines = interpolate(frame, [T_LINES, T_DRAW], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  const draw = interpolate(frame, [T_DRAW, T_LOCK - 6], [0, 1], {
-    easing: Easing.inOut(Easing.cubic),
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-  const lock = spring({frame: frame - T_LOCK, fps, config: {damping: 9, stiffness: 200}});
-  const nodesFade = interpolate(frame, [T_LOCK - 10, T_LOCK + 8], [1, 0], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-  /* glow pulz po zaklapnutí */
-  const glow = frame > T_LOCK ? 1 + Math.sin((frame - T_LOCK) / 14) * 0.12 : 1;
-
-  return (
-    <svg viewBox="0 0 184 84" style={{width: '100%', overflow: 'visible'}}>
-      <defs>
-        <filter id="g" x="-60%" y="-60%" width="220%" height="220%">
-          <feGaussianBlur stdDeviation="2.2" result="b" />
-          <feMerge>
-            <feMergeNode in="b" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-      </defs>
-
-      {/* konstelační spojnice mezi uzly */}
-      <g opacity={lines * (1 - draw) * 0.5} stroke={C.yellow} strokeWidth="0.5">
-        {NODES.map(([x1, y1], i) =>
-          NODES.slice(i + 1).map(([x2, y2], j) => {
-            const d = Math.hypot(x2 - x1, y2 - y1);
-            if (d > 62) return null;
-            return <line key={`${i}-${j}`} x1={x1} y1={y1} x2={x2} y2={y2} />;
-          })
-        )}
-      </g>
-
-      {/* obrys brýlí — kreslení stroke-dashoffset */}
-      <g filter="url(#g)" style={{transform: `scale(${frame > T_LOCK ? 1 + (1 - lock) * 0.03 : 1})`, transformOrigin: 'center'}}>
-        <circle
-          cx="56" cy="44" r={LENS_R}
-          stroke={C.cream} strokeWidth="5" fill="none"
-          strokeDasharray={CIRC} strokeDashoffset={CIRC * (1 - draw)}
-          transform="rotate(-90 56 44)"
-        />
-        <circle
-          cx="128" cy="44" r={LENS_R}
-          stroke={C.cream} strokeWidth="5" fill="none"
-          strokeDasharray={CIRC} strokeDashoffset={CIRC * (1 - draw)}
-          transform="rotate(-90 128 44)"
-        />
-        {/* most — žlutý akcent, dokresluje se nakonec */}
-        <path
-          d="M83 39c6-8 12-8 18 0"
-          stroke={C.yellow} strokeWidth="5" strokeLinecap="round" fill="none"
-          strokeDasharray="24" strokeDashoffset={24 * (1 - Math.max(0, (draw - 0.55) / 0.45))}
-          style={{filter: `drop-shadow(0 0 ${6 * glow}px ${C.yellow})`}}
-        />
-        {/* stranička levá */}
-        <path
-          d="M32 35 12 27"
-          stroke={C.cream} strokeWidth="5" strokeLinecap="round" fill="none"
-          strokeDasharray="22" strokeDashoffset={22 * (1 - Math.max(0, (draw - 0.7) / 0.3))}
-        />
-        {/* stranička pravá */}
-        <path
-          d="M152 35 172 27"
-          stroke={C.cream} strokeWidth="5" strokeLinecap="round" fill="none"
-          strokeDasharray="22" strokeDashoffset={22 * (1 - Math.max(0, (draw - 0.7) / 0.3))}
-        />
-      </g>
-
-      {/* svítící uzly */}
-      <g opacity={nodesFade}>
-        {NODES.map(([x, y], i) => {
-          const p = spring({frame: frame - T_NODES - i * 3, fps, config: {damping: 12, stiffness: 220}});
-          return (
-            <circle
-              key={i} cx={x} cy={y} r={1.8 * p}
-              fill={C.yellow}
-              style={{filter: `drop-shadow(0 0 ${5 * p}px ${C.yellow})`}}
-            />
-          );
-        })}
-      </g>
-    </svg>
   );
 };
 
@@ -358,7 +255,7 @@ export const Teaser = () => {
       {/* LOGO — formace ve středu, pak let do hlavičky */}
       <AbsoluteFill style={{justifyContent: 'center', alignItems: 'center'}}>
         <div style={{transform: `translate(${logoX}px, ${logoY}px)`, width: logoW}}>
-          <LogoMark />
+          <LogoMark timing={{tNodes: T_NODES, tLines: T_LINES, tDraw: T_DRAW, tLock: T_LOCK}} />
         </div>
       </AbsoluteFill>
 
