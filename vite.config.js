@@ -13,6 +13,7 @@ export default defineConfig({
         cocky: resolve(__dirname, 'kontaktni-cocky.html'),
         servis: resolve(__dirname, 'servis.html'),
         onas: resolve(__dirname, 'o-nas.html'),
+        reklama: resolve(__dirname, 'reklama.html'),
         privacy: resolve(__dirname, 'ochrana-osobnich-udaju.html'),
         cookies: resolve(__dirname, 'cookies.html'),
       },

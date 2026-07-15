@@ -123,6 +123,17 @@ body { background: radial-gradient(120% 120% at 50% 0%, var(--paper), var(--crea
 .subhero__trust .stars { color: var(--yellow-deep); letter-spacing: 0.12em; }
 .subhero__trust .muted { color: var(--ink-soft); font-weight: 500; }
 
+/* CTA řádek v subheru (kampaňová stránka /reklama) */
+.subhero__cta-row {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.4rem;
+  margin-top: 1.8rem;
+}
+.subhero__tel-link {
+  font-size: 0.95rem; font-weight: 600; color: var(--ink);
+  text-decoration: underline; text-underline-offset: 4px;
+}
+.subhero__tel-link:hover { color: var(--amber-ink); }
+
 /* ============================================================
    SUBPAGE OBECNÉ SEKCE
    ============================================================ */
