@@ -4,7 +4,8 @@
   "description": "Reklamní video Optik Dvořák (FB/IG) — Remotion",
   "scripts": {
     "studio": "remotion studio",
-    "render": "remotion render reklama-ctverec out/optik-dvorak-reklama-1080x1080.mp4 && remotion render reklama-story out/optik-dvorak-reklama-1080x1920.mp4"
+    "render": "remotion render reklama out/optik-dvorak-reklama-4k-9x16.mp4",
+    "audio": "node scripts/make-audio.mjs"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.0",

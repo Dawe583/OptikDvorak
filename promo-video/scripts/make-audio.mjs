@@ -1,110 +1,105 @@
-/* Syntetický soundtrack k reklamnímu reelu (bez licencované hudby):
-   teplý pad, měkký puls, whooshe na střihy a impakty na začátky scén.
-   Výstup: public/music.wav (44,1 kHz / 16 bit / stereo, 16,6 s).
+/* Syntetický soundtrack k 10s teaseru (bez licencované hudby):
+   riser → impakt v momentě zaklapnutí loga → puls + pad → akcent na CTA.
+   Výstup: public/music.wav (44,1 kHz / 16 bit / stereo, 10 s).
    Spuštění: node scripts/make-audio.mjs */
 import {writeFileSync, mkdirSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 const SR = 44100;
-const DUR = 16.6;
+const DUR = 10;
 const N = Math.round(SR * DUR);
 const L = new Float32Array(N);
 const R = new Float32Array(N);
-
 const TWO_PI = Math.PI * 2;
 const clamp = (v) => Math.max(-1, Math.min(1, v));
 
-/* ---------- teplý pad (A dur, pomalý nástup, fade na konci) ---------- */
-const padFreqs = [110, 164.81, 220, 277.18]; // A2 E3 A3 C#4
-for (let i = 0; i < N; i++) {
+let seed = 7;
+const rnd = () => {
+  seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+  return seed / 0x3fffffff - 1;
+};
+
+/* Klíčové časy (musí sedět s src/Teaser.tsx) */
+const LOCK = 2.6; // logo zaklapne
+const CTA = 8.2; // nástup CTA
+
+/* ---------- Riser 0 → LOCK: stoupající šum + tón ---------- */
+let riserLp = 0;
+for (let i = 0; i < Math.round(LOCK * SR); i++) {
   const t = i / SR;
-  let env = Math.min(1, t / 2.2); // nástup 2,2 s
-  if (t > DUR - 1.4) env *= Math.max(0, (DUR - t) / 1.4); // fade out
-  const lfo = 1 + 0.06 * Math.sin(TWO_PI * 0.15 * t);
-  let s = 0;
-  for (const f of padFreqs) {
-    s += Math.sin(TWO_PI * f * t) + 0.35 * Math.sin(TWO_PI * f * 2 * t + 0.5);
-  }
-  s = (s / padFreqs.length) * 0.055 * env * lfo;
-  L[i] += s;
-  R[i] += (s * 0.9 + 0.1 * Math.sin(TWO_PI * 110 * t + 0.6) * 0.05 * env);
+  const p = t / LOCK; // 0..1
+  const env = Math.pow(p, 2.4) * 0.5;
+  /* šumový sweep — filtr se otevírá */
+  const n = rnd();
+  const a = 0.02 + 0.5 * Math.pow(p, 2);
+  riserLp += a * (n - riserLp);
+  const noise = (n - riserLp) * env * 0.5;
+  /* stoupající tón */
+  const f = 110 * Math.pow(2, p * 2.2);
+  const tone = Math.sin(TWO_PI * f * t) * env * 0.18;
+  L[i] += noise + tone * 0.9;
+  R[i] += noise * 0.9 + tone;
 }
 
-/* ---------- měkký kick puls, 96 BPM od 2,7 s ---------- */
-const beat = 60 / 96;
-for (let start = 2.7; start < DUR - 1.2; start += beat) {
-  const s0 = Math.round(start * SR);
-  const len = Math.round(0.16 * SR);
-  for (let j = 0; j < len && s0 + j < N; j++) {
+/* ---------- Impakt v LOCK ---------- */
+const impact = (at, gain) => {
+  const s0 = Math.round(at * SR);
+  for (let j = 0; j < 1.2 * SR; j++) {
+    const idx = s0 + j;
+    if (idx >= N) break;
     const t = j / SR;
-    const envK = Math.exp(-t * 26);
-    const f = 52 * Math.exp(-t * 9) + 38;
-    const v = Math.sin(TWO_PI * f * t) * envK * 0.22;
+    const sub = Math.sin(TWO_PI * (46 * Math.exp(-t * 4) + 30) * t) * Math.exp(-t * 5);
+    const click = rnd() * Math.exp(-t * 70) * 0.5;
+    const v = (sub + click) * gain;
+    L[idx] += v;
+    R[idx] += v;
+  }
+};
+impact(LOCK, 0.42);
+impact(CTA, 0.3);
+
+/* ---------- Pad po LOCK (A dur) ---------- */
+const padFreqs = [110, 164.81, 220, 277.18];
+for (let i = Math.round(LOCK * SR); i < N; i++) {
+  const t = i / SR;
+  const since = t - LOCK;
+  let env = Math.min(1, since / 0.8);
+  if (t > DUR - 1.2) env *= Math.max(0, (DUR - t) / 1.2);
+  const lfo = 1 + 0.05 * Math.sin(TWO_PI * 0.2 * t);
+  let s = 0;
+  for (const f of padFreqs) s += Math.sin(TWO_PI * f * t) + 0.3 * Math.sin(TWO_PI * f * 2 * t + 0.4);
+  s = (s / padFreqs.length) * 0.06 * env * lfo;
+  L[i] += s;
+  R[i] += s * 0.92;
+}
+
+/* ---------- Puls 100 BPM od LOCK ---------- */
+const beat = 60 / 100;
+for (let start = LOCK; start < DUR - 0.9; start += beat) {
+  const s0 = Math.round(start * SR);
+  for (let j = 0; j < 0.18 * SR && s0 + j < N; j++) {
+    const t = j / SR;
+    const v = Math.sin(TWO_PI * (50 * Math.exp(-t * 9) + 38) * t) * Math.exp(-t * 24) * 0.2;
     L[s0 + j] += v;
     R[s0 + j] += v;
   }
 }
 
-/* ---------- jemné hi-haty (osminy) od 6,2 s ---------- */
-let seed = 42;
-const rnd = () => {
-  seed = (seed * 1103515245 + 12345) & 0x7fffffff;
-  return seed / 0x3fffffff - 1;
-};
-for (let start = 6.2; start < DUR - 1.2; start += beat / 2) {
+/* ---------- Hi-haty (osminy) od 4,4 s ---------- */
+for (let start = 4.4; start < DUR - 0.9; start += beat / 2) {
   const s0 = Math.round(start * SR);
-  const len = Math.round(0.05 * SR);
-  let hp = 0;
-  for (let j = 0; j < len && s0 + j < N; j++) {
+  let lp = 0;
+  for (let j = 0; j < 0.045 * SR && s0 + j < N; j++) {
     const n = rnd();
-    hp = 0.7 * hp + 0.3 * n; // low-pass
-    const hi = n - hp; // poor-man high-pass
-    const v = hi * Math.exp(-(j / SR) * 90) * 0.06;
+    lp = 0.7 * lp + 0.3 * n;
+    const v = (n - lp) * Math.exp(-(j / SR) * 95) * 0.055;
     L[s0 + j] += v * 0.8;
     R[s0 + j] += v;
   }
 }
 
-/* ---------- whooshe na střihy + impakty na začátky scén ----------
-   Střihy scén: 2,7 / 6,2 / 9,3 / 12,0 s (viz Promo.tsx). */
-const whoosh = (center, gain = 0.24) => {
-  const dur = 0.9;
-  const s0 = Math.round((center - dur * 0.65) * SR);
-  let lp = 0, lp2 = 0;
-  for (let j = 0; j < dur * SR; j++) {
-    const idx = s0 + j;
-    if (idx < 0 || idx >= N) continue;
-    const ph = j / (dur * SR); // 0..1
-    const env = Math.pow(Math.sin(Math.PI * Math.min(1, ph)), 2.2);
-    const n = rnd();
-    const a = 0.12 + 0.75 * ph; // otvírající se filtr
-    lp = lp + a * (n - lp);
-    lp2 = lp2 + a * 0.5 * (lp - lp2);
-    const band = lp - lp2;
-    const v = band * env * gain;
-    L[idx] += v * (1 - ph * 0.5);
-    R[idx] += v * (0.5 + ph * 0.5); // sweep zleva doprava
-  }
-};
-const impact = (at, gain = 0.3) => {
-  const s0 = Math.round(at * SR);
-  for (let j = 0; j < 0.5 * SR; j++) {
-    const idx = s0 + j;
-    if (idx >= N) break;
-    const t = j / SR;
-    const env = Math.exp(-t * 9);
-    const v = (Math.sin(TWO_PI * (58 * Math.exp(-t * 5) + 34) * t) * env +
-      rnd() * Math.exp(-t * 60) * 0.4) * gain;
-    L[idx] += v;
-    R[idx] += v;
-  }
-};
-[2.7, 6.2, 9.3, 12.0].forEach((c) => whoosh(c));
-[2.7, 6.2, 9.3].forEach((c) => impact(c, 0.26));
-impact(12.0, 0.34); // příchod CTA — nejsilnější
-
-/* ---------- zápis WAV ---------- */
+/* ---------- Zápis WAV ---------- */
 const bytes = new DataView(new ArrayBuffer(44 + N * 4));
 const wr = (o, s) => { for (let i = 0; i < s.length; i++) bytes.setUint8(o + i, s.charCodeAt(i)); };
 wr(0, 'RIFF'); bytes.setUint32(4, 36 + N * 4, true); wr(8, 'WAVE');
