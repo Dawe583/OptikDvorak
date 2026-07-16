@@ -1,0 +1,24 @@
+<!doctype html><meta charset=utf-8><body style="margin:0;background:#fff">
+<canvas id="c"></canvas><pre id="log" style="position:fixed;top:0;left:0;font:14px monospace;color:#c00;z-index:9;display:none">boot</pre>
+<script type="module">
+const L=(m)=>{document.getElementById('log').textContent=m;};
+try{
+ L('importing');
+ const THREE=await import('./three.module.min.js');
+ L('three '+THREE.REVISION);
+ const {buildScene}=await import('./scene.js');
+ L('scene.js ok');
+ const SIZE=1080, LIGHT=!location.hash.includes('dark');
+ const canvas=document.getElementById('c');
+ const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,preserveDrawingBuffer:true});
+ renderer.setSize(SIZE,SIZE);renderer.setPixelRatio(1);
+ renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+ renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.02;
+ renderer.outputColorSpace=THREE.SRGBColorSpace;
+ L('renderer ok');
+ const {scene,camera}=buildScene(THREE,renderer,SIZE,SIZE,{light:LIGHT});
+ L('built, rendering');
+ for(let i=0;i<4;i++) renderer.render(scene,camera);
+ L('DONE');
+}catch(e){L('CATCH '+(e&&e.message)+' :: '+(e&&e.stack||'').slice(0,300));}
+</script></body>
