@@ -1,14 +1,15 @@
 import {loadFont} from '@remotion/fonts';
-import {staticFile} from 'remotion';
+import {FONT_DATA} from './font-data';
 
-/* Brandové fonty servírované lokálně z public/fonts (stažené z Google Fonts,
-   licence OFL) — render tak nezávisí na síti. Sdílí je všechny kompozice. */
+/* Brandové fonty vložené jako data-URL (generuje scripts/embed-fonts.mjs
+   z public/fonts) — render nedělá žádné síťové požadavky a nezávisí na
+   Google Fonts. Sdílí je všechny kompozice. */
 export const DISPLAY = 'Bricolage Grotesque';
 export const BODY = 'Inter';
 export const MONO = 'JetBrains Mono';
 
-loadFont({family: DISPLAY, url: staticFile('fonts/bricolage-800.ttf'), weight: '800'});
-loadFont({family: BODY, url: staticFile('fonts/inter-500.ttf'), weight: '500'});
-loadFont({family: BODY, url: staticFile('fonts/inter-600.ttf'), weight: '600'});
-loadFont({family: BODY, url: staticFile('fonts/inter-700.ttf'), weight: '700'});
-loadFont({family: MONO, url: staticFile('fonts/jbmono-400.ttf'), weight: '400'});
+loadFont({family: DISPLAY, url: FONT_DATA['bricolage-800'], format: 'truetype', weight: '800'});
+loadFont({family: BODY, url: FONT_DATA['inter-500'], format: 'truetype', weight: '500'});
+loadFont({family: BODY, url: FONT_DATA['inter-600'], format: 'truetype', weight: '600'});
+loadFont({family: BODY, url: FONT_DATA['inter-700'], format: 'truetype', weight: '700'});
+loadFont({family: MONO, url: FONT_DATA['jbmono-400'], format: 'truetype', weight: '400'});
