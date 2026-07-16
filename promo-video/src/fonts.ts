@@ -1,15 +1,34 @@
-import {loadFont} from '@remotion/fonts';
+import {continueRender, delayRender} from 'remotion';
 import {FONT_DATA} from './font-data';
 
 /* Brandové fonty vložené jako data-URL (generuje scripts/embed-fonts.mjs
    z public/fonts) — render nedělá žádné síťové požadavky a nezávisí na
-   Google Fonts. Sdílí je všechny kompozice. */
+   Google Fonts. Vlastní loader drží labely delayRender krátké (data-URL
+   v labelu @remotion/fonts zahlcovala log i CDP). */
 export const DISPLAY = 'Bricolage Grotesque';
 export const BODY = 'Inter';
 export const MONO = 'JetBrains Mono';
 
-loadFont({family: DISPLAY, url: FONT_DATA['bricolage-800'], format: 'truetype', weight: '800'});
-loadFont({family: BODY, url: FONT_DATA['inter-500'], format: 'truetype', weight: '500'});
-loadFont({family: BODY, url: FONT_DATA['inter-600'], format: 'truetype', weight: '600'});
-loadFont({family: BODY, url: FONT_DATA['inter-700'], format: 'truetype', weight: '700'});
-loadFont({family: MONO, url: FONT_DATA['jbmono-400'], format: 'truetype', weight: '400'});
+const load = (family: string, key: string, weight: string) => {
+  if (typeof document === 'undefined') return;
+  const handle = delayRender(`font ${family} ${weight}`);
+  const face = new FontFace(family, `url('${FONT_DATA[key]}') format('truetype')`, {weight});
+  face
+    .load()
+    .then(() => {
+      /* starší lib.dom nezná FontFaceSet.add */
+      (document.fonts as unknown as {add: (f: FontFace) => void}).add(face);
+      continueRender(handle);
+    })
+    .catch((err) => {
+      // eslint-disable-next-line no-console
+      console.error(`Font ${family} ${weight} se nenačetl`, err);
+      continueRender(handle);
+    });
+};
+
+load(DISPLAY, 'bricolage-800', '800');
+load(BODY, 'inter-500', '500');
+load(BODY, 'inter-600', '600');
+load(BODY, 'inter-700', '700');
+load(MONO, 'jbmono-400', '400');
