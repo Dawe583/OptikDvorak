@@ -267,6 +267,10 @@ function buildSpot() {
   });
 
   master.play(0.001);
+
+  /* Export pro nahrávání videopostů (Playwright) a ladění:
+     přesné časy scén + ovládání timeline zvenčí. */
+  window.__adSpot = { master, sceneTimes };
 }
 
 /* ---------- Start ---------- */
