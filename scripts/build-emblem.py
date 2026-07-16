@@ -52,6 +52,7 @@ text{{dominant-baseline:middle}}
 </style>
 </defs>
 <rect width="{S:.0f}" height="{S:.0f}" fill="{bg}"/>
+<g transform="translate({c},{c}) scale(0.86) translate({-c},{-c})">
 <circle cx="{c}" cy="{c}" r="{rOuter}" fill="none" stroke="{ring}" stroke-width="7"/>
 <circle cx="{c}" cy="{c}" r="{rInner}" fill="none" stroke="{gold}" stroke-width="2.5"/>
 <path id="tp" d="{topPath}" fill="none"/>
@@ -63,6 +64,7 @@ text{{dominant-baseline:middle}}
 {star_l}{star_r}
 {m}
 {est}
+</g>
 </svg>'''
     open(f"{SC}/{name}","w").write(svg)
     print("wrote",name)
