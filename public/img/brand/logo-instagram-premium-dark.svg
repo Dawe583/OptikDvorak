@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+    <defs>
+      
+        <radialGradient id="bg" cx="50%" cy="38%" r="75%">
+          <stop offset="0%" stop-color="#2A2A28"/>
+          <stop offset="42%" stop-color="#161615"/>
+          <stop offset="100%" stop-color="#070706"/>
+        </radialGradient>
+      <linearGradient id="gold" x1="0%" y1="0%" x2="35%" y2="100%">
+        <stop offset="0%" stop-color="#FFF3C6"/>
+        <stop offset="26%" stop-color="#FBDB72"/>
+        <stop offset="52%" stop-color="#F5C518"/>
+        <stop offset="78%" stop-color="#C9960C"/>
+        <stop offset="100%" stop-color="#8A6608"/>
+      </linearGradient>
+      <linearGradient id="goldHi" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#FFFBEB" stop-opacity="0.95"/>
+        <stop offset="45%" stop-color="#FFF3C6" stop-opacity="0.25"/>
+        <stop offset="100%" stop-color="#FFF3C6" stop-opacity="0"/>
+      </linearGradient>
+      <radialGradient id="lensL" cx="38%" cy="32%" r="80%">
+        <stop offset="0%" stop-color="rgba(226,236,255,0.22)"/>
+        <stop offset="55%" stop-color="rgba(150,160,180,0.06)"/>
+        <stop offset="100%" stop-color="rgba(10,12,16,0.5)"/>
+      </radialGradient>
+      <radialGradient id="lensR" cx="62%" cy="32%" r="80%">
+        <stop offset="0%" stop-color="rgba(226,236,255,0.22)"/>
+        <stop offset="55%" stop-color="rgba(150,160,180,0.06)"/>
+        <stop offset="100%" stop-color="rgba(10,12,16,0.5)"/>
+      </radialGradient>
+      <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+        <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#000" flood-opacity="0.42"/>
+      </filter>
+      <filter id="blur18"><feGaussianBlur stdDeviation="18"/></filter>
+      <filter id="blur6"><feGaussianBlur stdDeviation="5"/></filter>
+    </defs><rect width="1080" height="1080" fill="url(#bg)"/><circle cx="540" cy="546" r="300" fill="rgba(255,214,90,0.16)" filter="url(#blur18)"/><ellipse cx="540" cy="764" rx="300" ry="42" fill="#000" opacity="0.28" filter="url(#blur18)"/><g filter="url(#soft)"><path d="M220,532 l-78,-20" fill="none" stroke="url(#gold)" stroke-width="26" stroke-linecap="round"/><path d="M860,532 l78,-20" fill="none" stroke="url(#gold)" stroke-width="26" stroke-linecap="round"/><path d="M527,540 C558,494 522,494 553,540" fill="none" stroke="url(#gold)" stroke-width="30" stroke-linecap="round"/><circle cx="366" cy="549" r="152" fill="none" stroke="#0A0A08" stroke-width="30"/><circle cx="366" cy="546" r="150" fill="url(#lensL)"/><circle cx="366" cy="546" r="152" fill="none" stroke="url(#gold)" stroke-width="30"/><circle cx="366" cy="546" r="152" fill="none" stroke="url(#goldHi)" stroke-width="12" stroke-dasharray="401 955" stroke-dashoffset="-162" stroke-linecap="round" opacity="0.9"/><circle cx="714" cy="549" r="152" fill="none" stroke="#0A0A08" stroke-width="30"/><circle cx="714" cy="546" r="150" fill="url(#lensR)"/><circle cx="714" cy="546" r="152" fill="none" stroke="url(#gold)" stroke-width="30"/><circle cx="714" cy="546" r="152" fill="none" stroke="url(#goldHi)" stroke-width="12" stroke-dasharray="401 955" stroke-dashoffset="-162" stroke-linecap="round" opacity="0.9"/><path d="M282,523 Q313,437 404,446" fill="none" stroke="#FFFBEB" stroke-width="10" stroke-linecap="round" opacity="0.85" filter="url(#blur6)"/><circle cx="220" cy="532" r="8" fill="#FFF3C6"/><circle cx="860" cy="532" r="8" fill="#FFF3C6"/></g></svg>
