@@ -1,35 +1,29 @@
-import {continueRender, delayRender} from 'remotion';
 import {FONT_DATA} from './font-data';
 
-/* Brandové fonty vložené jako data-URL (generuje scripts/embed-fonts.mjs
-   z public/fonts) — render nedělá žádné síťové požadavky a nezávisí na
-   Google Fonts. Vlastní loader drží labely delayRender krátké (data-URL
-   v labelu @remotion/fonts zahlcovala log i CDP). */
+/* Brandové fonty vložené jako @font-face s data-URL (generuje
+   scripts/embed-fonts.mjs z public/fonts). Injektujeme čisté CSS do <head> —
+   žádné delayRender/FontFace.load(), takže render nemá co zaseknout a
+   nezávisí na síti. Data-URL font je k dispozici prakticky okamžitě. */
 export const DISPLAY = 'Bricolage Grotesque';
 export const BODY = 'Inter';
 export const MONO = 'JetBrains Mono';
 
-const load = (family: string, key: string, weight: string) => {
-  if (typeof document === 'undefined') return;
-  const handle = delayRender(`font ${family} ${weight}`);
-  const face = new FontFace(family, `url('${FONT_DATA[key]}') format('truetype')`, {weight});
-  /* přidat hned — prohlížeč font použije, jakmile je zparsovaný */
-  (document.fonts as unknown as {add: (f: FontFace) => void}).add(face);
-  /* FontFace.load() umí v headless Chromiu ojediněle uvíznout (pozorováno
-     v neaktivní interní stránce Remotionu) a viselý handle by po timeoutu
-     shodil celý render — proto závod s vlastním limitem. Data-URL se jinak
-     parsuje okamžitě. */
-  const cap = new Promise<void>((resolve) => setTimeout(resolve, 8000));
-  Promise.race([face.load().then(() => undefined), cap])
-    .catch((err) => {
-      // eslint-disable-next-line no-console
-      console.error(`Font ${family} ${weight} se nenačetl`, err);
-    })
-    .then(() => continueRender(handle));
-};
+const FACES: {family: string; key: string; weight: string}[] = [
+  {family: DISPLAY, key: 'bricolage-800', weight: '800'},
+  {family: BODY, key: 'inter-500', weight: '500'},
+  {family: BODY, key: 'inter-600', weight: '600'},
+  {family: BODY, key: 'inter-700', weight: '700'},
+  {family: MONO, key: 'jbmono-400', weight: '400'},
+];
 
-load(DISPLAY, 'bricolage-800', '800');
-load(BODY, 'inter-500', '500');
-load(BODY, 'inter-600', '600');
-load(BODY, 'inter-700', '700');
-load(MONO, 'jbmono-400', '400');
+if (typeof document !== 'undefined' && !document.getElementById('optik-fonts')) {
+  const css = FACES.map(
+    ({family, key, weight}) =>
+      `@font-face{font-family:'${family}';font-style:normal;font-weight:${weight};` +
+      `font-display:block;src:url(${FONT_DATA[key]}) format('truetype');}`
+  ).join('');
+  const style = document.createElement('style');
+  style.id = 'optik-fonts';
+  style.textContent = css;
+  document.head.appendChild(style);
+}
