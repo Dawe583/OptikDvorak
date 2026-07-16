@@ -10,14 +10,8 @@ import {
   useVideoConfig,
   Easing,
 } from 'remotion';
-import {loadFont as loadBricolage} from '@remotion/google-fonts/BricolageGrotesque';
-import {loadFont as loadInter} from '@remotion/google-fonts/Inter';
-import {loadFont as loadMono} from '@remotion/google-fonts/JetBrainsMono';
+import {DISPLAY, BODY, MONO} from './fonts';
 import {LogoMark} from './LogoMark';
-
-const {fontFamily: DISPLAY} = loadBricolage('normal', {weights: ['800'], subsets: ['latin', 'latin-ext']});
-const {fontFamily: BODY} = loadInter('normal', {weights: ['500', '600', '700'], subsets: ['latin', 'latin-ext']});
-const {fontFamily: MONO} = loadMono('normal', {weights: ['400'], subsets: ['latin', 'latin-ext']});
 
 const C = {
   bg: '#070707',

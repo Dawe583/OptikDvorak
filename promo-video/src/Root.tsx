@@ -1,6 +1,7 @@
 import {Composition} from 'remotion';
 import {Teaser, TEASER_DURATION, FPS} from './Teaser';
 import {Vitrina, VITRINA_DURATION} from './Vitrina';
+import {Ostreni, OSTRENI_DURATION} from './Ostreni';
 
 /* Obě kompozice: 4K na výšku (9:16) — IG/FB Reels, Stories, TikTok */
 export const RemotionRoot = () => {
@@ -20,6 +21,15 @@ export const RemotionRoot = () => {
         id="ig-teaser"
         component={Vitrina}
         durationInFrames={VITRINA_DURATION}
+        fps={FPS}
+        width={2160}
+        height={3840}
+      />
+      {/* Brandový teaser „Ostření" — metafora doostření, bez akcí */}
+      <Composition
+        id="optika-teaser"
+        component={Ostreni}
+        durationInFrames={OSTRENI_DURATION}
         fps={FPS}
         width={2160}
         height={3840}

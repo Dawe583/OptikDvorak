@@ -5,10 +5,13 @@
   "scripts": {
     "studio": "remotion studio",
     "render": "remotion render reklama out/optik-dvorak-reklama-4k-9x16.mp4",
-    "audio": "node scripts/make-audio.mjs"
+    "render:optika": "remotion render optika-teaser out/optik-dvorak-optika-teaser-4k-9x16.mp4",
+    "audio": "node scripts/make-audio.mjs",
+    "audio:optika": "node scripts/make-ostreni-audio.mjs"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.0",
+    "@remotion/fonts": "^4.0.489",
     "@remotion/google-fonts": "^4.0.0",
     "@remotion/transitions": "^4.0.0",
     "react": "^19.0.0",
