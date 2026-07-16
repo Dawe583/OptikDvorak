@@ -251,4 +251,26 @@ def badge(filename, bg_fill, ink, gold, ring=False):
 badge("logo-badge.svg", YELLOW, INK, INK, ring=True)      # žluté pozadí, ink brýle
 badge("logo-badge-dark.svg", INK900, CREAM, GOLD)         # tmavé pozadí
 
+
+# ============================================================
+# 5) INSTAGRAM avatar — čtverec pro kruhový ořez profilovky
+# ============================================================
+def ig_avatar(filename, bg_fill, ink, gold):
+    S = 1080.0
+    R = 24.0
+    mm, x0, x1, y0, y1 = mark(0.0, 0.0, R, ink, gold, glint=True, rivets=True)
+    mw = x1 - x0
+    mh = y1 - y0
+    # mark vejít do bezpečné kruhové zóny (~50 % šířky), aby ho ořez neusekl
+    target = S * 0.50
+    sc = target / mw
+    tx = S / 2 - (x0 + mw / 2) * sc
+    ty = S / 2 - (y0 + mh / 2) * sc
+    body = (f'<rect width="{S}" height="{S}" fill="{bg_fill}"/>'
+            f'<g transform="translate({tx:.2f},{ty:.2f}) scale({sc:.4f})">{mm}</g>')
+    write(filename, S, S, body)
+
+ig_avatar("logo-instagram.svg", YELLOW, INK, INK)          # žlutá profilovka
+ig_avatar("logo-instagram-dark.svg", INK900, CREAM, GOLD)  # tmavá profilovka
+
 print("Hotovo — public/img/brand/")
