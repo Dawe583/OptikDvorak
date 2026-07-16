@@ -9,6 +9,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         akce: resolve(__dirname, 'akce.html'),
+        reklama: resolve(__dirname, 'reklama.html'),
         mereni: resolve(__dirname, 'mereni-zraku.html'),
         cocky: resolve(__dirname, 'kontaktni-cocky.html'),
         servis: resolve(__dirname, 'servis.html'),

@@ -1,0 +1,398 @@
+/* ============================================================
+   OPTIK DVOŘÁK — REKLAMNÍ SPOT (reklama.html)
+   Kinematografický autoplay spot v brand stylu (krém / žlutá /
+   ink, Bricolage, radius 0, grain). Scény jsou vrstvené přes
+   sebe a řídí je GSAP master timeline v src/reklama.js.
+   ============================================================ */
+
+.ad-page {
+  background: var(--ink-900);
+  overflow: hidden;
+  height: 100dvh;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 500;
+  background: var(--yellow);
+  color: var(--ink);
+  font-weight: 700;
+  padding: 0.7rem 1.2rem;
+}
+.skip-link:focus { top: 1rem; }
+
+.ad {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ---------- Horní lišta ---------- */
+.ad-top {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(0.9rem, 2.4vw, 1.6rem) clamp(1.1rem, 3.5vw, 2.6rem);
+  transition: color 0.5s var(--eo);
+}
+.ad[data-theme="dark"] .ad-top { color: var(--cream); }
+.ad[data-theme="light"] .ad-top { color: var(--ink); }
+.ad[data-theme="yellow"] .ad-top { color: var(--ink); }
+
+.ad-top__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.ad-top__logo svg { width: 42px; height: auto; }
+.ad-top__word {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+.ad-top__word strong { font-weight: 750; }
+
+.ad-top__right { display: flex; align-items: center; gap: 1.1rem; }
+.ad-top__status {
+  font-weight: 600;
+  font-size: 0.85rem;
+  opacity: 0.75;
+  white-space: nowrap;
+}
+.ad-top__tel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  padding: 0.55rem 1.1rem;
+  background: var(--yellow);
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+  transition: background 0.25s var(--eo), transform 0.25s var(--eo);
+  white-space: nowrap;
+}
+.ad-top__tel:hover { background: var(--yellow-deep); transform: translateY(-2px); }
+
+/* ---------- Jeviště + scény ---------- */
+.ad-stage { position: absolute; inset: 0; }
+
+.scene {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: clamp(0.9rem, 2.2vh, 1.5rem);
+  padding: clamp(4.5rem, 12vh, 7rem) clamp(1.2rem, 5vw, 3rem);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.scene__eyebrow {
+  font-size: var(--fs-eyebrow);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  opacity: 0.7;
+}
+.scene__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 8.5vw, 6.4rem);
+  font-weight: 650;
+  text-transform: uppercase;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+.scene__title-sm {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 5vw, 3.6rem);
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: -0.015em;
+}
+.scene__note { font-size: var(--fs-body-sm); opacity: 0.72; font-weight: 500; }
+.scene__note .u { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Rozdělené znaky (JS je balí do masek; slovo drží pohromadě) */
+.char-word { display: inline-block; white-space: nowrap; }
+.char-mask { display: inline-block; overflow: hidden; vertical-align: top; }
+.char-mask > span { display: inline-block; will-change: transform; }
+
+/* --- 1 · HOOK (tmavá) --- */
+.scene--hook { background: var(--ink-900); color: var(--cream); }
+.scene--hook .scene__title { color: var(--cream); }
+.pupil {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  translate: -50% -50%;
+  width: min(64vmin, 560px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid rgba(244, 241, 234, 0.14);
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+.pupil span {
+  width: 38%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 34%, var(--yellow) 0%, var(--yellow-deep) 55%, #8a6d00 100%);
+  filter: blur(0.5px);
+  opacity: 0.24;
+}
+
+/* --- 2 · BRAND (krém) --- */
+.scene--brand { background: radial-gradient(120% 120% at 50% 0%, var(--paper), var(--cream) 60%); color: var(--ink); }
+.brand-word {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(3.4rem, 13vw, 10rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.brand-word__l1 { font-weight: 750; color: var(--ink); }
+.brand-word__l2 { font-weight: 400; color: var(--t-mid); }
+.brand-years {
+  font-family: var(--font-display);
+  font-weight: 650;
+  font-size: clamp(1.1rem, 2.6vw, 1.6rem);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55rem;
+}
+.brand-years__num {
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  color: var(--amber-ink);
+  background: var(--yellow);
+  line-height: 1.1;
+  padding: 0 0.35em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- 3 · SLUŽBY (papír) --- */
+.scene--services { background: var(--paper); color: var(--ink); }
+.svc-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.7rem, 2vw, 1.6rem);
+  width: min(1080px, 94vw);
+  margin-top: clamp(0.4rem, 2vh, 1.4rem);
+}
+.svc { display: flex; flex-direction: column; gap: 0.7rem; text-align: left; }
+.svc__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3 / 3.6;
+  background: var(--cream-300);
+  box-shadow: var(--shadow-md);
+}
+.svc__media img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+.graded img { filter: var(--photo-filter); }
+.svc figcaption { font-size: 0.95rem; line-height: 1.35; }
+.svc figcaption strong { font-family: var(--font-display); font-weight: 700; display: block; }
+.svc figcaption span { color: var(--ink-soft); font-size: 0.85rem; }
+
+/* --- 4 · AKCE (žlutá) --- */
+.scene--deal { background: var(--yellow); color: var(--ink); }
+.deal-tag {
+  font-size: var(--fs-eyebrow);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  background: var(--ink);
+  color: var(--yellow);
+  padding: 0.45rem 1rem;
+}
+.deal-big {
+  font-family: var(--font-display);
+  font-weight: 780;
+  font-size: clamp(6rem, 26vw, 17rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+.deal-title {
+  font-size: clamp(1.4rem, 3.6vw, 2.4rem);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.deal-extra { font-weight: 600; font-size: clamp(1rem, 2.2vw, 1.25rem); color: var(--amber-ink); }
+.deal-extra strong { background: var(--ink); color: var(--yellow); padding: 0.05em 0.35em; font-family: var(--font-display); }
+.deal-note { font-size: var(--fs-caption); color: var(--amber-ink); opacity: 0.85; }
+
+/* --- 5 · DŮVĚRA (tmavá) --- */
+.scene--trust { background: var(--ink); color: var(--cream); }
+.trust-stars { font-size: clamp(1.8rem, 5vw, 3rem); letter-spacing: 0.18em; color: var(--yellow); display: flex; gap: 0.1em; }
+.trust-score { font-size: clamp(1.05rem, 2.4vw, 1.4rem); opacity: 0.92; }
+.trust-score strong { font-family: var(--font-display); font-size: 1.5em; color: var(--yellow); font-weight: 750; }
+.trust-list { display: flex; flex-direction: column; gap: 0.65rem; margin-top: 0.4rem; }
+.trust-list li {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.05rem, 2.6vw, 1.6rem);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+.trust-list li::before { content: "// "; color: var(--yellow); font-weight: 750; }
+
+/* --- 6 · CTA (tmavá, finále) --- */
+.scene--cta { background: radial-gradient(130% 110% at 50% 110%, var(--ink-700), var(--ink-900) 62%); color: var(--cream); }
+.cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 7.4vw, 5.6rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  max-width: 16ch;
+}
+.cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.9rem;
+  margin-top: clamp(0.4rem, 1.6vh, 1rem);
+}
+.ad-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 1rem 1.9rem;
+  transition: transform 0.25s var(--eo), background 0.25s var(--eo), color 0.25s var(--eo);
+}
+.ad-btn:hover { transform: translateY(-3px); }
+.ad-btn--solid { background: var(--yellow); color: var(--ink); box-shadow: 0 14px 44px var(--yellow-glow); }
+.ad-btn--solid:hover { background: var(--yellow-deep); }
+.ad-btn--ghost { border: 1px solid rgba(244, 241, 234, 0.45); color: var(--cream); }
+.ad-btn--ghost:hover { background: var(--cream); color: var(--ink); }
+
+.cta-meta { margin-top: 0.4rem; }
+.ad-open-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-weight: 600;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.5rem 1.1rem;
+  border: 1px solid rgba(244, 241, 234, 0.3);
+}
+.ad-open-badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--cream-300); opacity: 0.6; }
+.ad-open-badge.is-open::before { background: var(--state-success); opacity: 1; box-shadow: 0 0 12px rgba(60, 122, 78, 0.9); }
+
+/* ---------- Přechodová stěrka ---------- */
+.ad-wipe {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background: var(--yellow);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+}
+
+/* ---------- Spodní lišta ---------- */
+.ad-bottom {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 clamp(1.1rem, 3.5vw, 2.6rem) clamp(0.9rem, 2.4vh, 1.5rem);
+  transition: color 0.5s var(--eo);
+}
+.ad[data-theme="dark"] .ad-bottom { color: var(--cream); }
+.ad[data-theme="light"] .ad-bottom,
+.ad[data-theme="yellow"] .ad-bottom { color: var(--ink); }
+
+.ad-progress {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 3px;
+  background: rgba(128, 128, 120, 0.25);
+}
+.ad-progress__bar {
+  display: block;
+  height: 100%;
+  background: var(--yellow);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.ad-dots { display: flex; gap: 0.55rem; }
+.ad-dots button {
+  width: 26px;
+  height: 20px;
+  position: relative;
+}
+.ad-dots button::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 50%;
+  height: 2px;
+  translate: 0 -50%;
+  background: currentColor;
+  opacity: 0.3;
+  transition: opacity 0.3s var(--eo), background 0.3s var(--eo);
+}
+.ad-dots button:hover::before { opacity: 0.7; }
+.ad-dots button.is-active::before { background: var(--yellow); opacity: 1; box-shadow: 0 0 0 1px rgba(0,0,0,0.06); }
+.ad[data-theme="yellow"] .ad-dots button.is-active::before { background: var(--ink); }
+
+.ad-bottom__right { display: flex; align-items: center; gap: 0.9rem; }
+.ad-skip,
+.ad-replay {
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.8;
+  padding: 0.4rem 0.2rem;
+  transition: opacity 0.25s var(--eo);
+}
+.ad-skip:hover,
+.ad-replay:hover { opacity: 1; }
+
+/* ---------- Mobil ---------- */
+@media (max-width: 720px) {
+  .ad-top__status { display: none; }
+  .ad-top__word { display: none; }
+  .svc-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .svc figcaption { font-size: 0.72rem; }
+  .svc figcaption span { font-size: 0.66rem; }
+  .svc__media { aspect-ratio: 3 / 4; }
+  .trust-list li { font-size: 0.98rem; }
+  .ad-skip span { display: none; }
+  .cta-actions { flex-direction: column; align-items: stretch; width: min(340px, 88vw); }
+  .ad-btn { justify-content: center; }
+}
