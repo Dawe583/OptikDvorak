@@ -6,8 +6,10 @@
     "studio": "remotion studio",
     "render": "remotion render reklama out/optik-dvorak-reklama-4k-9x16.mp4",
     "render:optika": "remotion render optika-teaser out/optik-dvorak-optika-teaser-4k-9x16.mp4",
+    "render:hook": "remotion render reel-hook out/optik-dvorak-reel-hook-4k-9x16.mp4",
     "audio": "node scripts/make-audio.mjs",
-    "audio:optika": "node scripts/make-ostreni-audio.mjs"
+    "audio:optika": "node scripts/make-ostreni-audio.mjs",
+    "audio:hook": "node scripts/make-hook-audio.mjs"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.0",
