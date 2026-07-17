@@ -24,20 +24,20 @@ const C = {
 const GRADE = 'saturate(0.9) contrast(1.12) brightness(0.8) sepia(0.18)';
 
 export const FPS = 60;
-export const HOOK_DURATION = 660; // 11 s
+export const HOOK_DURATION = 840; // 14 s — pomalejší, prodyšnější tempo
 
 const F = (s: number) => Math.round(s * FPS);
-/* Klíčové okamžiky (musí sedět se scripts/make-hook-audio.mjs) */
-const T_SNAP = F(0.95); // doostření + první úder = konec háčku
-const T_P1 = F(1.25);
-const T_P2 = F(1.98);
-const T_P3 = F(2.72);
-const T_TURN = F(3.45); // „A DOST." + druhý úder
-const T_BRAND = F(4.15); // logo + wordmark
-const T_SVC = F(5.25); // služby
-const T_CLAIM = F(7.7); // claim
-const T_CTA = F(8.5); // CTA
-const T_END = F(10.2);
+/* Klíčové okamžiky (musí sedět se scripts/make-hook-audio.mjs: SNAP 1.3 / TURN 5.2 / CTA 11.6) */
+const T_SNAP = F(1.3); // doostření + měkký úder = konec háčku
+const T_P1 = F(1.7);
+const T_P2 = F(2.9);
+const T_P3 = F(4.1);
+const T_TURN = F(5.2); // „A DOST." + úder
+const T_BRAND = F(6.4); // logo + wordmark
+const T_SVC = F(8.0); // služby
+const T_CLAIM = F(11.0); // claim
+const T_CTA = F(11.6); // CTA
+const T_END = F(12.9);
 
 const useK = () => useVideoConfig().width / 1080;
 
@@ -126,13 +126,16 @@ const HookWord: React.FC<{text: string; at: number; k: number; color: string; si
 const Problem: React.FC<{src: string; text: string; at: number; dur: number; k: number}> = ({src, text, at, dur, k}) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
-  if (frame < at - 6 || frame > at + dur + 6) return null;
-  const p = spring({frame: frame - at, fps, config: {damping: 16, stiffness: 200}});
-  const out = interpolate(frame, [at + dur - 8, at + dur], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  const zoom = interpolate(frame, [at, at + dur], [1.18, 1.28], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  /* delší překryv → plynulý cross-dissolve mezi kartami */
+  if (frame < at - 20 || frame > at + dur + 20) return null;
+  const p = spring({frame: frame - at, fps, config: {damping: 22, stiffness: 90}});
+  const inOp = interpolate(frame, [at - 18, at + 4], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const out = interpolate(frame, [at + dur - 4, at + dur + 16], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  /* pomalý Ken Burns */
+  const zoom = interpolate(frame, [at - 18, at + dur + 16], [1.1, 1.2], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   return (
-    <AbsoluteFill style={{opacity: out}}>
-      <AbsoluteFill style={{opacity: 0.4, transform: `scale(${zoom})`}}>
+    <AbsoluteFill style={{opacity: Math.min(inOp, out)}}>
+      <AbsoluteFill style={{opacity: 0.42, transform: `scale(${zoom})`}}>
         <Img src={staticFile(src)} style={{width: '100%', height: '100%', objectFit: 'cover', filter: `${GRADE} blur(${14 * k}px)`}} />
       </AbsoluteFill>
       <AbsoluteFill style={{background: `linear-gradient(180deg, rgba(7,7,7,0.7), rgba(7,7,7,0.35) 45%, rgba(7,7,7,0.85))`}} />
@@ -147,8 +150,7 @@ const Problem: React.FC<{src: string; text: string; at: number; dur: number; k: 
             color: C.cream,
             textAlign: 'center',
             textTransform: 'uppercase',
-            transform: `translateY(${(1 - p) * 40 * k}px) scale(${0.9 + p * 0.1})`,
-            opacity: p,
+            transform: `translateY(${(1 - p) * 30 * k}px) scale(${0.94 + p * 0.06})`,
           }}
         >
           {text}
@@ -166,8 +168,8 @@ const WordCycle: React.FC<{words: string[]; startAt: number; hold: number; k: nu
     <div style={{position: 'relative', height: 150 * k}}>
       {words.map((w, i) => {
         const at = startAt + i * hold;
-        const inP = spring({frame: frame - at, fps, config: {damping: 18, stiffness: 180}});
-        const outP = i < words.length - 1 ? spring({frame: frame - (at + hold), fps, config: {damping: 18, stiffness: 180}}) : 0;
+        const inP = spring({frame: frame - at, fps, config: {damping: 22, stiffness: 110}});
+        const outP = i < words.length - 1 ? spring({frame: frame - (at + hold), fps, config: {damping: 22, stiffness: 110}}) : 0;
         if (frame < at - 6) return null;
         return (
           <div key={w} style={{position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', overflow: 'hidden'}}>
@@ -197,29 +199,29 @@ export const Hook = () => {
   const {fps} = useVideoConfig();
   const k = useK();
 
-  /* háček */
-  const hookOut = interpolate(frame, [T_SNAP + 2, T_SNAP + 12], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  const kicker = interpolate(frame, [0, 6, T_SNAP - 4, T_SNAP], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  const hookKick = spring({frame: frame - T_SNAP, fps, config: {damping: 10, stiffness: 200}});
+  /* háček — pomalejší doznění */
+  const hookOut = interpolate(frame, [T_SNAP + 8, T_SNAP + 34], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const kicker = interpolate(frame, [0, 8, T_SNAP - 8, T_SNAP], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const hookKick = spring({frame: frame - T_SNAP, fps, config: {damping: 14, stiffness: 140}});
 
-  /* úderové záblesky */
-  const flash1 = interpolate(frame, [T_SNAP - 2, T_SNAP, T_SNAP + 10], [0, 0.5, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  const flash2 = interpolate(frame, [T_TURN - 2, T_TURN, T_TURN + 10], [0, 0.45, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  /* úderové záblesky — měkčí a delší */
+  const flash1 = interpolate(frame, [T_SNAP - 3, T_SNAP, T_SNAP + 22], [0, 0.38, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const flash2 = interpolate(frame, [T_TURN - 3, T_TURN, T_TURN + 22], [0, 0.34, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
 
   /* zvrat „A DOST." */
-  const turnP = spring({frame: frame - T_TURN, fps, config: {damping: 11, stiffness: 200}});
-  const turnOut = interpolate(frame, [T_BRAND - 8, T_BRAND], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const turnP = spring({frame: frame - T_TURN, fps, config: {damping: 18, stiffness: 95}});
+  const turnOut = interpolate(frame, [T_BRAND - 16, T_BRAND], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
 
-  /* logo: střed → hlavička */
-  const move = spring({frame: frame - (T_BRAND + 30), fps, config: {damping: 200}, durationInFrames: 26});
+  /* logo: střed → hlavička (pomalejší let) */
+  const move = spring({frame: frame - (T_BRAND + 42), fps, config: {damping: 200}, durationInFrames: 40});
   const logoW = interpolate(move, [0, 1], [420 * k, 62 * k]);
   const logoX = interpolate(move, [0, 1], [0, -(540 - 90 - 31) * k]);
   const logoY = interpolate(move, [0, 1], [0, -(1920 / 2 - 118) * k]);
   const logoShow = frame >= T_BRAND - 4 && frame < T_CLAIM;
 
-  const wmUnder = spring({frame: frame - (T_BRAND + 8), fps, config: {damping: 200}});
-  const wmUnderOut = interpolate(frame, [T_BRAND + 30, T_BRAND + 42], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  const hdr = interpolate(frame, [T_BRAND + 40, T_BRAND + 54, T_END, T_END + 10], [0, 1, 1, 0], {
+  const wmUnder = spring({frame: frame - (T_BRAND + 14), fps, config: {damping: 200}});
+  const wmUnderOut = interpolate(frame, [T_BRAND + 44, T_BRAND + 62], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const hdr = interpolate(frame, [T_BRAND + 74, T_BRAND + 90, T_END, T_END + 12], [0, 1, 1, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
@@ -228,18 +230,18 @@ export const Hook = () => {
   const svcEyebrow = spring({frame: frame - T_SVC, fps, config: {damping: 200}});
   const svcOut = interpolate(frame, [T_CLAIM - 12, T_CLAIM], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
 
-  /* claim */
-  const claim1 = spring({frame: frame - T_CLAIM, fps, config: {damping: 16, stiffness: 150}});
-  const claim2 = spring({frame: frame - T_CLAIM - 8, fps, config: {damping: 16, stiffness: 150}});
-  const claimOut = interpolate(frame, [T_END - 10, T_END], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  /* claim — jemnější nástup */
+  const claim1 = spring({frame: frame - T_CLAIM, fps, config: {damping: 20, stiffness: 95}});
+  const claim2 = spring({frame: frame - T_CLAIM - 12, fps, config: {damping: 20, stiffness: 95}});
+  const claimOut = interpolate(frame, [T_END - 16, T_END], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
 
   /* CTA */
-  const ctaP = spring({frame: frame - T_CTA, fps, config: {damping: 14, stiffness: 150}});
-  const ctaPulse = 1 + Math.sin(Math.max(0, frame - T_CTA - 18) / 10) * 0.02;
-  const shine = interpolate(frame, [T_CTA + 16, T_CTA + 58], [-150, 260], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const ctaP = spring({frame: frame - T_CTA, fps, config: {damping: 18, stiffness: 110}});
+  const ctaPulse = 1 + Math.sin(Math.max(0, frame - T_CTA - 24) / 12) * 0.02;
+  const shine = interpolate(frame, [T_CTA + 24, T_CTA + 76], [-150, 260], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
 
   /* end card */
-  const endP = spring({frame: frame - T_END, fps, config: {damping: 13, stiffness: 130}});
+  const endP = spring({frame: frame - T_END, fps, config: {damping: 16, stiffness: 105}});
 
   return (
     <AbsoluteFill style={{background: C.bg}}>
@@ -253,9 +255,9 @@ export const Hook = () => {
         }
       />
 
-      {/* HÁČEK: rozostřený portrét (viditelný hned od snímku 0), který se doostří */}
-      {frame < T_SNAP + 14 && (
-        <Bg src="stock-portrait.jpg" from={-12} to={T_SNAP + 14} blurFrom={17} blurTo={0} zoomFrom={1.32} zoomTo={1.12} snapAt={T_SNAP} />
+      {/* HÁČEK: rozostřený portrét (viditelný hned od snímku 0), který se doostří a chvíli drží ostrý */}
+      {frame < T_SNAP + 42 && (
+        <Bg src="stock-portrait.jpg" from={-12} to={T_SNAP + 42} blurFrom={17} blurTo={0} zoomFrom={1.32} zoomTo={1.1} snapAt={T_SNAP} />
       )}
 
       {/* PROBLÉMY */}
@@ -263,18 +265,21 @@ export const Hook = () => {
       <Problem src="stock-frames.jpg" text="Pálí vás oči?" at={T_P2} dur={T_P3 - T_P2} k={k} />
       <Problem src="ig-woman-round.jpg" text="Mhouříte za volantem?" at={T_P3} dur={T_TURN - T_P3} k={k} />
 
-      {/* společný scrim */}
+      {/* společný scrim — plynule mizí do zvratu */}
       <AbsoluteFill
-        style={{background: `linear-gradient(180deg, rgba(7,7,7,0.55) 0%, rgba(7,7,7,0.15) 34%, rgba(7,7,7,0.55) 70%, ${C.bg} 100%)`, opacity: frame < T_TURN ? 1 : 0}}
+        style={{
+          background: `linear-gradient(180deg, rgba(7,7,7,0.55) 0%, rgba(7,7,7,0.15) 34%, rgba(7,7,7,0.55) 70%, ${C.bg} 100%)`,
+          opacity: interpolate(frame, [T_TURN - 24, T_TURN], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}),
+        }}
       />
 
       {/* ambientní záře */}
       <AbsoluteFill style={{background: 'radial-gradient(circle at 50% 42%, rgba(255,228,92,0.05), transparent 52%)'}} />
 
       {/* HÁČEK TEXT */}
-      {frame < T_SNAP + 12 && (
+      {frame < T_SNAP + 36 && (
         <AbsoluteFill style={{justifyContent: 'center', alignItems: 'center', opacity: hookOut}}>
-          <div style={{transform: `scale(${1 + hookKick * 0.06})`, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: `${2 * k}px`}}>
+          <div style={{transform: `scale(${1 + hookKick * 0.04})`, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: `${2 * k}px`}}>
             <HookWord text="Vidíte" at={0} k={k} color={C.cream} size={168} />
             <HookWord text="svět" at={6} k={k} color={C.cream} size={168} />
             <HookWord text="ostře?" at={12} k={k} color={C.yellow} size={168} />
@@ -328,13 +333,13 @@ export const Hook = () => {
       {logoShow && (
         <AbsoluteFill style={{justifyContent: 'center', alignItems: 'center'}}>
           <div style={{transform: `translate(${logoX}px, ${logoY}px)`, width: logoW}}>
-            <LogoMark timing={{tNodes: T_BRAND, tLines: T_BRAND + 8, tDraw: T_BRAND + 14, tLock: T_BRAND + 24}} />
+            <LogoMark timing={{tNodes: T_BRAND, tLines: T_BRAND + 14, tDraw: T_BRAND + 26, tLock: T_BRAND + 44}} />
           </div>
         </AbsoluteFill>
       )}
 
       {/* wordmark pod logem */}
-      {frame >= T_BRAND && frame < T_BRAND + 46 && (
+      {frame >= T_BRAND && frame < T_BRAND + 66 && (
         <AbsoluteFill style={{justifyContent: 'center', alignItems: 'center'}}>
           <div
             style={{
@@ -366,7 +371,7 @@ export const Hook = () => {
         <AbsoluteFill style={{padding: `0 ${90 * k}px`, justifyContent: 'center'}}>
           <div style={{marginTop: 60 * k, opacity: svcOut}}>
             <div style={{fontFamily: MONO, fontSize: 26 * k, color: C.yellowDeep, opacity: svcEyebrow, marginBottom: 14 * k}}>// co pro vás uděláme</div>
-            <WordCycle words={['Změříme zrak.', 'Vybereme obruby.', 'Nasadíme čočky.']} startAt={T_SVC + 8} hold={46} k={k} />
+            <WordCycle words={['Změříme zrak.', 'Vybereme obruby.', 'Nasadíme čočky.']} startAt={T_SVC + 12} hold={58} k={k} />
           </div>
         </AbsoluteFill>
       )}

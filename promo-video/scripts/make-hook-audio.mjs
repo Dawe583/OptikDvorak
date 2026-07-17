@@ -1,116 +1,154 @@
-/* Soundtrack k 11s reelu „Hook" (kompozice reel-hook).
-   Struktura kopíruje střih: napínavý riser → ÚDER v doostření (0,95 s) →
-   tikot během problémů → ÚDER ve zvratu (3,45 s) → hnací puls + hi-haty
-   přes značku a služby → akcent na CTA → doznění.
+/* Soundtrack k reelu „Hook" (kompozice reel-hook) — TEPLÝ MELODICKÝ podklas.
+   Záměrně jiný charakter než ostatní spoty: měkký pad (I–V–vi–IV v A dur),
+   jemná zvonková melodie, teplý sub, vzdušný nádech do doostření a zaoblené
+   (neklikací) údery. Bez ostrého riseru a hi-hatů.
+   Klíčové časy musí sedět s src/Hook.tsx: SNAP 1.3 s, TURN 5.2 s, CTA 11.6 s.
    Výstup: public/music-hook.wav — spuštění: npm run audio:hook */
 import {writeFileSync, mkdirSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 const SR = 44100;
-const DUR = 11;
+const DUR = 14;
 const N = Math.round(SR * DUR);
 const L = new Float32Array(N);
 const R = new Float32Array(N);
 const TWO_PI = Math.PI * 2;
 const clamp = (v) => Math.max(-1, Math.min(1, v));
 
-let seed = 11;
+let seed = 24;
 const rnd = () => {
   seed = (seed * 1103515245 + 12345) & 0x7fffffff;
   return seed / 0x3fffffff - 1;
 };
 
-const SNAP = 0.95; // doostření (T_SNAP)
-const TURN = 3.45; // zvrat (T_TURN)
-const CTA = 8.5; // CTA
+const SNAP = 1.3;
+const TURN = 5.2;
+const CTA = 11.6;
 
-/* ---------- Riser 0 → SNAP (napětí háčku) ---------- */
+const add = (i, l, r) => {
+  if (i >= 0 && i < N) {
+    L[i] += l;
+    R[i] += r;
+  }
+};
+
+/* ---------- Měkký pad (detunované sinusy, pomalý nástup) ---------- */
+const padVoice = (startT, endT, freqs, gain, pan = 0) => {
+  const s0 = Math.round(startT * SR);
+  const s1 = Math.round(endT * SR);
+  const att = 0.6 * SR;
+  const rel = 0.9 * SR;
+  for (let i = s0; i < s1 && i < N; i++) {
+    const t = i / SR;
+    let env = 1;
+    const into = i - s0;
+    const left = s1 - i;
+    if (into < att) env = into / att;
+    if (left < rel) env = Math.min(env, left / rel);
+    let s = 0;
+    for (const f of freqs) {
+      s += Math.sin(TWO_PI * f * t);
+      s += 0.5 * Math.sin(TWO_PI * f * 1.003 * t); // jemný detune → teplo
+      s += 0.22 * Math.sin(TWO_PI * f * 2 * t);
+    }
+    s = (s / (freqs.length * 1.7)) * gain * env;
+    add(i, s * (1 - pan * 0.5), s * (1 + pan * 0.5));
+  }
+};
+
+/* Akordy A dur: I(A) – V(E) – vi(F#m) – IV(D), každý ~2 s, dvakrát */
+const A = 220, Cs = 277.18, E = 164.81, Gs = 207.65, B = 246.94, Fs = 184.997, D = 146.83, Fs2 = 369.99, D2 = 293.66, A3 = 110;
+const prog = [
+  {f: [A, Cs, E * 2], root: A3},
+  {f: [E, Gs, B], root: E},
+  {f: [Fs, A, Cs], root: Fs / 2},
+  {f: [D, Fs2, A], root: D},
+];
+const chordDur = 2.0;
+for (let n = 0; n < 7; n++) {
+  const ch = prog[n % 4];
+  const st = n * chordDur;
+  if (st >= DUR) break;
+  padVoice(st, Math.min(st + chordDur + 0.6, DUR), ch.f, 0.12, (n % 2 ? 0.1 : -0.1));
+  /* teplý sub na kořen */
+  const s0 = Math.round(st * SR);
+  for (let j = 0; j < chordDur * SR && s0 + j < N; j++) {
+    const t = j / SR;
+    let env = Math.min(1, t / 0.15) * Math.max(0, 1 - t / (chordDur + 0.3));
+    const v = Math.sin(TWO_PI * ch.root * (j / SR) + 0) * 0.14 * env;
+    add(s0 + j, v, v);
+  }
+}
+
+/* ---------- Zvonková melodie (sinus + oktáva, exp. dozvuk) ---------- */
+const bell = (startT, freq, gain) => {
+  const s0 = Math.round(startT * SR);
+  for (let j = 0; j < 1.1 * SR && s0 + j < N; j++) {
+    const t = j / SR;
+    const env = Math.exp(-t * 3.4) * Math.min(1, t / 0.005);
+    const v = (Math.sin(TWO_PI * freq * t) + 0.4 * Math.sin(TWO_PI * freq * 2 * t) + 0.15 * Math.sin(TWO_PI * freq * 3 * t)) * gain * env;
+    add(s0 + j, v * 0.9, v);
+  }
+};
+/* motiv po doostření – jemná pentatonika (A C# E F# A) */
+const mel = [
+  [SNAP + 0.0, Cs * 2], [SNAP + 0.5, E * 2], [SNAP + 1.0, Fs2],
+  [TURN + 0.2, A * 2], [TURN + 0.7, Cs * 2], [TURN + 1.2, E * 2], [TURN + 1.9, Fs2],
+  [8.4, E * 2], [8.9, Fs2], [9.4, A * 2],
+  [CTA + 0.1, Cs * 2], [CTA + 0.6, E * 2], [CTA + 1.2, A * 2],
+];
+for (const [t, f] of mel) bell(t, f, 0.16);
+
+/* ---------- Vzdušný nádech do doostření (jemný, ne ostrý) ---------- */
 let lp = 0;
 for (let i = 0; i < Math.round(SNAP * SR); i++) {
   const t = i / SR;
   const p = t / SNAP;
-  const env = Math.pow(p, 2.2) * 0.55;
+  const env = Math.pow(p, 2.6) * 0.3;
   const n = rnd();
-  const a = 0.03 + 0.55 * Math.pow(p, 2);
-  lp += a * (n - lp);
-  const noise = (n - lp) * env * 0.6;
-  const f = 120 * Math.pow(2, p * 2.4);
-  const tone = Math.sin(TWO_PI * f * t) * env * 0.2;
-  L[i] += noise + tone * 0.9;
-  R[i] += noise * 0.9 + tone;
+  lp += (0.04 + 0.25 * p) * (n - lp);
+  const air = (n - lp) * env * 0.5;
+  add(i, air * 0.9, air);
 }
 
-/* ---------- Údery ---------- */
-const impact = (at, gain) => {
+/* ---------- Zaoblené údery (měkký nástup, bez cvaku) ---------- */
+const softHit = (at, gain) => {
   const s0 = Math.round(at * SR);
-  for (let j = 0; j < 1.4 * SR; j++) {
-    const idx = s0 + j;
-    if (idx >= N) break;
+  for (let j = 0; j < 1.0 * SR && s0 + j < N; j++) {
     const t = j / SR;
-    const sub = Math.sin(TWO_PI * (48 * Math.exp(-t * 4) + 30) * t) * Math.exp(-t * 4.5);
-    const click = rnd() * Math.exp(-t * 65) * 0.6;
-    const v = (sub + click) * gain;
-    L[idx] += v;
-    R[idx] += v;
+    const att = Math.min(1, t / 0.008);
+    const body = Math.sin(TWO_PI * (70 * Math.exp(-t * 3) + 42) * t) * Math.exp(-t * 4);
+    const v = body * att * gain;
+    add(s0 + j, v, v);
   }
 };
-impact(SNAP, 0.5);
-impact(TURN, 0.46);
+softHit(SNAP, 0.4);
+softHit(TURN, 0.34);
+softHit(CTA, 0.24);
 
-/* ---------- Tikot během problémů (SNAP → TURN) ---------- */
-for (let start = SNAP + 0.3; start < TURN - 0.1; start += 0.735) {
-  const s0 = Math.round(start * SR);
-  for (let j = 0; j < 0.09 * SR && s0 + j < N; j++) {
-    const t = j / SR;
-    const v = Math.sin(TWO_PI * 1400 * t) * Math.exp(-t * 60) * 0.12;
-    L[s0 + j] += v;
-    R[s0 + j] += v * 0.9;
-  }
-}
-
-/* ---------- Pad po TURN (A dur, důvěryhodné teplo) ---------- */
-const pad = [110, 164.81, 220, 277.18];
-for (let i = Math.round(TURN * SR); i < N; i++) {
-  const t = i / SR;
-  const since = t - TURN;
-  let env = Math.min(1, since / 0.7);
-  if (t > DUR - 1.0) env *= Math.max(0, (DUR - t) / 1.0);
-  const lfo = 1 + 0.05 * Math.sin(TWO_PI * 0.2 * t);
-  let s = 0;
-  for (const f of pad) s += Math.sin(TWO_PI * f * t) + 0.3 * Math.sin(TWO_PI * f * 2 * t + 0.4);
-  s = (s / pad.length) * 0.06 * env * lfo;
-  L[i] += s;
-  R[i] += s * 0.92;
-}
-
-/* ---------- Hnací puls 120 BPM od TURN ---------- */
-const beat = 60 / 120;
-for (let start = TURN; start < DUR - 0.7; start += beat) {
-  const s0 = Math.round(start * SR);
-  for (let j = 0; j < 0.16 * SR && s0 + j < N; j++) {
-    const t = j / SR;
-    const v = Math.sin(TWO_PI * (52 * Math.exp(-t * 9) + 40) * t) * Math.exp(-t * 22) * 0.22;
-    L[s0 + j] += v;
-    R[s0 + j] += v;
-  }
-}
-
-/* ---------- Hi-haty (osminy) od TURN ---------- */
-for (let start = TURN; start < DUR - 0.7; start += beat / 2) {
+/* ---------- Jemný shaker (místo hi-hatů) od TURN ---------- */
+const beat = 60 / 84; // 84 BPM
+for (let start = TURN; start < DUR - 0.8; start += beat / 2) {
   const s0 = Math.round(start * SR);
   let hp = 0;
-  for (let j = 0; j < 0.04 * SR && s0 + j < N; j++) {
+  for (let j = 0; j < 0.05 * SR && s0 + j < N; j++) {
     const n = rnd();
-    hp = 0.7 * hp + 0.3 * n;
-    const v = (n - hp) * Math.exp(-(j / SR) * 100) * 0.06;
-    L[s0 + j] += v * 0.8;
-    R[s0 + j] += v;
+    hp = 0.6 * hp + 0.4 * n;
+    const v = (n - hp) * Math.exp(-(j / SR) * 55) * 0.035;
+    add(s0 + j, v * 0.8, v);
   }
 }
 
-/* ---------- Akcent na CTA ---------- */
-impact(CTA, 0.3);
+/* ---------- Master: jemný fade in/out + měkká saturace ---------- */
+for (let i = 0; i < N; i++) {
+  const t = i / SR;
+  let g = 1;
+  if (t < 0.15) g = t / 0.15;
+  if (t > DUR - 1.2) g = Math.max(0, (DUR - t) / 1.2);
+  L[i] = Math.tanh(L[i] * g * 1.1);
+  R[i] = Math.tanh(R[i] * g * 1.1);
+}
 
 /* ---------- Zápis WAV ---------- */
 const bytes = new DataView(new ArrayBuffer(44 + N * 4));
