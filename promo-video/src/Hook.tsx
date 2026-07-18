@@ -165,7 +165,7 @@ const WordCycle: React.FC<{words: string[]; startAt: number; hold: number; k: nu
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   return (
-    <div style={{position: 'relative', height: 150 * k}}>
+    <div style={{position: 'relative', height: 170 * k}}>
       {words.map((w, i) => {
         const at = startAt + i * hold;
         const inP = spring({frame: frame - at, fps, config: {damping: 22, stiffness: 110}});
@@ -177,11 +177,13 @@ const WordCycle: React.FC<{words: string[]; startAt: number; hold: number; k: nu
               style={{
                 fontFamily: DISPLAY,
                 fontWeight: 800,
-                fontSize: 112 * k,
+                fontSize: 88 * k,
+                lineHeight: 1.25,
                 letterSpacing: '-0.035em',
                 color: C.cream,
                 display: 'inline-block',
-                transform: `translateY(${(1 - inP) * 110 - outP * 110}%)`,
+                whiteSpace: 'nowrap',
+                transform: `translateY(${(1 - inP) * 118 - outP * 118}%)`,
               }}
             >
               {w}
