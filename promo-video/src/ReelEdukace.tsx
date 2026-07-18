@@ -187,7 +187,7 @@ export const ReelEdukace = () => {
   return (
     <AbsoluteFill style={{background: C.bg}}>
       <Audio
-        src={staticFile('music.wav')}
+        src={staticFile('music-edukace.wav')}
         volume={(f) =>
           interpolate(f, [0, 8, EDUKACE_DURATION - 30, EDUKACE_DURATION], [0, 1, 1, 0], {
             extrapolateLeft: 'clamp',
