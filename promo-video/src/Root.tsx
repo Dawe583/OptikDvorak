@@ -3,6 +3,7 @@ import {Teaser, TEASER_DURATION, FPS} from './Teaser';
 import {Vitrina, VITRINA_DURATION} from './Vitrina';
 import {ReelSobota, SOBOTA_DURATION} from './ReelSobota';
 import {ReelEdukace, EDUKACE_DURATION} from './ReelEdukace';
+import {ReelVidetLip, VIDETLIP_DURATION} from './ReelVidetLip';
 
 /* Obě kompozice: 4K na výšku (9:16) — IG/FB Reels, Stories, TikTok */
 export const RemotionRoot = () => {
@@ -31,6 +32,15 @@ export const RemotionRoot = () => {
         id="reel-sobota"
         component={ReelSobota}
         durationInFrames={SOBOTA_DURATION}
+        fps={FPS}
+        width={2160}
+        height={3840}
+      />
+      {/* Vlajkový teaser „Vidět líp než včera" — pondělní Reel dle plánu (ČÁST 2) */}
+      <Composition
+        id="reel-videt-lip"
+        component={ReelVidetLip}
+        durationInFrames={VIDETLIP_DURATION}
         fps={FPS}
         width={2160}
         height={3840}
