@@ -437,7 +437,7 @@ export const ReelVidetLip = () => {
               boxShadow: `0 0 ${40 * k}px rgba(255,228,92,0.35)`,
             }}
           >
-            Objednej se k nám →
+            Zastav se za námi 👓
             <div
               style={{
                 position: 'absolute',
