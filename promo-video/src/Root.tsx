@@ -7,6 +7,7 @@ import {ReelEdukace, EDUKACE_DURATION} from './ReelEdukace';
 import {ReelVidetLip, VIDETLIP_DURATION} from './ReelVidetLip';
 import {ReelPredPo, PREDPO_DURATION} from './ReelPredPo';
 import {ReelRodina, RODINA_DURATION} from './ReelRodina';
+import {ReelSignaly, SIGNALY_DURATION} from './ReelSignaly';
 
 /* Obě kompozice: 4K na výšku (9:16) — IG/FB Reels, Stories, TikTok */
 export const RemotionRoot = () => {
@@ -73,6 +74,15 @@ export const RemotionRoot = () => {
         id="reel-rodina"
         component={ReelRodina}
         durationInFrames={RODINA_DURATION}
+        fps={FPS}
+        width={2160}
+        height={3840}
+      />
+      {/* REEL E — Sebe-diagnostický checklist „Zaškrtni si příznaky" → měření zraku */}
+      <Composition
+        id="reel-signaly"
+        component={ReelSignaly}
+        durationInFrames={SIGNALY_DURATION}
         fps={FPS}
         width={2160}
         height={3840}

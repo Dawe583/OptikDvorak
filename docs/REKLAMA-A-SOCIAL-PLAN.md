@@ -203,6 +203,45 @@ Vše 9:16, natočeno na telefon, 15–25 s, titulky vypálené do videa. Zvuk = 
 
 ---
 
+### REEL E — Sebe-diagnostický checklist „Zaškrtni si příznaky" (nejkonverznější)
+
+**Proč je tohle nejkonverznější formát v sadě:** divák si **sám odškrtává** příznaky (aktivní
+zapojení > pasivní koukání), pozná se v nich („to jsem já"), pocítí potřebu a **verdikt** ho
+pošle na měření zraku. Checklist navíc táhne dvě nejsilnější metriky algoritmu:
+**uložení** („uložím si to") a **opakované přehrání** („pustím znovu a spočítám se"). Háček je
+otázka, na kterou skoro každý po 35. roce odpoví „ano". Příznaky jsou **poctivé a reálné**
+(myopie / presbyopie / astigmatismus / digitální únava), rámované jako důvod zajít na měření —
+ne jako diagnóza a bez vymyšlených čísel.
+
+**Scénář (18 s):**
+| Čas | Záběr | Text na obrazovce | Akce / zvuk |
+|-----|-------|-------------------|-------------|
+| 0–2,6 s | Tmavý rozostřený portrét, mhouří oči | „Bolí tě večer hlava? Nemusí to být z práce." | háček, napjatý pad |
+| 2,6–3,9 s | Ztmavení pozadí, nadpis | „Kolik z těchhle poznáváš?" | obrat, swell |
+| 3,9–12 s | 5 příznaků se **postupně odškrtává** ✔ | 1) Mhouříš na telefon · 2) Večer bolí hlava / pálí oči · 3) Text oddaluješ dál · 4) V noci „hvězdičky" kolem světel · 5) U PC těžknou oči | 5 tiků (stoupající výška) |
+| 12–14,8 s | Verdikt | „✋ 2 a víc? To není únava — je čas na měření zraku." | dopad + záblesk |
+| 14,8–18 s | Logo + adresa | „Objednej se na měření zraku · Americká 325/23 · od 1991" | ping u loga |
+
+**Trik na natočení mobilem:** háček natoč přes rozostřenou čočku (nebo večerní záběr u telefonu,
+jak někdo mhouří). Checklist může být čistě grafický (text přes tmavé pozadí) — netřeba herce.
+Odškrtnutí = jednoduchá animace/samolepka v CapCutu + „tik" zvuk z knihovny.
+
+**Hotová Remotion verze:** `promo-video/` → kompozice `reel-signaly` (18 s, 4K 9:16). Render:
+`cd promo-video && npx remotion render reel-signaly out/reel-signaly.mp4`.
+Zvuk `public/music-signaly.wav` generuje `node scripts/make-audio-signaly.mjs`.
+Kompletní popisky, háčky a IG setup: **`docs/POPISKY-REEL-SIGNALY.md`**.
+
+**IG popisek (zkráceně, celý ve `POPISKY-REEL-SIGNALY.md`):**
+> Zaškrtni, kolik z těchhle znáš 👀 Mhouření, večerní bolest hlavy, oddalování textu… Většina lidí to bere jako „normál". Není. 2 a víc = čas na měření zraku.
+> 📌 Ulož si · 📲 pošli někomu, kdo pořád mhouří · 💬 napiš „VIDÍM" do DM
+> Oční optika Dvořák · Plzeň, Americká 325/23 · od 1991
+> #optikaplzeň #měřenízraku #brýleplzeň #vidětlíp #očníoptika
+
+> ⚠️ Placeholder pro majitelku: CTA „napiš VIDÍM do DM" je měkká konverze funkční 24/7 (online
+> rezervace zatím není). Doplň telefon. Checklist neber jako lékařskou radu — je to pozvánka na měření.
+
+---
+
 ## ČÁST 5 — Jaký model / nástroj na tvorbu Reels
 
 **Zásadní pravda z researche napřed:** algoritmus i důvěra v lokální optiku odměňují **autentické, původní záběry**. Reálné video z tvé optiky na telefon (4K) porazí AI generovaný klip skoro vždy — zvlášť u „před/po", zákulisí a lidského příběhu. AI použij tam, kde reálný záběr nejde natočit (rozostřený svět, abstraktní intro, b-roll).
