@@ -22,66 +22,75 @@ _(27 znaků. Přidává do vyhledávání „Optika Plzeň" k názvu značky.)_
 
 ---
 
-## 2) Bio (150 znaků) — ✨ DOPORUČENÁ verze (s vlastním hlasem značky)
+## 2) Bio (150 znaků) — ✅ DOPORUČENÁ verze (odborná, profesionální)
 
-Nejlepší bio nepopisuje kategorii, ale má **osobnost**. Tahle verze vede autentickou větou
-z vašeho webu („znáte nás jménem a my známe vaše oči") — je lidská, prémiová a v Plzni ji nikdo
-jiný nemá. Přesto drží klíčová slova i CTA.
+Profesionální tón = **formální vykání**, konkrétní **odborné služby** a **certifikace** místo
+obecných frází. Každý řádek nese optické klíčové slovo pro IG vyhledávání.
 
+```
+Oční optika v centru Plzně · od 1991
+Měření zraku · brýlová skla na míru · čočky
+Certifikace MiYOSMART® · brýle pro řidiče
+👇 Objednejte se
+```
+_(~139 znaků. Optické klíčové slova: oční optika, měření zraku, brýlová skla na míru, kontaktní
+čočky, MiYOSMART, brýle pro řidiče. Tón formální, důvěryhodný.)_
+
+**Proč je to profesionálnější:** vede kategorií a odborností, ne emocí. „Brýlová skla na míru"
+a „Certifikace MiYOSMART®" signalizují skutečnou optickou expertizu (kontrola krátkozrakosti),
+„brýle pro řidiče" je konkrétní odborná služba, kterou většina lidí hledá. Vykání drží prémiový,
+seriózní dojem.
+
+### Varianta s hodnocením (víc důvěry, méně služeb)
+```
+Oční optika v centru Plzně · od 1991
+Měření zraku · brýlová skla na míru · čočky
+Certifikace MiYOSMART® · ⭐ 4,6 Google
+👇 Objednejte měření zraku
+```
+
+### Varianta s vlastním hlasem (osobní, méně formální)
 ```
 Znáte nás jménem, my známe vaše oči 👓
 Rodinná oční optika v Plzni · od 1991
-Měření zraku · brýle na míru · čočky
-👇 Objednej měření zraku
-```
-_(~138 znaků. Hook s osobností → kdo/kde + tradice → služby jako klíčová slova → CTA.)_
-
-**Proč je to lepší než „Rodinná oční optika Plzeň":** první řádek je to jediné, co většina lidí
-opravdu přečte — tady místo generické nálepky dostanou pocit a slib osobního přístupu. Klíčová
-slova pro IG vyhledávání jsou schovaná hned na 2.–3. řádku, takže dosah neztrácíš.
-
-### Čistá / listová varianta (bez „hlasu", víc faktů)
-```
-Rodinná oční optika v Plzni · od 1991 👓
-Měření zraku · brýle na míru · čočky
-Certifikace MiYOSMART · ⭐ 4,6 Google
-👇 Objednej měření zraku
+Měření zraku · brýlová skla na míru · čočky
+👇 Objednejte se
 ```
 
 ---
 
-## 3) Alternativní verze (vyber podle tónu, všechny ≤150 znaků)
+## 3) Alternativní verze (vyber podle důrazu, všechny ≤150 znaků)
 
-**B — řemeslo / hrdost (staví na tom, že skla reálně brousíte):**
+**B — kompletní přehled služeb (co všechno u vás lidé pořídí):**
 ```
-35 let brousíme skla Plzeňanům 👓
-Rodinná oční optika · od 1991
-Měření zraku · brýle na míru · čočky
-👇 Objednej měření zraku
-```
-
-**C — filozofie / prémiový tón (věta z webu):**
-```
-Brýle nosíte každý den. Musí sedět i slušet. 👓
-Rodinná oční optika v Plzni od 1991
-Měření zraku · brýle na míru · čočky
-👇 Objednej se
+Oční optika v centru Plzně · od 1991
+Měření zraku · dioptrické i sluneční brýle
+Kontaktní čočky · brýle pro řidiče · servis
+👇 Objednejte měření zraku
 ```
 
-**D — odborná / odlišení (dětská krátkozrakost = unikát):**
+**C — specializace na dětskou krátkozrakost (silné odlišení):**
 ```
-Oční optika Plzeň · rodinná od 1991 👓
-Zpomalujeme dětskou krátkozrakost:
-MiYOSMART skla · MiSIGHT čočky
-👇 Objednej měření zraku
+Oční optika v Plzni · rodinná od 1991
+Kontrola krátkozrakosti u dětí:
+MiYOSMART® skla · MiSIGHT® čočky
+👇 Objednejte měření zraku
 ```
 
-**E — vřelá / rodinná (tradice):**
+**D — řemeslo / brýlová skla na míru (odborný důraz):**
 ```
-Rodina za pultem už od roku 1991 👓
-Oční optika v centru Plzně
-Měření zraku · brýle na míru · čočky · servis
-👇 Objednej se · ⭐ 4,6 Google
+Oční optika v centru Plzně od 1991
+Brýlová skla brousíme na míru vašim očím
+Měření zraku · kontaktní čočky · servis
+👇 Objednejte se
+```
+
+**E — s vlastním hlasem (osobnější, méně formální):**
+```
+Znáte nás jménem, my známe vaše oči 👓
+Rodinná oční optika v Plzni · od 1991
+Měření zraku · brýlová skla na míru · čočky
+👇 Objednejte se
 ```
 
 ---
