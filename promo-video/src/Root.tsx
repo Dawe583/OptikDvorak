@@ -78,7 +78,7 @@ export const RemotionRoot = () => {
         width={2160}
         height={3840}
       />
-      {/* REEL E — Sebe-diagnostický checklist „Zaškrtni si příznaky" → měření zraku */}
+      {/* REEL E — Sebe-diagnostický checklist „Poznáváš to?" → měření zraku */}
       <Composition
         id="reel-signaly"
         component={ReelSignaly}

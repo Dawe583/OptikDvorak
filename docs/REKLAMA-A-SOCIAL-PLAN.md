@@ -203,7 +203,7 @@ Vše 9:16, natočeno na telefon, 15–25 s, titulky vypálené do videa. Zvuk = 
 
 ---
 
-### REEL E — Sebe-diagnostický checklist „Zaškrtni si příznaky" (nejkonverznější)
+### REEL E — Sebe-diagnostický checklist „Poznáváš to?" (nejkonverznější)
 
 **Proč je tohle nejkonverznější formát v sadě:** divák si **sám odškrtává** příznaky (aktivní
 zapojení > pasivní koukání), pozná se v nich („to jsem já"), pocítí potřebu a **verdikt** ho
@@ -232,7 +232,7 @@ Zvuk `public/music-signaly.wav` generuje `node scripts/make-audio-signaly.mjs`.
 Kompletní popisky, háčky a IG setup: **`docs/POPISKY-REEL-SIGNALY.md`**.
 
 **IG popisek (zkráceně, celý ve `POPISKY-REEL-SIGNALY.md`):**
-> Zaškrtni, kolik z těchhle znáš 👀 Mhouření, večerní bolest hlavy, oddalování textu… Většina lidí to bere jako „normál". Není. 2 a víc = čas na měření zraku.
+> Kolik z těchhle 5 poznáváš? 👀 Mhouření, večerní bolest hlavy, oddalování textu… Většina lidí to bere jako „normál". Není. 2 a víc = čas na měření zraku.
 > 📌 Ulož si · 📲 pošli někomu, kdo pořád mhouří · 💬 napiš „VIDÍM" do DM
 > Oční optika Dvořák · Plzeň, Americká 325/23 · od 1991
 > #optikaplzeň #měřenízraku #brýleplzeň #vidětlíp #očníoptika

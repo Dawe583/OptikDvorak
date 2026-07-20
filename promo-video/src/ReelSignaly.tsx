@@ -14,7 +14,7 @@ import {loadFont as loadInter} from '@remotion/google-fonts/Inter';
 import {loadFont as loadMono} from '@remotion/google-fonts/JetBrainsMono';
 import {LogoMark} from './LogoMark';
 
-/* REEL E — „Zaškrtni si příznaky" — sebe-diagnostický checklist, 18 s.
+/* REEL E — „Poznáváš to?" — sebe-diagnostický checklist, 18 s.
    Nejkonverznější formát v sadě: divák si SÁM odškrtává příznaky (aktivní
    zapojení = uložení + opakované přehrání), pocítí potřebu a verdikt ho
    pošle na měření zraku. Shot-by-shot dle docs/REKLAMA-A-SOCIAL-PLAN.md (ČÁST 4, REEL E):
