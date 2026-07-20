@@ -22,39 +22,66 @@ _(27 znaků. Přidává do vyhledávání „Optika Plzeň" k názvu značky.)_
 
 ---
 
-## 2) Bio (150 znaků) — ✅ DOPORUČENÁ verze
+## 2) Bio (150 znaků) — ✨ DOPORUČENÁ verze (s vlastním hlasem značky)
 
+Nejlepší bio nepopisuje kategorii, ale má **osobnost**. Tahle verze vede autentickou větou
+z vašeho webu („znáte nás jménem a my známe vaše oči") — je lidská, prémiová a v Plzni ji nikdo
+jiný nemá. Přesto drží klíčová slova i CTA.
+
+```
+Znáte nás jménem, my známe vaše oči 👓
+Rodinná oční optika v Plzni · od 1991
+Měření zraku · brýle na míru · čočky
+👇 Objednej měření zraku
+```
+_(~138 znaků. Hook s osobností → kdo/kde + tradice → služby jako klíčová slova → CTA.)_
+
+**Proč je to lepší než „Rodinná oční optika Plzeň":** první řádek je to jediné, co většina lidí
+opravdu přečte — tady místo generické nálepky dostanou pocit a slib osobního přístupu. Klíčová
+slova pro IG vyhledávání jsou schovaná hned na 2.–3. řádku, takže dosah neztrácíš.
+
+### Čistá / listová varianta (bez „hlasu", víc faktů)
 ```
 Rodinná oční optika v Plzni · od 1991 👓
 Měření zraku · brýle na míru · čočky
 Certifikace MiYOSMART · ⭐ 4,6 Google
 👇 Objednej měření zraku
 ```
-_(~140 znaků. Klíčová slova: oční optika Plzeň, měření zraku, brýle na míru, čočky.
-Důvěra: od 1991, MiYOSMART, hodnocení Google. Jasná výzva k akci na konci.)_
-
-**Proč funguje:** 1. řádek = kdo/co/kde + emoce (👓). 2. řádek = služby jako klíčová slova.
-3. řádek = důvěryhodnost (tradice + certifikace + reálné hodnocení). 4. řádek = CTA směřující na
-odkaz. Žádná vata, vejde se do limitu.
 
 ---
 
-## 3) Alternativní verze (vyber podle tónu, obě ≤150 znaků)
+## 3) Alternativní verze (vyber podle tónu, všechny ≤150 znaků)
 
-**B — vřelá / rodinná (staví na tradici):**
+**B — řemeslo / hrdost (staví na tom, že skla reálně brousíte):**
 ```
-Rodina za pultem už od roku 1991 👓
-Oční optika v centru Plzně
-Měření zraku · brýle na míru · čočky · servis
-👇 Objednej se · ⭐ 4,6 Google
+35 let brousíme skla Plzeňanům 👓
+Rodinná oční optika · od 1991
+Měření zraku · brýle na míru · čočky
+👇 Objednej měření zraku
 ```
 
-**C — odborná / odlišení (dětská krátkozrakost = unikát):**
+**C — filozofie / prémiový tón (věta z webu):**
+```
+Brýle nosíte každý den. Musí sedět i slušet. 👓
+Rodinná oční optika v Plzni od 1991
+Měření zraku · brýle na míru · čočky
+👇 Objednej se
+```
+
+**D — odborná / odlišení (dětská krátkozrakost = unikát):**
 ```
 Oční optika Plzeň · rodinná od 1991 👓
 Zpomalujeme dětskou krátkozrakost:
 MiYOSMART skla · MiSIGHT čočky
 👇 Objednej měření zraku
+```
+
+**E — vřelá / rodinná (tradice):**
+```
+Rodina za pultem už od roku 1991 👓
+Oční optika v centru Plzně
+Měření zraku · brýle na míru · čočky · servis
+👇 Objednej se · ⭐ 4,6 Google
 ```
 
 ---
