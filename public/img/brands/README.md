@@ -4,6 +4,18 @@ Sem stačí nahrát soubor s logem a **na webu se objeví automaticky** —
 není potřeba nic programovat. Dokud soubor chybí, zobrazí se u dané
 značky stylizovaný název (nikdy se neukáže rozbitý obrázek).
 
+## Už doplněno
+
+Tato loga už ve složce jsou (staženo z Wikimedia Commons, sjednoceno na
+bílou): **Silhouette, Emporio Armani, Guess, Hoya**. Klidně je nahraďte
+oficiální verzí od dodavatele, když budete mít lepší.
+
+Ray-Ban zatím zůstává jako text — dostupné vektory mají plnou „placku"
+na pozadí, která by po sjednocení na bílou byla jen bílý obdélník.
+Ideální je vyžádat si čistý jednobarevný nápis „Ray-Ban" od zástupce.
+
+Zbytek značek čeká na loga (viz tabulka níže).
+
 ## Jak na to
 
 1. Připravte logo jako **SVG** (ideální — ostré na všech displejích).
