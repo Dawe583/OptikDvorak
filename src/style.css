@@ -907,3 +907,6 @@ body.menu-open .menu__nav a:nth-child(8) { transition-delay: 0.47s; }
   margin-bottom: 0.6rem;
   font-variant-numeric: tabular-nums;
 }
+
+/* Tlačítka do podstránek pod timeline (desktop bez burgeru) */
+.timeline__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
