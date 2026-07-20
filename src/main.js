@@ -17,7 +17,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Observer } from 'gsap/Observer';
 import { initCookies } from './js/cookies.js';
 import { initPageTransitions } from './js/page-transition.js';
-import { initBrandMark } from './js/brand.js';
+import { initBrandMark, initBrandLogos } from './js/brand.js';
 import { initAnalytics } from './js/analytics.js';
 
 const root = document.documentElement;
@@ -69,6 +69,7 @@ if (!prefersReduced) {
 
 function boot() {
   initBrandMark();
+  initBrandLogos();
   initMobileMenu();
   initAnchors();
   initHeader();

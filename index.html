@@ -327,36 +327,47 @@
         <!-- Značky obrub odpovídají sekci „Světoznámé značky" na oficiálním webu optikdvorak.cz
              (ověřeno dle /bryle a podstránek). Skla a čočky: MiYOSMART a MiSIGHT jsou uvedené
              přímo na webu, Hoya a CooperVision jsou jejich výrobci, EnRoute je řidičské sklo Hoya
-             (probíhá na něj akce). Aktualizuj, pokud majitelka portfolio změní. -->
-        <div class="brands__group" data-reveal-group>
-          <p class="brands__label">// Obruby</p>
-          <div class="brands__row">
-            <span class="brands__item">Ray-Ban</span>
-            <span class="brands__item">Silhouette</span>
-            <span class="brands__item">Emporio Armani</span>
-            <span class="brands__item">Vogue</span>
-            <span class="brands__item">Guess</span>
-            <span class="brands__item">Ana Hickmann</span>
-            <span class="brands__item">Morel</span>
-            <span class="brands__item">Hannah</span>
-            <span class="brands__item">Horsefeathers</span>
-            <span class="brands__item">Bloomdale</span>
-            <span class="brands__item">Lightbird</span>
-            <span class="brands__item">Woodys</span>
-            <span class="brands__item">Zenka</span>
-            <span class="brands__item">Reserve</span>
-            <span class="brands__item">Okula</span>
-          </div>
+             (probíhá na něj akce). Aktualizuj, pokud majitelka portfolio změní.
+
+             LOGA: každá dlaždice má data-brand="<slug>". Když do public/img/brands/ přibude
+             soubor <slug>.svg (nebo .png / .webp), logo se automaticky načte a nahradí text.
+             Dokud soubor chybí, zobrazí se stylizovaný název — rozbitý obrázek se nikdy neukáže.
+             Přesné názvy souborů viz public/img/brands/README.md. -->
+        <div class="brands__group">
+          <p class="brands__label" data-reveal>
+            <span class="brands__labeltext">// Obruby</span>
+            <span class="brands__rule" aria-hidden="true"></span>
+          </p>
+          <ul class="brandwall" role="list" data-reveal-group>
+            <li class="brandtile" data-brand="ray-ban"><span class="brandtile__name">Ray-Ban</span></li>
+            <li class="brandtile" data-brand="silhouette"><span class="brandtile__name">Silhouette</span></li>
+            <li class="brandtile" data-brand="emporio-armani"><span class="brandtile__name">Emporio Armani</span></li>
+            <li class="brandtile" data-brand="vogue"><span class="brandtile__name">Vogue</span></li>
+            <li class="brandtile" data-brand="guess"><span class="brandtile__name">Guess</span></li>
+            <li class="brandtile" data-brand="ana-hickmann"><span class="brandtile__name">Ana Hickmann</span></li>
+            <li class="brandtile" data-brand="morel"><span class="brandtile__name">Morel</span></li>
+            <li class="brandtile" data-brand="hannah"><span class="brandtile__name">Hannah</span></li>
+            <li class="brandtile" data-brand="horsefeathers"><span class="brandtile__name">Horsefeathers</span></li>
+            <li class="brandtile" data-brand="bloomdale"><span class="brandtile__name">Bloomdale</span></li>
+            <li class="brandtile" data-brand="lightbird"><span class="brandtile__name">Lightbird</span></li>
+            <li class="brandtile" data-brand="woodys"><span class="brandtile__name">Woodys</span></li>
+            <li class="brandtile" data-brand="zenka"><span class="brandtile__name">Zenka</span></li>
+            <li class="brandtile" data-brand="reserve"><span class="brandtile__name">Reserve</span></li>
+            <li class="brandtile" data-brand="okula"><span class="brandtile__name">Okula</span></li>
+          </ul>
         </div>
-        <div class="brands__group" data-reveal-group>
-          <p class="brands__label">// Skla a čočky</p>
-          <div class="brands__row">
-            <span class="brands__item">Hoya</span>
-            <span class="brands__item">MiYOSMART</span>
-            <span class="brands__item">MiSIGHT</span>
-            <span class="brands__item">CooperVision</span>
-            <span class="brands__item">EnRoute</span>
-          </div>
+        <div class="brands__group">
+          <p class="brands__label" data-reveal>
+            <span class="brands__labeltext">// Skla a čočky</span>
+            <span class="brands__rule" aria-hidden="true"></span>
+          </p>
+          <ul class="brandwall" role="list" data-reveal-group>
+            <li class="brandtile" data-brand="hoya"><span class="brandtile__name">Hoya</span></li>
+            <li class="brandtile" data-brand="miyosmart"><span class="brandtile__name">MiYOSMART</span></li>
+            <li class="brandtile" data-brand="misight"><span class="brandtile__name">MiSIGHT</span></li>
+            <li class="brandtile" data-brand="coopervision"><span class="brandtile__name">CooperVision</span></li>
+            <li class="brandtile" data-brand="enroute"><span class="brandtile__name">EnRoute</span></li>
+          </ul>
         </div>
       </div>
     </section>

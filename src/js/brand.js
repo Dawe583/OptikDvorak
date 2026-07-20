@@ -21,3 +21,54 @@ export function initBrandMark() {
     logo.insertAdjacentHTML('afterbegin', MARK);
   });
 }
+
+/* ============================================================
+   LOGA ZNAČEK — progresivní vylepšení sekce „Značky".
+   Každá dlaždice .brandtile má data-brand="<slug>". Pokud v
+   public/img/brands/ existuje <slug>.svg (nebo .png / .webp),
+   logo se načte a nahradí textový název. Když soubor chybí,
+   zůstane stylizovaný název a rozbitý obrázek se NIKDY nezobrazí.
+   Načítá se líně — až se stěna značek přiblíží k viewportu.
+   ============================================================ */
+const LOGO_EXTS = ['svg', 'png', 'webp'];
+
+function loadBrandLogo(tile) {
+  const slug = tile.dataset.brand;
+  if (!slug || tile.dataset.logoTried) return;
+  tile.dataset.logoTried = '1';
+  const name = tile.querySelector('.brandtile__name')?.textContent.trim() || slug;
+  let ext = 0;
+  const probe = new Image();
+  probe.onload = () => {
+    const img = document.createElement('img');
+    img.className = 'brandtile__logo';
+    img.src = probe.src;
+    img.alt = name;
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    tile.insertBefore(img, tile.firstChild);
+    tile.classList.add('has-logo');
+  };
+  probe.onerror = () => {
+    ext += 1;
+    if (ext < LOGO_EXTS.length) probe.src = `/img/brands/${slug}.${LOGO_EXTS[ext]}`;
+  };
+  probe.src = `/img/brands/${slug}.${LOGO_EXTS[0]}`;
+}
+
+export function initBrandLogos() {
+  const tiles = document.querySelectorAll('.brandtile[data-brand]');
+  if (!tiles.length) return;
+  if (!('IntersectionObserver' in window)) {
+    tiles.forEach(loadBrandLogo);
+    return;
+  }
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      loadBrandLogo(entry.target);
+      obs.unobserve(entry.target);
+    });
+  }, { rootMargin: '250px 0px' });
+  tiles.forEach((tile) => io.observe(tile));
+}

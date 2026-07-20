@@ -188,15 +188,54 @@ section { position: relative; }
 .brands__head h2 .accent { color: var(--yellow); }
 .brands__head p { color: rgba(244, 241, 234, 0.6); font-weight: 600; max-width: 30ch; }
 .brands__group { position: relative; }
-.brands__group + .brands__group { margin-top: 2.4rem; padding-top: 2rem; border-top: 1px solid rgba(244, 241, 234, 0.14); }
-.brands__label { font-family: var(--font-mono, monospace); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--yellow); margin-bottom: 1.1rem; }
-.brands__row { position: relative; display: flex; flex-wrap: wrap; gap: clamp(1.5rem, 5vw, 3.5rem) clamp(2rem, 6vw, 4.5rem); align-items: center; }
-.brands__item {
-  font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2.4rem);
-  font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em;
-  color: rgba(244, 241, 234, 0.62); transition: color 0.3s var(--eo), transform 0.3s var(--eo);
+.brands__group + .brands__group { margin-top: clamp(2rem, 4vw, 3rem); padding-top: clamp(1.6rem, 3vw, 2.4rem); border-top: 1px solid rgba(244, 241, 234, 0.12); }
+
+/* Popisek skupiny + editor-style vlasová linka doprava */
+.brands__label { display: flex; align-items: center; gap: 1.1rem; margin-bottom: 1.3rem; }
+.brands__labeltext { flex: 0 0 auto; font-family: var(--font-mono, monospace); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--yellow); }
+.brands__rule { flex: 1 1 auto; height: 1px; background: linear-gradient(90deg, rgba(244, 241, 234, 0.22), rgba(244, 241, 234, 0)); }
+
+/* Rovnoměrná stěna značek (logo wall) — auto-fill mřížka se stejně širokými dlaždicemi */
+.brandwall {
+  list-style: none; margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(9.5rem, 20vw, 12rem), 1fr));
+  gap: clamp(0.55rem, 1vw, 0.9rem);
 }
-.brands__item:hover { color: var(--cream); transform: translateY(-3px); }
+
+.brandtile {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  min-height: clamp(70px, 8.5vw, 98px); padding: 1rem 1.05rem; text-align: center;
+  border: 1px solid rgba(244, 241, 234, 0.1); border-radius: 14px;
+  background: rgba(244, 241, 234, 0.025);
+  transition: border-color 0.4s var(--eo), background-color 0.4s var(--eo), transform 0.4s var(--eo);
+  will-change: transform;
+}
+.brandtile::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(120% 130% at 50% 0%, rgba(245, 197, 24, 0.16), transparent 62%);
+  opacity: 0; transition: opacity 0.4s var(--eo);
+}
+.brandtile:hover { border-color: rgba(245, 197, 24, 0.5); background: rgba(244, 241, 234, 0.05); transform: translateY(-4px); }
+.brandtile:hover::before { opacity: 1; }
+
+.brandtile__name {
+  position: relative; font-family: var(--font-display);
+  font-size: clamp(0.82rem, 0.7rem + 0.55vw, 1.24rem);
+  font-weight: 600; text-transform: uppercase; letter-spacing: 0.015em; line-height: 1.08;
+  text-wrap: balance; color: rgba(244, 241, 234, 0.66);
+  transition: color 0.4s var(--eo);
+}
+.brandtile:hover .brandtile__name { color: var(--cream); }
+
+/* Skutečné logo (když existuje soubor) — dodejte pokud možno bílé/jednobarevné SVG */
+.brandtile__logo {
+  position: relative; display: block; width: auto; height: auto;
+  max-width: 80%; max-height: clamp(26px, 4.4vw, 42px); object-fit: contain;
+  opacity: 0.72; transition: opacity 0.4s var(--eo);
+}
+.brandtile:hover .brandtile__logo { opacity: 1; }
+.brandtile.has-logo .brandtile__name { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 /* ============================================================
    LOOKBOOK (horizontální portréty)
