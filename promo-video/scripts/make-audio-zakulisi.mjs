@@ -7,14 +7,14 @@
    · sidechain „dýchání" padu s kopákem, swing shaker,
    · outro: rozklad Cadd9 = „svět se zaostřil".
    Tempo 100 BPM → takt = 2,4 s = přesně délka háčku; střihy sedí na dobu.
-   Výstup: public/music-zakulisi.wav (44,1 kHz / 16 bit / stereo, 24 s).
+   Výstup: public/music-zakulisi.wav (44,1 kHz / 16 bit / stereo, 28 s).
    Spuštění: node scripts/make-audio-zakulisi.mjs */
 import {writeFileSync, mkdirSync} from 'node:fs';
 import {dirname, join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 const SR = 44100;
-const DUR = 24;
+const DUR = 28;
 const N = Math.round(SR * DUR);
 const L = new Float32Array(N);
 const R = new Float32Array(N);
@@ -31,7 +31,7 @@ const rnd = () => {
 const T_S1 = 2.4;
 const T_S2 = 8.4;
 const T_S3 = 14.2;
-const T_OUT = 19.0;
+const T_OUT = 23.0;
 
 const BPM = 100;
 const BEAT = 60 / BPM; // 0,6 s
@@ -206,7 +206,7 @@ const MELODY = [
   [0, 329.63], [2, 392.0], [3, 440.0], [4, 392.0], [6, 329.63], [7, 293.66],
   [8, 261.63], [10, 329.63], [11, 392.0], [12, 440.0], [14, 392.0], [15, 329.63],
 ];
-for (let loop = 0; loop < 2; loop++) {
+for (let loop = 0; loop < 3; loop++) {
   const base = T_S1 + loop * 16 * BEAT;
   for (const [b, f] of MELODY) {
     const t = base + b * BEAT;
@@ -221,6 +221,7 @@ ratchet(4.5, 4, 0.05, 0.35);
 ratchet(9.3, 4, 0.05, -0.35);
 ratchet(13.94, 5, 0.055, 0.35); // těsně před KROKEM 3 — „doladění dioptrie"
 ratchet(17.7, 4, 0.045, -0.35);
+ratchet(21.46, 4, 0.045, 0.35);
 
 /* Střihy: autofokus sweep → CVAK čočky + stoupající zvon (C5 → E5 → G5) */
 sweep(T_S1); click(T_S1, 0.5); bell(T_S1, 523.25, 0.17, 3.4);

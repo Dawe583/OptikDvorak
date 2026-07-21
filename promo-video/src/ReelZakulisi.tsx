@@ -18,11 +18,12 @@ import {LogoMark} from './LogoMark';
    (klipy natočila majitelka na telefon; originální zvuk odstraněn, hudba vygenerovaná).
    Krokový behind-the-scenes = nejvyšší dokoukanost (divák chce vidět celý proces).
 
-   0.0–2.6 s  HÁČEK — pomalý pohled po prodejně, „Co tě čeká na měření zraku 👀"
+   0.0–2.6 s  HÁČEK — vyšetřovna s přístrojem (sedí k textu), „Co tě čeká na měření zraku 👀"
    2.4–8.6 s  KROK 1 — měření zraku na přístroji, „Změříme ti zrak v klidu a přesně."
    8.4–14.4 s KROK 2 — zkušební obruba na míru, „Vybereme obrubu přesně na tvůj obličej."
-   14.2–19.2 s KROK 3 — stěna obrub, „Stovky obrub — na každý typ i rozpočet."
-   19.0–24.0 s OUTRO — logo + adresa + CTA „Objednej se na měření 👇"
+   14.2–23.2 s KROK 3 — dlouhý průchod podél celé vitríny s obrubami (bez ořezu zoomem),
+   „Stovky obrub — na každý typ i rozpočet."
+   23.0–28.0 s OUTRO — logo + adresa + CTA „Objednej se na měření 👇"
 
    Zdroj klipů: public/clip-showroom.mp4 · clip-mereni.mp4 · clip-obruba.mp4
    Časy sekcí musí sedět s scripts/make-audio-zakulisi.mjs. */
@@ -44,7 +45,7 @@ const C = {
 const GRADE = 'saturate(1.06) contrast(1.09) brightness(0.96) sepia(0.10)';
 
 export const FPS = 30;
-export const ZAKULISI_DURATION = 720; // 24 s
+export const ZAKULISI_DURATION = 840; // 28 s
 
 const F = (s: number) => Math.round(s * FPS);
 
@@ -53,7 +54,7 @@ const T_HOOK = F(0);
 const T_S1 = F(2.4);
 const T_S2 = F(8.4);
 const T_S3 = F(14.2);
-const T_OUT = F(19.0);
+const T_OUT = F(23.0);
 
 const useScale = () => useVideoConfig().width / 1080;
 
@@ -302,9 +303,9 @@ export const ReelZakulisi = () => {
         }
       />
 
-      {/* ---- HÁČEK: prodejna ---- */}
+      {/* ---- HÁČEK: vyšetřovna s přístrojem — obraz sedí k textu o měření ---- */}
       <Sequence from={T_HOOK} durationInFrames={T_S1 + 6}>
-        <Clip src="clip-showroom.mp4" trimBefore={F(0.5)} from={1.14} to={1.24} dur={T_S1 + 6} />
+        <Clip src="clip-mereni.mp4" trimBefore={F(14)} from={1.08} to={1.16} posY="center 30%" dur={T_S1 + 6} />
         <AbsoluteFill style={{padding: `0 ${72 * k}px`, justifyContent: 'center', opacity: hookOp}}>
           <div style={{fontFamily: MONO, fontSize: 25 * k, color: C.yellowDeep, marginBottom: 22 * k}}>
             // optika dvořák · plzeň
@@ -341,9 +342,9 @@ export const ReelZakulisi = () => {
         />
       </Sequence>
 
-      {/* ---- KROK 3: výběr obrub ---- */}
+      {/* ---- KROK 3: dlouhý průchod podél celé vitríny — minimální zoom, ať je vidět celá ---- */}
       <Sequence from={T_S3} durationInFrames={T_OUT - T_S3 + 6}>
-        <Clip src="clip-showroom.mp4" trimBefore={F(40)} from={1.22} to={1.1} dur={T_OUT - T_S3 + 6} />
+        <Clip src="clip-showroom.mp4" trimBefore={F(33)} from={1.0} to={1.05} dur={T_OUT - T_S3 + 6} />
         <StepText
           step="03"
           words1={['Stovky', 'obrub']}
