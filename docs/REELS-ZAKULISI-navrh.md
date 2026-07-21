@@ -58,7 +58,7 @@ a klesající basovou linkou. Outro = rozklad Cadd9, „svět se zaostřil".
 | Čas | Obraz | Titulek na plátně |
 |-----|-------|-------------------|
 | 0,0–2,4 s | prodejna, pomalý zoom (háček) | „Co tě čeká na měření zraku 👀" |
-| 2,4–8,4 s | měření na přístroji | **01** · „Změříme ti zrak. Přesně, ne od oka." |
+| 2,4–8,4 s | měření na přístroji | **01** · „Změříme ti zrak v klidu a přesně." |
 | 8,4–14,2 s | zkušební obruba | **02** · „Vybereme obrubu přesně na tebe." |
 | 14,2–19,0 s | stěna obrub | **03** · „Stovky obrub na výběr." |
 | 19,0–24,0 s | logo + adresa | „Objednej se na měření 👇" |

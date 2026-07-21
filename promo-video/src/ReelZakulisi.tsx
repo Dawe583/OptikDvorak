@@ -19,7 +19,7 @@ import {LogoMark} from './LogoMark';
    Krokový behind-the-scenes = nejvyšší dokoukanost (divák chce vidět celý proces).
 
    0.0–2.6 s  HÁČEK — pomalý pohled po prodejně, „Co tě čeká na měření zraku 👀"
-   2.4–8.6 s  KROK 1 — měření zraku na přístroji, „Změříme ti zrak. Přesně, ne od oka."
+   2.4–8.6 s  KROK 1 — měření zraku na přístroji, „Změříme ti zrak v klidu a přesně."
    8.4–14.4 s KROK 2 — zkušební obruba na míru, „Vybereme obrubu přesně na tvůj obličej."
    14.2–19.2 s KROK 3 — stěna obrub, „Stovky obrub — na každý typ i rozpočet."
    19.0–24.0 s OUTRO — logo + adresa + CTA „Objednej se na měření 👇"
@@ -322,9 +322,9 @@ export const ReelZakulisi = () => {
         <Clip src="clip-mereni.mp4" trimBefore={F(3)} from={1.08} to={1.2} posY="center 28%" dur={T_S2 - T_S1 + 6} />
         <StepText
           step="01"
-          words1={['Změříme', 'ti', 'zrak.']}
-          words2={['Přesně,', 'ne', 'od', 'oka']}
-          mono="// moderní přístroje, ne odhad"
+          words1={['Změříme', 'ti', 'zrak']}
+          words2={['v', 'klidu', 'a', 'přesně']}
+          mono="// moderní přístroje, žádný spěch"
           k={k}
         />
       </Sequence>
