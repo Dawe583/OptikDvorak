@@ -17,7 +17,7 @@ reklamní obsah, který vypadá jako od agentury._
 
 | Klip | Délka | Obsah | Kde se použil |
 |------|-------|-------|---------------|
-| **video 1** → `clip-showroom` | 11 s | pomalý pohled po prodejně — stěny plné obrub, výlohy, pult | háček + KROK 3 (výběr obrub) |
+| **video 4 (lepší záznam)** → `clip-showroom` | 52 s | klidný průchod prodejnou — sluneční brýle, stěny obrub, stolek s tulipány | háček + KROK 3 (výběr obrub) — nahradilo původní video 1 |
 | **video 2** → `clip-mereni` | 21 s | vyšetření zraku na přístroji (optometristka + klient) | KROK 1 (měření) |
 | **video 3** → `clip-obruba` | 26 s | nasazování zkušební obruby, příprava vyšetření | KROK 2 (obruba na míru) |
 

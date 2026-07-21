@@ -304,7 +304,7 @@ export const ReelZakulisi = () => {
 
       {/* ---- HÁČEK: prodejna ---- */}
       <Sequence from={T_HOOK} durationInFrames={T_S1 + 6}>
-        <Clip src="clip-showroom.mp4" trimBefore={0} from={1.14} to={1.24} dur={T_S1 + 6} />
+        <Clip src="clip-showroom.mp4" trimBefore={F(0.5)} from={1.14} to={1.24} dur={T_S1 + 6} />
         <AbsoluteFill style={{padding: `0 ${72 * k}px`, justifyContent: 'center', opacity: hookOp}}>
           <div style={{fontFamily: MONO, fontSize: 25 * k, color: C.yellowDeep, marginBottom: 22 * k}}>
             // optika dvořák · plzeň
@@ -343,7 +343,7 @@ export const ReelZakulisi = () => {
 
       {/* ---- KROK 3: výběr obrub ---- */}
       <Sequence from={T_S3} durationInFrames={T_OUT - T_S3 + 6}>
-        <Clip src="clip-showroom.mp4" trimBefore={F(5.5)} from={1.22} to={1.1} dur={T_OUT - T_S3 + 6} />
+        <Clip src="clip-showroom.mp4" trimBefore={F(40)} from={1.22} to={1.1} dur={T_OUT - T_S3 + 6} />
         <StepText
           step="03"
           words1={['Stovky', 'obrub']}
