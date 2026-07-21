@@ -18,7 +18,7 @@ import {LogoMark} from './LogoMark';
    (klipy natočila majitelka na telefon; originální zvuk odstraněn, hudba vygenerovaná).
    Krokový behind-the-scenes = nejvyšší dokoukanost (divák chce vidět celý proces).
 
-   0.0–2.6 s  HÁČEK — pomalý pohled po prodejně, „Co tě čeká, když přijdeš na oči 👀"
+   0.0–2.6 s  HÁČEK — pomalý pohled po prodejně, „Co tě čeká na měření zraku 👀"
    2.4–8.6 s  KROK 1 — měření zraku na přístroji, „Změříme ti zrak. Přesně, ne od oka."
    8.4–14.4 s KROK 2 — zkušební obruba na míru, „Vybereme obrubu přesně na tvůj obličej."
    14.2–19.2 s KROK 3 — stěna obrub, „Stovky obrub — na každý typ i rozpočet."
@@ -310,9 +310,9 @@ export const ReelZakulisi = () => {
             // optika dvořák · plzeň
           </div>
           <div style={{transform: `translateY(${(1 - hookIn) * 24 * k}px)`}}>
-            <HeadWords words={['Co', 'tě', 'čeká,']} startAt={F(0.3)} k={k} size={104} />
-            <HeadWords words={['když', 'přijdeš']} startAt={F(0.5)} k={k} size={104} />
-            <HeadWords words={['na', 'oči', '👀']} startAt={F(0.7)} k={k} size={104} />
+            <HeadWords words={['Co', 'tě', 'čeká']} startAt={F(0.3)} k={k} size={104} />
+            <HeadWords words={['na', 'měření']} startAt={F(0.5)} k={k} size={104} />
+            <HeadWords words={['zraku', '👀']} startAt={F(0.7)} k={k} size={104} />
           </div>
         </AbsoluteFill>
       </Sequence>

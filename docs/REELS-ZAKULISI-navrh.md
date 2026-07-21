@@ -57,7 +57,7 @@ a klesající basovou linkou. Outro = rozklad Cadd9, „svět se zaostřil".
 
 | Čas | Obraz | Titulek na plátně |
 |-----|-------|-------------------|
-| 0,0–2,4 s | prodejna, pomalý zoom (háček) | „Co tě čeká, když přijdeš na oči 👀" |
+| 0,0–2,4 s | prodejna, pomalý zoom (háček) | „Co tě čeká na měření zraku 👀" |
 | 2,4–8,4 s | měření na přístroji | **01** · „Změříme ti zrak. Přesně, ne od oka." |
 | 8,4–14,2 s | zkušební obruba | **02** · „Vybereme obrubu přesně na tebe." |
 | 14,2–19,0 s | stěna obrub | **03** · „Stovky obrub na výběr." |
@@ -79,13 +79,13 @@ a klesající basovou linkou. Outro = rozklad Cadd9, „svět se zaostřil".
 První řádek vidí divák před „…více" — musí obsahovat háček i „měření zraku / optika Plzeň".
 
 ### Háček — 3 varianty (testuj, který jede)
-- **A (zvědavost):** `Co tě čeká, když poprvé přijdeš na oči 👀`
+- **A (zvědavost):** `Co tě čeká na měření zraku 👀`
 - **B (ostych):** `Bojíš se, že měření zraku je nepříjemné? Podívej 👇`
 - **C (proces):** `Takhle u nás probíhá měření zraku — 3 kroky ke skvělým brýlím`
 
 ### ✅ IG popisek (hlavní)
 ```
-Co tě čeká, když poprvé přijdeš na oči 👀 Ukazujeme celé měření zraku od A do Z.
+Co tě čeká na měření zraku 👀 Ukazujeme celou návštěvu od A do Z.
 
 1️⃣ Přesné měření na moderních přístrojích — žádný odhad.
 2️⃣ Zkušební obruba přímo na tvůj obličej.
@@ -93,7 +93,7 @@ Co tě čeká, když poprvé přijdeš na oči 👀 Ukazujeme celé měření zr
 
 Žádný stres, žádný spěch. Rodinná péče o zrak v srdci Plzně už od roku 1991.
 
-📌 Ulož si, ať víš, kam v Plzni na oči
+📌 Ulož si, ať víš, kam v Plzni zajít na měření
 📲 Pošli někomu, kdo měření odkládá
 💬 Napiš „VIDĚT" do DM a domluvíme termín
 
@@ -109,7 +109,7 @@ Objednání je jednoduché — napiš do DM „VIDĚT" nebo zavolej a najdeme ti
 ```
 
 ### Cover / náhledovka
-Text přes 1. snímek: `CO TĚ ČEKÁ NA OČÍCH` (žlutě) — zvědavost + jasné téma.
+Text přes 1. snímek: `CO TĚ ČEKÁ NA MĚŘENÍ ZRAKU` (žlutě) — zvědavost + jasné téma.
 
 ### IG nastavení posta
 - **Alt text:** „Oční optika Dvořák Plzeň — měření zraku na přístroji, zkušební obruba, výběr brýlí, zákulisí návštěvy."
@@ -129,7 +129,7 @@ Pro **maximální virální dosah** ale platí:
 
 **Postup v IG (30 s):** nahraj video → dole „Zvuk" 🎵 → vyber trend označený
 šipkou ↗ (rostoucí) → hlasitost originálu stáhni na 0 → publikuj.
-Hledej klidný / „aesthetic" / „lofi" trend, který sedí k tempu střihu (~92 BPM).
+Hledej klidný / „aesthetic" / „lofi" trend, který sedí k tempu střihu (100 BPM).
 Vygenerovaná hudba v souboru slouží jako **záloha**, kdyby se ti trend nechtěl řešit.
 
 ---
