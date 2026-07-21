@@ -7,6 +7,7 @@ import {ReelEdukace, EDUKACE_DURATION} from './ReelEdukace';
 import {ReelVidetLip, VIDETLIP_DURATION} from './ReelVidetLip';
 import {ReelPredPo, PREDPO_DURATION} from './ReelPredPo';
 import {ReelRodina, RODINA_DURATION} from './ReelRodina';
+import {ReelZakulisi, ZAKULISI_DURATION, FPS as ZAKULISI_FPS} from './ReelZakulisi';
 
 /* Obě kompozice: 4K na výšku (9:16) — IG/FB Reels, Stories, TikTok */
 export const RemotionRoot = () => {
@@ -76,6 +77,16 @@ export const RemotionRoot = () => {
         fps={FPS}
         width={2160}
         height={3840}
+      />
+      {/* REEL E — Zákulisí „co tě čeká na měření", z reálných záběrů z optiky
+          (1080×1920 = přesně formát Reels, sladěno se zdrojovými telefonními klipy) */}
+      <Composition
+        id="reel-zakulisi"
+        component={ReelZakulisi}
+        durationInFrames={ZAKULISI_DURATION}
+        fps={ZAKULISI_FPS}
+        width={1080}
+        height={1920}
       />
     </>
   );

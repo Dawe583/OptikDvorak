@@ -5,7 +5,9 @@
   "scripts": {
     "studio": "remotion studio",
     "render": "remotion render reklama out/optik-dvorak-reklama-4k-9x16.mp4",
-    "audio": "node scripts/make-audio.mjs"
+    "render:zakulisi": "remotion render reel-zakulisi out/reel-zakulisi.mp4",
+    "audio": "node scripts/make-audio.mjs",
+    "audio:zakulisi": "node scripts/make-audio-zakulisi.mjs"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.0",
