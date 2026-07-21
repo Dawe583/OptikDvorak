@@ -73,40 +73,59 @@ a klesající basovou linkou. Outro = rozklad Cadd9, „svět se zaostřil".
 
 ---
 
-## 📲 Popisky k hlavnímu reelu (copy-paste pro IG)
+## 📲 Popisky k hlavnímu reelu (copy-paste pro IG) — verze dle researche 7/2026
 
-**Formule captionu:** `HÁČEK (1. řádek + klíčové slovo) → hodnota → CTA → adresa → 5 hashtagů`.
-První řádek vidí divák před „…více" — musí obsahovat háček i „měření zraku / optika Plzeň".
+**Proč je popisek postavený takhle (ověřeno researchem):**
+- **1. řádek = druhý háček + SEO.** Divák vidí jen ~125 znaků před „…více" a IG dnes
+  řadí obsah podle klíčových slov v captionu víc než podle hashtagů → „měření zraku"
+  a „Plzeň" musí být hned v prvním řádku.
+- **Jedno hlavní CTA, ne čtyři.** Konverzní popisek má mít jediný další krok,
+  který zákazník reálně udělá. Vše ostatní (ulož/pošli) patří do prvního komentáře.
+- **Klíčové slovo v komentáři („TERMÍN") = nejkonverznější mechanika.** Komentář je
+  menší bariéra než psát DM, každý komentář zvedá dosah a konverzace pak pokračuje
+  ve zprávách. Postup pro majitelku: na komentář odpovědět veřejně („Posíláme časy
+  do zpráv ✉️") **a zároveň** poslat DM s volnými termíny — veřejná odpověď je
+  sociální důkaz pro další diváky.
+- **3–5 hashtagů stačí** (éra 30 hashtagů skončila) + location tag Plzeň
+  (u lokálních podniků výrazně zvedá engagement).
 
-### Háček — 3 varianty (testuj, který jede)
-- **A (zvědavost):** `Co tě čeká na měření zraku 👀`
-- **B (ostych):** `Bojíš se, že měření zraku je nepříjemné? Podívej 👇`
-- **C (proces):** `Takhle u nás probíhá měření zraku — 3 kroky ke skvělým brýlím`
+### Háček — 3 varianty na A/B test (měň jen 1. řádek popisku)
+- **A (proces + SEO, výchozí):** `Takhle vypadá měření zraku u nás v Plzni 👀`
+- **B (námitka/ostych):** `Odkládáš měření zraku, protože nevíš, co tě čeká? Podívej 👇`
+- **C (výsledek):** `Rozmazaný svět není normál. Takhle snadno se to řeší 👇`
 
-### ✅ IG popisek (hlavní)
+### ✅ IG popisek (hlavní, copy-paste)
 ```
-Co tě čeká na měření zraku 👀 Ukazujeme celou návštěvu od A do Z.
+Takhle vypadá měření zraku u nás v Plzni 👀 Tři kroky — a víš, na čem jsi.
 
-1️⃣ Přesné měření na moderních přístrojích — žádný odhad.
-2️⃣ Zkušební obruba přímo na tvůj obličej.
-3️⃣ Výběr ze stovek obrub na každý typ i rozpočet.
+01 · Změříme ti zrak na moderních přístrojích. V klidu, bez spěchu.
+02 · Zkušební obruba přímo na tvůj obličej — poradíme, co ti sedne.
+03 · Vybereš si ze stovek obrub, na každý styl i rozpočet.
 
-Žádný stres, žádný spěch. Rodinná péče o zrak v srdci Plzně už od roku 1991.
+O zrak Plzeňanů se staráme od roku 1991. Rodinná optika na Americké — žádný řetězec, pořád stejná péče.
 
-📌 Ulož si, ať víš, kam v Plzni zajít na měření
-📲 Pošli někomu, kdo měření odkládá
-💬 Napiš „VIDĚT" do DM a domluvíme termín
+👉 Chceš termín? Napiš do komentáře „TERMÍN" a pošleme ti volné časy do zpráv.
+Radši telefon? ☎️ [telefon]
 
-Oční optika Dvořák · Plzeň, Americká 325/23 · rodinná optika od 1991
-☎️ [telefon] — objednej se
+📍 Optik Dvořák · Americká 325/23, Plzeň
 
 #optikaplzeň #měřenízraku #brýleplzeň #očníoptika #plzeň
 ```
+<!-- ⚠️ Placeholder pro majitelku: doplň telefon. „Stovky obrub" odpovídá tomu,
+     co říká video — pokud je reálný počet nižší, změň v popisku i ve videu. -->
 
-### 💬 První komentář (napiš hned po zveřejnění — nastartuje dosah)
+### 💬 První komentář (připnout hned po zveřejnění — nese vedlejší CTA + startuje dosah)
 ```
-Objednání je jednoduché — napiš do DM „VIDĚT" nebo zavolej a najdeme ti termín, který sedne 👓 Kdy jsi byl naposledy na měření zraku?
+Máte otázku k měření zraku? Ptejte se rovnou tady 👇 ráda odpovím.
+A jestli znáš někoho, kdo měření věčně odkládá — pošli mu tohle video 📲
 ```
+
+### 📩 Šablona DM odpovědi na komentář „TERMÍN" (pro majitelku)
+```
+Dobrý den! Díky za zájem o měření zraku 👓 Tento týden máme volno např. [den + čas] nebo [den + čas]. Sedí vám některý? Případně napište, kdy se vám to hodí, a najdeme jiný. Těšíme se — Optika Dvořák, Americká 325/23.
+```
+_(odeslat co nejdřív po komentáři — zájem je nejsilnější prvních pár hodin;
+na komentář zároveň veřejně odpovědět „Posíláme časy do zpráv ✉️")_
 
 ### Cover / náhledovka
 Text přes 1. snímek: `CO TĚ ČEKÁ NA MĚŘENÍ ZRAKU` (žlutě) — zvědavost + jasné téma.
