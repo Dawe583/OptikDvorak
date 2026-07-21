@@ -33,7 +33,13 @@ nejvyšší **dokoukanost** — divák chce vidět celý proces až do konce. A 
 je pro algoritmus nejsilnější signál. Zároveň to boří ostych („bojím se optiky") a
 ukazuje, že měření zraku je klidná, profesionální věc.
 
-**Délka:** 24 s · **Formát:** 1080×1920 (přesně Reels) · **Zvuk:** vlastní, teplý groove.
+**Délka:** 24 s · **Formát:** 4K na výšku 2160×3840 (9:16) · **Zvuk:** vlastní, teplý groove.
+
+> **Ke 4K:** titulky, logo, grade, zrno a všechny efekty se renderují v pravém 4K =
+> ostré jak břitva. Samotné záběry mají zdroj z telefonu jen 478×850 px, takže víc
+> reálného detailu z nich vytáhnout nejde — jsou čistě zvětšené (lanczos + jemné
+> doostření). **Pro plnou 4K ostrost i záběrů natáčej příště rovnou ve 4K** (viz
+> `NATACENI-SCENAR.md`, pravidlo 2).
 
 ### Střihový scénář (co se děje na obraze)
 
@@ -162,9 +168,10 @@ Titulky, časy i barvy se mění v `src/ReelZakulisi.tsx` (nahoře je celý scé
   jen s jeho souhlasem. V editaci je záběr veden spíš na přístroj/obrubu, ale
   **před zveřejněním potvrď ústní/SMS souhlas** — jinak tenhle klip vyměň za jiný
   (např. jen ruce / záda / detail přístroje).
-- **Kvalita zdroje.** Klipy přišly v nižším rozlišení (478×850). Pro příště: natáčej
-  v **4K** (viz `NATACENI-SCENAR.md`, pravidlo 2) — bude to ještě ostřejší. Tenhle
-  reel je i tak plně použitelný, IG stejně komprimuje.
+- **Kvalita zdroje.** Klipy přišly v nižším rozlišení (478×850) a jsou pro 4K výstup
+  čistě zvětšené. Grafika je v pravém 4K, záběry na úrovni zdroje. Pro příště: natáčej
+  v **4K** (viz `NATACENI-SCENAR.md`, pravidlo 2) — pak budou ostré i záběry.
+  (Alternativa pro tato videa: AI upscaler záběrů — na vyžádání.)
 - **Bez vymyšlených čísel.** „500+ obrub" v návrhu REEL G je jen příklad — před
   použitím ověř skutečný počet, ať to sedí (pravidlo poctivého obsahu).
 

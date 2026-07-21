@@ -79,14 +79,15 @@ export const RemotionRoot = () => {
         height={3840}
       />
       {/* REEL E — Zákulisí „co tě čeká na měření", z reálných záběrů z optiky
-          (1080×1920 = přesně formát Reels, sladěno se zdrojovými telefonními klipy) */}
+          4K na výšku (2160×3840) — titulky/logo/efekty v pravém 4K, záběry
+          čistě upscalované (zdroj z telefonu je 478×850). k = width/1080 → vše se škáluje. */}
       <Composition
         id="reel-zakulisi"
         component={ReelZakulisi}
         durationInFrames={ZAKULISI_DURATION}
         fps={ZAKULISI_FPS}
-        width={1080}
-        height={1920}
+        width={2160}
+        height={3840}
       />
     </>
   );
