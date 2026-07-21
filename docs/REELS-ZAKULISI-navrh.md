@@ -24,6 +24,11 @@ reklamní obsah, který vypadá jako od agentury._
 Všechny tři jsou vertikální (poměr ≈ 9:16), takže sedí na Reels bez ořezu.
 U všech byl **odstraněn originální zvuk** už při zpracování (ffmpeg `-an`).
 
+**Vylepšení kvality klipů (z originálů, zdarma):** dvouprůchodová **stabilizace**
+(vidstab — pryč roztřesená ruka), **odšumění** (hqdn3d — pryč kompresní šum),
+lanczos zvětšení na 1080×1920, **adaptivní doostření** (cas) a deband. Právě
+roztřesenost a šum dělaly z klipů „amatérské video" víc než samotné rozlišení.
+
 ---
 
 ## 🎬 HLAVNÍ REEL (hotový) — „Zákulisí: co tě čeká na měření zraku"
@@ -33,7 +38,14 @@ nejvyšší **dokoukanost** — divák chce vidět celý proces až do konce. A 
 je pro algoritmus nejsilnější signál. Zároveň to boří ostych („bojím se optiky") a
 ukazuje, že měření zraku je klidná, profesionální věc.
 
-**Délka:** 24 s · **Formát:** 4K na výšku 2160×3840 (9:16) · **Zvuk:** vlastní, teplý groove.
+**Délka:** 24 s · **Formát:** 4K na výšku 2160×3840 (9:16) · **Zvuk:** vlastní, tematický
+(viz níže — zvuky z optiky vpletené do hudby).
+
+**Tematický soundtrack (ne generický podkres):** tempo 100 BPM = takt přesně 2,4 s
+= délka háčku, takže střihy sedí na dobu. V hudbě jsou „schované" zvuky z ordinace:
+tikání kolečka zkušebních čoček jako perkuse, „autofokus" sweep před každým střihem
+zakončený cvaknutím čočky, filcový klavír s motivem nad progresí C → G/B → Am7 → Fmaj7
+a klesající basovou linkou. Outro = rozklad Cadd9, „svět se zaostřil".
 
 > **Ke 4K:** titulky, logo, grade, zrno a všechny efekty se renderují v pravém 4K =
 > ostré jak břitva. Samotné záběry mají zdroj z telefonu jen 478×850 px, takže víc
