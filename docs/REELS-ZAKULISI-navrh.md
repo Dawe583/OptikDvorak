@@ -96,13 +96,13 @@ a klesající basovou linkou. Outro = rozklad Cadd9, „svět se zaostřil".
 
 ### ✅ IG popisek (hlavní, copy-paste)
 ```
-Takhle vypadá měření zraku u nás v Plzni 👀 Tři kroky — a víš, na čem jsi.
+Takhle vypadá měření zraku u nás v Plzni 👀 Tři kroky a víš, na čem jsi.
 
 01 · Změříme ti zrak na moderních přístrojích. V klidu, bez spěchu.
-02 · Zkušební obruba přímo na tvůj obličej — poradíme, co ti sedne.
+02 · Zkušební obruba přímo na tvůj obličej. Poradíme, co ti sedne.
 03 · Vybereš si ze stovek obrub, na každý styl i rozpočet.
 
-O zrak Plzeňanů se staráme od roku 1991. Rodinná optika na Americké — žádný řetězec, pořád stejná péče.
+O zrak Plzeňanů se staráme od roku 1991. Rodinná optika na Americké. Žádný řetězec, pořád stejná péče.
 
 👉 Chceš termín? Napiš do komentáře „TERMÍN" a pošleme ti volné časy do zpráv.
 Radši telefon? ☎️ [telefon]
@@ -117,12 +117,12 @@ Radši telefon? ☎️ [telefon]
 ### 💬 První komentář (připnout hned po zveřejnění — nese vedlejší CTA + startuje dosah)
 ```
 Máte otázku k měření zraku? Ptejte se rovnou tady 👇 ráda odpovím.
-A jestli znáš někoho, kdo měření věčně odkládá — pošli mu tohle video 📲
+A jestli znáš někoho, kdo měření věčně odkládá, pošli mu tohle video 📲
 ```
 
 ### 📩 Šablona DM odpovědi na komentář „TERMÍN" (pro majitelku)
 ```
-Dobrý den! Díky za zájem o měření zraku 👓 Tento týden máme volno např. [den + čas] nebo [den + čas]. Sedí vám některý? Případně napište, kdy se vám to hodí, a najdeme jiný. Těšíme se — Optika Dvořák, Americká 325/23.
+Dobrý den! Díky za zájem o měření zraku 👓 Tento týden máme volno např. [den + čas] nebo [den + čas]. Sedí vám některý? Případně napište, kdy se vám to hodí, a najdeme jiný. Těšíme se! Optika Dvořák, Americká 325/23.
 ```
 _(odeslat co nejdřív po komentáři — zájem je nejsilnější prvních pár hodin;
 na komentář zároveň veřejně odpovědět „Posíláme časy do zpráv ✉️")_
