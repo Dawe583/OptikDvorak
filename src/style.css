@@ -16,93 +16,116 @@ section { position: relative; }
    kontrast, aby fotky s různým světlem působily jako jedna kolekce. */
 .pcard__media img, .lookbook__slide img, .gallery__item img, .lenses__big img,
 .lenses__small img, .lenses__intro img, .about__media img, .collage__strip img,
-.reach__media img, .note__photo img, .hero__media img, .hero__chip img,
+.reach__media img, .note__photo img,
 .ring__item img, .subhero__media img, .sub-feature__media img {
   filter: var(--photo-filter);
 }
 
 /* ============================================================
-   HERO
+   HERO — celoplošné cinematické pozadí (prolínající se fotky)
    ============================================================ */
 .hero {
+  position: relative;
   min-height: 100dvh;
   display: flex;
-  align-items: stretch;
+  align-items: flex-end;
   padding-top: calc(var(--header-h) + 2rem);
-  position: relative;
+  padding-bottom: clamp(3.5rem, 8vh, 7rem);
   overflow: hidden;
+  isolation: isolate;
+  color: var(--cream);
+  background: var(--ink-900);
 }
+
+/* --- Pozadí: prolínající se fotky + Ken Burns + scrim --- */
+.hero__stage { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: var(--ink-900); }
+.hero__slides { position: absolute; inset: 0; z-index: 1; }
+.hero__slide {
+  position: absolute; inset: 0;
+  background-position: center; background-size: cover; background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.8s var(--eo);
+  filter: var(--photo-filter) brightness(0.96);
+  animation: hero-ken 26s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+.hero__slide.is-active { opacity: 1; }
+@keyframes hero-ken {
+  from { transform: scale(1.05) translate3d(0, 0, 0); }
+  to   { transform: scale(1.16) translate3d(-1.6%, -1.4%, 0); }
+}
+.hero__scrim {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(12,12,12,0.52) 0%, rgba(12,12,12,0.14) 30%, rgba(12,12,12,0.30) 60%, rgba(12,12,12,0.88) 100%),
+    linear-gradient(90deg, rgba(12,12,12,0.68) 0%, rgba(12,12,12,0.14) 56%, rgba(12,12,12,0) 100%);
+}
+
+/* --- Obsah --- */
 .hero__inner {
   position: relative;
+  z-index: 3;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  align-items: flex-start;
   width: var(--container);
   margin-inline: auto;
-  padding-bottom: 3rem;
 }
+.hero__eyebrow {
+  font-size: var(--fs-eyebrow); font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.2em; color: rgba(244, 241, 234, 0.86); margin-bottom: 1.4rem;
+  display: flex; align-items: center; gap: 0.8rem;
+}
+.hero__eyebrow::before { content: ""; width: 42px; height: 2px; background: var(--yellow); }
 .hero__title {
   font-family: var(--font-display);
   font-size: var(--fs-hero);
   text-transform: uppercase;
-  line-height: 1.0;
+  line-height: 0.98;
   letter-spacing: -0.02em;
-  font-weight: 640;
-  position: relative;
-  z-index: 2;
+  font-weight: 680;
   text-wrap: balance;
+  text-shadow: 0 2px 44px rgba(0, 0, 0, 0.38);
 }
-.hero__title .t1 { color: var(--ink); }
-.hero__title .t2 { color: var(--t-dark); }
+.hero__title .t1 { color: var(--cream); }
+.hero__title .t2 { color: var(--yellow); }
 .line { display: block; overflow: hidden; padding: 0.14em 0 0.09em; margin: -0.14em 0 -0.09em; }
 .line__inner { display: block; }
-.hero__eyebrow {
-  font-size: var(--fs-eyebrow); font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.18em; color: var(--t-dark); margin-bottom: 1.6rem;
-  display: flex; align-items: center; gap: 0.8rem;
+.hero__sub {
+  max-width: 48ch; margin-top: 1.7rem;
+  font-weight: 500; color: rgba(244, 241, 234, 0.92); font-size: var(--fs-lead);
+  line-height: 1.55;
 }
-.hero__eyebrow::before { content: ""; width: 40px; height: 1px; background: var(--yellow-deep); }
+.hero__actions {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 1.2rem 2rem;
+  margin-top: 2.4rem;
+}
+.btn-solid--lg { padding: 1.15rem 2.1rem; font-size: 0.9rem; box-shadow: 0 18px 50px rgba(0, 0, 0, 0.4); }
+.hero__tel {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  font-family: var(--font-display); font-weight: 650; font-size: 1.3rem;
+  color: var(--cream); letter-spacing: 0.01em;
+  transition: color 0.3s var(--eo);
+}
+.hero__tel span { color: var(--yellow); }
+.hero__tel:hover { color: var(--yellow); }
+.hero__facts {
+  display: flex; flex-wrap: wrap; gap: 1.6rem 2.8rem;
+  margin-top: 3rem; padding-top: 1.8rem;
+  border-top: 1px solid rgba(244, 241, 234, 0.18);
+  width: 100%; max-width: 680px;
+}
+.hero__facts li { display: flex; flex-direction: column; gap: 0.2rem; }
+.hero__facts strong {
+  font-family: var(--font-display); font-weight: 680; font-size: 1.55rem;
+  color: var(--yellow); line-height: 1;
+}
+.hero__facts span { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(244, 241, 234, 0.72); }
 
-.hero__bottom {
-  display: flex; align-items: flex-end; justify-content: space-between;
-  gap: 2rem; margin-top: 2.2rem; position: relative; z-index: 2;
-}
-.hero__sub { max-width: 42ch; font-weight: 600; color: var(--t-dark); font-size: var(--fs-lead); }
-
-.hero__media {
-  position: absolute;
-  right: 0; top: 42%;
-  width: min(560px, 44vw);
-  aspect-ratio: 4 / 3.1;
-  overflow: hidden;
-  z-index: 1;
-}
-.hero__media::after { content: ""; position: absolute; inset: 0; z-index: 2; background: var(--scrim-ink); opacity: 0.35; }
-.hero__media img, .hero__media video {
-  width: 100%; height: 100%; object-fit: cover;
-  transform: scale(1.12);
-  will-change: transform;
-}
-.hero__media video { position: absolute; inset: 0; z-index: 1; }
-.hero__glow {
-  position: absolute; right: 8%; top: 30%;
-  width: 40vw; height: 40vw; max-width: 520px; max-height: 520px;
-  background: radial-gradient(circle, var(--yellow-glow), transparent 65%);
-  z-index: 0; pointer-events: none; filter: blur(10px);
-}
-.hero__chip {
-  position: absolute; right: 0; bottom: 3rem; z-index: 3;
-  display: flex; gap: 1rem; align-items: center;
-  background: var(--cream); padding: 0.8rem; box-shadow: var(--shadow-md);
-}
-.hero__chip img { width: 118px; aspect-ratio: 4 / 3; object-fit: cover; }
-.hero__chip p { font-weight: 600; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.35; margin-bottom: 0.45rem; }
-.hero__chip a { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; font-weight: 600; color: var(--ink-soft); }
-.chip-play { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; background: var(--yellow); color: var(--ink); }
 .hero__scroll {
-  position: absolute; left: 50%; bottom: 1.2rem; translate: -50% 0; z-index: 2;
+  position: absolute; left: 50%; bottom: 1.2rem; translate: -50% 0; z-index: 3;
   font-size: var(--fs-eyebrow); text-transform: uppercase; letter-spacing: 0.16em;
-  color: var(--ink-soft); display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+  color: rgba(244, 241, 234, 0.7); display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
 }
 .hero__scroll span { animation: scroll-bob 1.8s var(--eo) infinite; }
 @keyframes scroll-bob { 0%,100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(6px); opacity: 1; } }
@@ -628,18 +651,23 @@ body.menu-open .menu__nav a:nth-child(8) { transition-delay: 0.47s; }
 /* ============================================================
    RESPONSIVE
    ============================================================ */
+/* Střední šířky: schovej stavový chip a CTA, ať se větší logo + navigace vejdou
+   (objednací CTA je výrazně v heru i ve fixní spodní liště na mobilu) */
+@media (max-width: 1279px) {
+  .header__status { display: none; }
+}
+@media (max-width: 1159px) {
+  .header__cta { display: none; }
+}
 @media (max-width: 1023px) {
   .header__burger { display: inline-flex; }
   .header__nav, .header__status, .header__cta { display: none; }
   .cards3 { grid-template-columns: 1fr 1fr; }
-  .hero__media { width: 52vw; top: 46%; }
   .process__grid { grid-template-columns: 1fr 1fr; gap: 2rem 1.5rem; }
   .lenses__head { grid-template-columns: 1fr; }
   .lenses .giant--right { text-align: left; }
   .about__grid { grid-template-columns: 1fr; }
   .about__stats { grid-template-columns: repeat(2, 1fr); }
-  .hero__bottom { flex-direction: column; align-items: flex-start; }
-  .hero__media { top: 40%; }
   .reach { grid-template-columns: 1fr; min-height: 0; }
   .reach__media { min-height: 46vh; }
   .footer__cols { grid-template-columns: 1fr; }
@@ -653,11 +681,10 @@ body.menu-open .menu__nav a:nth-child(8) { transition-delay: 0.47s; }
   .mobile-bar { display: grid; }
   .header__cta { display: none; }
 
-  .hero { min-height: auto; padding-bottom: 1rem; }
-  .hero__media { position: static; width: 100%; margin-top: 2rem; aspect-ratio: 16 / 11; }
-  .hero__glow { display: none; }
-  .hero__chip { position: static; margin-top: 1rem; }
-  .hero__bottom { flex-direction: column; align-items: flex-start; }
+  .hero { min-height: 100svh; padding-bottom: 2.5rem; }
+  .hero__sub { font-size: 1.08rem; }
+  .hero__facts { gap: 1.2rem 2rem; margin-top: 2.2rem; padding-top: 1.4rem; }
+  .hero__facts strong { font-size: 1.3rem; }
   .hero__scroll { display: none; }
 
   .values__row { flex-wrap: wrap; justify-content: flex-start; gap: 1.2rem 1.6rem; }
@@ -732,9 +759,6 @@ body.menu-open .menu__nav a:nth-child(8) { transition-delay: 0.47s; }
   font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 0.14em;
   text-transform: uppercase; color: var(--ink-soft); margin-top: 0.5rem;
 }
-
-/* Filmový grade hero videa (jednotný teplý tón, sdílí token s fotkami) */
-.hero__video { filter: var(--photo-filter); }
 
 /* ============================================================
    3D RING CAROUSEL (lookbook) — tažením se točí, autoplay
@@ -882,20 +906,6 @@ body.menu-open .menu__nav a:nth-child(8) { transition-delay: 0.47s; }
 .btn-outline:hover::after { scale: 1; }
 .btn-outline--light::after { background: var(--cream); }
 .btn-outline--light:hover { background: transparent; }
-
-/* ============================================================
-   IMAGE TRAIL v hero — fotky mizející za kurzorem
-   ============================================================ */
-.trail-img {
-  position: absolute;
-  width: clamp(80px, 9vw, 120px);
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-  pointer-events: none;
-  z-index: 1;
-  translate: -50% -50%;
-  will-change: transform, opacity;
-}
 
 /* Preloader: procenta */
 .preloader__num {

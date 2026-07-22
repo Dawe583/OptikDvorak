@@ -145,35 +145,39 @@
   <main id="top">
 
     <!-- ===================== HERO ===================== -->
-    <section class="hero">
-      <div class="hero__glow" aria-hidden="true"></div>
+    <section class="hero" id="hero" data-hero-dark>
+      <!-- Celoplošné cinematické pozadí: reálné fotky prodejny a kolekcí se pomalu
+           prolínají (crossfade) s jemným Ken Burns pohybem. Video vrstva (hero.webm)
+           běží pod fotkami jako živý podklad. Až bude k dispozici vlastní 4K video
+           z prodejny, stačí vyměnit soubor v /video/ — layout i překryv na to jsou
+           připravené. -->
+      <div class="hero__stage" aria-hidden="true">
+        <div class="hero__slides">
+          <div class="hero__slide is-active" style="background-image:url('/img/exterier.jpg')"></div>
+          <div class="hero__slide" style="background-image:url('/img/interier.webp')"></div>
+          <div class="hero__slide" style="background-image:url('/img/glasses-round.jpg')"></div>
+          <div class="hero__slide" style="background-image:url('/img/portrait-woman.jpg')"></div>
+          <div class="hero__slide" style="background-image:url('/img/hero-portrait.jpg')"></div>
+        </div>
+        <div class="hero__scrim"></div>
+      </div>
+
       <div class="container hero__inner">
-        <p class="hero__eyebrow" data-intro>Plzeň · Americká 325/23 · od roku 1991</p>
+        <p class="hero__eyebrow" data-intro>Plzeň · Americká 325/23 · rodinná optika od roku 1991</p>
         <h1 class="hero__title">
-          <span class="line"><span class="line__inner"><span class="t1">Ostře vidět.</span></span></span>
-          <span class="line"><span class="line__inner"><span class="t2">Skvěle vypadat.</span></span></span>
+          <span class="line"><span class="line__inner"><span class="t1">Váš zrak</span></span></span>
+          <span class="line"><span class="line__inner"><span class="t2">v rodinných rukou</span></span></span>
         </h1>
-        <div class="hero__bottom">
-          <p class="hero__sub" data-intro>// Rodinná oční optika v srdci Plzně — měření zraku, značkové obruby a skla na míru vašim očím už od roku 1991.</p>
-          <div class="hero__actions" data-intro>
-            <a href="#kontakt" class="btn-outline">Objednat měření zraku <span aria-hidden="true">↗</span></a>
-          </div>
+        <p class="hero__sub" data-intro>Malá rodinná optika v centru Plzně. Změříme vám zrak, v klidu pomůžeme vybrat brýle, které vám opravdu sluší, a postaráme se o ně i dlouho potom. Přesně tak, jak to děláme už od roku 1991.</p>
+        <div class="hero__actions" data-intro>
+          <a href="#kontakt" class="btn-solid btn-solid--lg">Objednat měření zraku <span aria-hidden="true">↗</span></a>
+          <a href="tel:+420702194246" class="hero__tel"><span aria-hidden="true">✆</span> 702 194 246</a>
         </div>
-        <div class="hero__media" data-intro-media data-cursor="view">
-          <!-- Self-hosted cinematické video vygenerované z fotek prodejny (public/video/hero.webm).
-               Poster a <img> slouží jako fallback pro prohlížeče bez podpory WebM (např. starší Safari). -->
-          <video class="hero__video" autoplay muted loop playsinline preload="metadata" poster="/img/hero-portrait.jpg" aria-hidden="true">
-            <source src="/video/hero.webm" type="video/webm" />
-          </video>
-          <img src="/img/hero-portrait.jpg" alt="Brýle se zlatými obrubami a interiér prodejny Optik Dvořák" data-parallax data-speed="1" fetchpriority="high" width="560" height="434" />
-        </div>
-        <aside class="hero__chip" data-intro>
-          <img src="/img/portrait-man.jpg" alt="Spokojený zákazník v brýlích" loading="lazy" width="118" height="88" />
-          <div>
-            <p>Rodinná optika<br />od roku 1991</p>
-            <a href="#kontakt"><span class="chip-play" aria-hidden="true">→</span> Objednat se</a>
-          </div>
-        </aside>
+        <ul class="hero__facts" data-intro>
+          <li><strong>30+ let</strong><span>rodinná péče o&nbsp;váš zrak</span></li>
+          <li><strong>Po–Pá</strong><span>otevřeno na&nbsp;Americké</span></li>
+          <li><strong>Na počkání</strong><span>drobný servis brýlí</span></li>
+        </ul>
       </div>
       <p class="hero__scroll" aria-hidden="true">scrollujte <span>↓</span></p>
     </section>
@@ -283,7 +287,7 @@
         <div class="lenses__head">
           <div class="lenses__intro" data-reveal>
             <img src="/img/ai/lenses-intro.jpg" alt="Detail pantu acetátové obruby" loading="lazy" />
-            <p>// Každý pár stavíme na přesném měření a prémiových brýlových sklech.</p>
+            <p>// Každé brýle u nás začínají pečlivým měřením a dobře vybranými skly.</p>
           </div>
           <h2 class="giant giant--right" data-reveal>
             <span class="t1">Skla na míru</span><br />
@@ -494,7 +498,7 @@
           </div>
           <div class="about__copy" data-reveal>
             <h2><span class="t1">Rodina</span><br /><span class="t2">za pultem</span></h2>
-            <p>Optik Dvořák je rodinná oční optika, která v Plzni pečuje o zrak už přes tři desetiletí. Tradici a zkušenosti spojujeme s moderními brýlovými skly a značkovými obrubami. Znáte nás jménem a my známe vaše oči — a přesně tak to má být.</p>
+            <p>Optik Dvořák je rodinná oční optika, která se v Plzni stará o zrak už přes tři desetiletí. Zůstáváme malí a osobní — dáme si čas, poradíme v klidu a s výběrem vám opravdu pomůžeme. Znáte nás jménem a my známe vaše oči. A přesně tak to má být.</p>
             <div class="about__stats">
               <div class="stat"><div class="stat__value">1991</div><div class="stat__label">rok založení</div></div>
               <div class="stat"><div class="stat__value"><span data-count="35" data-years>35</span><span class="unit">+</span></div><div class="stat__label">let péče o zrak</div></div>
@@ -540,7 +544,7 @@
             <span class="timeline__year">Dnes</span>
             <div class="timeline__body">
               <h3>Tradice i moderní skla</h3>
-              <p>Spojujeme rodinný přístup se značkovými obrubami a prémiovými skly na míru vašim očím.</p>
+              <p>Pořád stejný rodinný přístup — a k tomu značkové obruby a skla přesně podle vašich očí.</p>
             </div>
           </li>
         </ol>

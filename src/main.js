@@ -64,7 +64,6 @@ if (!prefersReduced) {
 if (!prefersReduced) {
   gsap.set('.line__inner', { yPercent: 110 });
   gsap.set('[data-intro]', { y: 26, opacity: 0 });
-  gsap.set('[data-intro-media]', { opacity: 0, scale: 0.96 });
 }
 
 function boot() {
@@ -74,8 +73,7 @@ function boot() {
   initAnchors();
   initHeader();
   initScrollProgress();
-  initHeroVideo();
-  initHeroPointer();
+  initHeroSlideshow();
   initPreloader();
   initSplitHeadings();
   initReveals();
@@ -99,7 +97,6 @@ function boot() {
   initScrollSpy();
   initForms();
   initLiquidButtons();
-  initImageTrail();
   initSectionWipes();
   initHoverMotion();
   initYear();
@@ -154,7 +151,7 @@ function initHeader() {
     },
   });
 
-  gsap.utils.toArray('[data-dark-section]').forEach((sec) => {
+  gsap.utils.toArray('[data-dark-section], [data-hero-dark]').forEach((sec) => {
     ScrollTrigger.create({
       trigger: sec,
       start: 'top 58px',
@@ -162,6 +159,9 @@ function initHeader() {
       onToggle: (self) => header.classList.toggle('header--on-dark', self.isActive),
     });
   });
+
+  // Hero je tmavý a začíná pod hlavičkou → header musí být invertovaný hned od startu
+  if (document.querySelector('[data-hero-dark]')) header.classList.add('header--on-dark');
 }
 
 /* ---------- Mobilní fullscreen menu ---------- */
@@ -271,12 +271,7 @@ function startHero() {
       yPercent: 0, duration: 1.1, stagger: 0.12,
       onComplete: () => document.querySelectorAll('.hero__title, .subhero__title').forEach((el) => el.classList.add('is-intro-done')),
     }, 0.1)
-    .to('[data-intro]', { y: 0, opacity: 1, duration: 0.9, stagger: 0.1 }, 0.5)
-    .to('[data-intro-media]', { opacity: 1, scale: 1, duration: 1.2, ease: 'power3.out' }, 0.35);
-
-  // Cinematický Ken Burns na hero médiu
-  const media = document.querySelector('[data-intro-media] img, [data-intro-media] video');
-  if (media) gsap.fromTo(media, { scale: 1.12 }, { scale: 1.0, duration: 10, ease: 'none' });
+    .to('[data-intro]', { y: 0, opacity: 1, duration: 0.9, stagger: 0.1 }, 0.5);
 }
 
 /* ---------- Reveal on scroll (batched) ---------- */
@@ -362,48 +357,6 @@ function initLiquidButtons() {
     };
     btn.addEventListener('mouseenter', set);
     btn.addEventListener('mouseleave', set);
-  });
-}
-
-/* ---------- Image trail v hero: fotky obrub za kurzorem ---------- */
-function initImageTrail() {
-  const hero = document.querySelector('.hero');
-  if (!hero) return;
-  const srcs = ['/img/ai/look-aviator.jpg', '/img/ai/look-tortoise.jpg', '/img/ai/look-clear.jpg', '/img/ai/look-cateye.jpg'];
-  let i = 0;
-  let lastX = 0;
-  let lastY = 0;
-  let acc = 0;
-  let alive = 0;
-  let rect = null;
-  const refreshRect = () => { rect = hero.getBoundingClientRect(); };
-  window.addEventListener('resize', refreshRect);
-
-  hero.addEventListener('pointermove', (e) => {
-    if (e.pointerType !== 'mouse') return; // na dotyku by spawnoval při scrollu
-    acc += Math.hypot(e.clientX - lastX, e.clientY - lastY);
-    lastX = e.clientX;
-    lastY = e.clientY;
-    if (acc < 150 || alive >= 6) return;
-    acc = 0;
-    if (!rect) refreshRect();
-
-    const img = document.createElement('img');
-    img.className = 'trail-img';
-    img.src = srcs[i++ % srcs.length];
-    img.alt = '';
-    img.style.left = `${e.clientX - rect.left}px`;
-    img.style.top = `${e.clientY - rect.top}px`;
-    hero.appendChild(img);
-    alive++;
-
-    gsap.fromTo(img,
-      { scale: 0.4, opacity: 0, rotate: gsap.utils.random(-14, 14) },
-      { scale: 1, opacity: 1, duration: 0.3, ease: 'power2.out' });
-    gsap.to(img, {
-      opacity: 0, scale: 0.9, y: 44, duration: 0.55, delay: 0.35,
-      ease: 'power2.in', onComplete: () => { img.remove(); alive--; },
-    });
   });
 }
 
@@ -973,23 +926,21 @@ function initHoverMotion() {
 }
 
 /* ---------- Hero video (self-hosted webm z fotek) ---------- */
-function initHeroVideo() {
-  const v = document.querySelector('.hero__video');
-  if (!v) return;
-  if (prefersReduced) {
-    // Bez pohybu: video schovat, ukázat fotku pod ním
-    v.pause();
-    v.removeAttribute('autoplay');
-    v.style.display = 'none';
-    return;
-  }
-  const play = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
-  if (v.readyState >= 2) play();
-  else v.addEventListener('canplay', play, { once: true });
-  // Šetři baterii/data, když je karta skrytá
+function initHeroSlideshow() {
+  const slides = gsap.utils.toArray('.hero__slide');
+  if (slides.length < 2) return;
+  let i = 0;
+  const HOLD = 5200; // jak dlouho zůstane fotka, než se prolne do další
+  const advance = () => {
+    slides[i].classList.remove('is-active');
+    i = (i + 1) % slides.length;
+    slides[i].classList.add('is-active');
+  };
+  let timer = setInterval(advance, HOLD);
+  // Šetři výkon a data, když je záložka skrytá
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) v.pause();
-    else if (v.style.display !== 'none') play();
+    clearInterval(timer);
+    if (!document.hidden) timer = setInterval(advance, HOLD);
   });
 }
 
@@ -1060,41 +1011,6 @@ function initCurtains() {
       once: true,
       onEnter: () => el.classList.add('is-revealed'),
     });
-  });
-}
-
-/* ---------- Hero motion: mouse-parallax (myš) + ambient float (touch) ---------- */
-function initHeroPointer() {
-  if (prefersReduced) return;
-  const hero = document.querySelector('.hero');
-  const media = document.querySelector('.hero__media');
-  const glow = document.querySelector('.hero__glow');
-  if (!hero || !media) return;
-
-  const mm = gsap.matchMedia();
-
-  // Zařízení s myší: parallax reagující na kurzor
-  mm.add('(hover: hover) and (pointer: fine) and (min-width: 768px)', () => {
-    const mx = gsap.quickTo(media, 'x', { duration: 0.9, ease: 'power3' });
-    const my = gsap.quickTo(media, 'y', { duration: 0.9, ease: 'power3' });
-    const gx = glow ? gsap.quickTo(glow, 'x', { duration: 1.2, ease: 'power3' }) : null;
-    const gy = glow ? gsap.quickTo(glow, 'y', { duration: 1.2, ease: 'power3' }) : null;
-    const onMove = (e) => {
-      const r = hero.getBoundingClientRect();
-      const nx = (e.clientX - r.left) / r.width - 0.5;
-      const ny = (e.clientY - r.top) / r.height - 0.5;
-      mx(nx * -30); my(ny * -22);
-      if (gx) { gx(nx * 40); gy(ny * 30); }
-    };
-    hero.addEventListener('pointermove', onMove);
-    return () => hero.removeEventListener('pointermove', onMove);
-  });
-
-  // Dotyková zařízení / bez myši: jemný „ambient float", ať hero žije i bez kurzoru
-  mm.add('(hover: none), (pointer: coarse)', () => {
-    const t1 = gsap.to(media, { y: '+=10', duration: 3.6, ease: 'sine.inOut', yoyo: true, repeat: -1 });
-    const t2 = glow ? gsap.to(glow, { x: '+=14', y: '+=10', duration: 5, ease: 'sine.inOut', yoyo: true, repeat: -1 }) : null;
-    return () => { t1.kill(); t2 && t2.kill(); gsap.set(media, { y: 0 }); glow && gsap.set(glow, { x: 0, y: 0 }); };
   });
 }
 
