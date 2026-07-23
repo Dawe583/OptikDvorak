@@ -604,11 +604,25 @@
     </section>
 
     <!-- ===================== INSTAGRAM ===================== -->
-    <section class="insta" id="instagram" aria-label="Instagram Optik Dvořák">
+    <!-- ŽIVÝ FEED: vlož do data-insta-feed URL svého feedu z behold.so (zdarma,
+         připojíš @optik.dvorak jednou a web pak sám ukazuje všechny nové posty
+         i reely). Postup: docs/INSTAGRAM-FEED.md. Když je pole prázdné, zobrazí
+         se statické dlaždice níže (obnovují se přes `npm run ig:refresh`). -->
+    <section class="insta" id="instagram" aria-label="Instagram Optik Dvořák" data-insta-feed="">
       <div class="container">
         <div class="section-head" data-reveal>
           <h2 class="giant"><span class="t1">Sledujte</span> <span class="t2">nás</span></h2>
-          <a class="insta__handle" href="https://www.instagram.com/optik.dvorak/" target="_blank" rel="noopener">@optik.dvorak <span aria-hidden="true">↗</span></a>
+          <div class="insta__head-right">
+            <a class="insta__handle" href="https://www.instagram.com/optik.dvorak/" target="_blank" rel="noopener">@optik.dvorak <span aria-hidden="true">↗</span></a>
+            <div class="social social--dark">
+              <a class="social__link" href="https://www.instagram.com/optik.dvorak/" target="_blank" rel="noopener" aria-label="Optik Dvořák na Instagramu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.15" fill="currentColor" stroke="none"/></svg>
+              </a>
+              <a class="social__link" href="https://www.facebook.com/OptikDvorak" target="_blank" rel="noopener" aria-label="Optik Dvořák na Facebooku">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.14 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.23.2 2.23.2v2.46H15.2c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.91h-2.34V22c4.78-.8 8.44-4.94 8.44-9.94Z"/></svg>
+              </a>
+            </div>
+          </div>
         </div>
         <hr class="rule" data-draw data-index="// 06" />
       </div>
@@ -851,9 +865,16 @@
           <h4>Spojte se s námi</h4>
           <p>
             <a href="tel:+420702194246">+420 702 194 246</a><br />
-            <a href="mailto:optika.americka@seznam.cz">optika.americka@seznam.cz</a><br />
-            <a href="https://www.facebook.com/OptikDvorak" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/optik.dvorak/" target="_blank" rel="noopener">Instagram</a>
+            <a href="mailto:optika.americka@seznam.cz">optika.americka@seznam.cz</a>
           </p>
+          <div class="social">
+            <a class="social__link" href="https://www.instagram.com/optik.dvorak/" target="_blank" rel="noopener" aria-label="Optik Dvořák na Instagramu">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.15" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a class="social__link" href="https://www.facebook.com/OptikDvorak" target="_blank" rel="noopener" aria-label="Optik Dvořák na Facebooku">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.14 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.23.2 2.23.2v2.46H15.2c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.91h-2.34V22c4.78-.8 8.44-4.94 8.44-9.94Z"/></svg>
+            </a>
+          </div>
         </div>
       </div>
     </div>

@@ -805,6 +805,22 @@ body.menu-open .menu__nav a:nth-child(8) { transition-delay: 0.47s; }
   transition: color 0.25s var(--eo);
 }
 .insta__handle:hover { color: var(--amber-ink); }
+.insta__head-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.75rem; }
+
+/* Sociální ikony (Instagram + Facebook) */
+.social { display: inline-flex; align-items: center; gap: 0.6rem; }
+.social__link {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 1px solid var(--line-strong); color: var(--ink);
+  transition: background 0.3s var(--eo), color 0.3s var(--eo), border-color 0.3s var(--eo), transform 0.3s var(--eo);
+}
+.social__link svg { width: 20px; height: 20px; display: block; }
+.social__link:hover { background: var(--yellow); border-color: var(--yellow); color: var(--ink); transform: translateY(-2px); }
+.footer .social { margin-top: 0.7rem; }
+.footer .social__link { border-color: rgba(244, 241, 234, 0.28); color: var(--cream); }
+.footer .social__link:hover { background: var(--yellow); border-color: var(--yellow); color: var(--ink); }
+
 .insta__grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);

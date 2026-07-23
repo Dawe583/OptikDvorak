@@ -97,6 +97,7 @@ function boot() {
   initScrollSpy();
   initForms();
   initLiquidButtons();
+  initInstaFeed();
   initSectionWipes();
   initHoverMotion();
   initYear();
@@ -358,6 +359,53 @@ function initLiquidButtons() {
     btn.addEventListener('mouseenter', set);
     btn.addEventListener('mouseleave', set);
   });
+}
+
+/* ---------- Instagram feed: živě natáhne poslední příspěvky i reely ----------
+   Zdroj se nastavuje přes data-insta-feed na <section class="insta"> — vlož URL
+   JSON feedu z behold.so (zdarma). Když je prázdný nebo se nepodaří načíst,
+   zůstanou statické dlaždice v HTML (obnovované přes `npm run ig:refresh`). */
+async function initInstaFeed() {
+  const sec = document.querySelector('.insta');
+  const grid = sec?.querySelector('.insta__grid');
+  if (!grid) return;
+  // Živý feed (behold.so) má přednost; jinak čteme lokální /data/instagram.json,
+  // který obnovuje `npm run ig:refresh` (až 12 postů a reelů).
+  const src = (sec.dataset.instaFeed || '').trim() || '/data/instagram.json';
+
+  try {
+    const res = await fetch(src, { headers: { accept: 'application/json' } });
+    if (!res.ok) return;
+    const data = await res.json();
+    const raw = (Array.isArray(data) ? data : data.posts || data.data || []).slice(0, 11);
+    const tiles = raw.map((p) => ({
+      url: p.permalink || p.url || p.link || 'https://www.instagram.com/optik.dvorak/',
+      img: p.thumbnailUrl || p.mediaUrl || p.sizes?.medium?.mediaUrl || p.sizes?.small?.mediaUrl
+        || p.sizes?.full?.mediaUrl || p.image || p.img || p.display_url,
+      video: String(p.mediaType || p.media_type || p.type || '').toUpperCase().includes('VIDEO'),
+    })).filter((t) => t.img);
+    if (!tiles.length) return;
+
+    const cta = grid.querySelector('.insta__tile--cta');
+    grid.querySelectorAll('.insta__tile:not(.insta__tile--cta)').forEach((el) => el.remove());
+
+    const frag = document.createDocumentFragment();
+    tiles.forEach((t) => {
+      const a = document.createElement('a');
+      a.className = 'insta__tile';
+      a.href = t.url; a.target = '_blank'; a.rel = 'noopener';
+      a.setAttribute('aria-label', 'Příspěvek Optik Dvořák na Instagramu');
+      const img = document.createElement('img');
+      img.src = t.img; img.alt = 'Příspěvek z Instagramu Optik Dvořák'; img.loading = 'lazy';
+      const icon = document.createElement('span');
+      icon.className = 'insta__icon'; icon.setAttribute('aria-hidden', 'true');
+      icon.textContent = t.video ? '▶' : '⌾';
+      a.append(img, icon);
+      frag.appendChild(a);
+    });
+    grid.insertBefore(frag, cta || null);
+    if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+  } catch { /* ponech statické dlaždice */ }
 }
 
 /* ---------- Section wipes: tmavé sekce se „rozevřou" při příjezdu ---------- */
