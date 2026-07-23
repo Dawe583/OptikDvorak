@@ -423,13 +423,21 @@
       </div>
     </section>
 
-    <!-- ===================== TYPO PŘEDĚL (pinned, slova se mění se scrollem) ===================== -->
+    <!-- ===================== TYPO REVEAL (pinned, slova = ostré průhledy do fotky prodejny) ===================== -->
     <div class="videomask" aria-hidden="true">
       <div class="videomask__stage">
+        <!-- Ostrá fotka prodejny se ukazuje skrz písmena (dřív tu bylo rozmazané nízké video). -->
+        <img class="videomask__media" src="/img/interier.webp" alt="" aria-hidden="true" />
         <svg class="videomask__overlay" width="100%" height="100%" aria-hidden="true">
-          <text class="videomask__word" data-vm="0" x="50%" y="47%" text-anchor="middle" dominant-baseline="middle">OSTŘE</text>
-          <text class="videomask__word" data-vm="1" x="50%" y="47%" text-anchor="middle" dominant-baseline="middle" opacity="0">VIDĚT</text>
-          <text class="videomask__word" data-vm="2" x="50%" y="47%" text-anchor="middle" dominant-baseline="middle" opacity="0">STYL</text>
+          <defs>
+            <mask id="vm-text">
+              <rect width="100%" height="100%" fill="#fff" />
+              <text class="videomask__word" data-vm="0" x="50%" y="47%" text-anchor="middle" dominant-baseline="middle" fill="#000">OSTŘE</text>
+              <text class="videomask__word" data-vm="1" x="50%" y="47%" text-anchor="middle" dominant-baseline="middle" fill="#000" opacity="0">VIDĚT</text>
+              <text class="videomask__word" data-vm="2" x="50%" y="47%" text-anchor="middle" dominant-baseline="middle" fill="#000" opacity="0">STYL</text>
+            </mask>
+          </defs>
+          <rect width="100%" height="100%" fill="#F4F1EA" mask="url(#vm-text)" />
         </svg>
         <div class="videomask__mark">
           <span class="brandlogo">
