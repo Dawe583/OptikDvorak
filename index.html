@@ -158,7 +158,6 @@
           <div class="hero__slide" style="background-image:url('/img/hero/od-redhead.webp')"></div>
           <div class="hero__slide" style="background-image:url('/img/hero/od-blonde.webp')"></div>
           <div class="hero__slide" style="background-image:url('/img/hero/od-child.webp')"></div>
-          <div class="hero__slide" style="background-image:url('/img/hero/slide-2.jpg')"></div>
         </div>
         <div class="hero__scrim"></div>
       </div>
@@ -626,33 +625,46 @@
           </div>
         </div>
         <hr class="rule" data-draw data-index="// 06" />
-      </div>
-      <!-- Skutečné příspěvky z @optik.dvorak. Thumbnaily stažené build-time skriptem.
-           Obnova: npm run ig:refresh (postup v scripts/fetch-instagram.mjs). -->
-      <div class="insta__grid" data-reveal-group>
-        <a class="insta__tile" href="https://www.instagram.com/p/DZsAcf1ipKE/" target="_blank" rel="noopener" aria-label="Příspěvek Optik Dvořák na Instagramu">
-          <img src="/img/ig/ig-01.jpg" alt="Příspěvek z Instagramu Optik Dvořák" loading="lazy" />
-          <span class="insta__icon" aria-hidden="true">⌾</span>
-        </a>
-        <a class="insta__tile" href="https://www.instagram.com/p/DY2JAtfiiHm/" target="_blank" rel="noopener" aria-label="Příspěvek Optik Dvořák na Instagramu">
-          <img src="/img/ig/ig-02.jpg" alt="Příspěvek z Instagramu Optik Dvořák" loading="lazy" />
-          <span class="insta__icon" aria-hidden="true">⌾</span>
-        </a>
-        <a class="insta__tile" href="https://www.instagram.com/p/DY2I5zDCpKG/" target="_blank" rel="noopener" aria-label="Příspěvek Optik Dvořák na Instagramu">
-          <img src="/img/ig/ig-03.jpg" alt="Příspěvek z Instagramu Optik Dvořák" loading="lazy" />
-          <span class="insta__icon" aria-hidden="true">⌾</span>
-        </a>
-        <a class="insta__tile" href="https://www.instagram.com/p/DYPLNGWinEw/" target="_blank" rel="noopener" aria-label="Příspěvek Optik Dvořák na Instagramu">
-          <img src="/img/ig/ig-04.jpg" alt="Příspěvek z Instagramu Optik Dvořák" loading="lazy" />
-          <span class="insta__icon" aria-hidden="true">⌾</span>
-        </a>
-        <a class="insta__tile" href="https://www.instagram.com/p/DYPIhyKirNl/" target="_blank" rel="noopener" aria-label="Příspěvek Optik Dvořák na Instagramu">
-          <img src="/img/ig/ig-05.jpg" alt="Příspěvek z Instagramu Optik Dvořák" loading="lazy" />
-          <span class="insta__icon" aria-hidden="true">⌾</span>
-        </a>
-        <a class="insta__tile insta__tile--cta" href="https://www.instagram.com/optik.dvorak/" target="_blank" rel="noopener">
-          <span class="insta__cta-inner"><span class="insta__glyph" aria-hidden="true">⌾</span>Sledovat na<br />Instagramu <span aria-hidden="true">↗</span></span>
-        </a>
+        <!-- Karty se plní živě z Instagram feedu (behold.so) přes initInstaFeed().
+             Statické karty níže jsou fallback, když feed není dostupný. -->
+        <div class="insta__cards" data-reveal-group>
+          <article class="ig-card">
+            <header class="ig-card__head">
+              <img class="ig-card__avatar" src="/img/logo-mark.svg" alt="" width="34" height="34" />
+              <span class="ig-card__handle">optik.dvorak</span>
+              <svg class="ig-card__ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.15" fill="currentColor" stroke="none"/></svg>
+            </header>
+            <a class="ig-card__media" href="https://www.instagram.com/p/DZsAcf1ipKE/" target="_blank" rel="noopener" aria-label="Příspěvek Optik Dvořák na Instagramu">
+              <img src="/img/ig/ig-01.jpg" alt="Příspěvek z Instagramu Optik Dvořák" loading="lazy" />
+            </a>
+            <div class="ig-card__body"><a class="ig-card__link" href="https://www.instagram.com/p/DZsAcf1ipKE/" target="_blank" rel="noopener">Zobrazit na Instagramu <span aria-hidden="true">↗</span></a></div>
+          </article>
+          <article class="ig-card">
+            <header class="ig-card__head">
+              <img class="ig-card__avatar" src="/img/logo-mark.svg" alt="" width="34" height="34" />
+              <span class="ig-card__handle">optik.dvorak</span>
+              <svg class="ig-card__ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.15" fill="currentColor" stroke="none"/></svg>
+            </header>
+            <a class="ig-card__media" href="https://www.instagram.com/p/DY2JAtfiiHm/" target="_blank" rel="noopener" aria-label="Příspěvek Optik Dvořák na Instagramu">
+              <img src="/img/ig/ig-02.jpg" alt="Příspěvek z Instagramu Optik Dvořák" loading="lazy" />
+            </a>
+            <div class="ig-card__body"><a class="ig-card__link" href="https://www.instagram.com/p/DY2JAtfiiHm/" target="_blank" rel="noopener">Zobrazit na Instagramu <span aria-hidden="true">↗</span></a></div>
+          </article>
+          <article class="ig-card">
+            <header class="ig-card__head">
+              <img class="ig-card__avatar" src="/img/logo-mark.svg" alt="" width="34" height="34" />
+              <span class="ig-card__handle">optik.dvorak</span>
+              <svg class="ig-card__ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.15" fill="currentColor" stroke="none"/></svg>
+            </header>
+            <a class="ig-card__media" href="https://www.instagram.com/p/DY2I5zDCpKG/" target="_blank" rel="noopener" aria-label="Příspěvek Optik Dvořák na Instagramu">
+              <img src="/img/ig/ig-03.jpg" alt="Příspěvek z Instagramu Optik Dvořák" loading="lazy" />
+            </a>
+            <div class="ig-card__body"><a class="ig-card__link" href="https://www.instagram.com/p/DY2I5zDCpKG/" target="_blank" rel="noopener">Zobrazit na Instagramu <span aria-hidden="true">↗</span></a></div>
+          </article>
+        </div>
+        <div class="insta__cta-row" data-reveal>
+          <a class="btn-solid" href="https://www.instagram.com/optik.dvorak/" target="_blank" rel="noopener">Sledovat @optik.dvorak <span aria-hidden="true">↗</span></a>
+        </div>
       </div>
     </section>
 
@@ -706,12 +718,8 @@
         <a href="#kontakt" class="btn-outline btn-outline--light" data-reveal>Objednat měření zraku <span aria-hidden="true">↗</span></a>
       </div>
       <div class="reach__media">
-        <!-- Video pozadí: lazy-load přes IntersectionObserver (initReachVideo).
-             Chcete-li vlastní klip, nahraďte /video/hero.webm nebo doplňte <source> s vaším souborem. -->
-        <video class="reach__video" muted loop playsinline preload="none" poster="/img/ai/reach-dark.jpg" aria-hidden="true">
-          <source data-src="/video/hero.webm" type="video/webm" />
-        </video>
-        <img src="/img/ai/reach-dark.jpg" alt="Elegantní brýle v teplém bodovém světle" loading="lazy" data-parallax data-curtain />
+        <!-- Jedna prémiová fotka s jemným parallaxem (dřív tu bylo nekvalitní video). -->
+        <img src="/img/ai/reach-dark.jpg" alt="Brýle ve večerním světle města" loading="lazy" data-parallax data-curtain />
       </div>
     </section>
 
@@ -724,8 +732,8 @@
         <img src="/img/ai/kolaz-cisteni.jpg" alt="" loading="lazy" data-parallax />
       </div>
       <div class="collage__box" data-reveal>
-        <h2>Přijďte se ukázat</h2>
-        <p>// Americká 325/23, Plzeň. Rádi vás uvidíme.</p>
+        <h2>Zastavte se u nás</h2>
+        <p>// Americká 325/23, Plzeň. Těšíme se na vaši návštěvu.</p>
         <a href="#kontakt" class="btn-outline">Objednat měření zraku <span aria-hidden="true">↗</span></a>
       </div>
     </section>
@@ -779,7 +787,8 @@
           <div class="contact__form-wrap" data-reveal>
             <!-- Po nasazení: přidat data-netlify="true", nebo action na Formspree endpoint a smazat preventDefault v main.js -->
             <form id="booking-form" class="form" novalidate>
-              <h3>Rezervace měření zraku</h3>
+              <h3>Objednání měření zraku</h3>
+              <p class="form__lead">Formulář slouží pouze k objednání měření zraku. Nechte nám na sebe kontakt a my se vám ozveme a domluvíme termín.</p>
 
               <div class="form__field">
                 <label for="f-name">Jméno a příjmení</label>
@@ -795,30 +804,16 @@
               </div>
 
               <div class="form__field">
-                <label for="f-service">Co potřebujete?</label>
-                <select id="f-service" name="service" required aria-describedby="err-service">
-                  <option value="">Vyberte službu</option>
-                  <option>Měření zraku</option>
-                  <option>Nové dioptrické brýle</option>
-                  <option>Sluneční brýle</option>
-                  <option>Kontaktní čočky</option>
-                  <option>Dětské brýle</option>
-                  <option>Oprava či servis brýlí</option>
-                </select>
-                <p class="form__error" id="err-service" role="alert" data-error-for="f-service">Vyberte prosím službu.</p>
-              </div>
-
-              <div class="form__field">
-                <label for="f-message">Poznámka <span class="label-optional">(nepovinné)</span></label>
-                <textarea id="f-message" name="message" rows="3"></textarea>
-                <p class="form__hint">Napište nám třeba, kdy se vám to hodí.</p>
+                <label for="f-email">E-mail</label>
+                <input type="email" id="f-email" name="email" autocomplete="email" inputmode="email" required aria-describedby="err-email" />
+                <p class="form__error" id="err-email" role="alert" data-error-for="f-email">Vyplňte prosím platný e-mail.</p>
               </div>
 
               <input type="text" name="company" class="form__hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
               <p class="form__consent">Odesláním souhlasíte se zpracováním údajů pro vyřízení vašeho dotazu. Více v <a href="/ochrana-osobnich-udaju.html">Zásadách ochrany osobních údajů</a>.</p>
 
-              <button type="submit" class="btn-square">Odeslat poptávku</button>
+              <button type="submit" class="btn-square">Objednat měření zraku</button>
               <p class="form__error" id="form-net-error" role="alert" hidden>Odeslání se nepodařilo. Zavolejte nám prosím na <a href="tel:+420702194246">+420 702 194 246</a>.</p>
               <p class="form__success" id="form-success" role="status"><span aria-hidden="true">✓</span> Děkujeme! Vaše poptávka je na cestě, ozveme se vám co nejdříve.</p>
             </form>

@@ -367,54 +367,59 @@ function initLiquidButtons() {
    zůstanou statické dlaždice v HTML (obnovované přes `npm run ig:refresh`). */
 async function initInstaFeed() {
   const sec = document.querySelector('.insta');
-  const grid = sec?.querySelector('.insta__grid');
-  if (!grid) return;
+  const wrap = sec?.querySelector('.insta__cards');
+  if (!wrap) return;
 
-  // Zdroje v pořadí podle priority: živý feed (behold.so) → lokální JSON
-  // (obnovuje `npm run ig:refresh`) → statické dlaždice v HTML (poslední záchrana).
+  // Zdroje podle priority: živý feed (behold.so) → lokální JSON (npm run ig:refresh).
+  // Když se nic nenačte, zůstanou statické karty v HTML.
   const live = (sec.dataset.instaFeed || '').trim();
   const sources = [live, '/data/instagram.json'].filter(Boolean);
 
-  const toTiles = (data) => (Array.isArray(data) ? data : data.posts || data.data || [])
-    .slice(0, 11)
-    .map((p) => ({
-      url: p.permalink || p.url || p.link || 'https://www.instagram.com/optik.dvorak/',
-      // Preferuj stabilní CDN Beholdu (sizes.*.mediaUrl); thumbnailUrl z IG CDN může vypršet.
-      img: p.sizes?.medium?.mediaUrl || p.sizes?.large?.mediaUrl || p.sizes?.small?.mediaUrl
-        || p.sizes?.full?.mediaUrl || p.thumbnailUrl || p.mediaUrl || p.image || p.img || p.display_url,
-      video: String(p.mediaType || p.media_type || p.type || '').toUpperCase().includes('VIDEO'),
-    }))
-    .filter((t) => t.img);
-
-  let tiles = [];
+  let data = null;
   for (const src of sources) {
     try {
       const res = await fetch(src, { headers: { accept: 'application/json' } });
       if (!res.ok) continue;
-      tiles = toTiles(await res.json());
-      if (tiles.length) break;
+      const j = await res.json();
+      const has = (Array.isArray(j) ? j.length : (j.posts || j.data || []).length) > 0;
+      if (has) { data = j; break; }
     } catch { /* zkus další zdroj */ }
   }
-  if (!tiles.length) return; // nic se nenačetlo → ponech statické dlaždice v HTML
+  if (!data) return; // ponech statické karty
 
-  const cta = grid.querySelector('.insta__tile--cta');
-  grid.querySelectorAll('.insta__tile:not(.insta__tile--cta)').forEach((el) => el.remove());
+  const list = (Array.isArray(data) ? data : data.posts || data.data || []).slice(0, 6);
+  const avatar = (!Array.isArray(data) && data.profilePictureUrl) || '/img/logo-mark.svg';
+  const cards = list.map((p) => ({
+    url: p.permalink || p.url || p.link || 'https://www.instagram.com/optik.dvorak/',
+    // Preferuj stabilní CDN Beholdu (sizes.*.mediaUrl); thumbnailUrl z IG CDN může vypršet.
+    img: p.sizes?.medium?.mediaUrl || p.sizes?.large?.mediaUrl || p.sizes?.small?.mediaUrl
+      || p.sizes?.full?.mediaUrl || p.thumbnailUrl || p.mediaUrl || p.img || p.image || p.display_url,
+    video: String(p.mediaType || p.media_type || p.type || '').toUpperCase().includes('VIDEO'),
+    caption: String(p.prunedCaption || p.caption || '').replace(/\s+/g, ' ').trim(),
+  })).filter((c) => c.img);
+  if (!cards.length) return;
 
-  const frag = document.createDocumentFragment();
-  tiles.forEach((t) => {
-    const a = document.createElement('a');
-    a.className = 'insta__tile';
-    a.href = t.url; a.target = '_blank'; a.rel = 'noopener';
-    a.setAttribute('aria-label', 'Příspěvek Optik Dvořák na Instagramu');
-    const img = document.createElement('img');
-    img.src = t.img; img.alt = 'Příspěvek z Instagramu Optik Dvořák'; img.loading = 'lazy';
-    const icon = document.createElement('span');
-    icon.className = 'insta__icon'; icon.setAttribute('aria-hidden', 'true');
-    icon.textContent = t.video ? '▶' : '⌾';
-    a.append(img, icon);
-    frag.appendChild(a);
-  });
-  grid.insertBefore(frag, cta || null);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const clip = (s, n) => (s.length > n ? `${s.slice(0, n).replace(/\s+\S*$/, '')}…` : s);
+  const IG = '<svg class="ig-card__ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.15" fill="currentColor" stroke="none"/></svg>';
+
+  wrap.innerHTML = cards.map((c) => `
+    <article class="ig-card">
+      <header class="ig-card__head">
+        <img class="ig-card__avatar" src="${esc(avatar)}" alt="" width="34" height="34" loading="lazy" />
+        <span class="ig-card__handle">optik.dvorak</span>
+        ${IG}
+      </header>
+      <a class="ig-card__media" href="${esc(c.url)}" target="_blank" rel="noopener" aria-label="Příspěvek Optik Dvořák na Instagramu">
+        <img src="${esc(c.img)}" alt="Příspěvek z Instagramu Optik Dvořák" loading="lazy" />
+        ${c.video ? '<span class="ig-card__badge" aria-hidden="true">▶</span>' : ''}
+      </a>
+      <div class="ig-card__body">
+        ${c.caption ? `<p class="ig-card__cap">${esc(clip(c.caption, 140))}</p>` : ''}
+        <a class="ig-card__link" href="${esc(c.url)}" target="_blank" rel="noopener">Zobrazit na Instagramu <span aria-hidden="true">↗</span></a>
+      </div>
+    </article>`).join('');
+
   if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
 }
 
@@ -814,12 +819,14 @@ function initForms() {
       if (form.company && form.company.value) return; // honeypot
       let valid = true;
       let firstInvalid = null;
-      ['f-name', 'f-phone', 'f-service'].forEach((id) => {
+      ['f-name', 'f-phone', 'f-email'].forEach((id) => {
         const input = document.getElementById(id);
         if (!input) return;
         const field = input.closest('.form__field');
         if (!field) return;
-        const bad = !input.value.trim();
+        const val = input.value.trim();
+        // e-mail navíc kontroluje základní formát
+        const bad = !val || (id === 'f-email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val));
         field.classList.toggle('is-invalid', bad);
         input.setAttribute('aria-invalid', bad ? 'true' : 'false');
         if (bad) { valid = false; if (!firstInvalid) firstInvalid = input; }

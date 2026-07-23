@@ -821,6 +821,53 @@ body.menu-open .menu__nav a:nth-child(8) { transition-delay: 0.47s; }
 .footer .social__link { border-color: rgba(244, 241, 234, 0.28); color: var(--cream); }
 .footer .social__link:hover { background: var(--yellow); border-color: var(--yellow); color: var(--ink); }
 
+/* Instagram příspěvky jako karty (vypadají jako reálné posty) */
+.insta__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 2vw, 1.6rem);
+  margin-top: clamp(1.6rem, 3vw, 2.6rem);
+}
+.ig-card {
+  display: flex; flex-direction: column;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.4s var(--eo), box-shadow 0.4s var(--eo);
+}
+.ig-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.ig-card__head { display: flex; align-items: center; gap: 0.6rem; padding: 0.7rem 0.9rem; }
+.ig-card__avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; background: var(--cream-200); border: 1px solid var(--line); padding: 3px; }
+.ig-card__handle { font-family: var(--font-display); font-weight: 700; font-size: 0.92rem; color: var(--ink); }
+.ig-card__ig { width: 18px; height: 18px; margin-left: auto; color: var(--ink-soft); }
+.ig-card__media { position: relative; display: block; aspect-ratio: 1; overflow: hidden; }
+.ig-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--eo); }
+.ig-card:hover .ig-card__media img { transform: scale(1.05); }
+.ig-card__badge {
+  position: absolute; top: 0.6rem; right: 0.6rem;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: rgba(12, 12, 12, 0.55); color: var(--cream); font-size: 0.8rem;
+  backdrop-filter: blur(4px);
+}
+.ig-card__body { display: flex; flex-direction: column; gap: 0.7rem; padding: 0.9rem 1rem 1.05rem; flex: 1; }
+.ig-card__cap {
+  font-size: 0.92rem; line-height: 1.5; color: var(--ink-soft);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.ig-card__link {
+  margin-top: auto; display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.76rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink);
+  transition: gap 0.3s var(--eo), color 0.3s var(--eo);
+}
+.ig-card__link:hover { gap: 0.7rem; color: var(--amber-ink); }
+.insta__cta-row { display: flex; justify-content: center; margin-top: clamp(2rem, 4vw, 3rem); }
+@media (max-width: 900px) { .insta__cards { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .insta__cards { grid-template-columns: 1fr; } }
+
+/* Úvodní text formuláře */
+.form__lead { font-size: var(--fs-body-sm); color: var(--ink-soft); line-height: 1.55; margin-top: -0.3rem; }
+
 .insta__grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
