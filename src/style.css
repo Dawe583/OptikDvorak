@@ -837,7 +837,7 @@ body.menu-open .menu__nav a:nth-child(8) { transition-delay: 0.47s; }
 }
 .ig-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
 .ig-card__head { display: flex; align-items: center; gap: 0.6rem; padding: 0.7rem 0.9rem; }
-.ig-card__avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; background: var(--cream-200); border: 1px solid var(--line); padding: 3px; }
+.ig-card__avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; background: var(--ink); border: 1px solid var(--line); }
 .ig-card__handle { font-family: var(--font-display); font-weight: 700; font-size: 0.92rem; color: var(--ink); }
 .ig-card__ig { width: 18px; height: 18px; margin-left: auto; color: var(--ink-soft); }
 .ig-card__media { position: relative; display: block; aspect-ratio: 1; overflow: hidden; }

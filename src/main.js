@@ -388,7 +388,7 @@ async function initInstaFeed() {
   if (!data) return; // ponech statické karty
 
   const list = (Array.isArray(data) ? data : data.posts || data.data || []).slice(0, 6);
-  const avatar = (!Array.isArray(data) && data.profilePictureUrl) || '/img/logo-mark.svg';
+  const avatar = (!Array.isArray(data) && data.profilePictureUrl) || '/img/ig-avatar.webp';
   const cards = list.map((p) => ({
     url: p.permalink || p.url || p.link || 'https://www.instagram.com/optik.dvorak/',
     // Preferuj stabilní CDN Beholdu (sizes.*.mediaUrl); thumbnailUrl z IG CDN může vypršet.
