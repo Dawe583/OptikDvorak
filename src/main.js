@@ -489,20 +489,14 @@ function initRing() {
    nápis roste; video prosvítá skrz písmena SVG masky ---------- */
 function initVideoMask() {
   const sec = document.querySelector('.videomask');
-  const video = sec?.querySelector('.videomask__video');
-  if (!sec || !video) return;
+  if (!sec) return;
   const words = gsap.utils.toArray('.videomask__word', sec);
   const N = words.length || 1;
-
-  /* Druhé stažení videa až když se sekce blíží (nesoupeří s LCP) */
-  new IntersectionObserver((entries, io) => {
-    if (entries[0].isIntersecting) { video.load(); io.disconnect(); }
-  }, { rootMargin: '100% 0px' }).observe(sec);
 
   gsap.set(words, { transformOrigin: 'center' });
 
   /* Slova se přes scroll prolínají (OSTŘE → VIDĚT → STYL) a rostou.
-     Vždy je aspoň jedno slovo vidět, ať krémová maska neprobleskne. */
+     Vždy je aspoň jedno slovo vidět. */
   const seg = 1 / N;
   const setWords = (p) => {
     words.forEach((w, i) => {
@@ -519,22 +513,13 @@ function initVideoMask() {
   };
   setWords(0);
 
-  let progress = 0;
-  const st = ScrollTrigger.create({
+  ScrollTrigger.create({
     trigger: sec,
     start: 'top top',
     end: '+=' + Math.max(160, N * 90) + '%',
     pin: true,
     scrub: true,
-    onUpdate: (self) => { progress = self.progress; setWords(self.progress); },
-  });
-
-  /* Plynulý dojezd času videa; běží jen dokud je sekce pinnutá */
-  gsap.ticker.add(() => {
-    if (!st.isActive || !video.duration) return;
-    const t = progress * Math.max(0, video.duration - 0.05);
-    const diff = t - video.currentTime;
-    if (Math.abs(diff) > 0.02) video.currentTime += diff * 0.18;
+    onUpdate: (self) => setWords(self.progress),
   });
 }
 
