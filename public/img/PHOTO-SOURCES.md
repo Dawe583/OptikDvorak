@@ -8,13 +8,13 @@ Poznámka: složka `img/ai/` nese historický název, ale její obsah jsou dnes 
 Klidně je kdykoli nahraď vlastními fotkami z prodejny (stejný název souboru → nemusí se nic přepisovat).
 
 ## Hero (úvodní slideshow) — `img/hero/`
-| Soubor | Pexels |
+| Soubor | Zdroj |
 | --- | --- |
-| slide-1.jpg | https://www.pexels.com/photo/34460849/ |
-| slide-2.jpg | https://www.pexels.com/photo/5330483/ |
-| slide-3.jpg | https://www.pexels.com/photo/5202049/ |
-| slide-4.jpg | https://www.pexels.com/photo/4963715/ |
-| slide-5.jpg | https://www.pexels.com/photo/947885/ |
+| slide-1.jpg | Pexels https://www.pexels.com/photo/34460849/ |
+| slide-2.jpg | Pexels https://www.pexels.com/photo/5330483/ |
+| od-redhead.webp | optikdvorak.cz (úvodní fotka, 3000×2000) |
+| od-blonde.webp | optikdvorak.cz (úvodní fotka, 3000×2000) |
+| od-child.webp | optikdvorak.cz (úvodní fotka, 3000×2000) |
 
 ## Ostatní fotky — `img/ai/`
 | Soubor | Pexels |
