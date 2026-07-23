@@ -606,12 +606,13 @@ export function initForms() {
     if (form.company && form.company.value) return; // honeypot
     let valid = true;
     let firstInvalid = null;
-    ['f-name', 'f-phone', 'f-service'].forEach((id) => {
+    ['f-name', 'f-phone', 'f-email'].forEach((id) => {
       const input = document.getElementById(id);
       if (!input) return;
       const field = input.closest('.form__field');
       if (!field) return;
-      const bad = !input.value.trim();
+      const val = input.value.trim();
+      const bad = !val || (id === 'f-email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val));
       field.classList.toggle('is-invalid', bad);
       input.setAttribute('aria-invalid', bad ? 'true' : 'false');
       if (bad) { valid = false; if (!firstInvalid) firstInvalid = input; }

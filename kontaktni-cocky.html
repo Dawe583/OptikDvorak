@@ -196,7 +196,8 @@
           </div>
           <div data-reveal>
             <form id="booking-form" class="form" novalidate>
-              <h3>Rezervace aplikace čoček</h3>
+              <h3>Objednání měření zraku</h3>
+              <p class="form__lead">Formulář slouží pouze k objednání měření zraku. Nechte nám na sebe kontakt a my se vám ozveme a domluvíme termín.</p>
               <div class="form__field">
                 <label for="f-name">Jméno a příjmení</label>
                 <input type="text" id="f-name" name="name" autocomplete="name" required aria-describedby="err-name" />
@@ -209,25 +210,13 @@
                 <p class="form__error" id="err-phone" role="alert" data-error-for="f-phone">Vyplňte prosím telefonní číslo.</p>
               </div>
               <div class="form__field">
-                <label for="f-service">Co potřebujete?</label>
-                <select id="f-service" name="service" required aria-describedby="err-service">
-                  <option value="">Vyberte službu</option>
-                  <option>Měření zraku</option>
-                  <option>Nové dioptrické brýle</option>
-                  <option>Sluneční brýle</option>
-                  <option selected>Kontaktní čočky</option>
-                  <option>Dětské brýle</option>
-                  <option>Oprava či servis brýlí</option>
-                </select>
-                <p class="form__error" id="err-service" role="alert" data-error-for="f-service">Vyberte prosím službu.</p>
-              </div>
-              <div class="form__field">
-                <label for="f-message">Poznámka <span class="label-optional">(nepovinné)</span></label>
-                <textarea id="f-message" name="message" rows="3"></textarea>
+                <label for="f-email">E-mail</label>
+                <input type="email" id="f-email" name="email" autocomplete="email" inputmode="email" required aria-describedby="err-email" />
+                <p class="form__error" id="err-email" role="alert" data-error-for="f-email">Vyplňte prosím platný e-mail.</p>
               </div>
               <input type="text" name="company" class="form__hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
               <p class="form__consent">Odesláním souhlasíte se zpracováním údajů pro vyřízení vašeho dotazu. Více v <a href="/ochrana-osobnich-udaju.html">Zásadách ochrany osobních údajů</a>.</p>
-              <button type="submit" class="btn-square">Odeslat poptávku</button>
+              <button type="submit" class="btn-square">Objednat měření zraku</button>
               <p class="form__error" id="form-net-error" role="alert" hidden>Odeslání se nepodařilo. Zavolejte nám prosím na <a href="tel:+420702194246">+420 702 194 246</a>.</p>
               <p class="form__success" id="form-success" role="status"><span aria-hidden="true">✓</span> Děkujeme! Vaše poptávka je na cestě, ozveme se vám co nejdříve.</p>
             </form>
