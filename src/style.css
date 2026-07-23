@@ -251,8 +251,8 @@ section { position: relative; }
    Dodejte pokud možno bílé/jednobarevné SVG; barevná se automaticky zesvětlí. */
 .brandtile__logo {
   position: relative; display: block; width: auto; height: auto;
-  max-width: 78%; max-height: clamp(24px, 4vw, 40px); object-fit: contain;
-  filter: brightness(0) invert(1); opacity: 0.74;
+  max-width: 90%; max-height: clamp(40px, 6vw, 66px); object-fit: contain;
+  filter: brightness(0) invert(1); opacity: 0.82;
   transition: opacity 0.4s var(--eo);
 }
 .brandtile:hover .brandtile__logo { opacity: 1; }
