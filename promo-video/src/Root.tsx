@@ -7,6 +7,7 @@ import {ReelEdukace, EDUKACE_DURATION} from './ReelEdukace';
 import {ReelVidetLip, VIDETLIP_DURATION} from './ReelVidetLip';
 import {ReelPredPo, PREDPO_DURATION} from './ReelPredPo';
 import {ReelRodina, RODINA_DURATION} from './ReelRodina';
+import {ReelOptika, OPTIKA_DURATION} from './ReelOptika';
 
 /* Obě kompozice: 4K na výšku (9:16) — IG/FB Reels, Stories, TikTok */
 export const RemotionRoot = () => {
@@ -74,6 +75,15 @@ export const RemotionRoot = () => {
         component={ReelRodina}
         durationInFrames={RODINA_DURATION}
         fps={FPS}
+        width={2160}
+        height={3840}
+      />
+      {/* Pomalá prohlídka optiky — jen nejlepší reálné záběry prodejny */}
+      <Composition
+        id="reel-optika"
+        component={ReelOptika}
+        durationInFrames={OPTIKA_DURATION}
+        fps={60}
         width={2160}
         height={3840}
       />
