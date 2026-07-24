@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Virtuální prohlídka — Optik Dvořák</title>
+<meta name="description" content="Rozhlédněte se po naší oční optice v Plzni. Interaktivní 360° prohlídka prodejny.">
+<style>
+  :root {
+    --ink: #070707;
+    --cream: #F4F1EA;
+    --gold: #FFE45C;
+    --gold-deep: #F5C518;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; overflow: hidden; background: var(--ink); color: var(--cream);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+  canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+  canvas.grabbing { cursor: grabbing; }
+
+  .veil { position: fixed; inset: 0; background: var(--ink); display: grid; place-items: center;
+    z-index: 40; transition: opacity .6s ease; }
+  .veil.hidden { opacity: 0; pointer-events: none; }
+  .spin { width: 46px; height: 46px; border: 3px solid rgba(244,241,234,.18);
+    border-top-color: var(--gold); border-radius: 50%; animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .brand { position: fixed; top: max(20px, env(safe-area-inset-top)); left: 22px; z-index: 20;
+    font-size: 13px; letter-spacing: .16em; text-transform: uppercase; font-weight: 700;
+    text-shadow: 0 2px 14px rgba(0,0,0,.8); pointer-events: none; }
+  .brand b { color: var(--gold); font-weight: 700; }
+
+  .hint { position: fixed; left: 50%; top: 50%; translate: -50% -50%; z-index: 15;
+    background: rgba(7,7,7,.55); backdrop-filter: blur(8px); padding: 14px 22px; border-radius: 999px;
+    font-size: 14px; pointer-events: none; transition: opacity .5s ease; display: flex; gap: 10px; align-items: center; }
+
+  .bar { position: fixed; left: 50%; translate: -50% 0; bottom: max(22px, env(safe-area-inset-bottom));
+    z-index: 20; display: flex; gap: 6px; padding: 6px; border-radius: 999px;
+    background: rgba(7,7,7,.5); backdrop-filter: blur(12px); border: 1px solid rgba(244,241,234,.1); }
+  .bar button { border: 0; background: transparent; color: rgba(244,241,234,.75); cursor: pointer;
+    font: inherit; font-size: 13px; font-weight: 600; padding: 10px 17px; border-radius: 999px;
+    transition: background .2s, color .2s; white-space: nowrap; }
+  .bar button:hover { background: rgba(244,241,234,.1); color: var(--cream); }
+  .bar button.on { background: var(--gold); color: #111; }
+
+  .tools { position: fixed; right: 22px; bottom: max(22px, env(safe-area-inset-bottom)); z-index: 20;
+    display: flex; flex-direction: column; gap: 8px; }
+  .tools button { width: 44px; height: 44px; border: 1px solid rgba(244,241,234,.12); cursor: pointer;
+    background: rgba(7,7,7,.5); backdrop-filter: blur(12px); color: rgba(244,241,234,.8);
+    border-radius: 50%; font-size: 17px; display: grid; place-items: center; transition: background .2s; }
+  .tools button:hover { background: rgba(244,241,234,.15); color: var(--cream); }
+
+  .foot { position: fixed; left: 22px; bottom: max(24px, env(safe-area-inset-bottom)); z-index: 20;
+    font-size: 12px; color: rgba(244,241,234,.45); line-height: 1.5; pointer-events: none; }
+  @media (max-width: 720px) {
+    .foot { display: none; }
+    .bar button { padding: 10px 13px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+  <canvas id="gl"></canvas>
+
+  <div class="brand">Optik <b>Dvořák</b></div>
+  <div class="hint" id="hint">Táhněte pro rozhlédnutí</div>
+
+  <div class="bar" id="bar"></div>
+  <div class="tools">
+    <button id="zin"  title="Přiblížit">+</button>
+    <button id="zout" title="Oddálit">−</button>
+    <button id="full" title="Celá obrazovka">⛶</button>
+  </div>
+  <div class="foot">Americká 325/23, Plzeň<br>rodinná optika od 1991</div>
+
+<script>
+/* ------------------------------------------------------------------
+   360° prohlídka — válcová projekce panoramat s pravou perspektivou.
+   Panoramata z iPhonu jsou cylindrická: vodorovně úhel, svisle tan(výšky).
+   Kamera stojí uvnitř válce, fragment shader pro každý pixel spočítá
+   směr paprsku a navzorkuje panorama. Bez knihoven.
+------------------------------------------------------------------ */
+
+const VFOV = 55 * Math.PI / 180;          // svislý záběr iPhone panoramatu
+const FOCAL_OVER_H = 1 / (2 * Math.tan(VFOV / 2));   // f / výška obrázku
+
+/* Dvě stanoviště pokrývají celou prodejnu. Třetí panorama bylo focené
+   téměř ze stejného místa jako druhé, takže by se jen opakovalo. */
+const STATIONS = [
+  {label: 'Recepce a stěny obrouček', base: 'pano1', w: 16352, h: 3788},
+  {label: 'Prodejna a vchod',         base: 'pano2', w: 14846, h: 3792},
+];
+// vodorovný záběr každého panoramatu v radiánech
+for (const s of STATIONS) s.hfov = (s.w / s.h) * (2 * Math.tan(VFOV / 2));
+
+const cv = document.getElementById('gl');
+const gl = cv.getContext('webgl', {antialias: true, alpha: false});
+if (!gl) { document.body.innerHTML = '<p style="padding:40px">Váš prohlížeč nepodporuje WebGL.</p>'; }
+
+/* ---------- shadery ---------- */
+const VS = `
+attribute vec2 aPos;
+varying vec2 vUv;
+void main() { vUv = aPos * 0.5 + 0.5; gl_Position = vec4(aPos, 0.0, 1.0); }`;
+
+const FS = `
+precision highp float;
+varying vec2 vUv;
+uniform sampler2D uTexA, uTexB;
+uniform float uMix;            // prolnutí mezi stanovišti
+uniform float uHFovA, uHFovB;  // vodorovný záběr obou panoramat
+uniform float uFocalOverH;     // f / výška
+uniform float uYaw, uPitch, uFovY, uAspect;
+
+vec4 sampleCyl(sampler2D tex, vec3 d, float hfov) {
+  float theta = atan(d.x, -d.z);
+  float horiz = length(d.xz);
+  float tanPhi = d.y / max(horiz, 1e-5);
+  vec2 uv = vec2(0.5 + theta / hfov, 0.5 - tanPhi * uFocalOverH);
+  vec3 col = texture2D(tex, clamp(uv, 0.0, 1.0)).rgb;
+  // za okrajem panoramatu měkce doznít do tmy (místo tvrdého černého pruhu)
+  vec2 over = max(-uv, uv - 1.0);
+  float d2 = max(over.x, over.y);
+  col *= 1.0 - smoothstep(0.0, 0.05, d2);
+  return vec4(col, 1.0);
+}
+
+void main() {
+  vec2 ndc = vUv * 2.0 - 1.0;
+  float t = tan(uFovY * 0.5);
+  vec3 dir = normalize(vec3(ndc.x * t * uAspect, ndc.y * t, -1.0));
+
+  float cp = cos(uPitch), sp = sin(uPitch);
+  dir = vec3(dir.x, dir.y * cp - dir.z * sp, dir.y * sp + dir.z * cp);
+  float cy = cos(uYaw), sy = sin(uYaw);
+  dir = vec3(dir.x * cy + dir.z * sy, dir.y, -dir.x * sy + dir.z * cy);
+
+  vec4 a = sampleCyl(uTexA, dir, uHFovA);
+  vec4 b = sampleCyl(uTexB, dir, uHFovB);
+  vec3 col = mix(a.rgb, b.rgb, uMix);
+
+  // jemná viněta pro hloubku
+  float r = length(vUv - 0.5);
+  col *= 1.0 - 0.28 * r * r;
+  gl_FragColor = vec4(col, 1.0);
+}`;
+
+function compile(type, src) {
+  const s = gl.createShader(type);
+  gl.shaderSource(s, src); gl.compileShader(s);
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+  return s;
+}
+const prog = gl.createProgram();
+gl.attachShader(prog, compile(gl.VERTEX_SHADER, VS));
+gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FS));
+gl.linkProgram(prog);
+if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+gl.useProgram(prog);
+
+const buf = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+const aPos = gl.getAttribLocation(prog, 'aPos');
+gl.enableVertexAttribArray(aPos);
+gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+const U = {};
+for (const n of ['uTexA','uTexB','uMix','uHFovA','uHFovB','uFocalOverH','uYaw','uPitch','uFovY','uAspect'])
+  U[n] = gl.getUniformLocation(prog, n);
+gl.uniform1i(U.uTexA, 0);
+gl.uniform1i(U.uTexB, 1);
+gl.uniform1f(U.uFocalOverH, FOCAL_OVER_H);
+
+/* ---------- textury ---------- */
+const MAX_TEX = gl.getParameter(gl.MAX_TEXTURE_SIZE);
+const QUALITY = MAX_TEX >= 8192 ? '8k' : '4k';
+
+function makeTexture() {
+  const t = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, t);
+  // 1px placeholder, než se obrázek načte
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, 1, 1, 0, gl.RGB, gl.UNSIGNED_BYTE, new Uint8Array([7,7,7]));
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  return t;
+}
+const texA = makeTexture(), texB = makeTexture();
+gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+
+const cache = new Map();
+function loadImage(base) {
+  if (cache.has(base)) return cache.get(base);
+  const p = new Promise((res, rej) => {
+    const im = new Image();
+    im.onload = () => res(im);
+    im.onerror = () => rej(new Error('nelze načíst ' + base));
+    im.src = `${base}-${QUALITY}.jpg`;
+  });
+  cache.set(base, p);
+  return p;
+}
+function upload(tex, img) {
+  gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, img);
+}
+
+/* ---------- stav kamery ---------- */
+/* Svislý záběr panoramatu je 55°, takže kamera nesmí být širší — jinak by
+   nad a pod obrazem vznikly prázdné pruhy. */
+const FOV_MIN = 30 * Math.PI / 180;
+const FOV_MAX = 54 * Math.PI / 180;
+let yaw = 0, pitch = 0, fovY = 50 * Math.PI / 180;
+let vYaw = 0, vPitch = 0;          // setrvačnost
+let idle = 0, drifting = true;
+let cur = 0, prevIdx = 0, mix = 1; // mix 1 = plně aktuální stanoviště
+
+function limits() {
+  const s = STATIONS[cur];
+  const fovX = 2 * Math.atan(Math.tan(fovY / 2) * (cv.width / cv.height));
+  const maxYaw = Math.max(0, s.hfov / 2 - fovX / 2);
+  const maxTanPhi = 0.5 / FOCAL_OVER_H;                 // okraj panoramatu
+  const maxPitch = Math.max(0, Math.atan(maxTanPhi) - fovY / 2);
+  return {maxYaw, maxPitch};
+}
+function clampCam() {
+  const {maxYaw, maxPitch} = limits();
+  yaw = Math.max(-maxYaw, Math.min(maxYaw, yaw));
+  pitch = Math.max(-maxPitch, Math.min(maxPitch, pitch));
+}
+
+function resize() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  cv.width = Math.round(cv.clientWidth * dpr);
+  cv.height = Math.round(cv.clientHeight * dpr);
+  gl.viewport(0, 0, cv.width, cv.height);
+  clampCam();
+  // uniformy nastavit hned, ne až v první snímkové smyčce
+  gl.uniform1f(U.uAspect, cv.width / Math.max(1, cv.height));
+  gl.uniform1f(U.uFovY, fovY);
+  gl.uniform1f(U.uYaw, yaw);
+  gl.uniform1f(U.uPitch, pitch);
+}
+window.addEventListener('resize', resize);
+
+/* ---------- ovládání ---------- */
+let dragging = false, lastX = 0, lastY = 0, pinch = 0;
+const hint = document.getElementById('hint');
+function stopIdle() { drifting = false; idle = 0; if (hint) hint.style.opacity = '0'; }
+
+function down(x, y) { dragging = true; lastX = x; lastY = y; cv.classList.add('grabbing'); stopIdle(); }
+function move(x, y) {
+  if (!dragging) return;
+  const k = fovY / cv.clientHeight * (window.devicePixelRatio > 1 ? 1.1 : 1.0);
+  vYaw = -(x - lastX) * k;
+  vPitch = (y - lastY) * k;
+  yaw += vYaw; pitch += vPitch;
+  lastX = x; lastY = y;
+  clampCam();
+}
+function up() { dragging = false; cv.classList.remove('grabbing'); }
+
+cv.addEventListener('mousedown', e => down(e.clientX, e.clientY));
+window.addEventListener('mousemove', e => move(e.clientX, e.clientY));
+window.addEventListener('mouseup', up);
+
+cv.addEventListener('touchstart', e => {
+  if (e.touches.length === 1) down(e.touches[0].clientX, e.touches[0].clientY);
+  else if (e.touches.length === 2) {
+    dragging = false;
+    pinch = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+    stopIdle();
+  }
+}, {passive: true});
+cv.addEventListener('touchmove', e => {
+  if (e.touches.length === 1) move(e.touches[0].clientX, e.touches[0].clientY);
+  else if (e.touches.length === 2 && pinch) {
+    const d = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+    zoom(pinch / d);
+    pinch = d;
+  }
+}, {passive: true});
+cv.addEventListener('touchend', () => { up(); pinch = 0; }, {passive: true});
+
+function zoom(factor) {
+  fovY = Math.max(FOV_MIN, Math.min(FOV_MAX, fovY * factor));
+  clampCam();
+}
+cv.addEventListener('wheel', e => { e.preventDefault(); stopIdle(); zoom(e.deltaY > 0 ? 1.06 : 0.94); }, {passive: false});
+document.getElementById('zin').onclick  = () => { stopIdle(); zoom(0.85); };
+document.getElementById('zout').onclick = () => { stopIdle(); zoom(1.18); };
+document.getElementById('full').onclick = () =>
+  document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.();
+
+window.addEventListener('keydown', e => {
+  const step = fovY * 0.12;
+  if (e.key === 'ArrowLeft')  { yaw -= step; stopIdle(); }
+  if (e.key === 'ArrowRight') { yaw += step; stopIdle(); }
+  if (e.key === 'ArrowUp')    { pitch += step * 0.6; stopIdle(); }
+  if (e.key === 'ArrowDown')  { pitch -= step * 0.6; stopIdle(); }
+  clampCam();
+});
+
+/* ---------- přepínání stanovišť ---------- */
+const bar = document.getElementById('bar');
+STATIONS.forEach((s, i) => {
+  const b = document.createElement('button');
+  b.textContent = s.label;
+  b.className = i === 0 ? 'on' : '';
+  b.onclick = () => goto(i);
+  bar.appendChild(b);
+});
+
+let switching = false;
+async function goto(i) {
+  if (i === cur || switching) return;
+  switching = true;
+  const img = await loadImage(STATIONS[i].base);
+  // aktuální -> slot A (jako "předchozí"), nové -> slot B
+  const prevImg = await loadImage(STATIONS[cur].base);
+  upload(texA, prevImg);
+  upload(texB, img);
+  prevIdx = cur; cur = i;
+  gl.uniform1f(U.uHFovA, STATIONS[prevIdx].hfov);
+  gl.uniform1f(U.uHFovB, STATIONS[cur].hfov);
+  mix = 0;
+  yaw = 0; pitch = 0; clampCam();
+  [...bar.children].forEach((b, k) => b.classList.toggle('on', k === i));
+  stopIdle();
+  switching = false;
+}
+
+/* ---------- smyčka ---------- */
+function frame() {
+  // setrvačnost po tažení
+  if (!dragging) {
+    yaw += vYaw; pitch += vPitch;
+    vYaw *= 0.92; vPitch *= 0.92;
+    if (Math.abs(vYaw) < 1e-5) vYaw = 0;
+    if (Math.abs(vPitch) < 1e-5) vPitch = 0;
+    clampCam();
+    // pomalé samovolné rozhlížení, dokud uživatel nezasáhne
+    if (drifting) { idle++; yaw += Math.sin(idle / 320) * 0.0012; clampCam(); }
+  }
+  if (mix < 1) mix = Math.min(1, mix + 0.045);
+
+  gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, texA);
+  gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, texB);
+  gl.uniform1f(U.uMix, mix);
+  gl.uniform1f(U.uYaw, yaw);
+  gl.uniform1f(U.uPitch, pitch);
+  gl.uniform1f(U.uFovY, fovY);
+  gl.uniform1f(U.uAspect, cv.width / cv.height);
+  gl.drawArrays(gl.TRIANGLES, 0, 3);
+  requestAnimationFrame(frame);
+}
+
+/* ---------- start ---------- */
+(async () => {
+  const veil = document.createElement('div');
+  veil.className = 'veil';
+  veil.innerHTML = '<div class="spin"></div>';
+  document.body.appendChild(veil);
+  try {
+    const img = await loadImage(STATIONS[0].base);
+    upload(texA, img); upload(texB, img);
+    gl.uniform1f(U.uHFovA, STATIONS[0].hfov);
+    gl.uniform1f(U.uHFovB, STATIONS[0].hfov);
+    mix = 1;
+    resize();
+    frame();
+    veil.classList.add('hidden');
+    setTimeout(() => veil.remove(), 700);
+    setTimeout(() => { if (hint && drifting) hint.style.opacity = '0'; }, 6000);
+  } catch (err) {
+    veil.innerHTML = '<p style="font-size:14px;color:#F4F1EA">Panorama se nepodařilo načíst.</p>';
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>
