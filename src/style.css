@@ -557,6 +557,21 @@ body.menu-open .menu__nav a:nth-child(8) { transition-delay: 0.47s; }
 .gallery__note { margin-top: 2rem; font-weight: 600; color: var(--t-dark); }
 .gallery__note a { text-decoration: underline; text-underline-offset: 3px; color: var(--ink); }
 
+/* Virtuální prohlídka — panorama přes celou šířku a celé, bez ořezu */
+.tour { padding-block: var(--pad); }
+.tour__stage { display: block; width: 100%; margin-top: clamp(1.5rem, 4vw, 3rem); background: var(--ink); }
+.tour__pano {
+  display: block; width: 100%; height: auto;   /* žádný object-fit: nic se neusekne */
+  transition: filter 0.6s var(--eo);
+}
+.tour__stage:hover .tour__pano, .tour__stage:focus-visible .tour__pano { filter: brightness(1.06); }
+.tour__foot {
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: clamp(1rem, 3vw, 2rem);
+}
+.tour__note { font-weight: 600; color: var(--t-dark); max-width: 46ch; }
+
 /* Lightbox */
 .lightbox { position: fixed; inset: 0; z-index: 470; display: none; place-items: center; padding: clamp(1rem, 4vw, 3rem); background: rgba(12,12,12,0.9); }
 .lightbox.is-open { display: grid; }
