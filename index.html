@@ -433,11 +433,24 @@
           <p class="section-head__aside">// Celá prodejna<br />na jeden pohled.</p>
         </div>
       </div>
-      <!-- Panorama záměrně přes celou šířku a nezkrácené - má být vidět celé, ne po kouscích. -->
-      <a class="tour__stage" href="/prohlidka/" aria-label="Otevřít virtuální 360° prohlídku prodejny">
-        <img class="tour__pano" src="/prohlidka/pano-nahled.jpg" width="2400" height="556"
-             alt="Panorama prodejny Optik Dvořák: recepce, stěny s obroučkami a vstup" loading="lazy" />
-      </a>
+      <!-- Obě panoramata přes celou šířku a nezkrácená - dohromady pokryjí celou prodejnu
+           z obou stran. Záměrně bez ořezu, má být vidět celé, ne po kouscích. -->
+      <div class="tour__panos">
+        <figure class="tour__stage">
+          <a href="/prohlidka/" aria-label="Otevřít 360° prohlídku — recepce a stěny obrouček">
+            <img class="tour__pano" src="/prohlidka/pano-nahled.jpg" width="2400" height="556"
+                 alt="Panorama prodejny Optik Dvořák: vstup, stěny s obroučkami a recepce" loading="lazy" />
+          </a>
+          <figcaption class="tour__cap">// Vstup, stěny obrouček a recepce</figcaption>
+        </figure>
+        <figure class="tour__stage">
+          <a href="/prohlidka/" aria-label="Otevřít 360° prohlídku — doplňky a zkušební koutek">
+            <img class="tour__pano" src="/prohlidka/pano-nahled-2.jpg" width="2400" height="612"
+                 alt="Panorama druhé strany prodejny: police s doplňky, chodba a zkušební koutek se zrcadlem" loading="lazy" />
+          </a>
+          <figcaption class="tour__cap">// Druhá strana: doplňky a zkušební koutek</figcaption>
+        </figure>
+      </div>
       <div class="container">
         <div class="tour__foot" data-reveal>
           <p class="tour__note">// Tohle je celá prodejna v jednom záběru. V prohlídce se rozhlédnete myší nebo prstem.</p>
