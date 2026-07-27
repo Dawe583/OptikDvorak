@@ -344,9 +344,11 @@
           <p>Jména, za kterými stojí desítky let řemesla a naše osobní zkušenost.</p>
         </div>
         <!-- Značky obrub odpovídají sekci „Světoznámé značky" na oficiálním webu optikdvorak.cz
-             (ověřeno dle /bryle a podstránek). Skla a čočky: MiYOSMART a MiSIGHT jsou uvedené
-             přímo na webu, Hoya a CooperVision jsou jejich výrobci, EnRoute je řidičské sklo Hoya
-             (probíhá na něj akce). Aktualizuj, pokud majitelka portfolio změní.
+             (ověřeno dle /bryle a podstránek). Brýlová skla a čočky: MiYOSMART a MiSIGHT jsou
+             uvedené přímo na webu, Hoya a CooperVision jsou jejich výrobci. ZEISS a Optika Čivice
+             (jediný velký český výrobce brýlových čoček) doplnila majitelka v červenci 2026.
+             Konkrétní typy jednotlivých čoček tady záměrně neuvádíme, nabídka je mnohem širší,
+             viz docs/MAMKA-PRIPOMINKY-2026-07-20.md. Aktualizuj, pokud majitelka portfolio změní.
 
              LOGA: každá dlaždice má data-brand="<slug>". Když do public/img/brands/ přibude
              soubor <slug>.svg (nebo .png / .webp), logo se automaticky načte a nahradí text.
@@ -377,15 +379,16 @@
         </div>
         <div class="brands__group">
           <p class="brands__label" data-reveal>
-            <span class="brands__labeltext">// Skla a čočky</span>
+            <span class="brands__labeltext">// Brýlová skla a čočky</span>
             <span class="brands__rule" aria-hidden="true"></span>
           </p>
-          <ul class="brandwall" role="list" data-reveal-group>
+          <ul class="brandwall brandwall--lenses" role="list" data-reveal-group>
             <li class="brandtile" data-brand="hoya"><span class="brandtile__name">Hoya</span></li>
+            <li class="brandtile" data-brand="zeiss"><span class="brandtile__name">ZEISS</span></li>
+            <li class="brandtile" data-brand="optika-civice"><span class="brandtile__name">Optika Čivice</span></li>
             <li class="brandtile" data-brand="miyosmart"><span class="brandtile__name">MiYOSMART</span></li>
             <li class="brandtile" data-brand="misight"><span class="brandtile__name">MiSIGHT</span></li>
             <li class="brandtile" data-brand="coopervision"><span class="brandtile__name">CooperVision</span></li>
-            <li class="brandtile" data-brand="enroute"><span class="brandtile__name">EnRoute</span></li>
           </ul>
         </div>
       </div>
@@ -730,7 +733,7 @@
       <div class="note__inner">
         <div data-reveal>
           <p class="note__eyebrow">// Aktuální akce</p>
-          <p class="note__text">Multifokální skla 1+1 zdarma a řidičská skla EnRoute se slevou 30 %.</p>
+          <p class="note__text">Multifokální skla 1+1 zdarma a řidičská brýlová skla se slevou 30 %.</p>
           <div class="note__actions">
             <a href="#kontakt" class="btn-outline">Využít nabídku <span aria-hidden="true">↗</span></a>
             <a href="/akce.html" class="note__link">Všechny akce <span aria-hidden="true">→</span></a>

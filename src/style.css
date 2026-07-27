@@ -162,7 +162,7 @@ section { position: relative; }
    PROCES (stepper)
    ============================================================ */
 .process { padding-block: var(--pad); }
-.process__grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; margin-top: 1rem; }
+.process__grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.5rem; margin-top: 1rem; }
 .step { position: relative; padding-top: 2.4rem; border-top: 1px solid var(--line); }
 .step__num {
   position: absolute; top: -0.2rem; left: 0;
@@ -215,15 +215,19 @@ section { position: relative; }
    pokud existují soubory v /img/brands/; jinak zůstane jednotný nápis. */
 .brandwall {
   list-style: none; margin: 0; padding: 0;
-  display: grid; grid-template-columns: repeat(5, 1fr);
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
   border-top: 1px solid rgba(244, 241, 234, 0.13);
   border-left: 1px solid rgba(244, 241, 234, 0.13);
   border-radius: 12px; overflow: hidden;
 }
 
+/* Brýlová skla a čočky: 6 značek ve 3 sloupcích = širší dlaždice, takže se do nich
+   vejde větší logo (loga se špatně četla, když byla stěna pětisloupcová). */
+.brandwall--lenses { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
 .brandtile {
   position: relative; display: flex; align-items: center; justify-content: center;
-  min-height: clamp(76px, 7.6vw, 106px); padding: 0.9rem 1rem; text-align: center;
+  min-width: 0; min-height: clamp(88px, 8.4vw, 122px); padding: 0.9rem 1rem; text-align: center;
   /* pravá + spodní vlasová linka každé buňky = mřížka bez zdvojených čar */
   box-shadow: inset -1px -1px 0 0 rgba(244, 241, 234, 0.13);
   background: transparent;
@@ -248,18 +252,29 @@ section { position: relative; }
 .brandtile:hover .brandtile__name { color: var(--cream); }
 
 /* Skutečné logo (když existuje soubor) — sjednoceno na bílou, ať je stěna úhledná.
-   Dodejte pokud možno bílé/jednobarevné SVG; barevná se automaticky zesvětlí. */
+   Dodejte pokud možno bílé/jednobarevné SVG; barevná se automaticky zesvětlí.
+   Soubory v /img/brands/ jsou oříznuté těsně na obsah (bez prázdného okraje),
+   jinak by se logo vykreslilo zbytečně malé — viz README v té složce. */
+/* Pevný rámeček + object-fit: contain = všechna loga se vykreslí ve stejně velkém
+   prostoru bez ohledu na to, jak velký je zdrojový soubor. Dřív se logo kreslilo
+   ve své vlastní velikosti (např. CooperVision má 164 px, Hoya 904 px), takže menší
+   soubory byly na tmavém pozadí sotva vidět. */
 .brandtile__logo {
-  position: relative; display: block; width: auto; height: auto;
-  max-width: 90%; max-height: clamp(40px, 6vw, 66px); object-fit: contain;
-  filter: brightness(0) invert(1); opacity: 0.82;
+  position: relative; display: block;
+  width: 92%; height: clamp(46px, 6.4vw, 78px); object-fit: contain;
+  filter: brightness(0) invert(1); opacity: 0.92;
   transition: opacity 0.4s var(--eo);
 }
 .brandtile:hover .brandtile__logo { opacity: 1; }
+.brandwall--lenses .brandtile { min-height: clamp(104px, 9.6vw, 140px); }
+.brandwall--lenses .brandtile__logo { width: 76%; height: clamp(54px, 7.2vw, 92px); }
+/* Dlaždice bez souboru s logem (zatím MiYOSMART a Optika Čivice) ukazují název,
+   ve stěně skel ho zvětšujeme, ať vedle velkých log neztrácí váhu. */
+.brandwall--lenses .brandtile__name { font-size: clamp(1rem, 0.8rem + 0.8vw, 1.7rem); }
 .brandtile.has-logo .brandtile__name { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
-@media (max-width: 920px) { .brandwall { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 520px) { .brandwall { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 920px) { .brandwall { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .brandwall { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
 /* ============================================================
    LOOKBOOK (horizontální portréty)

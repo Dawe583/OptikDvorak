@@ -327,7 +327,7 @@ export const Teaser = () => {
 
           <div style={{marginTop: 54 * k, display: 'flex', flexDirection: 'column', gap: 22 * k}}>
             <Bullet text="Multifokální skla 1 + 1 zdarma" delay={T_BULLETS} k={k} />
-            <Bullet text="Řidičská skla EnRoute −30 %" delay={T_BULLETS + 14} k={k} />
+            <Bullet text="Řidičská brýlová skla −30 %" delay={T_BULLETS + 14} k={k} />
             <Bullet text="Servis brýlí na počkání" delay={T_BULLETS + 28} k={k} />
           </div>
         </div>

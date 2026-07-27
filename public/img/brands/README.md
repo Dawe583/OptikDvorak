@@ -6,15 +6,14 @@ značky stylizovaný název (nikdy se neukáže rozbitý obrázek).
 
 ## Už doplněno
 
-Tato loga už ve složce jsou (staženo z Wikimedia Commons, sjednoceno na
-bílou): **Silhouette, Emporio Armani, Guess, Hoya**. Klidně je nahraďte
-oficiální verzí od dodavatele, když budete mít lepší.
+Loga jsou ve složce u všech značek obrub a u Hoya, ZEISS, MiSight
+a CooperVision. Klidně je nahraďte oficiální verzí od dodavatele,
+když budete mít lepší.
 
-Ray-Ban zatím zůstává jako text — dostupné vektory mají plnou „placku"
-na pozadí, která by po sjednocení na bílou byla jen bílý obdélník.
-Ideální je vyžádat si čistý jednobarevný nápis „Ray-Ban" od zástupce.
-
-Zbytek značek čeká na loga (viz tabulka níže).
+**Chybí a hodila by se:** `miyosmart.svg` a `optika-civice.svg`
+(u Optiky Čivice je na jejich webu jen malé logo 48 × 32 px, na dlaždici
+by bylo rozmazané, proto tam zatím svítí jen název). Vyžádejte si je
+prosím od obchodního zástupce.
 
 ## Jak na to
 
@@ -22,9 +21,13 @@ Zbytek značek čeká na loga (viz tabulka níže).
    Funguje i `.png` nebo `.webp`.
 2. Nejlépe **bílé / jednobarevné** logo na průhledném pozadí — sekce má
    tmavé pozadí, barevná loga na něm můžou zaniknout.
-3. Pojmenujte soubor přesně podle tabulky níže (malá písmena, pomlčky)
+3. **Bez prázdného okraje kolem loga.** Dlaždice logo vykreslí přes celou
+   svou plochu, takže když je v souboru kolem nápisu velký průhledný rám,
+   logo se na webu zobrazí zbytečně malé. (Soubory, které tu už jsou, mají
+   okraj oříznutý.)
+4. Pojmenujte soubor přesně podle tabulky níže (malá písmena, pomlčky)
    a nahrajte ho do této složky `public/img/brands/`.
-4. Hotovo. Web logo načte sám.
+5. Hotovo. Web logo načte sám.
 
 Zkouší se pořadí přípon: `.svg` → `.png` → `.webp` (použije se první nalezená).
 
@@ -49,14 +52,19 @@ Zkouší se pořadí přípon: `.svg` → `.png` → `.webp` (použije se první
 | Reserve         | `reserve.svg`               |
 | Okula           | `okula.svg`                 |
 
-### Skla a čočky
+### Brýlová skla a čočky
 | Značka          | Název souboru (např. SVG)   |
 | --------------- | --------------------------- |
 | Hoya            | `hoya.svg`                  |
+| ZEISS           | `zeiss.svg`                 |
+| Optika Čivice   | `optika-civice.svg`         |
 | MiYOSMART       | `miyosmart.svg`             |
 | MiSIGHT         | `misight.svg`               |
 | CooperVision    | `coopervision.svg`          |
-| EnRoute         | `enroute.svg`               |
+
+Poznámka k `zeiss.svg`: vznikl z volného loga na Wikimedia Commons
+(File:Zeiss logo.svg, public domain) — je z něj ponechaný jen samotný
+nápis bez modré plochy, aby na tmavém pozadí nebyl z loga bílý obdélník.
 
 > Poznámka k autorským právům: loga značek používejte jen pro označení
 > zboží, které v optice reálně prodáváte. Oficiální loga si vyžádejte od
