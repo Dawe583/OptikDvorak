@@ -8,6 +8,7 @@ import {ReelVidetLip, VIDETLIP_DURATION} from './ReelVidetLip';
 import {ReelPredPo, PREDPO_DURATION} from './ReelPredPo';
 import {ReelRodina, RODINA_DURATION} from './ReelRodina';
 import {ReelOptika, OPTIKA_DURATION} from './ReelOptika';
+import {ReelProhlidka, PROHLIDKA_DURATION} from './ReelProhlidka';
 
 /* Obě kompozice: 4K na výšku (9:16) — IG/FB Reels, Stories, TikTok */
 export const RemotionRoot = () => {
@@ -83,6 +84,16 @@ export const RemotionRoot = () => {
         id="reel-optika"
         component={ReelOptika}
         durationInFrames={OPTIKA_DURATION}
+        fps={60}
+        width={2160}
+        height={3840}
+      />
+      {/* REEL „Projdi si naši optiku" — vertikální střih z reálných záběrů:
+          háček, jízda kamerou od dveří, odjezd na nápis, CTA do prodejny i na 360° prohlídku */}
+      <Composition
+        id="reel-prohlidka"
+        component={ReelProhlidka}
+        durationInFrames={PROHLIDKA_DURATION}
         fps={60}
         width={2160}
         height={3840}
