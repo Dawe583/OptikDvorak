@@ -134,6 +134,7 @@ kdykoli přečíslovat, aniž by se muselo znovu fotit.
 | **Příspěvek do feedu** | `post-letni-akce` | 2160×2700 (4:5) | IG i FB feed, karusel |
 | **Náhledovka / Story** | `cover-letni-akce` | 2160×3840 (9:16) | cover Reelu, Story |
 | **Plakát do výlohy** | `docs/kampan-letni-akce/letak-vyloha-A4.pdf` | A4, k tisku | výloha, pult, nástěnka |
+| **Reel „Zpátky do školy"** | `reel-skola` | 2160×3840, 60 fps, **20,5 s** | pilíř 2 kampaně, druhá polovina srpna (popisky: `docs/POPISKY-REEL-SKOLA.md`) |
 
 Plakát je sázený zvlášť (světlý papírový podklad místo tmavé obrazovky, ať se
 dá levně vytisknout) a drží stejnou vizuální řeč: dva páry čoček, z nichž

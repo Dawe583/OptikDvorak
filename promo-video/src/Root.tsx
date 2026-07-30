@@ -11,6 +11,7 @@ import {ReelOptika, OPTIKA_DURATION} from './ReelOptika';
 import {ReelProhlidka, PROHLIDKA_DURATION} from './ReelProhlidka';
 import {ReelLetniAkce, LETNI_AKCE_DURATION, LETNI_AKCE_DEFAULTS} from './ReelLetniAkce';
 import {PostLetniAkce, CoverLetniAkce} from './KartaLetniAkce';
+import {ReelSkola, SKOLA_DURATION} from './ReelSkola';
 
 /* Obě kompozice: 4K na výšku (9:16) — IG/FB Reels, Stories, TikTok */
 export const RemotionRoot = () => {
@@ -126,6 +127,16 @@ export const RemotionRoot = () => {
         width={2160}
         height={3840}
         defaultProps={LETNI_AKCE_DEFAULTS}
+      />
+      {/* ZPÁTKY DO ŠKOLY — druhý pilíř letní kampaně. Začíná jako čtecí tabule,
+          pointa je v nejmenším řádku. Také celé vygenerované, bez fotek. */}
+      <Composition
+        id="reel-skola"
+        component={ReelSkola}
+        durationInFrames={SKOLA_DURATION}
+        fps={60}
+        width={2160}
+        height={3840}
       />
     </>
   );
