@@ -9,6 +9,8 @@ import {ReelPredPo, PREDPO_DURATION} from './ReelPredPo';
 import {ReelRodina, RODINA_DURATION} from './ReelRodina';
 import {ReelOptika, OPTIKA_DURATION} from './ReelOptika';
 import {ReelProhlidka, PROHLIDKA_DURATION} from './ReelProhlidka';
+import {ReelLetniAkce, LETNI_AKCE_DURATION, LETNI_AKCE_DEFAULTS} from './ReelLetniAkce';
+import {PostLetniAkce, CoverLetniAkce} from './KartaLetniAkce';
 
 /* Obě kompozice: 4K na výšku (9:16) — IG/FB Reels, Stories, TikTok */
 export const RemotionRoot = () => {
@@ -97,6 +99,33 @@ export const RemotionRoot = () => {
         fps={60}
         width={2160}
         height={3840}
+      />
+      {/* LETNÍ AKCE „Letní dvojka" — celá vygenerovaná reklama (bez fotek a záběrů).
+          Sleva i platnost jdou přes props:
+          npx remotion render reel-letni-akce --props='{"sleva":40,"platnostDo":"31. 10. 2026"}' */}
+      <Composition
+        id="reel-letni-akce"
+        component={ReelLetniAkce}
+        durationInFrames={LETNI_AKCE_DURATION}
+        fps={60}
+        width={2160}
+        height={3840}
+        defaultProps={LETNI_AKCE_DEFAULTS}
+      />
+      {/* Příspěvek do feedu (4:5) a náhledovka Reelu / Story (9:16) ke stejné akci */}
+      <Still
+        id="post-letni-akce"
+        component={PostLetniAkce}
+        width={2160}
+        height={2700}
+        defaultProps={LETNI_AKCE_DEFAULTS}
+      />
+      <Still
+        id="cover-letni-akce"
+        component={CoverLetniAkce}
+        width={2160}
+        height={3840}
+        defaultProps={LETNI_AKCE_DEFAULTS}
       />
     </>
   );
