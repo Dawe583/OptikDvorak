@@ -135,6 +135,7 @@ kdykoli přečíslovat, aniž by se muselo znovu fotit.
 | **Náhledovka / Story** | `cover-letni-akce` | 2160×3840 (9:16) | cover Reelu, Story |
 | **Plakát do výlohy** | `docs/kampan-letni-akce/letak-vyloha-A4.pdf` | A4, k tisku | výloha, pult, nástěnka |
 | **Reel „Zpátky do školy"** | `reel-skola` | 2160×3840, 60 fps, **20,5 s** | pilíř 2 kampaně, druhá polovina srpna (popisky: `docs/POPISKY-REEL-SKOLA.md`) |
+| **Reel „Servis na počkání"** | `reel-servis` | 2160×3840, 60 fps, **16,4 s** | pilíř 3 kampaně, konec srpna (popisky: `docs/POPISKY-REEL-SERVIS.md`) |
 
 Plakát je sázený zvlášť (světlý papírový podklad místo tmavé obrazovky, ať se
 dá levně vytisknout) a drží stejnou vizuální řeč: dva páry čoček, z nichž

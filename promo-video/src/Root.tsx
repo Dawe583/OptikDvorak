@@ -12,6 +12,7 @@ import {ReelProhlidka, PROHLIDKA_DURATION} from './ReelProhlidka';
 import {ReelLetniAkce, LETNI_AKCE_DURATION, LETNI_AKCE_DEFAULTS} from './ReelLetniAkce';
 import {PostLetniAkce, CoverLetniAkce} from './KartaLetniAkce';
 import {ReelSkola, SKOLA_DURATION} from './ReelSkola';
+import {ReelServis, SERVIS_DURATION, SERVIS_DEFAULTS} from './ReelServis';
 
 /* Obě kompozice: 4K na výšku (9:16) — IG/FB Reels, Stories, TikTok */
 export const RemotionRoot = () => {
@@ -137,6 +138,18 @@ export const RemotionRoot = () => {
         fps={60}
         width={2160}
         height={3840}
+      />
+      {/* SERVIS NA POČKÁNÍ — reálné snímky prodejny, ale v duotónu, s tvrdými
+          střihy a fotkou v masce písma. Věta o ceně servisu jde přes props:
+          npx remotion render reel-servis --props='{"bonus":"Letní servis zdarma."}' */}
+      <Composition
+        id="reel-servis"
+        component={ReelServis}
+        durationInFrames={SERVIS_DURATION}
+        fps={60}
+        width={2160}
+        height={3840}
+        defaultProps={SERVIS_DEFAULTS}
       />
     </>
   );
