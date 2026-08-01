@@ -37,7 +37,7 @@ Priorita: **P1** brzy · **P2** později
 - **P1** O nás / Náš příběh — rodina od 1991, tým (jménem a v brýlích), hodnoty
 - **P1** Kontakt — samostatná stránka s mapou, formulářem, dopravou/parkováním
 - **P2** Dioptrické & sluneční brýle — obruby, typy skel, UV, ukázky kolekcí
-- **P2** Servis a opravy — co na počkání, reklamace
+- **P2** Servis a opravy — co na počkání (o reklamacích na webu nepsat, rozhodnutí majitelky 8/2026)
 - **P2** Blog / Rady pro zdravý zrak — SEO motor + podklad pro Google Business příspěvky
 - **P2** Recenze (plná) — Google + Firmy.cz na jednom místě
 - **P2** Značky — rozcestník reálných značek

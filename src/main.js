@@ -859,6 +859,22 @@ function initForms() {
           if (netError) netError.hidden = false;
           return;
         }
+      } else {
+        /* Bez klíče se poptávka nikam neodesílá. Nesmíme proto zákazníkovi
+           ukázat „Vaše poptávka je na cestě" — čekal by na zavolání, které
+           by nepřišlo. Řekneme mu rovnou, ať zavolá. Jakmile se do
+           WEB3FORMS_KEY doplní klíč, tahle větev se přeskočí. */
+        submitBtn.disabled = false;
+        if (netError) {
+          netError.innerHTML =
+            'Objednávky přes formulář zatím nepřijímáme. Zavolejte nám prosím na ' +
+            '<a href="tel:+420702194246">+420 702 194 246</a> nebo napište na ' +
+            '<a href="mailto:optika.americka@seznam.cz">optika.americka@seznam.cz</a>.';
+          netError.hidden = false;
+          netError.setAttribute('tabindex', '-1');
+          netError.focus({ preventScroll: true });
+        }
+        return;
       }
 
       const ok = document.getElementById('form-success');
