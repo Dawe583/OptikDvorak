@@ -39,15 +39,62 @@ připomínka → kde se to změnilo → co přesně je teď na webu.
    animace; navíc by se videa musela znovu vyrenderovat. Pokud to má být
    jednotné i ve videích, dá se to udělat při jejich příštím exportu.
 
+## Rozhodnuto (3. kolo, srpen 2026) — recenze v pásu + doděláno, co majitelka chtěla už v červenci
+
+3. **Recenze teď projíždějí jako pás.** Místo karuselu se šipkami se osm
+   skutečných Google recenzí posouvá plynule zleva doprava. Najetím myší se pás
+   zpomalí, tlačítkem **Pozastavit** se dá úplně zastavit (kvůli lidem, kterým
+   pohyb vadí, a kvůli dotykovým displejům, kde se najet nedá). Nové recenze
+   stačí přidat jako další `<blockquote class="review review--real">` do pásu —
+   o zdvojení pro plynulou smyčku se postará web sám.
+4. **„Značkové" obruby — dodělána červencová připomínka.** Slovo bylo tehdy
+   opravené jen v kroku 03, ale zůstalo na kartě Dioptrické brýle, v popisku
+   galerie, v časové ose, v popisku pro Google i v náhledu pro sociální sítě
+   a ve videu Vitrína. Teď je pryč ze všech těchto míst. **Zůstalo jen
+   v doslovné citaci recenze** paní Hackerové („velký výběr značkových
+   i levnějších brýlí") — cizí recenzi přepsat nejde, to by bylo falšování.
+   Pokud vadí i tam, jediná čistá možnost je tuhle recenzi z webu vypustit.
+5. **Žádné zdravotní sliby u MiYOSMART a MiSIGHT.** Formulace „skla zpomalující
+   dětskou krátkozrakost" / „pomáhají zpomalovat prohlubování dioptrií" jsou
+   nahrazené za „brýlová skla **určená pro řízení dětské krátkozrakosti
+   (myopie)**" a „rádi poradíme, zda jsou pro vaše dítě vhodná". Opraveno na
+   titulce (sekce Skla, FAQ i data pro Google), na stránce O nás, Akce
+   i Kontaktní čočky. Certifikace se uvádí dál — ta je v pořádku.
+6. **Popisky fotek už nelžou.** U šestnácti obrázků stálo v popisku pro nevidomé
+   a pro Google něco, co na fotce není: „Spokojená klientka Optik Dvořák",
+   „Spokojený zákazník v nových brýlích" (muž na fotce brýle nemá),
+   „Dítě s brýlemi se skly MiYOSMART" nebo „na prodejně Optik Dvořák"
+   u snímků z fotobanky. Každou fotku jsem si prohlédl a popisek přepsal na to,
+   co na ní opravdu je. Fotky prodejny (`interier.webp`, `exterier.jpg`)
+   zůstávají popsané jako prodejna — ty jsou vaše.
+7. **Web si už neodporuje ve vlastních číslech.**
+   - Délka měření: všude **30 až 45 minut** (na titulce stálo „zhruba 30 minut").
+   - Roky: na titulce bylo „30+ let", o kousek níž „35+", na stránce O nás
+     „přes třicet let" i „Tři desetiletí" — teď se všude píše **od roku 1991**
+     a počítadlo ukazuje 35 let bez znaménka „+" (35 je přesně 2026 − 1991).
+   - Hodnocení: u „4,6 z 26 recenzí" je nově uvedeno **stav k 8/2026**, aby
+     bylo poznat, ke kdy údaj platí. Až se číslo na Google změní, přepište ho
+     na titulce (2×) a v úvodu každé podstránky.
+
 ## Na co se mamky zeptat
 
 1. **Loga Konvex a Alcon.** Zatím u nich svítí jen název. Až budou od obchodních
    zástupců loga (ideálně bílé/jednobarevné SVG), stačí je nahrát do
    `public/img/brands/` jako `konvex.svg` a `alcon.svg` — web si je načte sám,
    nic se nemusí programovat (viz `public/img/brands/README.md`).
-3. **Fotka „Péče o brýle"** je licencovaná fotka z Pexels. Kdykoli ji jde nahradit
+2. **Fotka „Péče o brýle"** je licencovaná fotka z Pexels. Kdykoli ji jde nahradit
    vlastní fotkou z dílny — stačí uložit soubor pod stejným názvem
    `public/img/ai/pece-o-bryle.jpg`.
+3. **Akce (multifokály 1+1, řidičská skla −30 %)** jsou na webu bez uvedené
+   platnosti a podmínek, přitom v kódu je poznámka „před ostrým provozem
+   potvrďte". Kdy akce končí a na co přesně platí? Doplní se k nim.
+4. **Servis „často jako drobná pozornost"** (stránka Akce a reklamní stránka)
+   naznačuje, že servis bývá zdarma, ale nic neslibuje. Buď to říct rovnou
+   („drobné seřízení děláme zdarma"), nebo formulaci vypustit — teď je na půl cesty.
+5. **Roky 2005 a 2022 v časové ose** jsou podle poznámek jen orientační. Jaké
+   jsou skutečné milníky? Jinak je lepší je nahradit obdobím bez konkrétního roku.
+6. **Recenze paní Hackerové** obsahuje slovo „značkových" (viz bod 4 výše) —
+   ponechat, nebo tuhle recenzi z webu vypustit?
 
 ## Poznámka k měření zraku zdarma
 

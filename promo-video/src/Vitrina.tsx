@@ -460,7 +460,7 @@ export const Vitrina = () => {
             >
               // co u nás dostanete
             </div>
-            <WordCycle words={['Čas na vás.', 'Osobní přístup.', 'Značkové obruby.']} startAt={T_WORDS} hold={48} k={k} />
+            <WordCycle words={['Čas na vás.', 'Osobní přístup.', 'Obruby na výběr.']} startAt={T_WORDS} hold={48} k={k} />
           </div>
         </AbsoluteFill>
       )}

@@ -645,7 +645,13 @@ function initCounters() {
 function initMarquee() {
   const tweens = [];
   gsap.utils.toArray('.marquee__track').forEach((track) => {
-    track.innerHTML += track.innerHTML; // duplikace pro bezešvou smyčku
+    // Duplikace pro bezešvou smyčku. Kopii schováme před čtečkami obrazovky,
+    // ať se obsah (např. recenze) nepředčítá dvakrát.
+    Array.from(track.children).forEach((el) => {
+      const copy = el.cloneNode(true);
+      copy.setAttribute('aria-hidden', 'true');
+      track.appendChild(copy);
+    });
     const dur = parseFloat(track.dataset.dur || '26');
     const tween = gsap.to(track, { xPercent: -50, duration: dur, ease: 'none', repeat: -1 });
     if (prefersReduced) { tween.progress(0).pause(); return; }
@@ -654,6 +660,7 @@ function initMarquee() {
   if (prefersReduced || !tweens.length) return;
 
   // Pauza běhu mimo viewport (šetří výkon)
+  const userPaused = new Set(); // pásy zastavené tlačítkem — scroll je nesmí rozjet
   let activeCount = 0;
   gsap.utils.toArray('.marquee').forEach((m) => {
     const track = m.querySelector('.marquee__track');
@@ -663,9 +670,26 @@ function initMarquee() {
     ScrollTrigger.create({
       trigger: m, start: 'top bottom', end: 'bottom top',
       onToggle: (self) => {
-        if (self.isActive) { tween.play(); activeCount++; }
+        if (self.isActive) { if (!userPaused.has(tween)) tween.play(); activeCount++; }
         else { tween.pause(); activeCount = Math.max(0, activeCount - 1); }
       },
+    });
+  });
+
+  /* Tlačítko pro zastavení pásu (WCAG 2.2.2 — pohybující se obsah s informací
+     musí jít zastavit; u recenzí nestačí zpomalení při najetí myší, na dotyku
+     se najet nedá). */
+  document.querySelectorAll('[data-marquee-toggle]').forEach((btn) => {
+    const target = document.querySelector(btn.dataset.marqueeToggle);
+    const track = target?.querySelector('.marquee__track');
+    const tween = tweens.find((t) => t.targets()[0] === track);
+    if (!tween) { btn.hidden = true; return; }
+    btn.addEventListener('click', () => {
+      const pause = !userPaused.has(tween);
+      if (pause) { userPaused.add(tween); tween.pause(); }
+      else { userPaused.delete(tween); tween.play(); }
+      btn.setAttribute('aria-pressed', pause ? 'true' : 'false');
+      btn.textContent = pause ? 'Spustit' : 'Pozastavit';
     });
   });
 

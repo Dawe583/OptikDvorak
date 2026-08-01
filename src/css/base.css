@@ -309,6 +309,17 @@ p { text-wrap: pretty; }
   font-weight: 700;
 }
 .marquee--yellow .marquee__sep { color: var(--ink); opacity: 0.5; }
+/* Varianta pásu, ve které místo textu projíždějí karty (recenze).
+   Nemá vlastní pozadí ani rámeček, karty plují po pozadí sekce. */
+.marquee--cards {
+  background: none;
+  color: inherit;
+  border-block: 0;
+  padding-block: 0.5rem;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+}
+.marquee--cards .marquee__track { gap: 1.6rem; align-items: stretch; }
 
 /* ---------- Grain overlay ---------- */
 .grain {
