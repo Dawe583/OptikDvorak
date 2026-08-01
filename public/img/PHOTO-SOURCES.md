@@ -42,5 +42,5 @@ Klidně je kdykoli nahraď vlastními fotkami z prodejny (stejný název souboru
 | akce-slunecni.jpg | https://www.pexels.com/photo/11882776/ |
 | kolaz-vyloha.jpg | https://www.pexels.com/photo/9474178/ |
 | kolaz-stack.jpg | https://www.pexels.com/photo/7357970/ |
-| kolaz-pouzdro.jpg | https://www.pexels.com/photo/4512812/ |
+| pece-o-bryle.jpg | https://www.pexels.com/photo/5715901/ (oprava brýlí, v ruce obruba a vedle šroubovák — nahradilo `kolaz-pouzdro.jpg` s koženým pouzdrem, srpen 2026) |
 | sluzby-mereni.jpg | https://www.pexels.com/photo/5752284/ |

@@ -10,7 +10,9 @@ Loga jsou ve složce u všech značek obrub a u Hoya, ZEISS, MiSight
 a CooperVision. Klidně je nahraďte oficiální verzí od dodavatele,
 když budete mít lepší.
 
-**Chybí a hodila by se:** `miyosmart.svg` a `optika-civice.svg`
+**Chybí a hodila by se:** `miyosmart.svg`, `optika-civice.svg`,
+`konvex.svg` a `alcon.svg` (Konvex i Alcon přibyly v srpnu 2026, zatím
+u nich svítí jen název)
 (u Optiky Čivice je na jejich webu jen malé logo 48 × 32 px, na dlaždici
 by bylo rozmazané, proto tam zatím svítí jen název). Vyžádejte si je
 prosím od obchodního zástupce.
@@ -58,7 +60,9 @@ Zkouší se pořadí přípon: `.svg` → `.png` → `.webp` (použije se první
 | Hoya            | `hoya.svg`                  |
 | ZEISS           | `zeiss.svg`                 |
 | Optika Čivice   | `optika-civice.svg`         |
+| Konvex          | `konvex.svg`                |
 | MiYOSMART       | `miyosmart.svg`             |
+| Alcon           | `alcon.svg`                 |
 | MiSIGHT         | `misight.svg`               |
 | CooperVision    | `coopervision.svg`          |
 
