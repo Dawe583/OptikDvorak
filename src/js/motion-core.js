@@ -205,7 +205,8 @@ export function startHero() {
     .to('[data-intro]', { y: 0, opacity: 1, duration: 0.9, stagger: 0.1 }, 0.5)
     .to('[data-intro-media]', { opacity: 1, scale: 1, duration: 1.2, ease: 'power3.out' }, 0.35);
 
-  const media = document.querySelector('[data-intro-media] img, [data-intro-media] video');
+  // Stills vrstva si Ken Burns řeší sama v CSS, GSAP zoom patří jen statické fotce.
+  const media = document.querySelector('[data-intro-media] img:not(.stills__frame)');
   if (media) gsap.fromTo(media, { scale: 1.12 }, { scale: 1.0, duration: 10, ease: 'none' });
 }
 
@@ -561,35 +562,37 @@ export function initHours() {
   document.addEventListener('visibilitychange', () => { if (!document.hidden) update(); });
 }
 
-/* ---------- Autoplay videa (self-hosted webm) na všech zařízeních ---------- */
-export function initHeroVideo() {
-  gsap.utils.toArray('.subhero__video, .sub-videoband video').forEach((v) => {
-    const play = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
-    if (v.readyState >= 2) play();
-    else v.addEventListener('canplay', play, { once: true });
-    document.addEventListener('visibilitychange', () => { if (document.hidden) v.pause(); else play(); });
-  });
-}
+/* ---------- Stills: prolínání ostrých fotek (nahradilo video vrstvy) ----------
+   Subhero, foto band i černá CTA střídají fotky v plném rozlišení místo
+   dřívějšího komprimovaného videa. Pohyb je vždy zapnutý; mimo obrazovku
+   se jen pozastaví, aby zbytečně nežral výkon. */
+export function initStills() {
+  gsap.utils.toArray('[data-stills]').forEach((box) => {
+    const frames = gsap.utils.toArray('.stills__frame', box);
+    if (frames.length < 2) return;
 
-/* ---------- Video pozadí na konverzní CTA (lazy-load ve viewportu) ---------- */
-export function initReachVideo() {
-  gsap.utils.toArray('.reach__video').forEach((video) => {
-    const src = video.querySelector('source[data-src]');
-    new IntersectionObserver((entries, io) => {
-      if (!entries[0].isIntersecting) return;
-      io.disconnect();
-      if (src && !src.src) src.src = src.dataset.src;
-      video.load();
-      const play = () => { const p = video.play(); if (p && p.catch) p.catch(() => {}); };
-      if (video.readyState >= 2) play();
-      else video.addEventListener('canplay', play, { once: true });
-      video.classList.add('is-on');
-    }, { rootMargin: '200px 0px' }).observe(video);
+    const hold = (parseFloat(box.dataset.stillsHold) || 5.6) * 1000;
+    let i = Math.max(0, frames.findIndex((f) => f.classList.contains('is-on')));
+    let timer = null;
+    let inView = false;
 
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) video.pause();
-      else if (video.classList.contains('is-on')) video.play().catch(() => {});
-    });
+    frames[i].classList.add('is-on');
+
+    const advance = () => {
+      frames[i].classList.remove('is-on');
+      i = (i + 1) % frames.length;
+      frames[i].classList.add('is-on');
+    };
+    const run = () => { if (!timer && inView && !document.hidden) timer = setInterval(advance, hold); };
+    const halt = () => { clearInterval(timer); timer = null; };
+
+    new IntersectionObserver((entries) => {
+      inView = entries[0].isIntersecting;
+      box.classList.toggle('is-idle', !inView);
+      if (inView) run(); else halt();
+    }, { rootMargin: '20% 0px' }).observe(box);
+
+    document.addEventListener('visibilitychange', () => { if (document.hidden) halt(); else run(); });
   });
 }
 

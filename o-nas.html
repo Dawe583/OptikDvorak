@@ -101,10 +101,11 @@
             <a href="/#recenze" class="subhero__trust" data-intro><span class="stars" aria-hidden="true">★★★★★</span> 4,6 <span class="muted">z 26 recenzí · Google</span></a>
           </div>
           <div class="subhero__media graded" data-intro-media data-cursor="view">
-            <video class="subhero__video" autoplay muted loop playsinline preload="metadata" poster="/img/exterier.jpg" aria-hidden="true">
-              <source src="/video/hero.webm" type="video/webm" />
-            </video>
-            <img src="/img/exterier.jpg" alt="Výloha prodejny Optik Dvořák na Americké ulici v Plzni" fetchpriority="high" width="560" height="616" />
+            <div class="stills" data-stills data-stills-hold="5.4">
+              <img class="stills__frame is-on" src="/img/hd/prodejna-vyloha.webp" alt="Výloha prodejny Optik Dvořák na Americké ulici v Plzni" fetchpriority="high" />
+              <img class="stills__frame" src="/img/hd/prodejna-pult.webp" alt="" aria-hidden="true" loading="lazy" />
+              <img class="stills__frame" src="/img/hd/prodejna-koutek.webp" alt="" aria-hidden="true" loading="lazy" />
+            </div>
             <span class="subhero__badge">Plzeň, centrum</span>
           </div>
         </div>
@@ -122,11 +123,14 @@
       </div>
     </div>
 
-    <!-- ===================== VIDEO BAND ===================== -->
+    <!-- ===================== FOTO BAND ===================== -->
     <section class="sub-videoband" data-dark-section aria-label="Prodejna Optik Dvořák">
-      <video autoplay muted loop playsinline preload="metadata" poster="/img/exterier.jpg" aria-hidden="true">
-        <source src="/video/hero.webm" type="video/webm" />
-      </video>
+      <!-- Reálné fotky prodejny v plném rozlišení (dřív tu bylo nekvalitní video). -->
+      <div class="stills" data-stills data-stills-hold="6.2" aria-hidden="true">
+        <img class="stills__frame is-on" src="/img/hd/prodejna-stul.webp" alt="" loading="lazy" />
+        <img class="stills__frame" src="/img/hd/prodejna-stena.webp" alt="" loading="lazy" />
+        <img class="stills__frame" src="/img/hd/prodejna-interier.webp" alt="" loading="lazy" />
+      </div>
       <div class="sub-videoband__scrim" aria-hidden="true"></div>
       <div class="sub-videoband__grain" aria-hidden="true"></div>
       <div class="container sub-videoband__inner">
@@ -198,10 +202,11 @@
         <a href="#objednat" class="btn-outline btn-outline--light" data-reveal>Objednat měření zraku <span aria-hidden="true">↗</span></a>
       </div>
       <div class="reach__media graded">
-        <video class="reach__video" muted loop playsinline preload="none" poster="/img/portrait-woman.jpg" aria-hidden="true">
-          <source data-src="/video/hero.webm" type="video/webm" />
-        </video>
-        <img src="/img/portrait-woman.jpg" alt="Spokojená klientka Optik Dvořák" loading="lazy" data-parallax data-curtain />
+        <div class="stills" data-stills data-stills-hold="6" data-parallax data-curtain>
+          <img class="stills__frame is-on" src="/img/hd/portret-zena.webp" alt="Spokojená klientka Optik Dvořák" loading="lazy" />
+          <img class="stills__frame" src="/img/hd/obruby-stena.webp" alt="" aria-hidden="true" loading="lazy" />
+          <img class="stills__frame" src="/img/hd/prodejna-koutek.webp" alt="" aria-hidden="true" loading="lazy" />
+        </div>
       </div>
     </section>
 

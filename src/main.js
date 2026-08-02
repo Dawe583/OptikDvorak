@@ -92,7 +92,7 @@ function boot() {
   initHours();
   initStickyCta();
   initReachGlow();
-  initReachVideo();
+  initStills();
   initFooterScrub();
   initScrollSpy();
   initForms();
@@ -771,25 +771,36 @@ function initStickyCta() {
   if (contact) ScrollTrigger.create({ trigger: contact, start: 'top 80%', onEnter: hide, onLeaveBack: show });
 }
 
-/* ---------- Video pozadí na konverzní CTA (lazy-load ve viewportu) ---------- */
-function initReachVideo() {
-  const video = document.querySelector('.reach__video');
-  if (!video) return;
-  const src = video.querySelector('source[data-src]');
-  new IntersectionObserver((entries, io) => {
-    if (!entries[0].isIntersecting) return;
-    io.disconnect();
-    if (src && !src.src) src.src = src.dataset.src;
-    video.load();
-    const play = () => { const p = video.play(); if (p && p.catch) p.catch(() => {}); };
-    if (video.readyState >= 2) play();
-    else video.addEventListener('canplay', play, { once: true });
-    video.classList.add('is-on');
-  }, { rootMargin: '200px 0px' }).observe(video);
+/* ---------- Stills: prolínání ostrých fotek (nahradilo video vrstvy) ----------
+   Černá CTA střídá fotky v plném rozlišení místo dřívějšího komprimovaného
+   videa. Pohyb je vždy zapnutý; mimo obrazovku se jen pozastaví. */
+function initStills() {
+  gsap.utils.toArray('[data-stills]').forEach((box) => {
+    const frames = gsap.utils.toArray('.stills__frame', box);
+    if (frames.length < 2) return;
 
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) video.pause();
-    else if (video.classList.contains('is-on')) video.play().catch(() => {});
+    const hold = (parseFloat(box.dataset.stillsHold) || 5.6) * 1000;
+    let i = Math.max(0, frames.findIndex((f) => f.classList.contains('is-on')));
+    let timer = null;
+    let inView = false;
+
+    frames[i].classList.add('is-on');
+
+    const advance = () => {
+      frames[i].classList.remove('is-on');
+      i = (i + 1) % frames.length;
+      frames[i].classList.add('is-on');
+    };
+    const run = () => { if (!timer && inView && !document.hidden) timer = setInterval(advance, hold); };
+    const halt = () => { clearInterval(timer); timer = null; };
+
+    new IntersectionObserver((entries) => {
+      inView = entries[0].isIntersecting;
+      box.classList.toggle('is-idle', !inView);
+      if (inView) run(); else halt();
+    }, { rootMargin: '20% 0px' }).observe(box);
+
+    document.addEventListener('visibilitychange', () => { if (document.hidden) halt(); else run(); });
   });
 }
 

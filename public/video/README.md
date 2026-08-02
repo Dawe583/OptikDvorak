@@ -1,28 +1,34 @@
 # Videa (public/video)
 
-## hero.webm — self-hosted cinematické video
+## Aktuální stav: web žádné video nepoužívá
 
-`hero.webm` (1280×720, ~15 s bezešvá smyčka, VP9) běží na pozadí hero sekce,
-video-masky, konverzních CTA a na podstránkách (subhero panely i celoplošné
-video bandy). Bylo **vygenerováno lokálně z fotek prodejny** (interiér,
-obruby, portrét, exteriér, sluneční brýle, hero) jako filmová sekvence s Ken
-Burns pohybem, cross-dissolve prolínačkami, teplým gradingem, vinětací a
-filmovým zrnem — žádné externí stažení nebylo potřeba (prostředí ho blokuje).
-Renderováno přes canvas + MediaRecorder v prohlížeči. Přehrává se
-`muted autoplay loop playsinline` na všech zařízeních.
+Dřív tu byl `hero.webm` (1280×720, VP9), poskládaný z fotek jako filmová
+sekvence. Na velkých displejích byl znatelně rozmazaný a zkomprimovaný,
+takže web působil levněji, než jak prodejna vypadá ve skutečnosti.
+**Byl odstraněn.**
 
-Fallback: prohlížeče bez podpory WebM/VP9 (např. starší Safari) zobrazí
-statický poster (`hero-portrait.jpg` / `interier.webp`).
+Všude, kde video běželo (subhero panely, celoplošné bandy a černá
+konverzní CTA), se místo něj střídají **fotky v plném rozlišení** přes
+komponentu `.stills` (crossfade + Ken Burns, viz `src/style.css` a
+`initStills()` v `src/js/motion-core.js`). Vypadá to stejně živě, ale
+zůstává to ostré v jakémkoli rozlišení a váží to méně než video.
 
-## Jak video nahradit vlastním klipem (doporučeno pro ostrý web)
+## Až budete mít vlastní natočený materiál
 
-Nejlepší dojem udělá **skutečný natočený materiál** z prodejny (měření zraku,
+Nejlepší dojem udělá **skutečný natočený záběr** z prodejny (měření zraku,
 zkoušení brýlí, detail výlohy, atmosféra). Až ho budete mít:
 
-1. Zkomprimujte na web (ideálně WebM i MP4 pro Safari):
+1. Zkomprimujte na web, ale **ne pod 1600 px na šířku** — právě nízké
+   rozlišení bylo problémem předchozího videa:
    ```
-   ffmpeg -i vstup.mp4 -vf "scale=1600:-2" -c:v libvpx-vp9 -crf 34 -b:v 0 -an public/video/hero.webm
-   ffmpeg -i vstup.mp4 -vf "scale=1600:-2" -c:v libx264 -crf 26 -preset slow -an -movflags +faststart public/video/hero.mp4
+   ffmpeg -i vstup.mp4 -vf "scale=1920:-2" -c:v libvpx-vp9 -crf 32 -b:v 0 -an public/video/hero.webm
+   ffmpeg -i vstup.mp4 -vf "scale=1920:-2" -c:v libx264 -crf 24 -preset slow -an -movflags +faststart public/video/hero.mp4
    ```
-2. Přepište `public/video/hero.webm` (a případně přidejte `<source src="/video/hero.mp4" type="video/mp4" />`
-   do `<video>` prvků pro maximální kompatibilitu se Safari).
+2. Vložte ho do `.stills` rámu jako další vrstvu (fotky pak slouží jako
+   plnohodnotný fallback pro starší Safari), nebo jím rám nahraďte.
+   Layout i překryvy na to jsou připravené.
+
+## Fotky prodejny ve vysokém rozlišení
+
+Zdroje pro `public/img/hd/` najdete v `public/img/PHOTO-SOURCES.md`.
+Reálné snímky prodejny leží i v `promo-video/public/optika/` (3240×2430).

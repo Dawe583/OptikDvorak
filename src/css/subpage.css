@@ -98,13 +98,9 @@ body { background: radial-gradient(120% 120% at 50% 0%, var(--paper), var(--crea
   align-self: stretch;
   box-shadow: var(--shadow-md);
 }
-.subhero__media img {
+.subhero__media img:not(.stills__frame) {
   width: 100%; height: 100%; object-fit: cover;
   transform: scale(1.08); will-change: transform;
-}
-.subhero__video {
-  position: absolute; inset: 0; z-index: 1;
-  width: 100%; height: 100%; object-fit: cover;
 }
 .subhero__badge {
   position: absolute; left: 1.1rem; bottom: 1.1rem; z-index: 3;
@@ -248,7 +244,8 @@ body { background: radial-gradient(120% 120% at 50% 0%, var(--paper), var(--crea
 .sub-back:hover span { transform: translateX(-4px); }
 
 /* ============================================================
-   VIDEO BAND — celoplošné self-hostované video (viditelný pohyb)
+   FOTO BAND — celoplošná vrstva s prolínajícími se fotkami prodejny
+   (dřív tu běželo nízkorozlišené video, viz .stills ve style.css)
    ============================================================ */
 .sub-videoband {
   position: relative;
@@ -256,14 +253,14 @@ body { background: radial-gradient(120% 120% at 50% 0%, var(--paper), var(--crea
   overflow: hidden;
   background: var(--ink-900);
 }
-.sub-videoband video {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%; object-fit: cover;
-  filter: var(--photo-filter);
+/* Reálné fotky prodejny jsou hodně světlé — snímky lehce ztlumíme a spodek
+   ztmavíme gradientem, aby nadpis zůstal čitelný (dřív to řešilo tmavé video). */
+.sub-videoband .stills__frame {
+  filter: var(--photo-filter) brightness(0.86);
 }
 .sub-videoband__scrim {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(180deg, rgba(12,12,12,0.35) 0%, rgba(12,12,12,0.1) 40%, rgba(12,12,12,0.7) 100%);
+  background: linear-gradient(180deg, rgba(12,12,12,0.42) 0%, rgba(12,12,12,0.14) 32%, rgba(12,12,12,0.55) 60%, rgba(12,12,12,0.86) 100%);
 }
 .sub-videoband__grain {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
