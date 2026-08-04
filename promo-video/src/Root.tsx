@@ -8,6 +8,8 @@ import {ReelVidetLip, VIDETLIP_DURATION} from './ReelVidetLip';
 import {ReelPredPo, PREDPO_DURATION} from './ReelPredPo';
 import {ReelRodina, RODINA_DURATION} from './ReelRodina';
 import {ReelOptika, OPTIKA_DURATION} from './ReelOptika';
+import {ReelMereni, MERENI_DURATION} from './ReelMereni';
+import {ReelNakup, NAKUP_DURATION} from './ReelNakup';
 
 /* Obě kompozice: 4K na výšku (9:16) — IG/FB Reels, Stories, TikTok */
 export const RemotionRoot = () => {
@@ -83,6 +85,24 @@ export const RemotionRoot = () => {
         id="reel-optika"
         component={ReelOptika}
         durationInFrames={OPTIKA_DURATION}
+        fps={60}
+        width={2160}
+        height={3840}
+      />
+      {/* REEL — nalákání na měření zraku (30–45 min, na prodejně, ke kompletním brýlím zdarma) */}
+      <Composition
+        id="reel-mereni"
+        component={ReelMereni}
+        durationInFrames={MERENI_DURATION}
+        fps={60}
+        width={2160}
+        height={3840}
+      />
+      {/* REEL — celá cesta k novým brýlím: měření → obruba → brýlová skla → seřízení a servis */}
+      <Composition
+        id="reel-nakup"
+        component={ReelNakup}
+        durationInFrames={NAKUP_DURATION}
         fps={60}
         width={2160}
         height={3840}
