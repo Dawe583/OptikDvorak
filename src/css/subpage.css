@@ -73,12 +73,16 @@ body { background: radial-gradient(120% 120% at 50% 0%, var(--paper), var(--crea
    Ostatní podstránky (mereni-zraku, kontaktni-cocky, servis, akce,
    reklama) používají dál výchozí .subhero__title. */
 .subhero__title--statement {
-  font-size: clamp(1.6rem, 6.2vw, 5.3rem);
+  font-size: clamp(1.5rem, 7.2vw, 6.4rem);
   line-height: 1.06;
   letter-spacing: -0.02em;
   text-wrap: nowrap;
 }
 .subhero__title--statement .line__inner { white-space: nowrap; }
+/* Statement titulek je na mobilu nutně menší než jednoslovné titulky
+   ostatních podstránek — ztlumit i index vpravo nahoře, aby h1 zůstal
+   největším prvkem. Na desktopu je velikost prakticky beze změny. */
+.subhero--statement .subhero__index { font-size: clamp(1.6rem, 5.4vw, 5rem); }
 
 .subhero__grid {
   display: grid;
@@ -87,9 +91,6 @@ body { background: radial-gradient(120% 120% at 50% 0%, var(--paper), var(--crea
   align-items: end;
   margin-top: clamp(2rem, 4vw, 3rem);
 }
-/* Bez úvodního odstavce je levý sloupec výrazně nižší než fotka —
-   vycentrovat ho svisle, ať pod textem nevznikne díra. */
-.subhero__grid--statement { align-items: center; }
 .subhero__lead {
   color: var(--ink-soft); font-size: var(--fs-lead); font-weight: 500;
   max-width: 52ch; margin-bottom: 1.8rem;
