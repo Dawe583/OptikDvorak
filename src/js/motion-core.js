@@ -561,38 +561,6 @@ export function initHours() {
   document.addEventListener('visibilitychange', () => { if (!document.hidden) update(); });
 }
 
-/* ---------- Autoplay videa (self-hosted webm) na všech zařízeních ---------- */
-export function initHeroVideo() {
-  gsap.utils.toArray('.subhero__video, .sub-videoband video').forEach((v) => {
-    const play = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
-    if (v.readyState >= 2) play();
-    else v.addEventListener('canplay', play, { once: true });
-    document.addEventListener('visibilitychange', () => { if (document.hidden) v.pause(); else play(); });
-  });
-}
-
-/* ---------- Video pozadí na konverzní CTA (lazy-load ve viewportu) ---------- */
-export function initReachVideo() {
-  gsap.utils.toArray('.reach__video').forEach((video) => {
-    const src = video.querySelector('source[data-src]');
-    new IntersectionObserver((entries, io) => {
-      if (!entries[0].isIntersecting) return;
-      io.disconnect();
-      if (src && !src.src) src.src = src.dataset.src;
-      video.load();
-      const play = () => { const p = video.play(); if (p && p.catch) p.catch(() => {}); };
-      if (video.readyState >= 2) play();
-      else video.addEventListener('canplay', play, { once: true });
-      video.classList.add('is-on');
-    }, { rootMargin: '200px 0px' }).observe(video);
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) video.pause();
-      else if (video.classList.contains('is-on')) video.play().catch(() => {});
-    });
-  });
-}
-
 /* ---------- Formuláře (poptávka na podstránce) ----------
    Web3Forms endpoint: po vygenerování access key sem vložte klíč
    (shodný s main.js). Prázdný = jen lokální potvrzení. */

@@ -46,8 +46,6 @@ M.prepHero();
   M.initHoverMotion();
   M.initFooterScrub();
   M.initStickyCta();
-  M.initHeroVideo();
-  M.initReachVideo();
   M.initForms();
   M.initHours();
   M.initYear();

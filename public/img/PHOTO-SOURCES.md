@@ -1,11 +1,29 @@
 # Zdroje fotografií
 
-Všechny fotky na webu (kromě reálných snímků prodejny `interier.webp` a `exterier.jpg`)
-jsou **reálné licencované fotografie z [Pexels](https://www.pexels.com)** —
-volné k užití, bez nutnosti uvádět autora. Dřívější AI-generované obrázky byly nahrazeny.
+Všechny fotky na webu (kromě reálných snímků prodejny `interier.webp`, `exterier.jpg`
+a celoplošných pásů v `img/band/`) jsou **reálné licencované fotografie
+z [Pexels](https://www.pexels.com)** — volné k užití, bez nutnosti uvádět autora.
+Dřívější AI-generované obrázky byly nahrazeny.
 
 Poznámka: složka `img/ai/` nese historický název, ale její obsah jsou dnes reálné fotky.
 Klidně je kdykoli nahraď vlastními fotkami z prodejny (stejný název souboru → nemusí se nic přepisovat).
+
+## Celoplošné pásy — `img/band/`
+
+Fotky pro celoplošné pásy na podstránkách (sekce `.sub-videoband`). **Nejsou to stock fotky** —
+všechny jsou výřezy z **vlastních fotografií prodejny**, které už v repu byly. Nahradily
+dřívější `video/hero.webm` (Ken Burns slideshow renderovaná přes canvas, ve špatné kvalitě),
+kterou majitelka nechtěla.
+
+Formát: 2400 × 1100 px (poměr 2,18:1), JPEG progressive, do 400 kB. Výřezy jsou volené tak,
+aby dolní třetina byla klidná — leží přes ni tmavý scrim, štítek a nadpis pásu.
+
+| Soubor | Vznik | Co je na fotce |
+| --- | --- | --- |
+| prodejna-cela.jpg | výřez z `img/interier.webp` — vlastní fotka prodejny | Široký záběr celé prodejny se zlatohnědým nápisem OPTIK DVOŘÁK na stěně, pultem a stěnami obrouček |
+| prodejna-stul.jpg | výřez z `prohlidka/koutek-nahled.jpg` — vlastní fotka prodejny | Stůl pro výběr brýlí se židlemi, zrcadlem a žlutými tulipány, za ním prosklené vitríny |
+| prodejna-vitriny.jpg | výřez z `prohlidka/pano1-8k.jpg` (panorama prohlídky, vzato jen ~36 % šířky, aby nebylo zkreslené) — vlastní fotka prodejny | Prosvětlené vitríny plné dioptrických obrub podél zaoblené stěny |
+| vyloha.jpg | výřez z `img/exterier.jpg` — vlastní fotka prodejny (2000 × 917 px, zdroj má jen 1600 px na šířku) | Výloha prodejny z Americké ulice se zlatým nápisem OPTIK DVOŘÁK a výkladními skříněmi |
 
 ## Hero (úvodní slideshow) — `img/hero/`
 | Soubor | Zdroj |

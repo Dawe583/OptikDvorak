@@ -118,10 +118,6 @@ body { background: radial-gradient(120% 120% at 50% 0%, var(--paper), var(--crea
   width: 100%; height: 100%; object-fit: cover;
   transform: scale(1.08); will-change: transform;
 }
-.subhero__video {
-  position: absolute; inset: 0; z-index: 1;
-  width: 100%; height: 100%; object-fit: cover;
-}
 .subhero__badge {
   position: absolute; left: 1.1rem; bottom: 1.1rem; z-index: 3;
   background: var(--yellow); color: var(--ink); padding: 0.6rem 1rem;
@@ -264,7 +260,8 @@ body { background: radial-gradient(120% 120% at 50% 0%, var(--paper), var(--crea
 .sub-back:hover span { transform: translateX(-4px); }
 
 /* ============================================================
-   VIDEO BAND — celoplošné self-hostované video (viditelný pohyb)
+   FOTO BAND — celoplošná fotka prodejny přes celou šířku
+   (dřív self-hostované video, odstraněno kvůli kvalitě)
    ============================================================ */
 .sub-videoband {
   position: relative;
@@ -272,14 +269,22 @@ body { background: radial-gradient(120% 120% at 50% 0%, var(--paper), var(--crea
   overflow: hidden;
   background: var(--ink-900);
 }
-.sub-videoband video {
+.sub-videoband img {
   position: absolute; inset: 0;
   width: 100%; height: 100%; object-fit: cover;
   filter: var(--photo-filter);
 }
+/* Scrim byl původně vyladěný na tmavé, zgradované video. Reálné fotky prodejny
+   jsou naopak světlé (bílé stěny, bílé pulty, prosvětlené vitríny) a nadpis přes
+   ně nebyl čitelný — změřeno, šedá část nadpisu měla kontrast až 1,99 : 1
+   (WCAG AA pro velký tučný text žádá 3,0). Druhý gradient zleva ztmaví jen tu
+   část, kde leží text; pravá půlka fotky zůstává čistá. Po úpravě je nejhorší
+   naměřený kontrast 7,0 : 1 pro bílou a 4,55 : 1 pro šedou část nadpisu. */
 .sub-videoband__scrim {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(180deg, rgba(12,12,12,0.35) 0%, rgba(12,12,12,0.1) 40%, rgba(12,12,12,0.7) 100%);
+  background:
+    linear-gradient(180deg, rgba(12,12,12,0.40) 0%, rgba(12,12,12,0.14) 32%, rgba(12,12,12,0.88) 100%),
+    linear-gradient(90deg, rgba(12,12,12,0.55) 0%, rgba(12,12,12,0.18) 46%, rgba(12,12,12,0) 72%);
 }
 .sub-videoband__grain {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
@@ -312,7 +317,8 @@ body { background: radial-gradient(120% 120% at 50% 0%, var(--paper), var(--crea
   text-transform: uppercase; line-height: 1.04;
   max-width: 18ch; text-wrap: balance;
 }
-.sub-videoband h2 .muted { color: rgba(244,241,234,0.5); }
+/* 0,5 bylo přes fotky prodejny nečitelné (viz poznámka u .sub-videoband__scrim). */
+.sub-videoband h2 .muted { color: rgba(244,241,234,0.72); }
 
 /* ============================================================
    INLINE BOOKING / KONTAKT (konverze přímo na podstránce)
