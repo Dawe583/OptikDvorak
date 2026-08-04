@@ -76,7 +76,42 @@ ty dva názvy nejsou, aby je někdo omylem nevrátil), upravená
 
 ### 3. Jiná fotka staršího pána
 
-<!-- DOPLNIT PO VÝMĚNĚ FOTKY -->
+Fotka `public/img/ai/lenses-reading.jpg` je vyměněná. Používá se na **dvou místech**:
+na titulce v sekci „Skla na míru pro jasné vidění" a na stránce Kontaktní čočky
+v černém pásu „Vyzkoušejte čočky zdarma". Soubor má stejný název, takže se obě
+místa přepsala naráz.
+
+- **Pryč:** Pexels 3782187 — šedovlasý pán v kulatých brýlích v protisvětle, čte
+  tyrkysovou knihu. Usmíval se koutkem úst a díval se svrchu.
+- **Nově:** [Pexels 7545048](https://www.pexels.com/photo/7545048/) — pán kolem
+  sedmdesáti, bílé vlasy a krátký plnovous, tenké zlaté brýle, krémové lněné sako.
+  Sedí v křesle, v ruce šálek kávy, na klíně otevřený časopis. **Doopravdy se směje**,
+  uvolněně a vřele. Brýle jsou dobře vidět a jsou to skutečné dioptrické obruby,
+  ne rekvizita. Časopis na klíně drží čtenářskou linku sekce (multifokální skla
+  na dálku i na čtení), aniž by fotka působila naaranžovaně.
+- Licence Pexels — volné komerční užití bez povinné atribuce, stejně jako u zbytku
+  webu. Soubor 1200 × 1066 px, 168 kB, oříznutý tak, aby obličej zůstal v záběru
+  v obou ořezech (široká dlaždice na titulce i vysoký panel na Kontaktních čočkách).
+- Popisky pro nevidomé a pro Google (`alt`) na obou místech přepsané na to, co je
+  na fotce doopravdy — původní „Muž čte knihu v elegantních brýlích u okna" by
+  po výměně nesouhlasil (žádná kniha ani okno).
+
+**Náhradníci**, kdyby se tenhle pán nelíbil (oba Pexels, volná licence):
+- [Pexels 7545018](https://www.pexels.com/photo/7545018/) — **tentýž pán** zblízka,
+  vlídně se usmívá nad křížovkou. Nejvíc „na téma", ale fotograf mu uřízl temeno
+  hlavy, po ořezu je to vidět.
+- [Pexels 8899491](https://www.pexels.com/photo/8899491/) — jiný pán, kolem 75,
+  výrazné hranaté brýle, čte pod lampou. Klidný a soustředěný, ale neusmívá se.
+
+### Doprovodné úpravy (nebyly zadané, vyplynuly ze změn výše)
+
+- `o-nas.html` — popisek stránky pro Google začínal „Optik Dvořák je rodinná oční
+  optika v centru Plzně. Fungujeme od roku 1991." To po změně titulku dělalo tutéž
+  větu dvakrát pod sebou, takže je z toho „Rodinná oční optika v centru Plzně,
+  na Americké 325/23, od roku 1991. …"
+- `o-nas.html` — štítek nad nadpisem ve video pásu byl „Rodinná oční optika ·
+  od roku 1991" a nadpis pod ním je nově taky „Rodinná oční optika, …". Štítek
+  je proto „Naše prodejna · Americká 325/23".
 
 ## Na co se mamky zeptat
 

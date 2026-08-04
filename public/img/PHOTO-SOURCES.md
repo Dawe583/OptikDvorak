@@ -26,7 +26,7 @@ Klidně je kdykoli nahraď vlastními fotkami z prodejny (stejný název souboru
 | look-clear.jpg | https://www.pexels.com/photo/29274466/ |
 | look-titan.jpg | https://www.pexels.com/photo/773395/ |
 | kolaz-portret.jpg | https://www.pexels.com/photo/4078393/ |
-| lenses-reading.jpg | https://www.pexels.com/photo/3782187/ |
+| lenses-reading.jpg | https://www.pexels.com/photo/7545048/ (smějící se starší pán v brýlích, na klíně otevřený časopis — vyměněno 8/2026 na přání majitelky, původní pán z fotky 3782187 působil nesympaticky) |
 | galerie-detail.jpg | https://www.pexels.com/photo/9929662/ |
 | kolaz-cisteni.jpg | https://www.pexels.com/photo/4736085/ |
 | deti-bryle.jpg | https://www.pexels.com/photo/7417171/ |
