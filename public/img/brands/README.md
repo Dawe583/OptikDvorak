@@ -6,16 +6,15 @@ značky stylizovaný název (nikdy se neukáže rozbitý obrázek).
 
 ## Už doplněno
 
-Loga jsou ve složce u všech značek obrub a u Hoya, ZEISS, MiSight
+Loga jsou ve složce u všech značek obrub a u Hoya, ZEISS
 a CooperVision. Klidně je nahraďte oficiální verzí od dodavatele,
 když budete mít lepší.
 
-**Chybí a hodila by se:** `miyosmart.svg`, `optika-civice.svg`,
-`konvex.svg` a `alcon.svg` (Konvex i Alcon přibyly v srpnu 2026, zatím
-u nich svítí jen název)
-(u Optiky Čivice je na jejich webu jen malé logo 48 × 32 px, na dlaždici
-by bylo rozmazané, proto tam zatím svítí jen název). Vyžádejte si je
-prosím od obchodního zástupce.
+**Chybí a hodila by se:** `optika-civice.svg`, `konvex.svg` a
+`alcon.svg`. U těchto tří dlaždic zatím svítí jen název značky
+(Konvex a Alcon přibyly v srpnu 2026; u Optiky Čivice je na jejich
+webu jen malé logo 48 × 32 px, na dlaždici by bylo rozmazané).
+Vyžádejte si je prosím od obchodního zástupce.
 
 ## Jak na to
 
@@ -61,10 +60,13 @@ Zkouší se pořadí přípon: `.svg` → `.png` → `.webp` (použije se první
 | ZEISS           | `zeiss.svg`                 |
 | Optika Čivice   | `optika-civice.svg`         |
 | Konvex          | `konvex.svg`                |
-| MiYOSMART       | `miyosmart.svg`             |
 | Alcon           | `alcon.svg`                 |
-| MiSIGHT         | `misight.svg`               |
 | CooperVision    | `coopervision.svg`          |
+
+Poznámka k MiYOSMART a MiSIGHT: v pásu značek už nejsou (srpen 2026).
+Jsou to konkrétní produkty — brýlová skla od Hoya, resp. kontaktní
+čočky od CooperVision — a oba výrobci jsou v tabulce výš. Zmínky
+o certifikaci MiYOSMART / MiSIGHT v textech na webu zůstávají.
 
 Poznámka k `zeiss.svg`: vznikl z volného loga na Wikimedia Commons
 (File:Zeiss logo.svg, public domain) — je z něj ponechaný jen samotný

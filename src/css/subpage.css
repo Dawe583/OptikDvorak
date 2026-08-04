@@ -68,6 +68,18 @@ body { background: radial-gradient(120% 120% at 50% 0%, var(--paper), var(--crea
 .subhero__title .t1 { color: var(--ink); }
 .subhero__title .t2 { color: var(--t-dark); }
 
+/* Statement varianta titulku (jen /o-nas) — celá věta na třech řádcích.
+   Devět slov v --fs-hero by přeteklo container, proto vlastní clamp.
+   Ostatní podstránky (mereni-zraku, kontaktni-cocky, servis, akce,
+   reklama) používají dál výchozí .subhero__title. */
+.subhero__title--statement {
+  font-size: clamp(1.6rem, 6.2vw, 5.3rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  text-wrap: nowrap;
+}
+.subhero__title--statement .line__inner { white-space: nowrap; }
+
 .subhero__grid {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
@@ -75,6 +87,9 @@ body { background: radial-gradient(120% 120% at 50% 0%, var(--paper), var(--crea
   align-items: end;
   margin-top: clamp(2rem, 4vw, 3rem);
 }
+/* Bez úvodního odstavce je levý sloupec výrazně nižší než fotka —
+   vycentrovat ho svisle, ať pod textem nevznikne díra. */
+.subhero__grid--statement { align-items: center; }
 .subhero__lead {
   color: var(--ink-soft); font-size: var(--fs-lead); font-weight: 500;
   max-width: 52ch; margin-bottom: 1.8rem;

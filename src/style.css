@@ -221,8 +221,10 @@ section { position: relative; }
   border-radius: 12px; overflow: hidden;
 }
 
-/* Brýlová skla a čočky: 6 značek ve 3 sloupcích = širší dlaždice, takže se do nich
-   vejde větší logo (loga se špatně četla, když byla stěna pětisloupcová). */
+/* Brýlová skla a čočky: 6 výrobců ve 3 sloupcích = přesně 2 plné řady a širší dlaždice,
+   takže se do nich vejde větší logo (loga se špatně četla, když byla stěna pětisloupcová).
+   Pod 520 px platí společné pravidlo se 2 sloupci → 3 plné řady, taky bez osamocené
+   dlaždice. Kdyby značek přibylo/ubylo, zkontroluj, že poslední řada nezůstane poloprázdná. */
 .brandwall--lenses { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
 .brandtile {
@@ -268,7 +270,7 @@ section { position: relative; }
 .brandtile:hover .brandtile__logo { opacity: 1; }
 .brandwall--lenses .brandtile { min-height: clamp(104px, 9.6vw, 140px); }
 .brandwall--lenses .brandtile__logo { width: 76%; height: clamp(54px, 7.2vw, 92px); }
-/* Dlaždice bez souboru s logem (zatím MiYOSMART a Optika Čivice) ukazují název,
+/* Dlaždice bez souboru s logem (zatím Optika Čivice, Konvex a Alcon) ukazují název,
    ve stěně skel ho zvětšujeme, ať vedle velkých log neztrácí váhu. */
 .brandwall--lenses .brandtile__name { font-size: clamp(1rem, 0.8rem + 0.8vw, 1.7rem); }
 .brandtile.has-logo .brandtile__name { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
