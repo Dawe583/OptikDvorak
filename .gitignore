@@ -5,6 +5,9 @@ node_modules/
 dist/
 dist-ssr/
 
+# Pracovní rendery videí (hotové výstupy leží v promo-video/hotove/)
+promo-video/out/
+
 # Local env files
 .env
 .env.local
