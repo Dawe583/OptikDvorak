@@ -247,28 +247,59 @@ export const Glasses: React.FC<{
   );
 };
 
-/* ---------- Háček: optika, která říká „nekupujte" ---------- */
+/* ---------- Háček: optika, která říká „nekupujte" ----------
+   Pořadí je schválně obráceně proti ostatním scénám: nejdřív předmět,
+   potom věta. Křivé brýle jsou v obraze už od nultého snímku, viklají se
+   a u kloubu jim krátce pulzne povolený šroubek — v prvním okamžiku má být na
+   čem zůstat očima. Text dopadne o tři desetiny sekundy později.
+
+   Proč to tak je: analýza pozornosti nad první verzí ukázala, že úvodní
+   tři vteřiny byly nejklidnějším místem celého Reelu. U Reels se přitom
+   právě v nich rozhoduje, jestli ho Instagram ukáže dál. */
 const Hook: React.FC = () => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
   const k = useScale();
-  const sub = spring({frame: frame - F(1.15), fps, config: {damping: 200}, durationInFrames: F(0.9)});
-  const gl = spring({frame: frame - F(0.55), fps, config: {damping: 200}, durationInFrames: F(1.0)});
+  const sub = spring({frame: frame - F(1.05), fps, config: {damping: 200}, durationInFrames: F(0.9)});
 
   /* brýle se viklají — povolený šroubek má být vidět, ne jen slyšet */
-  const wob = Math.sin(frame / 9) * 2.4 + Math.sin(frame / 3.7) * 0.8;
+  const wob = Math.sin(frame / 9) * 2.6 + Math.sin(frame / 3.7) * 0.9;
+
+  /* pomalé přiblížení od prvního snímku: obraz se hýbe dřív, než začne text */
+  const push = interpolate(frame, [0, F(2.6)], [1.075, 1.0], {
+    extrapolateRight: 'clamp',
+    easing: Easing.out(Easing.cubic),
+  });
+
+  /* šroubek u kloubu jednou měkce pulzne (vrchol kolem 0,65 s) — „tady se dívej" */
+  const ping = Math.max(0, Math.sin(frame / F(0.42))) ** 3 * interpolate(frame, [F(1.7), F(2.6)], [0.42, 0], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
 
   return (
     <AbsoluteFill style={{backgroundColor: C.bg}}>
       <AbsoluteFill
-        style={{background: 'radial-gradient(circle at 50% 38%, rgba(255,228,92,0.085), transparent 58%)'}}
+        style={{
+          background: `radial-gradient(circle at 50% 38%, rgba(255,228,92,${0.085 + 0.05 * ping}), transparent 58%)`,
+        }}
       />
-      <AbsoluteFill style={{padding: `0 ${90 * k}px`, justifyContent: 'center', paddingBottom: 150 * k}}>
-        <div style={{fontFamily: MONO, fontSize: 26 * k, color: C.yellowDeep, marginBottom: 24 * k}}>
+      <AbsoluteFill style={{padding: `0 ${90 * k}px`, justifyContent: 'center', paddingBottom: 90 * k}}>
+        <div
+          style={{
+            alignSelf: 'center',
+            marginBottom: 76 * k,
+            transform: `scale(${push})`,
+          }}
+        >
+          <Glasses bend={46 + wob * 1.4} tilt={-8 + wob * 0.6} screw={-18} glow={ping} k={k} />
+        </div>
+
+        <div style={{fontFamily: MONO, fontSize: 26 * k, color: C.yellowDeep, marginBottom: 22 * k}}>
           // zvláštní rada z optiky
         </div>
-        <HeadWords words={['Nekupujte']} startAt={F(0.1)} k={k} size={112} />
-        <HeadWords words={['nové', 'brýle.']} startAt={F(0.28)} k={k} size={112} dot />
+        <HeadWords words={['Nekupujte']} startAt={F(0.3)} k={k} size={112} />
+        <HeadWords words={['nové', 'brýle.']} startAt={F(0.46)} k={k} size={112} dot />
         <div
           style={{
             fontFamily: BODY,
@@ -281,10 +312,6 @@ const Hook: React.FC = () => {
           }}
         >
           Aspoň ne kvůli povolenému šroubku.
-        </div>
-
-        <div style={{marginTop: 84 * k, opacity: gl, transform: `translateY(${(1 - gl) * 26 * k}px)`}}>
-          <Glasses bend={46 + wob * 1.4} tilt={-8 + wob * 0.6} screw={-18} glow={0} k={k} />
         </div>
       </AbsoluteFill>
     </AbsoluteFill>

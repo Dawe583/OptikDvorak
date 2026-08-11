@@ -36,7 +36,7 @@ už drží blbě".
 
 | Čas | Co se děje |
 | --- | --- |
-| 0,0–3,2 s | **Háček:** „Nekupujte nové brýle." · „Aspoň ne kvůli povolenému šroubku." Pod textem se viklají křivé brýle. |
+| 0,0–3,2 s | **Háček:** hned od prvního snímku jsou v obraze křivé brýle, viklají se a krátce jim pulzne povolený šroubek. O tři desetiny sekundy později dopadne text: „Nekupujte nové brýle." · „Aspoň ne kvůli povolenému šroubku." |
 | 2,8–6,0 s | **S čím lidé chodí:** povolený šroubek · ohnutá obruba · prasklý silon. „Kvůli žádné z nich nemusíte kupovat nové." |
 | 5,6–9,4 s | **Oprava:** šroubek se dotáhne, stranička zaklapne, brýle se srovnají (cvak). „Běžné věci zvládneme obvykle na počkání." |
 | 9,0–12,4 s | **Reálná fotka opravy:** napínání silonu do poloobruby. „Sklo bude zase pevně držet." |
@@ -46,6 +46,29 @@ už drží blbě".
 
 Titulky jsou napálené v obraze, takže video funguje **i bez zvuku** — což je
 důležité, protože většina lidí kouká se ztlumeným telefonem.
+
+### Proč háček vypadá takhle
+
+První verze začínala černou plochou, na kterou naskakoval text, a brýle se
+objevily až po půl sekundě. Prohnal jsem obě verze nástrojem, který odhaduje
+udržení pozornosti po sekundách — a vyšlo, že **úvodní tři vteřiny byly
+nejklidnějším místem celého videa**. To je u Reels ta nejhorší možná vlastnost,
+protože právě v prvních vteřinách se rozhoduje, jestli ho Instagram ukáže dál.
+
+Háček je proto přeskládaný: **nejdřív předmět, potom věta.** Brýle jsou
+v obraze od nultého snímku, viklají se, pomalu se přibližují a u kloubu jim
+krátce pulzne povolený šroubek. Text dopadne až na to.
+
+| | první verze | teď |
+| --- | --- | --- |
+| Pozornost v prvních 3 s | 0,402 | **0,435** (+8 %) |
+| Hook score | 33 | **35** |
+| Celkové skóre | 49 | **50** |
+| Udržení pozornosti (sustain) | 98 | 98 |
+
+Nejsou to zaručená čísla — sám dodavatel nástroje je označuje za odhad, ne za
+měření. Směr je ale jednoznačný: zvedla se celá křivka, nejvíc přesně tam,
+kde bylo potřeba. Video už nezačíná svým nejslabším místem.
 
 ---
 
@@ -119,8 +142,10 @@ hned na místě. 👓
 - **Alt text** (Pokročilá nastavení → Alt text):
   „Oprava a servis brýlí v optice Optik Dvořák na Americké 325/23 v Plzni —
   výměna šroubků, silon do poloobrub, čištění ultrazvukem, seřízení na obličej."
-- **Cover / náhledovka:** vyberte snímek z první vteřiny, kde je vidět
-  **„Nekupujte nové brýle."** Ten nápis dělá půlku práce už v mřížce profilu.
+- **Cover / náhledovka:** u nahrávání zvolte **vlastní obrázek z galerie**
+  a použijte `promo-video/hotove/cover-servis.png`. Nápis „Nekupujte nové brýle"
+  dělá půlku práce už v mřížce profilu. (Kdyby to nešlo, vyberte snímek
+  z první vteřiny videa — je na něm to samé.)
 - **Titulky zapnout.** V obraze jsou napálené, ale automatické titulky neuškodí.
 - **Sdílet do Stories** hned po zveřejnění — zhlédnutí ze Stories se počítají
   a nakopnou video v prvních hodinách, kdy se rozhoduje o dosahu.
