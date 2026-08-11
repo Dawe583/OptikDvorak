@@ -10,6 +10,7 @@ import {ReelRodina, RODINA_DURATION} from './ReelRodina';
 import {ReelOptika, OPTIKA_DURATION} from './ReelOptika';
 import {ReelMereni, MERENI_DURATION} from './ReelMereni';
 import {ReelNakup, NAKUP_DURATION} from './ReelNakup';
+import {ReelServis, SERVIS_DURATION} from './ReelServis';
 
 /* Obě kompozice: 4K na výšku (9:16) — IG/FB Reels, Stories, TikTok */
 export const RemotionRoot = () => {
@@ -103,6 +104,16 @@ export const RemotionRoot = () => {
         id="reel-nakup"
         component={ReelNakup}
         durationInFrames={NAKUP_DURATION}
+        fps={60}
+        width={2160}
+        height={3840}
+      />
+      {/* REEL — servis a opravy brýlí: servisní lístek se čtyřmi závadami,
+          objednávat se nemusíte, běžné věci obvykle na počkání */}
+      <Composition
+        id="reel-servis"
+        component={ReelServis}
+        durationInFrames={SERVIS_DURATION}
         fps={60}
         width={2160}
         height={3840}
