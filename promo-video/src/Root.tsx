@@ -12,6 +12,11 @@ import {ReelMereni, MERENI_DURATION} from './ReelMereni';
 import {ReelNakup, NAKUP_DURATION} from './ReelNakup';
 import {ReelServis, SERVIS_DURATION} from './ReelServis';
 import {CoverServis} from './CoverServis';
+import {ReelCocky, COCKY_DURATION} from './ReelCocky';
+import {ReelSkola, SKOLA_DURATION} from './ReelSkola';
+import {ReelMultifokal, MULTIFOKAL_DURATION} from './ReelMultifokal';
+import {ReelRidic, RIDIC_DURATION} from './ReelRidic';
+import {ReelBenefity, BENEFITY_DURATION} from './ReelBenefity';
 
 /* Obě kompozice: 4K na výšku (9:16) — IG/FB Reels, Stories, TikTok */
 export const RemotionRoot = () => {
@@ -120,6 +125,18 @@ export const RemotionRoot = () => {
       />
       {/* Náhledovka (cover) k Reelu o servisu */}
       <Still id="cover-servis" component={CoverServis} width={2160} height={3840} />
+
+      {/* ---- Kampaň pěti Reelů: pět různých důvodů přijít na prodejnu ---- */}
+      {/* 1/5 — kontaktní čočky, zkušební pár zdarma */}
+      <Composition id="reel-cocky" component={ReelCocky} durationInFrames={COCKY_DURATION} fps={60} width={2160} height={3840} />
+      {/* 2/5 — děti před začátkem školy (sezónní, srpen a začátek září) */}
+      <Composition id="reel-skola" component={ReelSkola} durationInFrames={SKOLA_DURATION} fps={60} width={2160} height={3840} />
+      {/* 3/5 — multifokální skla 1 + 1 */}
+      <Composition id="reel-multifokal" component={ReelMultifokal} durationInFrames={MULTIFOKAL_DURATION} fps={60} width={2160} height={3840} />
+      {/* 4/5 — brýlová skla pro řidiče −30 % */}
+      <Composition id="reel-ridic" component={ReelRidic} durationInFrames={RIDIC_DURATION} fps={60} width={2160} height={3840} />
+      {/* 5/5 — benefitní poukázky */}
+      <Composition id="reel-benefity" component={ReelBenefity} durationInFrames={BENEFITY_DURATION} fps={60} width={2160} height={3840} />
     </>
   );
 };
