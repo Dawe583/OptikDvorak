@@ -10,6 +10,17 @@ nic se s nimi nemusí dělat.
 | `reel-servis-4k-9x16.mp4` | 22,6 s | Servis a opravy — „Nekupujte nové brýle." Běžné věci obvykle na počkání. |
 | `cover-servis.png` | — | Náhledovka k Reelu o servisu (1080 × 1920, nahrává se v IG zvlášť) |
 
+**Kampaň pěti Reelů — pět různých důvodů přijít na prodejnu.** Popisky, pořadí
+publikování a co je potřeba ověřit najdete v `docs/KAMPAN-5-REELS.md`.
+
+| Soubor | Délka | Co v něm je |
+| --- | --- | --- |
+| `reel-cocky-4k-9x16.mp4` | 22,6 s | Kontaktní čočky — „Do oka? To si nesáhnu." Zkušební pár zdarma. |
+| `reel-skola-4k-9x16.mp4` | 22,6 s | Děti před školou — měření zdarma ke kompletním brýlím **(sezónní: srpen a začátek září)** |
+| `reel-multifokal-4k-9x16.mp4` | 21,8 s | Multifokály 1 + 1 — druhá skla zdarma **(nejdřív ověřit platnost akce)** |
+| `reel-ridic-4k-9x16.mp4` | 21,6 s | Řidičská skla −30 % **(nejdřív ověřit platnost akce)** |
+| `reel-benefity-4k-9x16.mp4` | 21,8 s | Benefitní poukázky — Edenred, Pluxee, Up, Benefit Plus |
+
 Videa: **2160 × 3840 px (4K, poměr 9:16), 60 snímků za sekundu, se zvukem.**
 To je přesně formát pro Instagram Reels, Stories i TikTok.
 
