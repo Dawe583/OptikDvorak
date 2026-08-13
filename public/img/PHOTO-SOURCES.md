@@ -25,6 +25,22 @@ aby dolní třetina byla klidná — leží přes ni tmavý scrim, štítek a na
 | prodejna-vitriny.jpg | výřez z `prohlidka/pano1-8k.jpg` (panorama prohlídky, vzato jen ~36 % šířky, aby nebylo zkreslené) — vlastní fotka prodejny | Prosvětlené vitríny plné dioptrických obrub podél zaoblené stěny |
 | vyloha.jpg | výřez z `img/exterier.jpg` — vlastní fotka prodejny (2000 × 917 px, zdroj má jen 1600 px na šířku) | Výloha prodejny z Americké ulice se zlatým nápisem OPTIK DVOŘÁK a výkladními skříněmi |
 
+## Panoramata virtuální prohlídky — `prohlidka/`
+
+Vlastní panoramata prodejny z telefonu (válcová projekce, svislý záběr 55°).
+Prohlídka `prohlidka/index.html` z nich skládá 360° rozhled, na homepage jsou
+zároveň jako nezkrácené pásy v sekci „Projděte se u nás".
+
+| Soubor | Co je na fotce | Poznámka |
+| --- | --- | --- |
+| pano1-8k.jpg / pano1-4k.jpg | Vstup, stěny obrouček, nápis OPTIK DVOŘÁK a recepce | Originál 16352 × 3788 px |
+| pano-cela-4k.jpg | Celá prodejna z jednoho místa — pult vlevo, vchod z Americké uprostřed, dlouhá vitrína a regál s doplňky vpravo | Panorama od majitelky (8/2026). Přišlo zmenšené na 2000 px na šířku, do 4096 px je dopočítané; černý pruh po sešívání u horního okraje je zaretušovaný. **Až bude po ruce originál z telefonu, stačí ho projet stejným postupem a přepsat soubor — prohlídka bude ostřejší.** |
+| pano-nahled.jpg / pano-cela-nahled.jpg | Náhledy týchž panoramat pro homepage | — |
+| koutek-nahled.jpg | Stůl pro výběr brýlí se zrcadlem a tulipány | Zdroj pro `img/band/prodejna-stul.jpg` |
+
+Dřívější `pano2-*.jpg` („Prodejna a vchod") bylo focené na tutéž stranu prodejny
+jako `pano1`, takže se v prohlídce jen opakovalo. Nahradilo ho `pano-cela`.
+
 ## Hero (úvodní slideshow) — `img/hero/`
 | Soubor | Zdroj |
 | --- | --- |

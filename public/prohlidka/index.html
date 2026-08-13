@@ -83,11 +83,18 @@
 const VFOV = 55 * Math.PI / 180;          // svislý záběr iPhone panoramatu
 const FOCAL_OVER_H = 1 / (2 * Math.tan(VFOV / 2));   // f / výška obrázku
 
-/* Dvě stanoviště pokrývají celou prodejnu. Třetí panorama bylo focené
-   téměř ze stejného místa jako druhé, takže by se jen opakovalo. */
+/* Dvě stanoviště. První je detailní pohled na stěny obrouček a recepci,
+   druhé je celá prodejna z jednoho místa — od pultu přes vchod až po
+   regál s doplňky. Dřívější druhé panorama („Prodejna a vchod") mířilo
+   na tutéž stranu jako první, takže se jen opakovalo; nahradilo ho tohle.
+
+   `sizes` říká, které varianty souboru na disku existují, od nejlepší.
+   Panorama celé prodejny máme zatím jen ve 4K — telefonní originál se
+   cestou zmenšil. Až bude po ruce původní soubor, stačí dorobit
+   `pano-cela-8k.jpg` a doplnit '8k' na začátek seznamu. */
 const STATIONS = [
-  {label: 'Recepce a stěny obrouček', base: 'pano1', w: 16352, h: 3788},
-  {label: 'Prodejna a vchod',         base: 'pano2', w: 14846, h: 3792},
+  {label: 'Recepce a stěny obrouček', base: 'pano1',     w: 16352, h: 3788, sizes: ['8k', '4k']},
+  {label: 'Celá prodejna',            base: 'pano-cela', w: 2000,  h: 513,  sizes: ['4k']},
 ];
 // vodorovný záběr každého panoramatu v radiánech
 for (const s of STATIONS) s.hfov = (s.w / s.h) * (2 * Math.tan(VFOV / 2));
@@ -173,7 +180,14 @@ gl.uniform1f(U.uFocalOverH, FOCAL_OVER_H);
 
 /* ---------- textury ---------- */
 const MAX_TEX = gl.getParameter(gl.MAX_TEXTURE_SIZE);
-const QUALITY = MAX_TEX >= 8192 ? '8k' : '4k';
+const TEX_PX = {'8k': 8192, '4k': 4096};
+
+/* Nejlepší varianta, kterou stanoviště má a která se ještě vejde do limitu
+   grafiky. Kdyby se nevešla ani ta nejmenší, stejně ji zkusíme — prohlížeč
+   si ji zmenší sám, což je pořád lepší než prázdná obrazovka. */
+function quality(s) {
+  return s.sizes.find((q) => TEX_PX[q] <= MAX_TEX) || s.sizes[s.sizes.length - 1];
+}
 
 function makeTexture() {
   const t = gl.createTexture();
@@ -190,15 +204,15 @@ const texA = makeTexture(), texB = makeTexture();
 gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
 
 const cache = new Map();
-function loadImage(base) {
-  if (cache.has(base)) return cache.get(base);
+function loadImage(s) {
+  if (cache.has(s.base)) return cache.get(s.base);
   const p = new Promise((res, rej) => {
     const im = new Image();
     im.onload = () => res(im);
-    im.onerror = () => rej(new Error('nelze načíst ' + base));
-    im.src = `${base}-${QUALITY}.jpg`;
+    im.onerror = () => rej(new Error('nelze načíst ' + s.base));
+    im.src = `${s.base}-${quality(s)}.jpg`;
   });
-  cache.set(base, p);
+  cache.set(s.base, p);
   return p;
 }
 function upload(tex, img) {
@@ -316,9 +330,9 @@ let switching = false;
 async function goto(i) {
   if (i === cur || switching) return;
   switching = true;
-  const img = await loadImage(STATIONS[i].base);
+  const img = await loadImage(STATIONS[i]);
   // aktuální -> slot A (jako "předchozí"), nové -> slot B
-  const prevImg = await loadImage(STATIONS[cur].base);
+  const prevImg = await loadImage(STATIONS[cur]);
   upload(texA, prevImg);
   upload(texB, img);
   prevIdx = cur; cur = i;
@@ -363,7 +377,7 @@ function frame() {
   veil.innerHTML = '<div class="spin"></div>';
   document.body.appendChild(veil);
   try {
-    const img = await loadImage(STATIONS[0].base);
+    const img = await loadImage(STATIONS[0]);
     upload(texA, img); upload(texB, img);
     gl.uniform1f(U.uHFovA, STATIONS[0].hfov);
     gl.uniform1f(U.uHFovB, STATIONS[0].hfov);
