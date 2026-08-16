@@ -11,6 +11,10 @@ import {ReelOptika, OPTIKA_DURATION} from './ReelOptika';
 import {ReelMereni, MERENI_DURATION} from './ReelMereni';
 import {ReelNakup, NAKUP_DURATION} from './ReelNakup';
 import {ReelServis, SERVIS_DURATION} from './ReelServis';
+import {ReelDeti, DETI_DURATION} from './ReelDeti';
+import {ReelCocky, COCKY_DURATION} from './ReelCocky';
+import {ReelMultifokaly, MULTI_DURATION} from './ReelMultifokaly';
+import {ReelBenefity, BENEFITY_DURATION} from './ReelBenefity';
 
 /* Obě kompozice: 4K na výšku (9:16) — IG/FB Reels, Stories, TikTok */
 export const RemotionRoot = () => {
@@ -114,6 +118,46 @@ export const RemotionRoot = () => {
         id="reel-servis"
         component={ReelServis}
         durationInFrames={SERVIS_DURATION}
+        fps={60}
+        width={2160}
+        height={3840}
+      />
+      {/* REEL — děti a začátek školního roku: měření zraku, dětské obruby,
+          bezplatné posouzení skel MiYOSMART. Vizuál: linkovaný sešit. */}
+      <Composition
+        id="reel-deti"
+        component={ReelDeti}
+        durationInFrames={DETI_DURATION}
+        fps={60}
+        width={2160}
+        height={3840}
+      />
+      {/* REEL — kontaktní čočky: aplikace krok za krokem, zkušební pár
+          zdarma. Vizuál: kruhové okno jako čočka s prstencem postupu. */}
+      <Composition
+        id="reel-cocky"
+        component={ReelCocky}
+        durationInFrames={COCKY_DURATION}
+        fps={60}
+        width={2160}
+        height={3840}
+      />
+      {/* REEL — multifokální skla pro ty, kdo střídají dvoje brýle.
+          Vizuál: dělicí čára na dálku / na čtení přes fotku. */}
+      <Composition
+        id="reel-multifokaly"
+        component={ReelMultifokaly}
+        durationInFrames={MULTI_DURATION}
+        fps={60}
+        width={2160}
+        height={3840}
+      />
+      {/* REEL — benefitní poukázky Edenred, Pluxee, Up a Benefit Plus.
+          Vizuál: karty programů rozdané jako z balíčku. */}
+      <Composition
+        id="reel-benefity"
+        component={ReelBenefity}
+        durationInFrames={BENEFITY_DURATION}
         fps={60}
         width={2160}
         height={3840}
