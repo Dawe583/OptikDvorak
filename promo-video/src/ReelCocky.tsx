@@ -63,7 +63,7 @@ const CY = 740;
 const RAD = 400;            // poloměr kruhového okna
 const RING = RAD + 34;      // poloměr prstence
 const TEXT_TOP = 1180;
-const NOTE_TOP = 1500;      // poznámka až úplně dole, ať se nepotká s textem
+const NOTE_TOP = 1506;      // poznámka až úplně dole, ať se nepotká s textem
 
 const SHOTS: Shot[] = [
   {src: 'cocky/hook.jpg', from: 0, to: T_S1, dir: 'in'},
@@ -309,11 +309,13 @@ export const ReelCocky: React.FC = () => {
       <Ring k={k} opacity={bodyOp * open} />
 
       <Hook k={k} />
+      {/* Nadpisy musí vyjít na jeden řádek — dvouřádkový by odsunul text dolů
+          přes poznámku o lékařském vyšetření. */}
       <Step
         index={0}
         badge="KROK 01"
-        head={['Probereme,', 'na', 'co', 'je', 'chcete']}
-        detail={<>Na sport, do práce nebo jen na víkend — a jestli jsou pro vás <Hi start={T_S1}>vhodné</Hi>.</>}
+        head={['Na', 'co', 'je', 'chcete?']}
+        detail={<>Na sport, do práce nebo na víkend — a jestli jsou pro vás <Hi start={T_S1}>vhodné</Hi>.</>}
         k={k}
       />
       <Step
@@ -334,7 +336,7 @@ export const ReelCocky: React.FC = () => {
         index={3}
         badge="KROK 04"
         head={['Zkušební', 'pár']}
-        detail={<>Dostanete ho <Hi start={T_S4}>zdarma</Hi> a objednáme vás na kontrolu. Čočky pak pohodlně dokoupíte u nás.</>}
+        detail={<>Dostanete ho <Hi start={T_S4}>zdarma</Hi> a objednáme vás na kontrolu.</>}
         k={k}
       />
 
