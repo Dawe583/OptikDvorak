@@ -95,6 +95,62 @@ const REELS = [
     padGain: 0.05,
     pluckGain: 0.085,
   },
+  {
+    out: 'music-recenze.wav',
+    label: 'recenze — F dur, vřelé, poděkování',
+    seed: 26,
+    tone: 'marimba',
+    pad: [87.31, 130.81, 174.61, 261.63],            // F2 C3 F3 C4
+    scale: [174.61, 196.0, 220.0, 261.63, 293.66, 349.23],
+    pattern: [0, 2, 4, 1, 3, 5, 2, 0],
+    accent: [349.23, 392.0, 440.0, 523.25],          // F4 G4 A4 C5
+    final: [349.23, 440.0, 523.25, 698.46],
+    hook: 349.23,
+    padGain: 0.05,
+    pluckGain: 0.08,
+  },
+  {
+    out: 'music-slunecni.wav',
+    label: 'sluneční — E dur, letní, jasné',
+    seed: 77,
+    tone: 'glass',
+    pad: [82.41, 123.47, 164.81, 246.94],            // E2 B2 E3 B3
+    scale: [329.63, 369.99, 415.3, 493.88, 554.37, 659.25],
+    pattern: [0, 3, 1, 5, 2, 4, 3, 0],
+    accent: [659.25, 739.99, 830.61, 987.77],        // E5 F#5 G#5 B5
+    final: [493.88, 659.25, 830.61, 987.77],
+    hook: 659.25,
+    padGain: 0.044,
+    pluckGain: 0.072,
+  },
+  {
+    out: 'music-vyrobci.wav',
+    label: 'výrobci — D moll, věcné, důvěryhodné',
+    seed: 111,
+    tone: 'marimba',
+    pad: [73.42, 110.0, 146.83, 220.0],              // D2 A2 D3 A3
+    scale: [146.83, 174.61, 196.0, 220.0, 261.63, 293.66],
+    pattern: [0, 2, 1, 4, 3, 5, 2, 1],
+    accent: [293.66, 349.23, 392.0, 440.0],          // D4 F4 G4 A4
+    final: [293.66, 349.23, 440.0, 587.33],
+    hook: 293.66,
+    padGain: 0.054,
+    pluckGain: 0.078,
+  },
+  {
+    out: 'music-poctivost.wav',
+    label: 'poctivost — C dur, tiché, prostorné',
+    seed: 1991,
+    tone: 'glass',
+    pad: [65.41, 98.0, 130.81, 196.0],               // C2 G2 C3 G3
+    scale: [261.63, 293.66, 329.63, 392.0, 440.0, 523.25],
+    pattern: [0, 4, 2, 5, 1, 3, 4, 0],
+    accent: [261.63, 329.63, 392.0, 523.25],         // C4 E4 G4 C5
+    final: [329.63, 392.0, 523.25, 659.25],
+    hook: 523.25,
+    padGain: 0.048,
+    pluckGain: 0.058,
+  },
 ];
 
 function render(cfg) {

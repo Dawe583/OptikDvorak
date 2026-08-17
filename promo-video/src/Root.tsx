@@ -22,6 +22,10 @@ import {ReelDeti, DETI_DURATION} from './ReelDeti';
 import {ReelCockyKruh, COCKY_KRUH_DURATION} from './ReelCockyKruh';
 import {ReelMultifokalyDelic, MULTI_DELIC_DURATION} from './ReelMultifokalyDelic';
 import {ReelBenefityKarty, BENEFITY_KARTY_DURATION} from './ReelBenefityKarty';
+import {ReelRecenze, RECENZE_DURATION} from './ReelRecenze';
+import {ReelSlunecni, SLUNECNI_DURATION} from './ReelSlunecni';
+import {ReelVyrobci, VYROBCI_DURATION} from './ReelVyrobci';
+import {ReelPoctivost, POCTIVOST_DURATION} from './ReelPoctivost';
 
 /* Obě kompozice: 4K na výšku (9:16) — IG/FB Reels, Stories, TikTok */
 export const RemotionRoot = () => {
@@ -158,6 +162,18 @@ export const RemotionRoot = () => {
       <Composition id="reel-multifokaly-delic" component={ReelMultifokalyDelic} durationInFrames={MULTI_DELIC_DURATION} fps={60} width={2160} height={3840} />
       {/* karty programů — benefitní poukázky */}
       <Composition id="reel-benefity-karty" component={ReelBenefityKarty} durationInFrames={BENEFITY_KARTY_DURATION} fps={60} width={2160} height={3840} />
+
+      {/* ---- Témata, která nemá žádná z předchozích řad ----
+           Silnější háček: první slovo nadpisu je čitelné na nultém snímku,
+           hlavička s logem nastupuje až s tělem videa. Viz HookBlock v kit.tsx. */}
+      {/* skutečné recenze z Googlu — typografie místo fotek */}
+      <Composition id="reel-recenze" component={ReelRecenze} durationInFrames={RECENZE_DURATION} fps={60} width={2160} height={3840} />
+      {/* sluneční brýle a klip — klip sjede přes okno a ztmaví obraz */}
+      <Composition id="reel-slunecni" component={ReelSlunecni} durationInFrames={SLUNECNI_DURATION} fps={60} width={2160} height={3840} />
+      {/* odkud jsou brýlová skla — jména výrobců jako titulky */}
+      <Composition id="reel-vyrobci" component={ReelVyrobci} durationInFrames={VYROBCI_DURATION} fps={60} width={2160} height={3840} />
+      {/* „Nebudeme vám nic nutit" — jedna věta na prázdné ploše */}
+      <Composition id="reel-poctivost" component={ReelPoctivost} durationInFrames={POCTIVOST_DURATION} fps={60} width={2160} height={3840} />
     </>
   );
 };

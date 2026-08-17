@@ -219,6 +219,172 @@ export const Hi: React.FC<{children: React.ReactNode; start: number; light?: boo
   );
 };
 
+/* ---------- HÁČEK: první tři sekundy ----------
+   Rozhodnutí, jestli člověk zůstane, padne během zlomku vteřiny, a Instagram
+   podle chování v prvních minutách rozhoduje, komu video ukáže dál. Z toho
+   plyne pár tvrdých pravidel, která tahle komponenta drží:
+
+   0–100 ms  Nic se nesmí rozsvěcet. První slovo nadpisu je čitelné hned na
+             nultém snímku — žádný fade z černé, žádné čekání. Zároveň už běží
+             pohyb (fotka je uprostřed nájezdu, ne v klidu) a celý obraz jednou
+             „doskočí" z 1,035 na 1,0. Video pak nezačíná, ale přistane.
+   0,1–0,7 s Zbytek nadpisu doskáče po třech snímcích na slovo a pod klíčové
+             slovo se přetáhne žlutý zvýrazňovač. To je druhá událost, která
+             oko znovu chytí přesně ve chvíli, kdy palec rozhoduje o odscrollování.
+   0,7–1,3 s Věta, která slibuje užitek.
+   1,3–2,2 s Otevřená smyčka („čtyři věci", „tři kroky"). Divák zůstane, když
+             ví, na co čeká a jak dlouho to bude trvat.
+
+   Hlavička „Optik Dvořák" v háčku schválně NENÍ — logo je v první vteřině
+   ten nejméně zajímavý pixel na obrazovce a bere místo sdělení. Nastupuje
+   až s tělem videa. */
+export const punch = (frame: number) =>
+  interpolate(frame, [0, 10], [1.035, 1], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+    easing: Easing.out(Easing.cubic),
+  });
+
+export const HookBlock: React.FC<{
+  k: number;
+  until: number;
+  top: number;
+  lines: [string[], string[]?];
+  kicker?: string;
+  sub?: string;
+  loop?: string;
+  size?: number;
+  align?: 'left' | 'center';
+}> = ({k, until, top, lines, kicker, sub, loop, size = 96, align = 'left'}) => {
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const op = interpolate(frame, [until - F(0.4), until - F(0.05)], [1, 0], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+  if (op <= 0.002) return null;
+
+  const center = align === 'center';
+  const word = (w: string, i: number, startAt: number, color: string, stagger: number) => {
+    const p = spring({frame: frame - startAt - i * stagger, fps, config: {damping: 17, stiffness: 190}});
+    return (
+      <span key={`${w}-${i}`} style={{display: 'inline-block', overflow: 'hidden', paddingBottom: 6 * k}}>
+        <span style={{display: 'inline-block', transform: `translateY(${(1 - p) * 110}%)`, color}}>{w}</span>
+      </span>
+    );
+  };
+  const row = (words: string[], startAt: number, color: string, stagger = 3) => (
+    <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: center ? 'center' : 'flex-start',
+        gap: `0 ${16 * k}px`,
+        fontFamily: DISPLAY,
+        fontWeight: 800,
+        fontSize: size * k,
+        lineHeight: 1.0,
+        letterSpacing: '-0.04em',
+      }}
+    >
+      {words.map((w, i) => word(w, i, startAt, color, stagger))}
+    </div>
+  );
+
+  /* zvýrazňovač pod druhým řádkem — druhá „událost" v háčku */
+  const swipe = interpolate(frame, [18, 40], [0, 1], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+    easing: Easing.out(Easing.cubic),
+  });
+  const subP = spring({frame: frame - F(0.7), fps, config: {damping: 200}, durationInFrames: F(0.7)});
+  const loopP = spring({frame: frame - F(1.3), fps, config: {damping: 14, stiffness: 170}});
+
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        left: M * k,
+        right: M * k,
+        top: top * k,
+        textAlign: center ? 'center' : 'left',
+        opacity: op,
+      }}
+    >
+      {kicker && (
+        <div
+          style={{
+            fontFamily: MONO,
+            fontWeight: 700,
+            fontSize: 24 * k,
+            letterSpacing: '0.16em',
+            color: C.yellow,
+            marginBottom: 20 * k,
+          }}
+        >
+          {kicker}
+        </div>
+      )}
+      {/* náskok 14 snímků: na nultém snímku je první řádek už dole a čitelný */}
+      {row(lines[0], -14, C.cream, 2)}
+      {lines[1] && (
+        <div style={{position: 'relative', display: 'inline-block', marginTop: 4 * k}}>
+          <div
+            style={{
+              position: 'absolute',
+              left: -10 * k,
+              right: -10 * k,
+              top: '14%',
+              bottom: '12%',
+              background: 'rgba(255,228,92,0.20)',
+              borderRadius: 6 * k,
+              transform: `scaleX(${swipe})`,
+              transformOrigin: 'left center',
+            }}
+          />
+          <div style={{position: 'relative'}}>{row(lines[1], 10, C.yellow)}</div>
+        </div>
+      )}
+      {sub && (
+        <div
+          style={{
+            marginTop: 30 * k,
+            fontFamily: BODY,
+            fontWeight: 600,
+            fontSize: 34 * k,
+            lineHeight: 1.42,
+            color: C.soft,
+            opacity: subP,
+            transform: `translateY(${(1 - subP) * 16 * k}px)`,
+          }}
+        >
+          {sub}
+        </div>
+      )}
+      {loop && (
+        <div
+          style={{
+            display: 'inline-block',
+            marginTop: 26 * k,
+            fontFamily: BODY,
+            fontWeight: 700,
+            fontSize: 27 * k,
+            color: C.ink900,
+            background: C.yellow,
+            padding: `${12 * k}px ${24 * k}px`,
+            borderRadius: 999,
+            opacity: loopP,
+            transform: `scale(${0.86 + loopP * 0.14})`,
+            transformOrigin: center ? 'center' : 'left center',
+          }}
+        >
+          {loop}
+        </div>
+      )}
+    </div>
+  );
+};
+
 /* ---------- Fotky: prolínačka + Ken Burns ---------- */
 export type Shot = {src: string; from: number; to: number; dir?: 'in' | 'out'};
 export const XF = F(0.4); // délka prolínačky
