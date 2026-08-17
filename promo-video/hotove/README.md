@@ -37,6 +37,30 @@ přehled celé zásoby v `docs/PREHLED-VSECH-REELS.md`.
 | `reel-multifokaly-delic-4k-9x16.mp4` | 18,8 s | Multifokály — „Střídáte dvoje brýle?" (bez akce, evergreen) | dělicí čára na dálku / na čtení |
 | `reel-benefity-karty-4k-9x16.mp4` | 18,8 s | Benefity — „Máte body od zaměstnavatele?" | karty programů |
 
+
+**Třetí dávka — témata, která nemá žádná z předchozích řad.** U těchhle
+čtyř je háček postavený tak, aby první řádek nadpisu byl čitelný už na
+nultém snímku (viz `docs/PREHLED-VSECH-REELS.md`, sekce o prvních třech
+sekundách). Popisky v `docs/POPISKY-DALSICH-REELS.md`.
+
+| Soubor | Délka | Co v něm je | Vizuál |
+| --- | --- | --- | --- |
+| `reel-recenze-4k-9x16.mp4` | 18,8 s | Čtyři doslovné recenze z Googlu, hodnocení 4,6 z 26 | typografie místo fotek |
+| `reel-slunecni-4k-9x16.mp4` | 18,8 s | Klip a sluneční brýle, 100% UV **(sezónní: duben–září)** | klip sjede a ztmaví obraz |
+| `reel-vyrobci-4k-9x16.mp4` | 18,8 s | Odkud jsou vaše skla — šest výrobců | jména jako závěrečné titulky |
+| `reel-poctivost-4k-9x16.mp4` | 18,8 s | „Nebudeme vám nic nutit" | ticho, jedna věta uprostřed |
+
+**Starší Reels, které dosud ležely jen jako zdroják.** Vyrenderované, popisky
+k edukaci a prohlídce jsou v `docs/POPISKY-DALSICH-REELS.md`, k před/po
+a rodině v `docs/POPISKY-REELS-B-D.md`.
+
+| Soubor | Délka | Co v něm je |
+| --- | --- | --- |
+| `reel-edukace-4k-9x16.mp4` | 20,0 s | 3 věci, co hlídat při výběru brýlí |
+| `reel-rodina-4k-9x16.mp4` | 18,0 s | Rodinná optika od roku 1991 |
+| `reel-pred-po-4k-9x16.mp4` | 15,0 s | Wow moment nasazení brýlí |
+| `reel-optika-4k-9x16.mp4` | 25,2 s | Pomalá prohlídka prodejny |
+
 Videa: **2160 × 3840 px (4K, poměr 9:16), 60 snímků za sekundu, se zvukem.**
 To je přesně formát pro Instagram Reels, Stories i TikTok.
 
@@ -47,6 +71,7 @@ To je přesně formát pro Instagram Reels, Stories i TikTok.
 - kampaň pěti Reelů → `docs/KAMPAN-5-REELS.md`
 - servis (druhá řada) → `docs/POPISKY-REEL-SERVIS-LISTEK.md`
 - druhá řada (děti, čočky, multifokály, benefity) → `docs/POPISKY-4-NOVE-REELS.md`
+- třetí dávka + starší Reels → `docs/POPISKY-DALSICH-REELS.md`
 - **přehled celé zásoby a v jakém pořadí postovat** → `docs/PREHLED-VSECH-REELS.md`
 
 ## K čemu je `cover-servis.png`
