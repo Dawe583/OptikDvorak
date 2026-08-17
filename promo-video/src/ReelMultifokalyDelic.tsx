@@ -54,7 +54,7 @@ const T_S2 = F(5.625);
 const T_S3 = F(8.75);
 const T_S4 = F(11.875);
 const T_CTA = F(15.0);
-export const MULTI_DURATION = F(18.75);
+export const MULTI_DELIC_DURATION = F(18.75);
 
 const STARTS = [T_S1, T_S2, T_S3, T_S4];
 
@@ -253,7 +253,7 @@ const Hook: React.FC<{k: number}> = ({k}) => {
 };
 
 /* ---------- Reel ---------- */
-export const ReelMultifokaly: React.FC = () => {
+export const ReelMultifokalyDelic: React.FC = () => {
   const frame = useCurrentFrame();
   const k = useScale();
 
@@ -266,7 +266,7 @@ export const ReelMultifokaly: React.FC = () => {
     extrapolateRight: 'clamp',
   });
   const winIn = spring({frame: frame - 2, fps: FPS, config: {damping: 22, stiffness: 140}});
-  const vol = interpolate(frame, [0, F(0.8), MULTI_DURATION - F(2.0), MULTI_DURATION], [0, 0.9, 0.9, 0], {
+  const vol = interpolate(frame, [0, F(0.8), MULTI_DELIC_DURATION - F(2.0), MULTI_DELIC_DURATION], [0, 0.9, 0.9, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });

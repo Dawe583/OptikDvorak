@@ -53,7 +53,7 @@ const T_S2 = F(5.625);
 const T_S3 = F(8.75);
 const T_S4 = F(11.875);
 const T_CTA = F(15.0);
-export const COCKY_DURATION = F(18.75);
+export const COCKY_KRUH_DURATION = F(18.75);
 
 const STARTS = [T_S1, T_S2, T_S3, T_S4];
 
@@ -237,7 +237,7 @@ const Hook: React.FC<{k: number}> = ({k}) => {
 };
 
 /* ---------- Reel ---------- */
-export const ReelCocky: React.FC = () => {
+export const ReelCockyKruh: React.FC = () => {
   const frame = useCurrentFrame();
   const k = useScale();
 
@@ -262,14 +262,14 @@ export const ReelCocky: React.FC = () => {
   }, 0);
   const scale = open * (1 + breathe);
 
-  const vol = interpolate(frame, [0, F(0.8), COCKY_DURATION - F(2.0), COCKY_DURATION], [0, 0.9, 0.9, 0], {
+  const vol = interpolate(frame, [0, F(0.8), COCKY_KRUH_DURATION - F(2.0), COCKY_KRUH_DURATION], [0, 0.9, 0.9, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
 
   return (
     <AbsoluteFill style={{backgroundColor: C.bg}}>
-      <Audio src={staticFile('music-cocky.wav')} volume={vol} />
+      <Audio src={staticFile('music-cocky-kruh.wav')} volume={vol} />
 
       <AbsoluteFill style={{opacity: bodyOp}}>
         {SHOTS.map((s) => (

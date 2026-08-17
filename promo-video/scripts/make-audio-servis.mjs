@@ -14,7 +14,7 @@
     16,25  CTA / brandová karta — rozuzlení, ping u loga
     20,00  konec
 
-   Výstup: public/music-servis.wav (44,1 kHz / 16 bit / stereo, 20 s).
+   Výstup: public/music-servis-listek.wav (44,1 kHz / 16 bit / stereo, 20 s).
    Spuštění: node scripts/make-audio-servis.mjs */
 import {writeFileSync, mkdirSync} from 'node:fs';
 import {dirname, join} from 'node:path';
@@ -226,7 +226,7 @@ for (let i = 0; i < N; i++) {
   bytes.setInt16(44 + i * 4, clamp(L[i]) * 32767, true);
   bytes.setInt16(46 + i * 4, clamp(R[i]) * 32767, true);
 }
-const out = join(dirname(fileURLToPath(import.meta.url)), '..', 'public', process.env.OUT ?? 'music-servis.wav');
+const out = join(dirname(fileURLToPath(import.meta.url)), '..', 'public', process.env.OUT ?? 'music-servis-listek.wav');
 mkdirSync(dirname(out), {recursive: true});
 writeFileSync(out, Buffer.from(bytes.buffer));
 console.log('OK:', out, `${(bytes.byteLength / 1e6).toFixed(1)} MB`);

@@ -36,7 +36,7 @@ import {LogoMark} from './LogoMark';
     12,50–16,25  RAZÍTKO  „objednávat se nemusíte, stavte se v otevírací době"
     16,25–20,00  CTA      brandová karta, adresa, otevírací doba, telefon
 
-   FOTKY (public/servis/, poměr okna lístku 1820:1213, háček 2340:1864):
+   FOTKY (public/servis-listek/, poměr okna lístku 1820:1213, háček 2340:1864):
      hook.jpg    optika/opt-0691.jpg  pult s kelímkem nářadí, za ním vitríny
      krok1.jpg   img/ai/pece-o-bryle  ruce se šroubovákem u obruby
      krok2.jpg   img/ai/galerie-detail ruce drží tenkou kovovou obrubu proti světlu
@@ -83,7 +83,7 @@ const T_S3 = F(7.5);
 const T_S4 = F(10.0);
 const T_STAMP = F(12.5);
 const T_CTA = F(16.25);
-export const SERVIS_DURATION = F(20.0); // 1200 snímků = 20,0 s
+export const SERVIS_LISTEK_DURATION = F(20.0); // 1200 snímků = 20,0 s
 
 const STARTS = [T_S1, T_S2, T_S3, T_S4];
 const XF = F(0.4); // délka prolínačky mezi fotkami v okně
@@ -190,12 +190,12 @@ const HeadWords: React.FC<{
 type Shot = {src: string; from: number; to: number; dir: 'in' | 'out'};
 
 const SHOTS: Shot[] = [
-  {src: 'servis/hook.jpg', from: 0, to: T_S1, dir: 'in'},
-  {src: 'servis/krok1.jpg', from: T_S1, to: T_S2, dir: 'out'},
-  {src: 'servis/krok2.jpg', from: T_S2, to: T_S3, dir: 'in'},
-  {src: 'servis/krok3.jpg', from: T_S3, to: T_S4, dir: 'out'},
-  {src: 'servis/krok4.jpg', from: T_S4, to: T_STAMP, dir: 'in'},
-  {src: 'servis/hotovo.jpg', from: T_STAMP, to: T_CTA, dir: 'in'},
+  {src: 'servis-listek/hook.jpg', from: 0, to: T_S1, dir: 'in'},
+  {src: 'servis-listek/krok1.jpg', from: T_S1, to: T_S2, dir: 'out'},
+  {src: 'servis-listek/krok2.jpg', from: T_S2, to: T_S3, dir: 'in'},
+  {src: 'servis-listek/krok3.jpg', from: T_S3, to: T_S4, dir: 'out'},
+  {src: 'servis-listek/krok4.jpg', from: T_S4, to: T_STAMP, dir: 'in'},
+  {src: 'servis-listek/hotovo.jpg', from: T_STAMP, to: T_CTA, dir: 'in'},
 ];
 
 const shotOpacity = (frame: number, s: Shot) =>
@@ -800,7 +800,7 @@ const CtaCard: React.FC<{k: number}> = ({k}) => {
 };
 
 /* ---------- Reel ---------- */
-export const ReelServis: React.FC = () => {
+export const ReelServisListek: React.FC = () => {
   const frame = useCurrentFrame();
   const k = useScale();
 
@@ -832,14 +832,14 @@ export const ReelServis: React.FC = () => {
 
   const vol = interpolate(
     frame,
-    [0, F(0.8), SERVIS_DURATION - F(2.2), SERVIS_DURATION],
+    [0, F(0.8), SERVIS_LISTEK_DURATION - F(2.2), SERVIS_LISTEK_DURATION],
     [0, 0.9, 0.9, 0],
     {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}
   );
 
   return (
     <AbsoluteFill style={{backgroundColor: C.bg}}>
-      <Audio src={staticFile('music-servis.wav')} volume={vol} />
+      <Audio src={staticFile('music-servis-listek.wav')} volume={vol} />
 
       {/* barevný nádech z právě běžící fotky */}
       <AbsoluteFill style={{opacity: winOp}}>

@@ -52,7 +52,7 @@ const T_S2 = F(5.625);
 const T_S3 = F(8.75);
 const T_S4 = F(11.875);
 const T_CTA = F(15.0);
-export const BENEFITY_DURATION = F(18.75);
+export const BENEFITY_KARTY_DURATION = F(18.75);
 
 const STARTS = [T_S1, T_S2, T_S3, T_S4];
 
@@ -206,7 +206,7 @@ const Hook: React.FC<{k: number}> = ({k}) => {
 };
 
 /* ---------- Reel ---------- */
-export const ReelBenefity: React.FC = () => {
+export const ReelBenefityKarty: React.FC = () => {
   const frame = useCurrentFrame();
   const k = useScale();
 
@@ -232,14 +232,14 @@ export const ReelBenefity: React.FC = () => {
     extrapolateRight: 'clamp',
     easing: Easing.inOut(Easing.cubic),
   });
-  const vol = interpolate(frame, [0, F(0.8), BENEFITY_DURATION - F(2.0), BENEFITY_DURATION], [0, 0.9, 0.9, 0], {
+  const vol = interpolate(frame, [0, F(0.8), BENEFITY_KARTY_DURATION - F(2.0), BENEFITY_KARTY_DURATION], [0, 0.9, 0.9, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
 
   return (
     <AbsoluteFill style={{backgroundColor: C.bg}}>
-      <Audio src={staticFile('music-benefity.wav')} volume={vol} />
+      <Audio src={staticFile('music-benefity-karty.wav')} volume={vol} />
 
       <AbsoluteFill style={{opacity: bodyOp}}>
         {SHOTS.map((s) => (

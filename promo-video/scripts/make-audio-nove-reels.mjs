@@ -15,8 +15,8 @@
     15,000  CTA — rozuzlení, ping u loga
     18,750  konec
 
-   Výstup: public/music-deti.wav, music-cocky.wav, music-multi.wav,
-           music-benefity.wav (44,1 kHz / 16 bit / stereo, 18,75 s).
+   Výstup: public/music-deti.wav, music-cocky-kruh.wav, music-multi.wav,
+           music-benefity-karty.wav (44,1 kHz / 16 bit / stereo, 18,75 s).
    Spuštění: node scripts/make-audio-nove-reels.mjs */
 import {writeFileSync, mkdirSync} from 'node:fs';
 import {dirname, join} from 'node:path';
@@ -54,7 +54,7 @@ const REELS = [
     pluckGain: 0.078,
   },
   {
-    out: 'music-cocky.wav',
+    out: 'music-cocky-kruh.wav',
     label: 'čočky — A dur, vzdušné, vysoký rejstřík',
     seed: 47,
     tone: 'glass',
@@ -82,7 +82,7 @@ const REELS = [
     pluckGain: 0.082,
   },
   {
-    out: 'music-benefity.wav',
+    out: 'music-benefity-karty.wav',
     label: 'benefity — C dur, svižné, praktické',
     seed: 128,
     tone: 'marimba',
