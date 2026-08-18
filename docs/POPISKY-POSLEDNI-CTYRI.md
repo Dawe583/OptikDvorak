@@ -54,7 +54,7 @@ Je to první video, které uvidí každý nový návštěvník profilu.
 # 📣 `reklama` — krátká výkonnostní reklama (10 s)
 
 > ⚠️ **Tohle video obsahuje akce „Multifokální skla 1 + 1 zdarma" a „Řidičská
-> brýlová skla −30 %".** Obě jsou na webu uvedené bez platnosti a bez podmínek.
+> brýlová skla −30 %"** (třetí odrážka, servis na počkání, ověřená je). Obě jsou na webu uvedené bez platnosti a bez podmínek.
 > **Nepouštějte ho, dokud nepotvrdíte, že akce běží a do kdy.**
 
 Deset sekund je krátké na organický příspěvek, ale ideální na **placenou
@@ -67,8 +67,10 @@ Vidět ostře je krásné. 👓
 Teď u nás:
 · multifokální skla 1 + 1 — druhá zdarma
 · řidičská brýlová skla se slevou 30 %
+· servis brýlí obvykle na počkání
 
-Akce je orientační, platnost a podmínky vám rádi upřesníme na prodejně.
+Akce jsou orientační, platnost a podmínky vám rádi upřesníme na prodejně.
+Servis na počkání platí vždycky — objednávat se kvůli němu nemusíte.
 
 Optik Dvořák · Americká 325/23, Plzeň
 Po–Čt 8:30–17:00 · Pá 8:30–16:00

@@ -61,6 +61,18 @@ a rodině v `docs/POPISKY-REELS-B-D.md`.
 | `reel-pred-po-4k-9x16.mp4` | 15,0 s | Wow moment nasazení brýlí |
 | `reel-optika-4k-9x16.mp4` | 25,2 s | Pomalá prohlídka prodejny |
 
+
+**Poslední čtyři — každé se používá jinak než běžný příspěvek.** Popisky
+a k čemu se hodí: `docs/POPISKY-POSLEDNI-CTYRI.md`.
+
+| Soubor | Délka | Co v něm je | Kam s ním |
+| --- | --- | --- | --- |
+| `reel-videt-lip-4k-9x16.mp4` | 20,0 s | Vlajkový teaser „Takhle to vidí každý třetí Čech" | připnout nahoru na profil |
+| `reklama-4k-9x16.mp4` | 10,0 s | Krátká reklama s akcemi **(nejdřív ověřit platnost)** | placená kampaň |
+| `ig-teaser-4k-9x16.mp4` | 12,0 s | Brandová vizitka, bez sdělení | Stories, úvod FB stránky |
+| `reel-sobota-4k-9x16.mp4` | 15,0 s | „O víkendu máme zavřeno" | **jen v sobotu dopoledne** |
+| `cover-videt-lip.png` | — | Náhledovka k vlajkovému teaseru (2160 × 3840) | nahrává se v IG zvlášť |
+
 Videa: **2160 × 3840 px (4K, poměr 9:16), 60 snímků za sekundu, se zvukem.**
 To je přesně formát pro Instagram Reels, Stories i TikTok.
 
@@ -72,14 +84,17 @@ To je přesně formát pro Instagram Reels, Stories i TikTok.
 - servis (druhá řada) → `docs/POPISKY-REEL-SERVIS-LISTEK.md`
 - druhá řada (děti, čočky, multifokály, benefity) → `docs/POPISKY-4-NOVE-REELS.md`
 - třetí dávka + starší Reels → `docs/POPISKY-DALSICH-REELS.md`
+- poslední čtyři (vlajkový teaser, reklama, vizitka, sobota) → `docs/POPISKY-POSLEDNI-CTYRI.md`
 - **přehled celé zásoby a v jakém pořadí postovat** → `docs/PREHLED-VSECH-REELS.md`
 
-## K čemu je `cover-servis.png`
+## K čemu jsou náhledovky `cover-servis.png` a `cover-videt-lip.png`
 
 Náhledovka je obrázek, který se ukáže v mřížce profilu a v přehledu Reels,
 než si video někdo pustí. Instagram nabídne buď snímek z videa, nebo
-**vlastní obrázek z galerie** — a tam se nahraje tenhle soubor. Hlavní text
-i brýle jsou v něm posazené tak, aby zůstaly čitelné i po ořezu na čtverec.
+**vlastní obrázek z galerie** — a tam se nahraje jeden z těchhle souborů.
+Hlavní text i brýle jsou v nich posazené tak, aby zůstaly čitelné i po ořezu
+na čtverec. `cover-servis.png` patří k `reel-servis`, `cover-videt-lip.png`
+k `reel-videt-lip`.
 
 ## Proč jsou tady a ne ve složce `out/`
 
@@ -95,8 +110,13 @@ npm install
 npx remotion render reel-mereni out/reel-mereni-4k-9x16.mp4
 npx remotion render reel-nakup  out/reel-nakup-4k-9x16.mp4
 npx remotion render reel-servis out/reel-servis-4k-9x16.mp4
-npx remotion still  cover-servis out/cover-servis.png --scale=0.5
+npx remotion render reel-videt-lip out/reel-videt-lip-4k-9x16.mp4
+npx remotion render reklama         out/reklama-4k-9x16.mp4
+npx remotion still  cover-servis     out/cover-servis.png --scale=0.5
+npx remotion still  cover-videt-lip  out/cover-videt-lip.png
 ```
+
+Kompletní seznam kompozic vypíše `npx remotion compositions`.
 
 Rozlišení je u všech stejné (2160 × 3840). Soubory tady mají nižší datový tok,
 aby se daly pohodlně poslat — Instagram si video stejně vždycky překóduje na
@@ -112,6 +132,14 @@ Zdrojové soubory kampaně: `src/ReelMereni.tsx`, `src/ReelNakup.tsx`,
 Zdrojové soubory druhé řady: `src/ReelServisListek.tsx`, `src/ReelDeti.tsx`,
 `src/ReelCockyKruh.tsx`, `src/ReelMultifokalyDelic.tsx`,
 `src/ReelBenefityKarty.tsx`, společné díly v `src/kit.tsx`.
+
+Zdrojové soubory třetí dávky: `src/ReelRecenze.tsx`, `src/ReelSlunecni.tsx`,
+`src/ReelVyrobci.tsx`, `src/ReelPoctivost.tsx` (taky `src/kit.tsx`).
+
+Nejstarší kusy: `src/Teaser.tsx` (reklama), `src/Vitrina.tsx` (ig-teaser),
+`src/ReelSobota.tsx`, `src/ReelVidetLip.tsx`, `src/CoverVidetLip.tsx`,
+`src/ReelEdukace.tsx`, `src/ReelPredPo.tsx`, `src/ReelRodina.tsx`,
+`src/ReelOptika.tsx`.
 
 Hudba se generuje skripty `scripts/make-audio-*.mjs`; `make-audio-nove-reels.mjs`
 vyrobí zvuk ke čtyřem dílům druhé řady najednou. Nic licencovaného v nich není.
