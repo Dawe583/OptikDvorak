@@ -9,7 +9,7 @@ titulky vypálené v obraze.** Formát pro Instagram Reels, Stories i TikTok.
 
 ---
 
-## ⚠️ Čtyři věci, které musíte vědět, než začnete postovat
+## ⚠️ Pět věcí, které musíte vědět, než začnete postovat
 
 ### 1. Některá témata máte dvakrát
 
@@ -27,11 +27,12 @@ pokaždé jinak.** Není to chyba a nic se nemaže — jsou to dva různé úhly
 **Dvojici na stejné téma nepouštějte ve stejném týdnu.** V kalendáři níž jsou
 rozsazené tak, aby mezi nimi byly aspoň dva týdny.
 
-### 2. Dva Reels čekají na vaše potvrzení
+### 2. Tři Reels čekají na vaše potvrzení
 
-`reel-multifokal` (akce 1 + 1) a `reel-ridic` (řidičská skla −30 %) slibují akce,
-které jsou na webu uvedené bez platnosti a bez podmínek. **Než je pustíte,
-potvrďte prosím, že akce běží a do kdy.** Podrobnosti v `KAMPAN-5-REELS.md`.
+`reel-multifokal` (akce 1 + 1), `reel-ridic` (řidičská skla −30 %) a `reklama`
+(obsahuje obě) slibují akce, které jsou na webu uvedené bez platnosti
+a bez podmínek. **Než je pustíte, potvrďte prosím, že akce běží a do kdy.**
+Podrobnosti v `KAMPAN-5-REELS.md`.
 
 Verze bez akce — `reel-multifokaly-delic` — se dá pustit kdykoli.
 
@@ -50,6 +51,20 @@ ověřené není — je tam jen „rodinná oční optika od roku 1991". Řádek
 „jedno místo, **jedna rodina**", což odpovídá skutečnosti i zbytku videa
 („= 35 let jedné rodiny"). Kdyby optiku opravdu vedly tři generace, dá se
 to vrátit zpátky — ale chtěl bych to od vás nejdřív slyšet.
+
+
+### 5. Odkud je číslo „každý třetí Čech"
+
+`reel-videt-lip` začíná větou „Takhle to vidí každý třetí Čech." Číslo jsem
+dohledával, protože ve videu nemá být nic nepodloženého — a sedí: české zdroje
+uvádějí, že **zhruba každý třetí Čech nosí brýle nebo kontaktní čočky**, resp.
+že „špatně vidí každý třetí".
+
+Zdroje: [neovize.cz](https://www.neovize.cz/napsali-o-nas/277-pocet-cechu-s-ocni-vadou-kazdorocne-roste-spatne-vidi-kazdy-treti/) ·
+[Gemini oční klinika](https://www.gemini.cz/blog/svetovy-den-zraku-cesi-prevenci-kupuji-spatne-bryle-a-nepecuji-o-cocky/) ·
+[Fokus Optik](https://fokusoptik.cz/zrakopedie/clanek/bryle-jsou-i-ve-21-stoleti-nejoblibenejsi-korekci-zraku.html)
+
+Kdyby se na to někdo v komentářích zeptal, tohle je odpověď.
 
 ---
 
@@ -78,6 +93,10 @@ to vrátit zpátky — ale chtěl bych to od vás nejdřív slyšet.
 | `reel-optika` | 25,2 s | Prohlídka prodejny | `POPISKY-DALSICH-REELS.md` |
 | `reel-pred-po` | 15,0 s | Wow moment nasazení | `POPISKY-REELS-B-D.md` |
 | `reel-rodina` | 18,0 s | Rodinná optika od 1991 | `POPISKY-REELS-B-D.md` |
+| `reel-videt-lip` | 20,0 s | Vlajkový teaser — **připnout na profil** | `POPISKY-POSLEDNI-CTYRI.md` |
+| `reklama` | 10,0 s | Krátká reklama **(ověřit akce)** | `POPISKY-POSLEDNI-CTYRI.md` |
+| `ig-teaser` | 12,0 s | Brandová vizitka — spíš do Stories | `POPISKY-POSLEDNI-CTYRI.md` |
+| `reel-sobota` | 15,0 s | Víkend zavřeno **(jen v sobotu)** | `POPISKY-POSLEDNI-CTYRI.md` |
 
 ---
 
@@ -112,6 +131,19 @@ na stejné téma nepotkaly a aby sezónní kusy vyšly včas.
 
 **Nejlepší časy** pro lokální publikum: všední dny **11:30–13:00** a **18:00–20:30**.
 Po pár příspěvcích si to ověřte v IG Insights v sekci „Nejaktivnější doba".
+
+---
+
+## Čtyři videa, která do kalendáře nepatří
+
+Nejsou horší, jen se nepoužívají jako běžný příspěvek ob den:
+
+| Reel | Kam s ním |
+| --- | --- |
+| `reel-videt-lip` | **Připnout nahoru na profil** a nechat tam. Je to první video, které uvidí každý nový návštěvník. Zároveň jediný kus, u kterého dává smysl zaplatit propagaci. |
+| `reel-sobota` | **Jen v sobotu dopoledne**, jednou za dva až tři měsíce. Ve středu je nesrozumitelný — celé stojí na tom, že máte zrovna zavřeno. |
+| `reklama` | **Placená reklama**, ne organický příspěvek. Deset sekund je na feed krátké, na placenou kampaň ideální. Až po ověření akcí. |
+| `ig-teaser` | **Do Stories** jako výplň, nebo jako úvodní video na Facebook. Nemá sdělení ani důvod, proč by ho někdo posílal dál. |
 
 ---
 

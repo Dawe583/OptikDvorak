@@ -5,8 +5,9 @@ Videa: `promo-video/hotove/reel-pred-po-4k-9x16.mp4` (15 s) ·
 `promo-video/hotove/reel-rodina-4k-9x16.mp4` (18 s). Obě 2160 × 3840, 60 fps, se zvukem._
 
 > Telefon je v popiskách doplněný: **+420 702 194 246** (druhá linka +420 377 328 367).
-> Online objednání zatím není — konverze vede přes DM, telefon nebo osobní návštěvu.
-> Formulář na webu slouží jen k objednání měření zraku.
+> Na webu je formulář na objednání měření zraku: člověk nechá kontakt kdykoli
+> a vy se mu ozvete a domluvíte termín. Kromě něj vede konverze přes DM,
+> telefon a osobní návštěvu.
 >
 > **Hashtagy jsou nově bez diakritiky.** `#optikaplzen` má na Instagramu řádově víc
 > příspěvků než `#optikaplzeň`, a od prosince 2025 jich jde do příspěvku nejvýš pět.
