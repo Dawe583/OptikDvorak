@@ -9,7 +9,7 @@ titulky vypálené v obraze.** Formát pro Instagram Reels, Stories i TikTok.
 
 ---
 
-## ⚠️ Dvě věci, které musíte vědět, než začnete postovat
+## ⚠️ Čtyři věci, které musíte vědět, než začnete postovat
 
 ### 1. Některá témata máte dvakrát
 
@@ -34,6 +34,22 @@ které jsou na webu uvedené bez platnosti a bez podmínek. **Než je pustíte,
 potvrďte prosím, že akce běží a do kdy.** Podrobnosti v `KAMPAN-5-REELS.md`.
 
 Verze bez akce — `reel-multifokaly-delic` — se dá pustit kdykoli.
+
+
+### 3. Starší Reels tykají, novější vykají
+
+`reel-edukace` a `reel-pred-po` mluví na diváka **ty** („vybíráš", „počkej"),
+všechny ostatní **vy**. Není to chyba, jen jiná doba vzniku — ale když je
+pustíte hned po sobě, je to slyšet. V kalendáři níž jsou proto od sebe.
+Sjednotit to jde, je to změna textů v jednom souboru a nový render.
+
+### 4. Co se opravilo v `reel-rodina`
+
+Video původně tvrdilo „jedno místo, **tři generace**". To na webu nikde
+ověřené není — je tam jen „rodinná oční optika od roku 1991". Řádek je teď
+„jedno místo, **jedna rodina**", což odpovídá skutečnosti i zbytku videa
+(„= 35 let jedné rodiny"). Kdyby optiku opravdu vedly tři generace, dá se
+to vrátit zpátky — ale chtěl bych to od vás nejdřív slyšet.
 
 ---
 

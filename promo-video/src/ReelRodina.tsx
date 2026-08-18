@@ -232,7 +232,7 @@ export const ReelRodina = () => {
         <AbsoluteFill style={{padding: `0 ${90 * k}px`, justifyContent: 'center'}}>
           <div style={{opacity: hookOp}}>
             <div style={{fontFamily: MONO, fontSize: 26 * k, color: C.yellowDeep, marginBottom: 22 * k}}>
-              // jedno místo, tři generace
+              // jedno místo, jedna rodina
             </div>
             <HeadWords words={['Tady', 'stojíme']} startAt={T_HOOK} k={k} size={104} />
             <HeadWords words={['od', 'roku…']} startAt={T_HOOK + 8} k={k} size={104} />

@@ -1,10 +1,15 @@
 # Popisky + IG setup — REEL B (Před/po) & REEL D (Rodina 1991)
 
 _Copy-paste balíček pro zítřejší posty. Cíl = maximální dosah + konverze (DM / telefon / návštěva).
-Videa: `promo-video/out/reel-pred-po.mp4` (15 s) · `promo-video/out/reel-rodina.mp4` (18 s)._
+Videa: `promo-video/hotove/reel-pred-po-4k-9x16.mp4` (15 s) ·
+`promo-video/hotove/reel-rodina-4k-9x16.mp4` (18 s). Obě 2160 × 3840, 60 fps, se zvukem._
 
-> ⚠️ Placeholder pro majitelku: doplň **telefon** (níže `☎️ [telefon]`) a případně **odkaz v bio**.
-> Online objednání zatím není — konverze vede přes DM / telefon / osobní návštěvu.
+> Telefon je v popiskách doplněný: **+420 702 194 246** (druhá linka +420 377 328 367).
+> Online objednání zatím není — konverze vede přes DM, telefon nebo osobní návštěvu.
+> Formulář na webu slouží jen k objednání měření zraku.
+>
+> **Hashtagy jsou nově bez diakritiky.** `#optikaplzen` má na Instagramu řádově víc
+> příspěvků než `#optikaplzeň`, a od prosince 2025 jich jde do příspěvku nejvýš pět.
 
 ---
 
@@ -42,9 +47,9 @@ Kdy jsi byl naposledy na měření zraku?
 💬 Napiš „VIDÍM" do DM a objednáme tě na měření
 
 Oční optika Dvořák · Plzeň, Americká 325/23 · rodinná od 1991
-☎️ [telefon] — objednej se
+☎️ +420 702 194 246 — objednej se
 
-#optikaplzeň #měřenízraku #brýleplzeň #vidětlíp #očníoptika
+#optikaplzen #merenizraku #bryleplzen #videtlip #ocnioptika
 ```
 
 ### 💬 První komentář (napiš hned po zveřejnění — nastartuje dosah)
@@ -53,8 +58,8 @@ Malá rada zdarma: pokud u čtení nebo u telefonu mhouříš oči, je čas na m
 ```
 
 ### Hashtagy
-- **Základ (5, v popisku):** `#optikaplzeň #měřenízraku #brýleplzeň #vidětlíp #očníoptika`
-- **Rotace/alternativy:** `#plzeň #brýlenamíru #optometrista #zdravýzrak #plzeňsko`
+- **Základ (5, v popisku):** `#optikaplzen #merenizraku #bryleplzen #videtlip #ocnioptika`
+- **Rotace/alternativy:** `#plzen #brylenamiru #optometrista #zdravyzrak #plzensko`
 
 ### Cover / náhledovka (text přes 1. snímek)
 `POČKEJ NA SEKUNDU 3…` (žlutě, dole) — zvědavost + slib payoffu.
@@ -69,7 +74,7 @@ Malá rada zdarma: pokud u čtení nebo u telefonu mhouříš oči, je čas na m
 ```
 Někdy si ani neuvědomíme, jak špatně vidíme — dokud si nenasadíme správné brýle. Ten pocit, když se svět zaostří, stojí za to. 👓
 
-Přijďte na měření zraku do naší rodinné optiky v srdci Plzně (Americká 325/23). O zrak Plzeňanů se staráme už od roku 1991. Objednání telefonicky ☎️ [telefon] nebo osobně.
+Přijďte na měření zraku do naší rodinné optiky v srdci Plzně (Americká 325/23). O zrak Plzeňanů se staráme už od roku 1991. Objednání telefonicky ☎️ +420 702 194 246 nebo osobně.
 ```
 
 ---
@@ -94,9 +99,9 @@ Neprodáváme brýle — staráme se o váš zrak. To je rozdíl, který poznát
 💬 Napiš do DM a objednáme tě na měření zraku
 
 Optik Dvořák · Plzeň, Americká 325/23 · rodinná optika od 1991
-☎️ [telefon]
+☎️ +420 702 194 246
 
-#rodinnáoptika #optikaplzeň #plzeň #od1991 #očníoptika
+#rodinnaoptika #optikaplzen #plzen #od1991 #ocnioptika
 ```
 
 ### 💬 První komentář
@@ -106,8 +111,8 @@ Děkujeme každému, kdo se k nám 35 let vrací ❤️ Kdo z vás si u nás po�
 _(otázka „napište rok" = komentáře = dosah.)_
 
 ### Hashtagy
-- **Základ (5):** `#rodinnáoptika #optikaplzeň #plzeň #od1991 #očníoptika`
-- **Rotace:** `#plzeňsko #brýlenamíru #měřenízraku #lokálnípodnik #vidětlíp`
+- **Základ (5):** `#rodinnaoptika #optikaplzen #plzen #od1991 #ocnioptika`
+- **Rotace:** `#plzensko #brylenamiru #merenizraku #lokalnipodnik #videtlip`
 
 ### Cover / náhledovka
 `35 LET V PLZNI` nebo `1991 → 2026` (žlutě) — okamžitě sděluje důvěru + délku.
@@ -123,7 +128,7 @@ _(otázka „napište rok" = komentáře = dosah.)_
 Před 35 lety, v roce 1991, jsme v Plzni otevřeli malou rodinnou optiku. Od té doby se u nás vystřídaly celé generace — a my jsme rádi, že se k nám vracíte.
 
 Neprodáváme jen brýle. Staráme se o váš zrak. Děkujeme, že jste s námi ❤️
-Optik Dvořák · Americká 325/23, Plzeň · ☎️ [telefon]
+Optik Dvořák · Americká 325/23, Plzeň · ☎️ +420 702 194 246
 ```
 
 ---
