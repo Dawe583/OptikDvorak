@@ -73,6 +73,17 @@ a k čemu se hodí: `docs/POPISKY-POSLEDNI-CTYRI.md`.
 | `reel-sobota-4k-9x16.mp4` | 15,0 s | „O víkendu máme zavřeno" | **jen v sobotu dopoledne** |
 | `cover-videt-lip.png` | — | Náhledovka k vlajkovému teaseru (2160 × 3840) | nahrává se v IG zvlášť |
 
+
+**Čtvrtá dávka — praktická témata, která zbytek zásoby neřešil.** Popisky
+v `docs/POPISKY-4-PRAKTICKE-REELS.md`.
+
+| Soubor | Délka | Co v něm je | Vizuál |
+| --- | --- | --- | --- |
+| `reel-pocitac-4k-9x16.mp4` | 18,8 s | Práce u počítače, filtr modrého světla | obraz se u filtru oteplí ze studeného |
+| `reel-faq-4k-9x16.mp4` | 18,8 s | Čtyři nejčastější dotazy i s odpověďmi | chatové bubliny |
+| `reel-objednani-4k-9x16.mp4` | 18,8 s | Jak se objednat — tři cesty a čtvrtá bez objednání | rozcestník |
+| `reel-zdarma-4k-9x16.mp4` | 18,8 s | Tři věci zdarma, u každé uvedená podmínka | žlutá razítka ZDARMA |
+
 Videa: **2160 × 3840 px (4K, poměr 9:16), 60 snímků za sekundu, se zvukem.**
 To je přesně formát pro Instagram Reels, Stories i TikTok.
 
@@ -85,6 +96,7 @@ To je přesně formát pro Instagram Reels, Stories i TikTok.
 - druhá řada (děti, čočky, multifokály, benefity) → `docs/POPISKY-4-NOVE-REELS.md`
 - třetí dávka + starší Reels → `docs/POPISKY-DALSICH-REELS.md`
 - poslední čtyři (vlajkový teaser, reklama, vizitka, sobota) → `docs/POPISKY-POSLEDNI-CTYRI.md`
+- čtvrtá dávka (počítač, FAQ, objednání, zdarma) → `docs/POPISKY-4-PRAKTICKE-REELS.md`
 - **přehled celé zásoby a v jakém pořadí postovat** → `docs/PREHLED-VSECH-REELS.md`
 
 ## K čemu jsou náhledovky `cover-servis.png` a `cover-videt-lip.png`
@@ -135,6 +147,9 @@ Zdrojové soubory druhé řady: `src/ReelServisListek.tsx`, `src/ReelDeti.tsx`,
 
 Zdrojové soubory třetí dávky: `src/ReelRecenze.tsx`, `src/ReelSlunecni.tsx`,
 `src/ReelVyrobci.tsx`, `src/ReelPoctivost.tsx` (taky `src/kit.tsx`).
+
+Zdrojové soubory čtvrté dávky: `src/ReelPocitac.tsx`, `src/ReelFaq.tsx`,
+`src/ReelObjednani.tsx`, `src/ReelZdarma.tsx` (taky `src/kit.tsx`).
 
 Nejstarší kusy: `src/Teaser.tsx` (reklama), `src/Vitrina.tsx` (ig-teaser),
 `src/ReelSobota.tsx`, `src/ReelVidetLip.tsx`, `src/CoverVidetLip.tsx`,

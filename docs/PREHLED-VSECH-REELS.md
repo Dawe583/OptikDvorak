@@ -97,10 +97,14 @@ Kdyby se na to někdo v komentářích zeptal, tohle je odpověď.
 | `reklama` | 10,0 s | Krátká reklama **(ověřit akce)** | `POPISKY-POSLEDNI-CTYRI.md` |
 | `ig-teaser` | 12,0 s | Brandová vizitka — spíš do Stories | `POPISKY-POSLEDNI-CTYRI.md` |
 | `reel-sobota` | 15,0 s | Víkend zavřeno **(jen v sobotu)** | `POPISKY-POSLEDNI-CTYRI.md` |
+| `reel-pocitac` | 18,8 s | Práce u počítače, filtr modrého světla | `POPISKY-4-PRAKTICKE-REELS.md` |
+| `reel-faq` | 18,8 s | Čtyři nejčastější dotazy i s odpověďmi | `POPISKY-4-PRAKTICKE-REELS.md` |
+| `reel-objednani` | 18,8 s | Jak se objednat — tři cesty + bez objednání | `POPISKY-4-PRAKTICKE-REELS.md` |
+| `reel-zdarma` | 18,8 s | Tři věci, co nic nestojí (s podmínkami) | `POPISKY-4-PRAKTICKE-REELS.md` |
 
 ---
 
-## Kalendář na tři týdny
+## Kalendář na 25 dní
 
 Řazeno tak, aby po sobě nešla dvě videa pro stejné publikum, aby se dvojice
 na stejné téma nepotkaly a aby sezónní kusy vyšly včas.
@@ -128,6 +132,10 @@ na stejné téma nepotkaly a aby sezónní kusy vyšly včas.
 | 19 | `reel-benefity` | Druhá verze benefitů. Ideálně už v říjnu. |
 | 20 | `reel-multifokal` | **Až po ověření akce 1 + 1.** |
 | 21 | `reel-ridic` | **Až po ověření akce −30 %.** Ideálně od října. |
+| **22** | `reel-faq` | Nic neprodává, jen odpovídá — rozjede komentáře. |
+| 23 | `reel-pocitac` | Kancelářské publikum, které nic jiného neoslovuje. |
+| 24 | `reel-zdarma` | Nejvíc se sdílí. Podmínky jsou ve videu i v popisku. |
+| 25 | `reel-objednani` | Uzavírá cyklus — odstraňuje poslední překážku. |
 
 **Nejlepší časy** pro lokální publikum: všední dny **11:30–13:00** a **18:00–20:30**.
 Po pár příspěvcích si to ověřte v IG Insights v sekci „Nejaktivnější doba".
