@@ -151,6 +151,62 @@ const REELS = [
     padGain: 0.048,
     pluckGain: 0.058,
   },
+  {
+    out: 'music-pocitac.wav',
+    label: 'počítač — A moll, chladné, soustředěné',
+    seed: 8,
+    tone: 'glass',
+    pad: [55.0, 82.41, 110.0, 164.81],               // A1 E2 A2 E3
+    scale: [220.0, 246.94, 261.63, 329.63, 392.0, 440.0],
+    pattern: [0, 2, 5, 1, 4, 3, 2, 0],
+    accent: [440.0, 523.25, 587.33, 659.25],         // A4 C5 D5 E5
+    final: [329.63, 440.0, 523.25, 659.25],
+    hook: 440.0,
+    padGain: 0.046,
+    pluckGain: 0.066,
+  },
+  {
+    out: 'music-faq.wav',
+    label: 'FAQ — G dur, sdílné, konverzační',
+    seed: 44,
+    tone: 'marimba',
+    pad: [98.0, 146.83, 196.0, 246.94],              // G2 D3 G3 B3
+    scale: [196.0, 246.94, 293.66, 329.63, 392.0, 493.88],
+    pattern: [0, 2, 4, 1, 5, 3, 2, 0],
+    accent: [392.0, 493.88, 587.33, 659.25],         // G4 B4 D5 E5
+    final: [392.0, 493.88, 587.33, 783.99],
+    hook: 493.88,
+    padGain: 0.048,
+    pluckGain: 0.082,
+  },
+  {
+    out: 'music-objednani.wav',
+    label: 'objednání — D dur, jasné, směrové',
+    seed: 325,
+    tone: 'marimba',
+    pad: [73.42, 110.0, 146.83, 220.0],              // D2 A2 D3 A3
+    scale: [220.0, 246.94, 293.66, 329.63, 369.99, 440.0],
+    pattern: [0, 1, 3, 5, 2, 4, 3, 1],
+    accent: [440.0, 493.88, 554.37, 587.33],         // A4 B4 C#5 D5
+    final: [440.0, 554.37, 587.33, 880.0],
+    hook: 587.33,
+    padGain: 0.05,
+    pluckGain: 0.084,
+  },
+  {
+    out: 'music-zdarma.wav',
+    label: 'zdarma — B♭ dur, štědré, teplé',
+    seed: 0,
+    tone: 'marimba',
+    pad: [58.27, 87.31, 116.54, 174.61],             // B♭1 F2 B♭2 F3
+    scale: [233.08, 261.63, 293.66, 349.23, 392.0, 466.16],
+    pattern: [0, 3, 1, 5, 2, 4, 3, 0],
+    accent: [466.16, 523.25, 587.33, 698.46],        // B♭4 C5 D5 F5
+    final: [466.16, 587.33, 698.46, 932.33],
+    hook: 466.16,
+    padGain: 0.052,
+    pluckGain: 0.086,
+  },
 ];
 
 function render(cfg) {

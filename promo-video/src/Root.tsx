@@ -26,6 +26,10 @@ import {ReelRecenze, RECENZE_DURATION} from './ReelRecenze';
 import {ReelSlunecni, SLUNECNI_DURATION} from './ReelSlunecni';
 import {ReelVyrobci, VYROBCI_DURATION} from './ReelVyrobci';
 import {ReelPoctivost, POCTIVOST_DURATION} from './ReelPoctivost';
+import {ReelPocitac, POCITAC_DURATION} from './ReelPocitac';
+import {ReelFaq, FAQ_DURATION} from './ReelFaq';
+import {ReelObjednani, OBJEDNANI_DURATION} from './ReelObjednani';
+import {ReelZdarma, ZDARMA_DURATION} from './ReelZdarma';
 
 /* Obě kompozice: 4K na výšku (9:16) — IG/FB Reels, Stories, TikTok */
 export const RemotionRoot = () => {
@@ -174,6 +178,16 @@ export const RemotionRoot = () => {
       <Composition id="reel-vyrobci" component={ReelVyrobci} durationInFrames={VYROBCI_DURATION} fps={60} width={2160} height={3840} />
       {/* „Nebudeme vám nic nutit" — jedna věta na prázdné ploše */}
       <Composition id="reel-poctivost" component={ReelPoctivost} durationInFrames={POCTIVOST_DURATION} fps={60} width={2160} height={3840} />
+
+      {/* ---- Čtvrtá dávka: praktická témata, která zbytek zásoby neřeší ---- */}
+      {/* práce u počítače — obraz se u filtru modrého světla oteplí */}
+      <Composition id="reel-pocitac" component={ReelPocitac} durationInFrames={POCITAC_DURATION} fps={60} width={2160} height={3840} />
+      {/* nejčastější dotazy — chatové bubliny, odpovědi z FAQ na webu */}
+      <Composition id="reel-faq" component={ReelFaq} durationInFrames={FAQ_DURATION} fps={60} width={2160} height={3840} />
+      {/* jak se objednat — tři cesty a čtvrtá bez objednání */}
+      <Composition id="reel-objednani" component={ReelObjednani} durationInFrames={OBJEDNANI_DURATION} fps={60} width={2160} height={3840} />
+      {/* tři věci zdarma — razítka, u každé uvedená podmínka */}
+      <Composition id="reel-zdarma" component={ReelZdarma} durationInFrames={ZDARMA_DURATION} fps={60} width={2160} height={3840} />
     </>
   );
 };
