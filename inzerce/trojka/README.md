@@ -104,9 +104,20 @@ vymyšlené claimy, značky ani čísla.
 | Instagram | `@optik.dvorak` → https://www.instagram.com/optik.dvorak/ | `index.html`, `src/main.js` |
 | Facebook | `OptikDvorak` → https://www.facebook.com/OptikDvorak | `index.html` (`sameAs` ve strukturovaných datech) |
 
-Web je černý štítek (nejsilnější výzva), pod ním řádek se sítěmi — ikony jsou
-tytéž SVG, jaké má web v patičce. V osminovém formátu jsou sítě vedle sebe na
-jednom řádku, ve čtvrtstranovém pod sebou.
+Patička čtvrtstranových variant je **mřížka o třech řádcích**, aby levý
+a pravý sloupec seděly řádek na řádek:
+
+| levý sloupec | pravý sloupec |
+| --- | --- |
+| Americká 325/23, Plzeň | černý štítek `optikdvorak.cz` |
+| Po–Čt 8:30–17:00 · Pá 8:30–16:00 | Instagram `@optik.dvorak` |
+| 702 194 246 · 377 328 367 | Facebook `OptikDvorak` |
+
+Řádky jsou svisle vystředěné (`align-items:center`), takže zarovnání drží bez
+ohledu na metriku písma. Štítek i obě ikony sdílejí levou hranu.
+
+V osminovém formátu jsou sítě vedle sebe na jednom řádku pod štítkem — dva
+řádky navíc by se tam nevešly.
 
 Služby: měření zraku, dioptrické i sluneční brýle, kontaktní čočky, dětské
 brýle, opravy a servis. V užších variantách zkrácené, aby se nelámaly.
@@ -140,3 +151,18 @@ PNG na 300 DPI.
 
 Jiný rozměr (např. 1/2 strany 190 × 130 mm) = přidat blok do `inzeraty.html`
 a znovu spustit export.
+
+### Kontroly při exportu
+
+`render.mjs` po vykreslení hlídá tři věci a píše `!!` do výstupu:
+
+- **počet inzerátů** — když jich v HTML není 10, nejspíš se rozpadlo párování
+  tagů a část dokumentu se vnořila do jiné,
+- **skoro prázdný inzerát** (< 120 znaků) — rozbité HTML jinak vyjede jako
+  prázdné PDF a na první pohled to nemusí být znát,
+- **přetečení** — obsah čouhající mimo plochu inzerátu, a zvlášť obsah, který
+  u návrhu D vyleze z krémové karty na fotku. Karta je absolutně pozicovaná,
+  takže o jejím přetečení `scrollHeight` rodiče neví; prvky uvnitř
+  ořezávajících rodičů (fotky s `overflow:hidden`) se do kontroly nepočítají,
+  ty přetékají schválně.
+

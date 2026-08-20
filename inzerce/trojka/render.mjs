@@ -20,14 +20,41 @@ await page.goto('file://' + path.join(here, 'inzeraty.html'));
 await page.evaluate(() => document.fonts.ready);
 await page.waitForTimeout(400);
 
+const EXPECTED_ADS = 10;
 const ads = await page.$$('.ad');
+if (ads.length !== EXPECTED_ADS)
+  console.warn(`  !! v HTML je ${ads.length} inzerátů, čekáno ${EXPECTED_ADS} — rozbité párování tagů?`);
+
 for (const ad of ads) {
   const name = await ad.getAttribute('data-name');
-  const over = await ad.evaluate((el) => {
-    const inner = el.querySelector('.inner') || el;
-    return inner.scrollHeight - inner.clientHeight;
+  const { over, chars } = await ad.evaluate((el) => {
+    // Co čouhá mimo plochu inzerátu, to se v PDF ořízne. Počítáme jen prvky,
+    // které nemají nad sebou ořezávajícího rodiče (fotky s overflow:hidden
+    // schválně přetékají). Pokrývá i .card u návrhu D — ta je absolutně
+    // pozicovaná, takže scrollHeight rodiče o jejím přetečení neví.
+    const box = el.getBoundingClientRect();
+    let over = 0;
+    for (const node of el.querySelectorAll('*')) {
+      if (node.tagName === 'IMG' || node.closest('svg')) continue;
+      let clipped = false;
+      for (let a = node.parentElement; a && a !== el; a = a.parentElement) {
+        if (getComputedStyle(a).overflow !== 'visible') { clipped = true; break; }
+      }
+      if (clipped) continue;
+      const r = node.getBoundingClientRect();
+      over = Math.max(over, r.bottom - box.bottom, r.right - box.right);
+    }
+    // Návrh D: text nesmí vylézt z krémové karty na fotku, i když se do
+    // inzerátu ještě vejde — karta je absolutně pozicovaná a sama neroste.
+    for (const card of el.querySelectorAll('.card')) {
+      const limit = card.getBoundingClientRect().bottom;
+      for (const kid of card.children)
+        over = Math.max(over, kid.getBoundingClientRect().bottom - limit);
+    }
+    return { over: Math.round(over), chars: el.innerText.replace(/\s+/g, '').length };
   });
   if (over > 1) console.warn(`  !! ${name}: obsah přetéká o ${over} px`);
+  if (chars < 120) console.warn(`  !! ${name}: skoro prázdný (${chars} znaků) — nevykreslil se obsah`);
 }
 
 // PDF – každý inzerát na vlastní stránce o přesném čistém formátu
