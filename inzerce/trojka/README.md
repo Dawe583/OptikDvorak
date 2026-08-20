@@ -52,18 +52,27 @@ Ceník je nutné si vyžádat, veřejně publikovaný není.
 
 ## 2. Návrhy
 
-Oba vycházejí z vizuálního stylu webu optikdvorak.cz (Bricolage Grotesque +
+Všechny vycházejí z vizuálního stylu webu optikdvorak.cz (Bricolage Grotesque +
 Inter, krémová / žlutá / černá, ostré hrany, nula dekorací).
 
-### Návrh A — „Editorial"
-Krémová plocha s tenkým rámečkem, logo, žlutá linka, velký wordmark, služby
-a kontaktní blok. Tišší, blíž k webu; na bílé stránce působí jako vyříznutý
-kus papíru. Rámeček zajistí, že se inzerát neslije s okolní sazbou.
+| | Návrh | Popis |
+|---|---|---|
+| **A** | „Text" | Krémová plocha s tenkým rámečkem, logo, žlutá linka, wordmark. Nejtišší varianta, bez fotky. |
+| **B** | „Žlutá" | Celoplošná značková žlutá s černým kontaktním pruhem. Největší dosvit na stránce plné šedého textu. |
+| **C** | „Fotopás" | Fotka prodejny přes celou šířku nahoře, pod ní krémový blok s textem. **Doporučuji.** |
+| **D** | „Na fotce" | Fotka jako pozadí, krémová karta do ní zajíždí a nese text. Vrstevnatější, fotka dostane víc prostoru. |
 
-### Návrh B — „Žlutá"
-Celá plocha ve značkové žluté s černým kontaktním pruhem dole. Na stránce plné
-šedého textu má výrazně větší dosvit — je to nejlevnější způsob, jak si
-v novinách koupit pozornost. Doporučuji tento.
+### Fotky
+
+Obě fotoverze používají **vlastní fotografie prodejny** (ne stock) — viz
+`public/img/PHOTO-SOURCES.md`:
+
+- **C** — `public/img/band/prodejna-vitriny.jpg` (prosvětlené vitríny s obrubami)
+- **D** — `public/img/band/prodejna-stul.jpg` (stůl pro výběr brýlí s tulipány)
+
+V PDF jsou fotky vloženy v 450–660 DPI, tedy s rezervou nad tiskovým
+požadavkem 300 DPI. Výměna fotky = přepsat `src` v `inzeraty.html` a znovu
+spustit export.
 
 ### Co je na inzerátech napsáno
 
@@ -77,11 +86,13 @@ optika od roku 1991 · měření zraku, dioptrické i sluneční brýle, kontakt
 
 ## 3. Soubory
 
+Každý návrh ve dvou formátech, od každého PDF i PNG:
+
 ```
-export/A-ctvrtstrany-93x131.pdf | .png    Návrh A, 1/4 strany na výšku
-export/A-osminastrany-93x60.pdf | .png    Návrh A, 1/8 strany na šířku
-export/B-ctvrtstrany-93x131.pdf | .png    Návrh B, 1/4 strany na výšku
-export/B-osminastrany-93x60.pdf | .png    Návrh B, 1/8 strany na šířku
+export/A-text-ctvrtstrany-93x131.pdf | .png       export/A-text-osminastrany-93x60.pdf | .png
+export/B-zluta-ctvrtstrany-93x131.pdf | .png      export/B-zluta-osminastrany-93x60.pdf | .png
+export/C-fotopas-ctvrtstrany-93x131.pdf | .png    export/C-fotopas-osminastrany-93x60.pdf | .png
+export/D-nafotce-ctvrtstrany-93x131.pdf | .png    export/D-nafotce-osminastrany-93x60.pdf | .png
 ```
 
 PDF mají přesnou velikost stránky (93 × 131 mm / 93 × 60 mm) a text je
