@@ -53,26 +53,34 @@ Ceník je nutné si vyžádat, veřejně publikovaný není.
 ## 2. Návrhy
 
 Všechny vycházejí z vizuálního stylu webu optikdvorak.cz (Bricolage Grotesque +
-Inter, krémová / žlutá / černá, ostré hrany, nula dekorací).
+Inter, krémová / žlutá / černá, ostré hrany, nula dekorací) a všechny nesou
+odkaz `optikdvorak.cz`.
 
-| | Návrh | Popis |
-|---|---|---|
-| **A** | „Text" | Krémová plocha s tenkým rámečkem, logo, žlutá linka, wordmark. Nejtišší varianta, bez fotky. |
-| **B** | „Žlutá" | Celoplošná značková žlutá s černým kontaktním pruhem. Největší dosvit na stránce plné šedého textu. |
-| **C** | „Fotopás" | Fotka prodejny přes celou šířku nahoře, pod ní krémový blok s textem. **Doporučuji.** |
-| **D** | „Na fotce" | Fotka jako pozadí, krémová karta do ní zajíždí a nese text. Vrstevnatější, fotka dostane víc prostoru. |
+| | Návrh | Layout | Fotka |
+|---|---|---|---|
+| **A** | „Text" | krémová plocha, logo, wordmark | — |
+| **B** | „Žlutá" | celoplošná žlutá, černý kontaktní pruh | — |
+| **C** | „Fotopás" | fotka nahoře přes celou šířku, pod ní text | interiér prodejny |
+| **D** | „Na fotce" | fotka jako pozadí, krémová karta do ní zajíždí | stůl pro výběr brýlí |
+| **E** | „Brýle dole" | text nahoře, fotopás dole | brýle na bílém |
+| **F** | „Okno" | wordmark nahoře, fotka jako okno uprostřed, kontakty dole | detail obruby |
 
 ### Fotky
 
-Obě fotoverze používají **vlastní fotografie prodejny** (ne stock) — viz
-`public/img/PHOTO-SOURCES.md`:
+| Návrh | Soubor | Původ |
+|---|---|---|
+| C | `public/img/interier.webp` (2048 × 1536) | vlastní fotka prodejny |
+| D | `public/img/band/prodejna-stul.jpg` (2400 × 1100) | vlastní fotka prodejny |
+| E | `public/img/ai/kolaz-stack.jpg` (1200 × 800) | licencovaná fotka z Pexels |
+| F | `public/img/ai/look-cateye.jpg` (1400 × 1400) | licencovaná fotka z Pexels |
 
-- **C** — `public/img/band/prodejna-vitriny.jpg` (prosvětlené vitríny s obrubami)
-- **D** — `public/img/band/prodejna-stul.jpg` (stůl pro výběr brýlí s tulipány)
+**Panoramatické snímky (`prohlidka/pano*.jpg` a z nich odvozený
+`band/prodejna-vitriny.jpg`) se pro inzerci nepoužívají** — mají zakřivenou
+perspektivu, která v tisku působí rušivě.
 
-V PDF jsou fotky vloženy v 450–660 DPI, tedy s rezervou nad tiskovým
-požadavkem 300 DPI. Výměna fotky = přepsat `src` v `inzeraty.html` a znovu
-spustit export.
+V PDF jsou fotky vloženy v 300–660 DPI, tedy nad tiskovým minimem. Výměna
+fotky = přepsat `src` v `inzeraty.html` a znovu spustit export; vlastní fotky
+lze nakopírovat do `foto/` (viz `foto/README.md`).
 
 ### Co je na inzerátech napsáno
 
@@ -86,13 +94,12 @@ optika od roku 1991 · měření zraku, dioptrické i sluneční brýle, kontakt
 
 ## 3. Soubory
 
-Každý návrh ve dvou formátech, od každého PDF i PNG:
+Šest návrhů × dva formáty, od každého PDF i PNG — v `export/`:
 
 ```
-export/A-text-ctvrtstrany-93x131.pdf | .png       export/A-text-osminastrany-93x60.pdf | .png
-export/B-zluta-ctvrtstrany-93x131.pdf | .png      export/B-zluta-osminastrany-93x60.pdf | .png
-export/C-fotopas-ctvrtstrany-93x131.pdf | .png    export/C-fotopas-osminastrany-93x60.pdf | .png
-export/D-nafotce-ctvrtstrany-93x131.pdf | .png    export/D-nafotce-osminastrany-93x60.pdf | .png
+A-text-…      B-zluta-…     C-fotopas-…     D-nafotce-…     E-bryle-…     F-okno-…
+   × -ctvrtstrany-93x131   (1/4 strany na výšku)
+   × -osminastrany-93x60   (1/8 strany na šířku)
 ```
 
 PDF mají přesnou velikost stránky (93 × 131 mm / 93 × 60 mm) a text je

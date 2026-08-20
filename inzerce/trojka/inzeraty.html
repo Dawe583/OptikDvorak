@@ -218,6 +218,71 @@
   .ad-d.ad--e .addr{font-size:2.9mm;}
   .ad-d.ad--e .meta{margin-top:0.9mm;font-size:2.15mm;line-height:1.4;}
   .ad-d.ad--e .web{display:inline-block;margin-top:1.8mm;font-size:2.2mm;padding:1.1mm 1.8mm;}
+
+  /* ================= NÁVRH E — brýle dole ================= */
+  .ad-bryle{background:var(--cream);border:0.45mm solid var(--ink);}
+  .ad-bryle .inner{position:absolute;inset:0;display:flex;flex-direction:column;}
+  .ad-bryle .body{flex:1;padding:6.4mm 6.4mm 0;display:flex;flex-direction:column;}
+  .ad-bryle .wordmark{
+    font-family:"Bricolage Grotesque Variable",sans-serif;
+    font-weight:700;font-size:10.4mm;line-height:1.08;
+    letter-spacing:-0.035em;text-transform:uppercase;
+  }
+  .ad-bryle .rule{flex:none;height:1.3mm;background:var(--yellow);margin:3.2mm 0 2.8mm;}
+  .ad-bryle .claim{font-size:2.5mm;line-height:1.45;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;}
+  .ad-bryle .services{margin-top:2.6mm;font-size:2.5mm;line-height:1.6;color:var(--ink-soft);}
+  .ad-bryle .foot{flex:none;margin-top:auto;padding-bottom:5mm;display:flex;align-items:flex-end;justify-content:space-between;gap:3mm;}
+  .ad-bryle .addr{font-family:"Bricolage Grotesque Variable",sans-serif;font-weight:600;font-size:3.3mm;line-height:1.2;white-space:nowrap;}
+  .ad-bryle .meta{margin-top:1.3mm;font-size:2.35mm;line-height:1.5;color:var(--ink-soft);}
+  .ad-bryle .web{
+    flex:none;background:var(--ink);color:var(--cream);
+    font-size:2.35mm;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;padding:1.3mm 2.1mm;
+  }
+  .ad-bryle .photo{flex:none;width:100%;height:52mm;overflow:hidden;}
+  .ad-bryle .photo img{width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* --- E, formát 1/8 --- */
+  .ad-bryle.ad--e .body{padding:4mm 4.6mm 0;}
+  .ad-bryle.ad--e .wordmark{font-size:6.4mm;line-height:1;}
+  .ad-bryle.ad--e .rule{margin:2mm 0 1.8mm;width:18mm;height:1mm;}
+  .ad-bryle.ad--e .claim{font-size:2.1mm;letter-spacing:0.05em;}
+  .ad-bryle.ad--e .foot{padding-bottom:3.4mm;}
+  .ad-bryle.ad--e .addr{font-size:2.8mm;}
+  .ad-bryle.ad--e .meta{margin-top:0.8mm;font-size:2.1mm;line-height:1.4;}
+  .ad-bryle.ad--e .web{font-size:2.1mm;padding:1mm 1.7mm;}
+  .ad-bryle.ad--e .photo{height:21mm;}
+
+  /* ================= NÁVRH F — okno ================= */
+  .ad-okno{background:var(--cream);border:0.45mm solid var(--ink);}
+  .ad-okno .inner{position:absolute;inset:0;padding:6.4mm;display:flex;flex-direction:column;}
+  .ad-okno .wordmark{
+    font-family:"Bricolage Grotesque Variable",sans-serif;
+    font-weight:700;font-size:10.4mm;line-height:1.08;
+    letter-spacing:-0.035em;text-transform:uppercase;
+  }
+  .ad-okno .claim{margin-top:2.4mm;font-size:2.5mm;line-height:1.45;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;}
+  .ad-okno .photo{flex:none;margin:4.2mm 0 3.4mm;width:100%;height:58mm;overflow:hidden;}
+  .ad-okno .photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .ad-okno .services{font-size:2.5mm;line-height:1.6;color:var(--ink-soft);}
+  .ad-okno .foot{flex:none;margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:3mm;}
+  .ad-okno .addr{font-family:"Bricolage Grotesque Variable",sans-serif;font-weight:600;font-size:3.3mm;line-height:1.2;white-space:nowrap;}
+  .ad-okno .meta{margin-top:1.3mm;font-size:2.35mm;line-height:1.5;color:var(--ink-soft);}
+  .ad-okno .web{
+    flex:none;background:var(--ink);color:var(--cream);
+    font-size:2.35mm;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;padding:1.3mm 2.1mm;
+  }
+
+  /* --- F, formát 1/8: foto jako svislý sloupec vpravo --- */
+  .ad-okno.ad--e .inner{flex-direction:row;padding:0;}
+  .ad-okno.ad--e .col{flex:1;padding:4.4mm 4.6mm;display:flex;flex-direction:column;}
+  .ad-okno.ad--e .wordmark{font-size:6.4mm;line-height:1;}
+  .ad-okno.ad--e .claim{margin-top:1.6mm;font-size:2.1mm;letter-spacing:0.05em;}
+  .ad-okno.ad--e .services{margin-top:1.8mm;font-size:2.1mm;line-height:1.5;}
+  .ad-okno.ad--e .photo{flex:none;margin:0;width:31mm;height:100%;}
+  .ad-okno.ad--e .foot{display:block;}
+  .ad-okno.ad--e .addr{font-size:2.8mm;}
+  .ad-okno.ad--e .meta{margin-top:0.8mm;font-size:2.1mm;line-height:1.4;}
+  .ad-okno.ad--e .web{display:inline-block;margin-top:1.6mm;font-size:2.1mm;padding:1mm 1.7mm;}
 </style>
 </head>
 <body>
@@ -339,7 +404,7 @@
 <!-- ===================== NÁVRH C — fotopás, 1/4 strany ===================== -->
 <div class="ad ad-c ad--q" data-name="C-fotopas-ctvrtstrany-93x131">
   <div class="inner">
-    <div class="photo"><img src="../../public/img/band/prodejna-vitriny.jpg" alt="" /></div>
+    <div class="photo"><img src="../../public/img/interier.webp" alt="" /></div>
     <div class="body">
       <div class="wordmark">Optik<br />Dvořák</div>
       <p class="claim">Rodinná oční optika<br />v centru Plzně, od roku 1991</p>
@@ -379,7 +444,7 @@
 <!-- ===================== NÁVRH C — fotopás, 1/8 strany ===================== -->
 <div class="ad ad-c ad--e" data-name="C-fotopas-osminastrany-93x60">
   <div class="inner">
-    <div class="photo"><img src="../../public/img/band/prodejna-vitriny.jpg" alt="" /></div>
+    <div class="photo"><img src="../../public/img/interier.webp" alt="" /></div>
     <div class="body">
       <div class="wordmark">Optik Dvořák</div>
       <p class="claim">Rodinná oční optika v centru Plzně, od roku 1991</p>
@@ -407,6 +472,85 @@
       <p class="meta">Po–Čt 8:30–17:00 · Pá 8:30–16:00<br />702 194 246 · 377 328 367</p>
       <span class="web">optikdvorak.cz</span>
     </div>
+  </div>
+</div>
+
+<!-- ===================== NÁVRH E — brýle dole, 1/4 strany ===================== -->
+<div class="ad ad-bryle ad--q" data-name="E-bryle-ctvrtstrany-93x131">
+  <div class="inner">
+    <div class="body">
+      <div class="wordmark">Optik<br />Dvořák</div>
+      <div class="rule"></div>
+      <p class="claim">Rodinná oční optika<br />v centru Plzně, od roku 1991</p>
+      <p class="services">
+        Měření zraku · Dioptrické i sluneční brýle<br />
+        Kontaktní čočky · Dětské brýle · Servis
+      </p>
+      <div class="foot">
+        <div>
+          <p class="addr">Americká 325/23, Plzeň</p>
+          <p class="meta">Po–Čt 8:30–17:00 · Pá 8:30–16:00<br />702 194 246 · 377 328 367</p>
+        </div>
+        <span class="web">optikdvorak.cz</span>
+      </div>
+    </div>
+    <div class="photo"><img src="../../public/img/ai/kolaz-stack.jpg" alt="" /></div>
+  </div>
+</div>
+
+<!-- ===================== NÁVRH F — okno, 1/4 strany ===================== -->
+<div class="ad ad-okno ad--q" data-name="F-okno-ctvrtstrany-93x131">
+  <div class="inner">
+    <div class="wordmark">Optik<br />Dvořák</div>
+    <p class="claim">Rodinná oční optika<br />v centru Plzně, od roku 1991</p>
+    <div class="photo"><img src="../../public/img/ai/look-cateye.jpg" alt="" /></div>
+    <p class="services">
+      Měření zraku · Dioptrické i sluneční brýle<br />
+      Kontaktní čočky · Dětské brýle · Servis
+    </p>
+    <div class="foot">
+      <div>
+        <p class="addr">Americká 325/23, Plzeň</p>
+        <p class="meta">Po–Čt 8:30–17:00 · Pá 8:30–16:00<br />702 194 246 · 377 328 367</p>
+      </div>
+      <span class="web">optikdvorak.cz</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== NÁVRH E — brýle dole, 1/8 strany ===================== -->
+<div class="ad ad-bryle ad--e" data-name="E-bryle-osminastrany-93x60">
+  <div class="inner">
+    <div class="body">
+      <div class="wordmark">Optik Dvořák</div>
+      <div class="rule"></div>
+      <p class="claim">Rodinná oční optika v centru Plzně, od roku 1991</p>
+      <div class="foot">
+        <div>
+          <p class="addr">Americká 325/23, Plzeň</p>
+          <p class="meta">Po–Čt 8:30–17:00 · Pá 8:30–16:00 · 702 194 246</p>
+        </div>
+        <span class="web">optikdvorak.cz</span>
+      </div>
+    </div>
+    <div class="photo"><img src="../../public/img/ai/kolaz-stack.jpg" alt="" /></div>
+  </div>
+</div>
+
+<!-- ===================== NÁVRH F — okno, 1/8 strany ===================== -->
+<div class="ad ad-okno ad--e" data-name="F-okno-osminastrany-93x60">
+  <div class="inner">
+    <div class="col">
+      <div class="wordmark">Optik<br />Dvořák</div>
+      <p class="claim">Rodinná oční optika<br />v centru Plzně, od roku 1991</p>
+      <p class="services">Měření zraku · Brýle<br />Kontaktní čočky · Servis</p>
+      <div class="foot">
+        <p class="addr">Americká 325/23, Plzeň</p>
+        <p class="meta">Po–Čt 8:30–17:00 · Pá 8:30–16:00<br />702 194 246</p>
+        <span class="web">optikdvorak.cz</span>
+      </div>
+    </div>
+    <div class="photo"><img src="../../public/img/ai/look-cateye.jpg" alt="" /></div>
   </div>
 </div>
 
