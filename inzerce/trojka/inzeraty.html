@@ -51,18 +51,19 @@
   .ad--q{width:93mm;height:131mm;}   /* 1/4 strany na výšku */
   .ad--e{width:93mm;height:60mm;}    /* 1/8 strany na šířku */
 
+  /* fotky: novinový papír snižuje kontrast, mírně ho předkompenzujeme */
+  .ad .photo img{filter:contrast(1.09) saturate(1.06);}
+  .ad-c .photo img{object-position:50% 42%;}
+  .ad-d .photo img{object-position:50% 40%;}
+  .ad-bryle .photo img{transform:scale(1.32);transform-origin:50% 58%;}
+  .ad-okno .photo img{transform:scale(1.5);transform-origin:47% 57%;}
+  .ad-h .photo img{object-position:52% 50%;}
+
   /* ---------- logo mark ---------- */
-  /* razítko v rohu textové plochy — nezabírá výšku layoutu */
-  .ad-c .body,.ad-bryle .body,.ad-okno.ad--e .col{position:relative;}
-  .ad-c .mark,.ad-d .mark,.ad-bryle .mark,.ad-okno .mark{position:absolute;}
-  .ad-c .mark{right:6.4mm;top:5.6mm;}
-  .ad-c.ad--e .mark{right:4.6mm;top:3.8mm;}
-  .ad-d .mark{right:5.6mm;top:5.6mm;}
-  .ad-d.ad--e .mark{right:4.4mm;top:4mm;}
-  .ad-bryle .mark{right:6.4mm;top:6.4mm;}
-  .ad-bryle.ad--e .mark{right:4.6mm;top:4mm;}
-  .ad-okno .mark{right:6.4mm;top:6.4mm;}
-  .ad-okno.ad--e .mark{right:4.6mm;top:4.4mm;}
+  /* logo tvoří lockup s názvem — sedí těsně nad wordmarkem */
+  .ad-c .mark,.ad-d .mark,.ad-bryle .mark,.ad-okno .mark,.ad-h .mark{margin-bottom:3.4mm;}
+  .ad-c.ad--e .mark,.ad-d.ad--e .mark,.ad-bryle.ad--e .mark,
+  .ad-okno.ad--e .mark,.ad-h.ad--e .mark{margin-bottom:2.2mm;}
   .mark{display:block;flex:none;}
   .mark .lens,.mark .arm{stroke:var(--ink);}
   .mark .bridge,.mark .glint{stroke:var(--yellow-deep);}
@@ -156,7 +157,7 @@
   /* ================= NÁVRH C — fotopás nahoře ================= */
   .ad-c{background:var(--cream);border:0.45mm solid var(--ink);}
   .ad-c .inner{position:absolute;inset:0;display:flex;flex-direction:column;}
-  .ad-c .photo{flex:none;width:100%;height:54mm;overflow:hidden;position:relative;}
+  .ad-c .photo{flex:none;width:100%;height:46mm;overflow:hidden;position:relative;}
   .ad-c .photo img{width:100%;height:100%;object-fit:cover;display:block;}
   .ad-c .body{flex:1;padding:5.6mm 6.4mm 5.6mm;display:flex;flex-direction:column;}
   .ad-c .wordmark{
@@ -182,7 +183,7 @@
   }
 
   /* --- C, formát 1/8 --- */
-  .ad-c.ad--e .photo{height:23mm;}
+  .ad-c.ad--e .photo{height:19mm;}
   .ad-c.ad--e .body{padding:3.6mm 4.6mm 3.8mm;}
   .ad-c.ad--e .wordmark{font-size:6.4mm;line-height:1;}
   .ad-c.ad--e .claim{margin-top:1.6mm;font-size:2.1mm;letter-spacing:0.05em;}
@@ -193,10 +194,10 @@
 
   /* ================= NÁVRH D — text na fotce ================= */
   .ad-d{background:var(--cream);}
-  .ad-d .photo{position:absolute;left:0;right:0;top:0;height:62mm;overflow:hidden;}
+  .ad-d .photo{position:absolute;left:0;right:0;top:0;height:58mm;overflow:hidden;}
   .ad-d .photo img{width:100%;height:100%;object-fit:cover;display:block;}
   .ad-d .card{
-    position:absolute;left:5mm;right:5mm;bottom:5mm;top:48mm;
+    position:absolute;left:5mm;right:5mm;bottom:5mm;top:44mm;
     background:var(--cream);padding:5.6mm 5.6mm 5.2mm;
     display:flex;flex-direction:column;
   }
@@ -209,7 +210,7 @@
   .ad-d .claim{
     font-size:2.5mm;line-height:1.45;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
   }
-  .ad-d .services{margin-top:2.4mm;font-size:2.5mm;line-height:1.6;color:var(--ink-soft);}
+  .ad-d .services{margin-top:2.4mm;margin-bottom:3.4mm;font-size:2.5mm;line-height:1.6;color:var(--ink-soft);}
   .ad-d .foot{flex:none;margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:3mm;}
   .ad-d .addr{font-family:"Bricolage Grotesque Variable",sans-serif;font-weight:600;font-size:3.3mm;line-height:1.2;white-space:nowrap;}
   .ad-d .meta{margin-top:1.4mm;font-size:2.4mm;line-height:1.5;color:var(--ink-soft);}
@@ -224,7 +225,7 @@
   .ad-d.ad--e .wordmark{font-size:6.4mm;line-height:1;}
   .ad-d.ad--e .rule{height:1mm;width:16mm;margin:2.4mm 0 2.2mm;}
   .ad-d.ad--e .claim{font-size:2.1mm;letter-spacing:0.05em;}
-  .ad-d.ad--e .services{margin-top:1.8mm;font-size:2.1mm;line-height:1.5;}
+  .ad-d.ad--e .services{margin-top:1.8mm;margin-bottom:2.2mm;font-size:2.1mm;line-height:1.5;}
   .ad-d.ad--e .foot{display:block;}
   .ad-d.ad--e .addr{font-size:2.9mm;}
   .ad-d.ad--e .meta{margin-top:0.9mm;font-size:2.15mm;line-height:1.4;}
@@ -249,7 +250,7 @@
     flex:none;background:var(--ink);color:var(--cream);
     font-size:2.35mm;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;padding:1.3mm 2.1mm;
   }
-  .ad-bryle .photo{flex:none;width:100%;height:52mm;overflow:hidden;}
+  .ad-bryle .photo{flex:none;width:100%;height:44mm;overflow:hidden;}
   .ad-bryle .photo img{width:100%;height:100%;object-fit:cover;display:block;}
 
   /* --- E, formát 1/8 --- */
@@ -262,7 +263,7 @@
   .ad-bryle.ad--e .addr{font-size:2.8mm;}
   .ad-bryle.ad--e .meta{margin-top:0.8mm;font-size:2.1mm;line-height:1.4;}
   .ad-bryle.ad--e .web{font-size:2.1mm;padding:1mm 1.7mm;}
-  .ad-bryle.ad--e .photo{height:21mm;}
+  .ad-bryle.ad--e .photo{height:17mm;}
 
   /* ================= NÁVRH F — okno ================= */
   .ad-okno{background:var(--cream);border:0.45mm solid var(--ink);}
@@ -273,7 +274,7 @@
     letter-spacing:-0.035em;text-transform:uppercase;
   }
   .ad-okno .claim{margin-top:2.4mm;font-size:2.5mm;line-height:1.45;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;}
-  .ad-okno .photo{flex:none;margin:4.2mm 0 3.4mm;width:100%;height:54mm;overflow:hidden;}
+  .ad-okno .photo{flex:none;margin:4.2mm 0 3.4mm;width:100%;height:47mm;overflow:hidden;}
   .ad-okno .photo img{width:100%;height:100%;object-fit:cover;display:block;}
   .ad-okno .services{margin-bottom:3.4mm;font-size:2.5mm;line-height:1.6;color:var(--ink-soft);}
   .ad-okno .foot{flex:none;margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:3mm;}
@@ -334,7 +335,7 @@
   .ad-h .photo{flex:none;width:42mm;height:100%;overflow:hidden;}
   .ad-h .photo img{width:100%;height:100%;object-fit:cover;object-position:64% center;display:block;}
   .ad-h .col{flex:1;position:relative;padding:6mm 5.6mm;display:flex;flex-direction:column;}
-  .ad-h .mark{margin-bottom:4.6mm;}
+  
   .ad-h .wordmark{
     font-family:"Bricolage Grotesque Variable",sans-serif;
     font-weight:700;font-size:8.4mm;line-height:1.06;
@@ -353,7 +354,7 @@
   /* --- H, formát 1/8 --- */
   .ad-h.ad--e .photo{width:34mm;}
   .ad-h.ad--e .col{padding:4.4mm 4.8mm;}
-  .ad-h.ad--e .mark{position:absolute;right:4.8mm;top:4.4mm;margin:0;}
+  
   .ad-h.ad--e .wordmark{font-size:6.4mm;line-height:1;}
   .ad-h.ad--e .claim{margin-top:1.6mm;font-size:2.1mm;letter-spacing:0.05em;}
   .ad-h.ad--e .services{margin-top:1.8mm;font-size:2.1mm;line-height:1.5;}
@@ -367,13 +368,14 @@
 <!-- ===================== NÁVRH A — 1/4 strany (93 × 131 mm) ===================== -->
 <div class="ad ad-a ad--q" data-name="A-text-ctvrtstrany-93x131">
   <div class="inner">
-    <svg class="mark" viewBox="0 0 184 84" width="26mm" aria-hidden="true">
-      <circle class="lens" cx="56" cy="44" r="26" fill="none" stroke-width="5"/>
-      <circle class="lens" cx="128" cy="44" r="26" fill="none" stroke-width="5"/>
-      <path class="bridge" d="M83 39c6-8 12-8 18 0" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M32 35 12 27" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M152 35 172 27" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="glint" d="M43 34c4-6 10-10 16-11" fill="none" stroke-width="3" stroke-linecap="round" opacity=".85"/>
+    <svg class="mark" viewBox="0 0 200 84" width="26mm" aria-hidden="true">
+      <g fill="none" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+        <rect class="lens" x="21" y="26" width="71" height="44" rx="18"/>
+        <g transform="translate(200,0) scale(-1,1)"><rect class="lens" x="21" y="26" width="71" height="44" rx="18"/></g>
+        <path class="bridge" d="M92 33Q100 27 108 33"/>
+        <path class="arm" d="M21 31 5 23"/>
+        <g transform="translate(200,0) scale(-1,1)"><path class="arm" d="M21 31 5 23"/></g>
+      </g>
     </svg>
     <div class="est">OD&nbsp;1991</div>
 
@@ -404,13 +406,15 @@
 <div class="ad ad-b ad--q" data-name="B-zluta-ctvrtstrany-93x131">
   <div class="inner">
     <div class="top">
-      <svg class="mark" viewBox="0 0 184 84" width="30mm" aria-hidden="true">
-        <circle class="lens" cx="56" cy="44" r="26" fill="none" stroke-width="5"/>
-        <circle class="lens" cx="128" cy="44" r="26" fill="none" stroke-width="5"/>
-        <path class="bridge" d="M83 39c6-8 12-8 18 0" fill="none" stroke-width="5" stroke-linecap="round"/>
-        <path class="arm" d="M32 35 12 27" fill="none" stroke-width="5" stroke-linecap="round"/>
-        <path class="arm" d="M152 35 172 27" fill="none" stroke-width="5" stroke-linecap="round"/>
-      </svg>
+      <svg class="mark" viewBox="0 0 200 84" width="30mm" aria-hidden="true">
+      <g fill="none" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+        <rect class="lens" x="21" y="26" width="71" height="44" rx="18"/>
+        <g transform="translate(200,0) scale(-1,1)"><rect class="lens" x="21" y="26" width="71" height="44" rx="18"/></g>
+        <path class="bridge" d="M92 33Q100 27 108 33"/>
+        <path class="arm" d="M21 31 5 23"/>
+        <g transform="translate(200,0) scale(-1,1)"><path class="arm" d="M21 31 5 23"/></g>
+      </g>
+    </svg>
       <div class="wordmark" style="margin-top:4.2mm">Optik<br />Dvořák</div>
       <p class="claim">Rodinná oční optika<br />v Plzni od roku 1991</p>
       <div class="hairline"></div>
@@ -437,13 +441,15 @@
   <div class="inner">
     <div class="col-l">
       <div>
-        <svg class="mark" viewBox="0 0 184 84" width="17mm" aria-hidden="true">
-          <circle class="lens" cx="56" cy="44" r="26" fill="none" stroke-width="5"/>
-          <circle class="lens" cx="128" cy="44" r="26" fill="none" stroke-width="5"/>
-          <path class="bridge" d="M83 39c6-8 12-8 18 0" fill="none" stroke-width="5" stroke-linecap="round"/>
-          <path class="arm" d="M32 35 12 27" fill="none" stroke-width="5" stroke-linecap="round"/>
-          <path class="arm" d="M152 35 172 27" fill="none" stroke-width="5" stroke-linecap="round"/>
-        </svg>
+        <svg class="mark" viewBox="0 0 200 84" width="17mm" aria-hidden="true">
+      <g fill="none" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+        <rect class="lens" x="21" y="26" width="71" height="44" rx="18"/>
+        <g transform="translate(200,0) scale(-1,1)"><rect class="lens" x="21" y="26" width="71" height="44" rx="18"/></g>
+        <path class="bridge" d="M92 33Q100 27 108 33"/>
+        <path class="arm" d="M21 31 5 23"/>
+        <g transform="translate(200,0) scale(-1,1)"><path class="arm" d="M21 31 5 23"/></g>
+      </g>
+    </svg>
         <div class="rule"></div>
         <div class="wordmark">Optik<br />Dvořák</div>
       </div>
@@ -483,12 +489,14 @@
   <div class="inner">
     <div class="photo"><img src="../../public/img/interier.webp" alt="" /></div>
     <div class="body">
-      <svg class="mark" viewBox="0 0 184 84" width="16mm" aria-hidden="true">
-      <circle class="lens" cx="56" cy="44" r="26" fill="none" stroke-width="5"/>
-      <circle class="lens" cx="128" cy="44" r="26" fill="none" stroke-width="5"/>
-      <path class="bridge" d="M83 39c6-8 12-8 18 0" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M32 35 12 27" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M152 35 172 27" fill="none" stroke-width="5" stroke-linecap="round"/>
+      <svg class="mark" viewBox="0 0 200 84" width="16mm" aria-hidden="true">
+      <g fill="none" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+        <rect class="lens" x="21" y="26" width="71" height="44" rx="18"/>
+        <g transform="translate(200,0) scale(-1,1)"><rect class="lens" x="21" y="26" width="71" height="44" rx="18"/></g>
+        <path class="bridge" d="M92 33Q100 27 108 33"/>
+        <path class="arm" d="M21 31 5 23"/>
+        <g transform="translate(200,0) scale(-1,1)"><path class="arm" d="M21 31 5 23"/></g>
+      </g>
     </svg>
     <div class="wordmark">Optik<br />Dvořák</div>
       <p class="claim">Rodinná oční optika<br />v centru Plzně, od roku 1991</p>
@@ -509,14 +517,16 @@
 
 <!-- ===================== NÁVRH D — text na fotce, 1/4 strany ===================== -->
 <div class="ad ad-d ad--q" data-name="D-nafotce-ctvrtstrany-93x131">
-  <div class="photo"><img src="../../public/img/band/prodejna-stul.jpg" alt="" /></div>
+  <div class="photo"><img src="../../public/img/interier.webp" alt="" /></div>
   <div class="card">
-    <svg class="mark" viewBox="0 0 184 84" width="16mm" aria-hidden="true">
-      <circle class="lens" cx="56" cy="44" r="26" fill="none" stroke-width="5"/>
-      <circle class="lens" cx="128" cy="44" r="26" fill="none" stroke-width="5"/>
-      <path class="bridge" d="M83 39c6-8 12-8 18 0" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M32 35 12 27" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M152 35 172 27" fill="none" stroke-width="5" stroke-linecap="round"/>
+    <svg class="mark" viewBox="0 0 200 84" width="16mm" aria-hidden="true">
+      <g fill="none" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+        <rect class="lens" x="21" y="26" width="71" height="44" rx="18"/>
+        <g transform="translate(200,0) scale(-1,1)"><rect class="lens" x="21" y="26" width="71" height="44" rx="18"/></g>
+        <path class="bridge" d="M92 33Q100 27 108 33"/>
+        <path class="arm" d="M21 31 5 23"/>
+        <g transform="translate(200,0) scale(-1,1)"><path class="arm" d="M21 31 5 23"/></g>
+      </g>
     </svg>
     <div class="wordmark">Optik<br />Dvořák</div>
     <div class="rule"></div>
@@ -537,12 +547,14 @@
   <div class="inner">
     <div class="photo"><img src="../../public/img/interier.webp" alt="" /></div>
     <div class="body">
-      <svg class="mark" viewBox="0 0 184 84" width="11mm" aria-hidden="true">
-      <circle class="lens" cx="56" cy="44" r="26" fill="none" stroke-width="5"/>
-      <circle class="lens" cx="128" cy="44" r="26" fill="none" stroke-width="5"/>
-      <path class="bridge" d="M83 39c6-8 12-8 18 0" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M32 35 12 27" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M152 35 172 27" fill="none" stroke-width="5" stroke-linecap="round"/>
+      <svg class="mark" viewBox="0 0 200 84" width="11mm" aria-hidden="true">
+      <g fill="none" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+        <rect class="lens" x="21" y="26" width="71" height="44" rx="18"/>
+        <g transform="translate(200,0) scale(-1,1)"><rect class="lens" x="21" y="26" width="71" height="44" rx="18"/></g>
+        <path class="bridge" d="M92 33Q100 27 108 33"/>
+        <path class="arm" d="M21 31 5 23"/>
+        <g transform="translate(200,0) scale(-1,1)"><path class="arm" d="M21 31 5 23"/></g>
+      </g>
     </svg>
     <div class="wordmark">Optik Dvořák</div>
       <p class="claim">Rodinná oční optika v centru Plzně, od roku 1991</p>
@@ -559,14 +571,16 @@
 
 <!-- ===================== NÁVRH D — text na fotce, 1/8 strany ===================== -->
 <div class="ad ad-d ad--e" data-name="D-nafotce-osminastrany-93x60">
-  <div class="photo"><img src="../../public/img/band/prodejna-stul.jpg" alt="" /></div>
+  <div class="photo"><img src="../../public/img/interier.webp" alt="" /></div>
   <div class="card">
-    <svg class="mark" viewBox="0 0 184 84" width="11mm" aria-hidden="true">
-      <circle class="lens" cx="56" cy="44" r="26" fill="none" stroke-width="5"/>
-      <circle class="lens" cx="128" cy="44" r="26" fill="none" stroke-width="5"/>
-      <path class="bridge" d="M83 39c6-8 12-8 18 0" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M32 35 12 27" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M152 35 172 27" fill="none" stroke-width="5" stroke-linecap="round"/>
+    <svg class="mark" viewBox="0 0 200 84" width="11mm" aria-hidden="true">
+      <g fill="none" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+        <rect class="lens" x="21" y="26" width="71" height="44" rx="18"/>
+        <g transform="translate(200,0) scale(-1,1)"><rect class="lens" x="21" y="26" width="71" height="44" rx="18"/></g>
+        <path class="bridge" d="M92 33Q100 27 108 33"/>
+        <path class="arm" d="M21 31 5 23"/>
+        <g transform="translate(200,0) scale(-1,1)"><path class="arm" d="M21 31 5 23"/></g>
+      </g>
     </svg>
     <div class="wordmark">Optik Dvořák</div>
     <div class="rule"></div>
@@ -584,12 +598,14 @@
 <div class="ad ad-bryle ad--q" data-name="E-bryle-ctvrtstrany-93x131">
   <div class="inner">
     <div class="body">
-      <svg class="mark" viewBox="0 0 184 84" width="16mm" aria-hidden="true">
-      <circle class="lens" cx="56" cy="44" r="26" fill="none" stroke-width="5"/>
-      <circle class="lens" cx="128" cy="44" r="26" fill="none" stroke-width="5"/>
-      <path class="bridge" d="M83 39c6-8 12-8 18 0" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M32 35 12 27" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M152 35 172 27" fill="none" stroke-width="5" stroke-linecap="round"/>
+      <svg class="mark" viewBox="0 0 200 84" width="16mm" aria-hidden="true">
+      <g fill="none" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+        <rect class="lens" x="21" y="26" width="71" height="44" rx="18"/>
+        <g transform="translate(200,0) scale(-1,1)"><rect class="lens" x="21" y="26" width="71" height="44" rx="18"/></g>
+        <path class="bridge" d="M92 33Q100 27 108 33"/>
+        <path class="arm" d="M21 31 5 23"/>
+        <g transform="translate(200,0) scale(-1,1)"><path class="arm" d="M21 31 5 23"/></g>
+      </g>
     </svg>
     <div class="wordmark">Optik<br />Dvořák</div>
       <div class="rule"></div>
@@ -606,23 +622,25 @@
         <span class="web">optikdvorak.cz</span>
       </div>
     </div>
-    <div class="photo"><img src="../../public/img/ai/kolaz-stack.jpg" alt="" /></div>
+    <div class="photo"><img src="../../public/img/interier.webp" alt="" /></div>
   </div>
 </div>
 
 <!-- ===================== NÁVRH F — okno, 1/4 strany ===================== -->
 <div class="ad ad-okno ad--q" data-name="F-okno-ctvrtstrany-93x131">
   <div class="inner">
-    <svg class="mark" viewBox="0 0 184 84" width="16mm" aria-hidden="true">
-      <circle class="lens" cx="56" cy="44" r="26" fill="none" stroke-width="5"/>
-      <circle class="lens" cx="128" cy="44" r="26" fill="none" stroke-width="5"/>
-      <path class="bridge" d="M83 39c6-8 12-8 18 0" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M32 35 12 27" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M152 35 172 27" fill="none" stroke-width="5" stroke-linecap="round"/>
+    <svg class="mark" viewBox="0 0 200 84" width="16mm" aria-hidden="true">
+      <g fill="none" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+        <rect class="lens" x="21" y="26" width="71" height="44" rx="18"/>
+        <g transform="translate(200,0) scale(-1,1)"><rect class="lens" x="21" y="26" width="71" height="44" rx="18"/></g>
+        <path class="bridge" d="M92 33Q100 27 108 33"/>
+        <path class="arm" d="M21 31 5 23"/>
+        <g transform="translate(200,0) scale(-1,1)"><path class="arm" d="M21 31 5 23"/></g>
+      </g>
     </svg>
     <div class="wordmark">Optik<br />Dvořák</div>
     <p class="claim">Rodinná oční optika<br />v centru Plzně, od roku 1991</p>
-    <div class="photo"><img src="../../public/img/ai/look-cateye.jpg" alt="" /></div>
+    <div class="photo"><img src="../../public/img/interier.webp" alt="" /></div>
     <p class="services">
       Měření zraku · Dioptrické i sluneční brýle<br />
       Kontaktní čočky · Dětské brýle · Servis
@@ -641,12 +659,14 @@
 <div class="ad ad-bryle ad--e" data-name="E-bryle-osminastrany-93x60">
   <div class="inner">
     <div class="body">
-      <svg class="mark" viewBox="0 0 184 84" width="11mm" aria-hidden="true">
-      <circle class="lens" cx="56" cy="44" r="26" fill="none" stroke-width="5"/>
-      <circle class="lens" cx="128" cy="44" r="26" fill="none" stroke-width="5"/>
-      <path class="bridge" d="M83 39c6-8 12-8 18 0" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M32 35 12 27" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M152 35 172 27" fill="none" stroke-width="5" stroke-linecap="round"/>
+      <svg class="mark" viewBox="0 0 200 84" width="11mm" aria-hidden="true">
+      <g fill="none" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+        <rect class="lens" x="21" y="26" width="71" height="44" rx="18"/>
+        <g transform="translate(200,0) scale(-1,1)"><rect class="lens" x="21" y="26" width="71" height="44" rx="18"/></g>
+        <path class="bridge" d="M92 33Q100 27 108 33"/>
+        <path class="arm" d="M21 31 5 23"/>
+        <g transform="translate(200,0) scale(-1,1)"><path class="arm" d="M21 31 5 23"/></g>
+      </g>
     </svg>
     <div class="wordmark">Optik Dvořák</div>
       <div class="rule"></div>
@@ -660,7 +680,7 @@
         <span class="web">optikdvorak.cz</span>
       </div>
     </div>
-    <div class="photo"><img src="../../public/img/ai/kolaz-stack.jpg" alt="" /></div>
+    <div class="photo"><img src="../../public/img/interier.webp" alt="" /></div>
   </div>
 </div>
 
@@ -668,12 +688,14 @@
 <div class="ad ad-okno ad--e" data-name="F-okno-osminastrany-93x60">
   <div class="inner">
     <div class="col">
-      <svg class="mark" viewBox="0 0 184 84" width="11mm" aria-hidden="true">
-      <circle class="lens" cx="56" cy="44" r="26" fill="none" stroke-width="5"/>
-      <circle class="lens" cx="128" cy="44" r="26" fill="none" stroke-width="5"/>
-      <path class="bridge" d="M83 39c6-8 12-8 18 0" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M32 35 12 27" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M152 35 172 27" fill="none" stroke-width="5" stroke-linecap="round"/>
+      <svg class="mark" viewBox="0 0 200 84" width="11mm" aria-hidden="true">
+      <g fill="none" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+        <rect class="lens" x="21" y="26" width="71" height="44" rx="18"/>
+        <g transform="translate(200,0) scale(-1,1)"><rect class="lens" x="21" y="26" width="71" height="44" rx="18"/></g>
+        <path class="bridge" d="M92 33Q100 27 108 33"/>
+        <path class="arm" d="M21 31 5 23"/>
+        <g transform="translate(200,0) scale(-1,1)"><path class="arm" d="M21 31 5 23"/></g>
+      </g>
     </svg>
     <div class="wordmark">Optik<br />Dvořák</div>
       <p class="claim">Rodinná oční optika<br />v centru Plzně, od roku 1991</p>
@@ -684,19 +706,21 @@
         <span class="web">optikdvorak.cz</span>
       </div>
     </div>
-    <div class="photo"><img src="../../public/img/ai/look-cateye.jpg" alt="" /></div>
+    <div class="photo"><img src="../../public/img/interier.webp" alt="" /></div>
   </div>
 </div>
 
 <!-- ===================== NÁVRH G — značka, 1/4 strany ===================== -->
 <div class="ad ad-g ad--q" data-name="G-znacka-ctvrtstrany-93x131">
   <div class="inner">
-    <svg class="mark" viewBox="0 0 184 84" width="34mm" aria-hidden="true">
-      <circle class="lens" cx="56" cy="44" r="26" fill="none" stroke-width="5"/>
-      <circle class="lens" cx="128" cy="44" r="26" fill="none" stroke-width="5"/>
-      <path class="bridge" d="M83 39c6-8 12-8 18 0" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M32 35 12 27" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M152 35 172 27" fill="none" stroke-width="5" stroke-linecap="round"/>
+    <svg class="mark" viewBox="0 0 200 84" width="34mm" aria-hidden="true">
+      <g fill="none" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+        <rect class="lens" x="21" y="26" width="71" height="44" rx="18"/>
+        <g transform="translate(200,0) scale(-1,1)"><rect class="lens" x="21" y="26" width="71" height="44" rx="18"/></g>
+        <path class="bridge" d="M92 33Q100 27 108 33"/>
+        <path class="arm" d="M21 31 5 23"/>
+        <g transform="translate(200,0) scale(-1,1)"><path class="arm" d="M21 31 5 23"/></g>
+      </g>
     </svg>
     <div class="wordmark">Optik<br />Dvořák</div>
     <div class="rule"></div>
@@ -718,14 +742,16 @@
 <!-- ===================== NÁVRH H — půlka, 1/4 strany ===================== -->
 <div class="ad ad-h ad--q" data-name="H-pulka-ctvrtstrany-93x131">
   <div class="inner">
-    <div class="photo"><img src="../../public/img/hero/od-redhead.webp" alt="" /></div>
+    <div class="photo"><img src="../../public/img/interier.webp" alt="" /></div>
     <div class="col">
-      <svg class="mark" viewBox="0 0 184 84" width="15mm" aria-hidden="true">
-      <circle class="lens" cx="56" cy="44" r="26" fill="none" stroke-width="5"/>
-      <circle class="lens" cx="128" cy="44" r="26" fill="none" stroke-width="5"/>
-      <path class="bridge" d="M83 39c6-8 12-8 18 0" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M32 35 12 27" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M152 35 172 27" fill="none" stroke-width="5" stroke-linecap="round"/>
+      <svg class="mark" viewBox="0 0 200 84" width="15mm" aria-hidden="true">
+      <g fill="none" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+        <rect class="lens" x="21" y="26" width="71" height="44" rx="18"/>
+        <g transform="translate(200,0) scale(-1,1)"><rect class="lens" x="21" y="26" width="71" height="44" rx="18"/></g>
+        <path class="bridge" d="M92 33Q100 27 108 33"/>
+        <path class="arm" d="M21 31 5 23"/>
+        <g transform="translate(200,0) scale(-1,1)"><path class="arm" d="M21 31 5 23"/></g>
+      </g>
     </svg>
       <div class="wordmark">Optik<br />Dvořák</div>
       <p class="claim">Rodinná oční optika<br />v Plzni od roku 1991</p>
@@ -742,12 +768,14 @@
 <!-- ===================== NÁVRH G — značka, 1/8 strany ===================== -->
 <div class="ad ad-g ad--e" data-name="G-znacka-osminastrany-93x60">
   <div class="inner">
-    <svg class="mark" viewBox="0 0 184 84" width="15mm" aria-hidden="true">
-      <circle class="lens" cx="56" cy="44" r="26" fill="none" stroke-width="5"/>
-      <circle class="lens" cx="128" cy="44" r="26" fill="none" stroke-width="5"/>
-      <path class="bridge" d="M83 39c6-8 12-8 18 0" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M32 35 12 27" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M152 35 172 27" fill="none" stroke-width="5" stroke-linecap="round"/>
+    <svg class="mark" viewBox="0 0 200 84" width="15mm" aria-hidden="true">
+      <g fill="none" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+        <rect class="lens" x="21" y="26" width="71" height="44" rx="18"/>
+        <g transform="translate(200,0) scale(-1,1)"><rect class="lens" x="21" y="26" width="71" height="44" rx="18"/></g>
+        <path class="bridge" d="M92 33Q100 27 108 33"/>
+        <path class="arm" d="M21 31 5 23"/>
+        <g transform="translate(200,0) scale(-1,1)"><path class="arm" d="M21 31 5 23"/></g>
+      </g>
     </svg>
     <div class="block">
       <div class="wordmark">Optik<br />Dvořák</div>
@@ -765,14 +793,16 @@
 <!-- ===================== NÁVRH H — půlka, 1/8 strany ===================== -->
 <div class="ad ad-h ad--e" data-name="H-pulka-osminastrany-93x60">
   <div class="inner">
-    <div class="photo"><img src="../../public/img/hero/od-redhead.webp" alt="" /></div>
+    <div class="photo"><img src="../../public/img/interier.webp" alt="" /></div>
     <div class="col">
-      <svg class="mark" viewBox="0 0 184 84" width="11mm" aria-hidden="true">
-      <circle class="lens" cx="56" cy="44" r="26" fill="none" stroke-width="5"/>
-      <circle class="lens" cx="128" cy="44" r="26" fill="none" stroke-width="5"/>
-      <path class="bridge" d="M83 39c6-8 12-8 18 0" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M32 35 12 27" fill="none" stroke-width="5" stroke-linecap="round"/>
-      <path class="arm" d="M152 35 172 27" fill="none" stroke-width="5" stroke-linecap="round"/>
+      <svg class="mark" viewBox="0 0 200 84" width="11mm" aria-hidden="true">
+      <g fill="none" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+        <rect class="lens" x="21" y="26" width="71" height="44" rx="18"/>
+        <g transform="translate(200,0) scale(-1,1)"><rect class="lens" x="21" y="26" width="71" height="44" rx="18"/></g>
+        <path class="bridge" d="M92 33Q100 27 108 33"/>
+        <path class="arm" d="M21 31 5 23"/>
+        <g transform="translate(200,0) scale(-1,1)"><path class="arm" d="M21 31 5 23"/></g>
+      </g>
     </svg>
       <div class="wordmark">Optik<br />Dvořák</div>
       <p class="claim">Rodinná oční optika<br />v centru Plzně, od roku 1991</p>

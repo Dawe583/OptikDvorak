@@ -54,40 +54,46 @@ Ceník je nutné si vyžádat, veřejně publikovaný není.
 
 Všechny vycházejí z vizuálního stylu webu optikdvorak.cz (Bricolage Grotesque +
 Inter, krémová / žlutá / černá, ostré hrany, nula dekorací). Na všech je
-**logo brýlí** i odkaz `optikdvorak.cz`.
+značka brýlí i odkaz `optikdvorak.cz`.
 
-| | Návrh | Layout | Fotka |
+### Značka brýlí
+
+Kreslená podle **skutečného loga optiky** (`public/img/logo-optik-dvorak.webp`) —
+wayfarer s měkce zaoblenými rohy, ne kolečka. Je to inline SVG, takže je
+v PDF vektorová a ostrá v jakékoli velikosti. Tloušťka obrysu vychází na
+0,44–0,64 mm podle velikosti, tedy nad hranicí, kterou novinový rotační tisk
+ještě udrží. Můstek je ve žluté akcentové barvě webu, zbytek černý.
+
+Značka tvoří **lockup s názvem** — sedí těsně nad wordmarkem OPTIK DVOŘÁK.
+
+### Fotoverze — všechny s fotkou pultu s kasou
+
+Fotka `public/img/interier.webp` (2048 × 1536, vlastní snímek prodejny).
+Verze se liší výřezem a rolí, kterou fotka v layoutu hraje:
+
+| | Návrh | Layout | Výřez |
 |---|---|---|---|
-| **A** | „Text" | logo, wordmark, kontakty pod sebou | — |
-| **B** | „Žlutá" | celoplošná žlutá, černý kontaktní pruh | — |
-| **C** | „Fotopás" | fotka nahoře přes celou šířku, pod ní text | interiér prodejny |
-| **D** | „Na fotce" | fotka jako pozadí, krémová karta do ní zajíždí | stůl pro výběr brýlí |
-| **E** | „Brýle dole" | text nahoře, fotopás dole | brýle na bílém |
-| **F** | „Okno" | fotka jako okno mezi wordmarkem a kontakty | detail obruby |
-| **G** | „Značka" | velké logo brýlí, vše centrované | — |
-| **H** | „Půlka" | fotka na celou výšku vlevo, text vpravo | portrét v brýlích |
+| **C** | „Fotopás" | fotka nahoře přes celou šířku | široký záběr i s nápisem OPTIK DVOŘÁK na stěně |
+| **D** | „Na fotce" | fotka jako pozadí, krémová karta do ní zajíždí | široký záběr, karta překrývá spodek |
+| **E** | „Brýle dole" | text nahoře, fotopás dole | přiblížený pult, zvětšení 1,32× |
+| **F** | „Okno" | fotka jako okno mezi wordmarkem a kontakty | nejtěsnější na pult s kasou, zvětšení 1,5× |
+| **H** | „Půlka" | fotka na celou výšku vlevo | svislý výřez pultu s brýlemi na čele |
 
-Logo brýlí je na fotoverzích (C–F, H) umístěné jako **razítko v rohu textové
-plochy** — nezabírá výšku layoutu a nekoliduje s wordmarkem. V návrzích A, B a G
-je logo hlavním prvkem.
-
-### Fotky
-
-| Návrh | Soubor | Původ |
-|---|---|---|
-| C | `public/img/interier.webp` (2048 × 1536) | vlastní fotka prodejny |
-| D | `public/img/band/prodejna-stul.jpg` (2400 × 1100) | vlastní fotka prodejny |
-| E | `public/img/ai/kolaz-stack.jpg` (1200 × 800) | licencovaná fotka z Pexels |
-| F | `public/img/ai/look-cateye.jpg` (1400 × 1400) | licencovaná fotka z Pexels |
-| H | `public/img/hero/od-redhead.webp` (3000 × 2000) | úvodní fotka z optikdvorak.cz |
+Fotky mají v CSS mírnou předkompenzaci kontrastu (`contrast(1.09)
+saturate(1.06)`) — novinový papír kontrast srazí a bez toho fotka vyjde
+vybledlá. Ani při největším zvětšení (F, 1,5×) neklesne rozlišení pod 300 DPI.
 
 **Panoramatické snímky (`prohlidka/pano*.jpg` a z nich odvozený
-`band/prodejna-vitriny.jpg`) se pro inzerci nepoužívají** — mají zakřivenou
-perspektivu, která v tisku působí rušivě.
+`band/prodejna-vitriny.jpg`) se pro inzerci nepoužívají** — zakřivená
+perspektiva v tisku ruší.
 
-V PDF jsou fotky vloženy v 300–660 DPI, tedy nad tiskovým minimem. Výměna
-fotky = přepsat `src` v `inzeraty.html` a znovu spustit export; vlastní fotky
-lze nakopírovat do `foto/` (viz `foto/README.md`).
+### Verze bez fotky
+
+| | Návrh | Layout |
+|---|---|---|
+| **A** | „Text" | značka, wordmark, kontakty pod sebou |
+| **B** | „Žlutá" | celoplošná žlutá, černý kontaktní pruh |
+| **G** | „Značka" | velká značka brýlí, vše centrované |
 
 ### Co je na inzerátech napsáno
 
