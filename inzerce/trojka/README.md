@@ -53,17 +53,23 @@ Ceník je nutné si vyžádat, veřejně publikovaný není.
 ## 2. Návrhy
 
 Všechny vycházejí z vizuálního stylu webu optikdvorak.cz (Bricolage Grotesque +
-Inter, krémová / žlutá / černá, ostré hrany, nula dekorací) a všechny nesou
-odkaz `optikdvorak.cz`.
+Inter, krémová / žlutá / černá, ostré hrany, nula dekorací). Na všech je
+**logo brýlí** i odkaz `optikdvorak.cz`.
 
 | | Návrh | Layout | Fotka |
 |---|---|---|---|
-| **A** | „Text" | krémová plocha, logo, wordmark | — |
+| **A** | „Text" | logo, wordmark, kontakty pod sebou | — |
 | **B** | „Žlutá" | celoplošná žlutá, černý kontaktní pruh | — |
 | **C** | „Fotopás" | fotka nahoře přes celou šířku, pod ní text | interiér prodejny |
 | **D** | „Na fotce" | fotka jako pozadí, krémová karta do ní zajíždí | stůl pro výběr brýlí |
 | **E** | „Brýle dole" | text nahoře, fotopás dole | brýle na bílém |
-| **F** | „Okno" | wordmark nahoře, fotka jako okno uprostřed, kontakty dole | detail obruby |
+| **F** | „Okno" | fotka jako okno mezi wordmarkem a kontakty | detail obruby |
+| **G** | „Značka" | velké logo brýlí, vše centrované | — |
+| **H** | „Půlka" | fotka na celou výšku vlevo, text vpravo | portrét v brýlích |
+
+Logo brýlí je na fotoverzích (C–F, H) umístěné jako **razítko v rohu textové
+plochy** — nezabírá výšku layoutu a nekoliduje s wordmarkem. V návrzích A, B a G
+je logo hlavním prvkem.
 
 ### Fotky
 
@@ -73,6 +79,7 @@ odkaz `optikdvorak.cz`.
 | D | `public/img/band/prodejna-stul.jpg` (2400 × 1100) | vlastní fotka prodejny |
 | E | `public/img/ai/kolaz-stack.jpg` (1200 × 800) | licencovaná fotka z Pexels |
 | F | `public/img/ai/look-cateye.jpg` (1400 × 1400) | licencovaná fotka z Pexels |
+| H | `public/img/hero/od-redhead.webp` (3000 × 2000) | úvodní fotka z optikdvorak.cz |
 
 **Panoramatické snímky (`prohlidka/pano*.jpg` a z nich odvozený
 `band/prodejna-vitriny.jpg`) se pro inzerci nepoužívají** — mají zakřivenou
@@ -94,10 +101,11 @@ optika od roku 1991 · měření zraku, dioptrické i sluneční brýle, kontakt
 
 ## 3. Soubory
 
-Šest návrhů × dva formáty, od každého PDF i PNG — v `export/`:
+Osm návrhů × dva formáty, od každého PDF i PNG — v `export/`:
 
 ```
-A-text-…      B-zluta-…     C-fotopas-…     D-nafotce-…     E-bryle-…     F-okno-…
+A-text-…   B-zluta-…   C-fotopas-…   D-nafotce-…
+E-bryle-…  F-okno-…    G-znacka-…    H-pulka-…
    × -ctvrtstrany-93x131   (1/4 strany na výšku)
    × -osminastrany-93x60   (1/8 strany na šířku)
 ```
