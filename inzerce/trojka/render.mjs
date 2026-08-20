@@ -54,6 +54,17 @@ for (const ad of ads) {
     return { over: Math.round(over), chars: el.innerText.replace(/\s+/g, '').length };
   });
   if (over > 1) console.warn(`  !! ${name}: obsah přetéká o ${over} px`);
+  // sítě pod sebou musí mít přesně stejnou levou hranu
+  const socOff = await ad.evaluate((el) => {
+    const socs = [...el.querySelectorAll('.soc')];
+    if (socs.length < 2) return 0;
+    const tops = socs.map((n) => n.getBoundingClientRect().top);
+    if (new Set(tops.map(Math.round)).size < socs.length) return 0; // vedle sebe, ne pod sebou
+    const lefts = socs.map((n) => n.getBoundingClientRect().left);
+    return Math.max(...lefts) - Math.min(...lefts);
+  });
+  if (socOff > 0.5)
+    console.warn(`  !! ${name}: ikony sítí nesedí pod sebou, rozdíl ${socOff.toFixed(1)} px`);
   if (chars < 120) console.warn(`  !! ${name}: skoro prázdný (${chars} znaků) — nevykreslil se obsah`);
 }
 
