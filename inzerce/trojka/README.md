@@ -58,11 +58,18 @@ značka brýlí i odkaz `optikdvorak.cz`.
 
 ### Značka brýlí
 
-Kreslená podle **skutečného loga optiky** (`public/img/logo-optik-dvorak.webp`) —
-wayfarer s měkce zaoblenými rohy, ne kolečka. Je to inline SVG, takže je
-v PDF vektorová a ostrá v jakékoli velikosti. Tloušťka obrysu vychází na
-0,44–0,64 mm podle velikosti, tedy nad hranicí, kterou novinový rotační tisk
-ještě udrží. Můstek je ve žluté akcentové barvě webu, zbytek černý.
+Je to **vektorový obrys skutečného loga optiky** — vytrasovaný z
+`public/img/logo-optik-dvorak.webp`, tedy z téhož znaku, který má optika na
+pultu i na výloze. Ne překreslený od oka: rastr se vykreslil v 6× zvětšení,
+prahoval na binární masku a hranice se vysledovaly po hranách pixelů, pak
+zjednodušily (RDP, tolerance odpovídá 0,05 mm v tisku). Výsledek je jedna
+cesta s `fill-rule="evenodd"` — vnější obrys plus dvě díry po čočkách.
+
+Značka je proto v PDF vektorová a ostrá v jakékoli velikosti, od 11 mm
+v osminové variantě po 34 mm v návrhu G. Uložená samostatně jako
+`znacka-bryle.svg` (barvu bere z `currentColor`, takže se dá použít i jinde,
+třeba na webu — ten dnes v sekci s videomaskou používá jinou, kolečkovou
+značku).
 
 Značka tvoří **lockup s názvem** — sedí těsně nad wordmarkem OPTIK DVOŘÁK.
 
