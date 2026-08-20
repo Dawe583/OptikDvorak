@@ -52,31 +52,9 @@ Ceník je nutné si vyžádat, veřejně publikovaný není.
 
 ## 2. Návrhy
 
-Všechny vycházejí z vizuálního stylu webu optikdvorak.cz (Bricolage Grotesque +
-Inter, krémová / žlutá / černá, ostré hrany, nula dekorací). Na všech je
-značka brýlí i odkaz `optikdvorak.cz`.
-
-### Značka brýlí
-
-Je to **vektorový obrys skutečného loga optiky** — vytrasovaný z
-`public/img/logo-optik-dvorak.webp`, tedy z téhož znaku, který má optika na
-pultu i na výloze. Ne překreslený od oka: rastr se vykreslil v 6× zvětšení,
-prahoval na binární masku a hranice se vysledovaly po hranách pixelů, pak
-zjednodušily (RDP, tolerance odpovídá 0,05 mm v tisku). Výsledek je jedna
-cesta s `fill-rule="evenodd"` — vnější obrys plus dvě díry po čočkách.
-
-Značka je proto v PDF vektorová a ostrá v jakékoli velikosti, od 11 mm
-v osminové variantě po 34 mm v návrhu G. Uložená samostatně jako
-`znacka-bryle.svg` (barvu bere z `currentColor`, takže se dá použít i jinde,
-třeba na webu — ten dnes v sekci s videomaskou používá jinou, kolečkovou
-značku).
-
-Značka tvoří **lockup s názvem** — sedí těsně nad wordmarkem OPTIK DVOŘÁK.
-
-### Fotoverze — všechny s fotkou pultu s kasou
-
-Fotka `public/img/interier.webp` (2048 × 1536, vlastní snímek prodejny).
-Verze se liší výřezem a rolí, kterou fotka v layoutu hraje:
+Pět variant, všechny s **fotkou pultu s kasou** (`public/img/interier.webp`,
+2048 × 1536, vlastní snímek prodejny). Liší se výřezem a rolí, kterou fotka
+v layoutu hraje:
 
 | | Návrh | Layout | Výřez |
 |---|---|---|---|
@@ -90,35 +68,57 @@ Fotky mají v CSS mírnou předkompenzaci kontrastu (`contrast(1.09)
 saturate(1.06)`) — novinový papír kontrast srazí a bez toho fotka vyjde
 vybledlá. Ani při největším zvětšení (F, 1,5×) neklesne rozlišení pod 300 DPI.
 
+Dřívější varianty bez fotky (A „Text", B „Žlutá", G „Značka") byly na přání
+klienta vyřazeny — v repu zůstávají v historii gitu, kdyby se hodily.
+
 **Panoramatické snímky (`prohlidka/pano*.jpg` a z nich odvozený
 `band/prodejna-vitriny.jpg`) se pro inzerci nepoužívají** — zakřivená
 perspektiva v tisku ruší.
 
-### Verze bez fotky
+### Značka brýlí
 
-| | Návrh | Layout |
-|---|---|---|
-| **A** | „Text" | značka, wordmark, kontakty pod sebou |
-| **B** | „Žlutá" | celoplošná žlutá, černý kontaktní pruh |
-| **G** | „Značka" | velká značka brýlí, vše centrované |
+Je to **vektorový obrys skutečného loga optiky** — vytrasovaný z
+`public/img/logo-optik-dvorak.webp`, tedy z téhož znaku, který má optika na
+pultu i na výloze. Ne překreslený od oka: rastr se vykreslil v 6× zvětšení,
+prahoval na binární masku a hranice se vysledovaly po hranách pixelů, pak
+zjednodušily (RDP, tolerance odpovídá 0,05 mm v tisku). Výsledek je jedna
+cesta s `fill-rule="evenodd"` — vnější obrys plus dvě díry po čočkách.
 
-### Co je na inzerátech napsáno
+Značka je proto v PDF vektorová a ostrá v jakékoli velikosti. Uložená
+samostatně jako `znacka-bryle.svg` (barvu bere z `currentColor`, dá se použít
+i jinde — web dnes v sekci s videomaskou používá jinou, kolečkovou značku).
 
-Všechny údaje pocházejí z webu a jsou ověřené — žádné vymyšlené claimy,
-značky ani čísla: adresa Americká 325/23, Plzeň · otevřeno Po–Čt 8:30–17:00,
-Pá 8:30–16:00 · 702 194 246, 377 328 367 · optikdvorak.cz · rodinná oční
-optika od roku 1991 · měření zraku, dioptrické i sluneční brýle, kontaktní
-čočky, dětské brýle, opravy a servis.
+Značka tvoří **lockup s názvem** — sedí těsně nad wordmarkem OPTIK DVOŘÁK.
+
+### Kontakty na inzerátech
+
+Všechny údaje pocházejí z webu optikdvorak.cz a jsou ověřené — žádné
+vymyšlené claimy, značky ani čísla.
+
+| Údaj | Hodnota | Zdroj v repu |
+| --- | --- | --- |
+| Adresa | Americká 325/23, Plzeň | `index.html` |
+| Otevírací doba | Po–Čt 8:30–17:00 · Pá 8:30–16:00 | `index.html` |
+| Telefon | 702 194 246 · 377 328 367 | `index.html` |
+| Web | optikdvorak.cz | — |
+| Instagram | `@optik.dvorak` → https://www.instagram.com/optik.dvorak/ | `index.html`, `src/main.js` |
+| Facebook | `OptikDvorak` → https://www.facebook.com/OptikDvorak | `index.html` (`sameAs` ve strukturovaných datech) |
+
+Web je černý štítek (nejsilnější výzva), pod ním řádek se sítěmi — ikony jsou
+tytéž SVG, jaké má web v patičce. V osminovém formátu jsou sítě vedle sebe na
+jednom řádku, ve čtvrtstranovém pod sebou.
+
+Služby: měření zraku, dioptrické i sluneční brýle, kontaktní čočky, dětské
+brýle, opravy a servis. V užších variantách zkrácené, aby se nelámaly.
 
 ---
 
 ## 3. Soubory
 
-Osm návrhů × dva formáty, od každého PDF i PNG — v `export/`:
+Pět návrhů × dva formáty, od každého PDF i PNG — v `export/`:
 
 ```
-A-text-…   B-zluta-…   C-fotopas-…   D-nafotce-…
-E-bryle-…  F-okno-…    G-znacka-…    H-pulka-…
+C-fotopas-…   D-nafotce-…   E-bryle-…   F-okno-…   H-pulka-…
    × -ctvrtstrany-93x131   (1/4 strany na výšku)
    × -osminastrany-93x60   (1/8 strany na šířku)
 ```
